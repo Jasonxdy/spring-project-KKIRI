@@ -97,9 +97,9 @@
                   <img src="img/map-example.png" alt="지도" class="map-example">
                   <div class="input-location-wrap">
                     <img src="img/search-icon.png" alt="찾기" class="search-icon">
-                    <input type="text" name="memberLocation" placeholder="주소 검색">
+                    <input type="text" name="memberLocation" placeholder="주소 검색" class="interest-location-input">
                   </div>
-                  <input class="locationResult" type="text" name="locationResult" value="서울시 동대문구" readonly>
+                  <input class="locationResult" type="text" name="locationResult" value="서울시 동대문구" readonly class="interest-location-input-result">
 
                   <button type="button" class="go-main green-radius-btn" onclick="location.href='index.html'">메인으로</button>
                   <button type="button" class="go-step2 green-radius-btn">2단계로</button>
@@ -202,18 +202,26 @@
         });
         $(".go-step2").on({
           click: function() {
-            $(".progress-bar-percent").css({
-              "width": "50%"
-            });
-            $(".step").stop().fadeOut(300);
-            $(".step2").delay(300).fadeIn(300);
+            if($(".interest-location-input").val().trim() == ""){
+              alert("관심지역을 먼저 설정해주세요!");
+              return false;
+            }else{
+              $(".progress-bar-percent").css({"width": "50%"});
+              $(".step").stop().fadeOut(300);
+              $(".step2").delay(300).fadeIn(300);
+            }
           }
         });
         $(".go-step3").on({
           click : function(){
-            $(".progress-bar-percent").css({"width" : "75%"});
-            $(".step").stop().fadeOut(300);
-            $(".step3").delay(300).fadeIn(300);
+            if($(".interest-wrap>input[name=memberInterest]:checked").length == 0){
+              alert("적어도 한개 이상의 관심사를 선택해주세요!");
+              return false;
+            }else{
+              $(".progress-bar-percent").css({"width" : "75%"});
+              $(".step").stop().fadeOut(300);
+              $(".step3").delay(300).fadeIn(300);
+            }
           }
         });
         $(".go-step4").on({
