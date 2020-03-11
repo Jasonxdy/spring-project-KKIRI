@@ -107,3 +107,17 @@
     cursor: pointer;
 }
 
+
+
+
+
+
+/* 회원 상세보기 css start */
+.participant-count{
+    color: #00a185;
+}
+
+.profile-card{
+    margin-bottom: 5px;
+}
+
