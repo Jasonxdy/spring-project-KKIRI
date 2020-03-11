@@ -1,0 +1,180 @@
+/* 기본 설정 */
+@charset 'utf-8';
+@import url(font.css);
+
+*{margin:0;padding:0;border:0;}
+html,body{width:100%; min-height: 100%;}
+html{overflow-y:scroll; position: relative;}
+body{font-family: 'Noto Sans KR', sans-serif !important;color:#333333;background:#fff;}
+ul{list-style-type:none;}
+i,em,address{font-style:normal;}
+a{color:#333333;text-decoration:none;}
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:focus							{text-decoration:none;}
+table							{border-collapse:collapse;}
+input,select,textarea             {border:1px solid #cdd2d8; border-radius: 5px;}
+
+/* 부트스트랩 마진, 패딩 없애기 */
+.col-md-12{
+  padding: 0 !important;
+}
+.row{
+  margin : auto 0;
+}
+
+/* 모달창 */
+.popup-shadow{
+  background: rgba(0,0,0,0.6);
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  display: none;
+  cursor: pointer;
+}
+.popup{
+  position: fixed;
+  top: 0;
+  z-index: 501;
+  background: #ffffff;
+  width: 700px;
+  top: 35%;
+  min-width: 400px;
+  padding-bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 24px;
+  display: none;
+  transition: all 0.3s;
+}
+.popup-title{
+  background: #227fbb;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 22px 22px 0 0;
+  padding: 12px;
+  font-size: 25px;
+}
+.popup-title .close-popup{
+  width: 3%;
+  position: absolute;
+  right: 20px;
+  min-width: 25px;
+  top: 19px;
+  cursor: pointer;
+}
+.popup-content{
+  padding: 20px;
+}
+.popup-confirm-btn{
+  background: #00a185;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 7px 30px;
+  margin: 0 auto;
+  cursor: pointer;
+  display: block;
+  font-size: 17px;
+  transition: all 0.3s;
+}
+.popup-confirm-btn:hover{
+  opacity: 0.7;
+}
+@media (max-width: 1024px) {
+  .popup{
+    width : 600px;
+  }
+}
+@media (max-width: 768px) {
+  .popup{
+    width : 500px;
+  }
+}
+@media (max-width: 500px) {
+  .popup{
+    width : 400px;
+  }
+}
+
+/* 체크박스 */
+#wrapper .custom-control-input{
+  position: relative;
+}
+
+/* 페이지 타이틀 */
+.section-title{
+    font-size: 3rem;
+    margin-bottom: 50px;
+    display: inline-block;
+    border-bottom: 3px solid #333333;
+    padding-bottom: 10px;
+}
+
+/* 초록색 둥근 버튼 */
+html body .green-radius-btn{
+  background: #00a185;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  margin: 0 10px;
+}
+
+/* 필수('*') 표시 */
+.require	{
+  width:10px;
+  height:10px;
+  display:inline-block;
+  overflow:hidden;
+  text-indent:10px;
+  white-space:nowrap;
+  padding-bottom:5px;
+}
+.require:before{
+  content:"*";
+  color:#d02e21;
+  font-size:16px;
+  position:relative;
+  left:-9px;
+  bottom:5px;
+}
+/* number 태그 화살표 제거 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 페이징 형식 통일 */
+.page-link{
+  color:#00a185;
+}
+.page-link:hover{
+  background-color:#00a185;
+  border-color:#00a185;
+  color:#ffffff;
+}
+
+/* 종료된 이벤트 */
+.already-finish-event{
+  font-size: 17px;
+  background: #888888;
+  text-align: center;
+  padding: 5px 10px;
+  display: inline-block;
+  color: #ffffff;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+/* 폼 포커스 색상통일 */
+.custom-select:focus,
+.form-control:focus{
+  border-color: #00a185;
+  box-shadow: 0 0 0 0.2rem rgba(0,161,133,.25);
+}

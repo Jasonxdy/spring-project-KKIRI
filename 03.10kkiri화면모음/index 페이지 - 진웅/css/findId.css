@@ -1,0 +1,33 @@
+#container{
+    margin-top: 100px;
+}
+.container .nav-item{
+    cursor: pointer;
+}
+#wrapper #footer{
+    bottom:0;
+}
+.findInfo-title{
+    display: block;
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+.common-form{
+    width: 45%;
+    margin: 0 auto;
+    min-width: 250px;
+}
+.checkEmail,
+.checkId{
+    margin-top :10px;
+    text-align: left;
+}
+@media (max-width: 767px){
+    #wrapper #footer{
+        bottom:-200px;
+    }
+    h2.tab-title{
+        font-size:27px;
+    }
+}

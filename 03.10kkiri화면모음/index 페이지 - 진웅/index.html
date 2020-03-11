@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src='js/index.js'></script>
+    <title>KKIRI(끼리)</title>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div id="header">
+          <div class="container">
+          	<div class="row">
+          		<div class="col-md-12">
+                <h1 class="logo"><a href="#"><img src="img/logo.png" alt="로고"></a></h1>
+                <div class="nav-section">
+                  <!-- <a href="#" class="login-btn">로그인</a>
+                  <a href="signUp.html">회원가입</a> -->
+                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+                  <span class="separation"> | </span>
+                  <a href="#">탐색</a>
+                  <a href="#">고객센터</a>
+                  <div class="profile-wrap">
+                    <img src="img/profile-ex.png" alt="프로필" class="profile-icon">
+                    <ul class="profile-menu">
+                      <li><a href="#">프로필</a></li>
+                      <li><a href="#">이벤트</a></li>
+                      <li><a href="#">티켓</a></li>
+                      <li><a href="#">로그아웃</a></li>
+                    </ul>
+                  </div>
+                </div>
+          		</div>
+          	</div>
+          </div>
+        </div>
+
+        <!-- 프로필 사진 클릭시 세부 메뉴 on/off 이벤트 start-->
+        <script>
+          $(function(){
+            $(".profile-icon").on({
+              "click" : function(){
+                $(".profile-menu").toggleClass("on");
+              }
+            });
+          });
+        </script>
+        <!-- 프로필 사진 클릭시 세부 메뉴 on/off 이벤트 end-->
+
+        <!-- 로그인 팝업 start-->
+        <div id="login-popup" class="popup">
+          <p class="popup-title">
+            로그인
+            <img src="img/close-btn.png" alt="닫기버튼" class="close-popup">
+          </p>
+          <div class="popup-content">
+            <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
+            <form class="login-form-wrap custom-checkbox" action="#" method="post">
+              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
+              <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
+
+              <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
+              <label class="custom-control-label" for="rememberId">아이디 저장</label>
+              <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
+
+              <button class="popup-confirm-btn login-conform-btn">로그인</button>
+              <button class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
+              <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
+            </form>
+          </div>
+        </div>
+        <div class="popup-shadow"></div>
+        <!-- 로그인 팝업 end-->
+
+      <script>
+        // 로그인 팝업 이벤트
+        $(".login-btn").on({
+          click : function(){
+            $(".popup-shadow, #login-popup").show(0);
+          }
+        });
+        $(".close-popup, .popup-shadow").on({
+          click : function(){
+            $(".popup-shadow, #login-popup").hide(0);
+          }
+        });
+
+      </script>
+        <div id="container">
+          <!-- 배너 start -->
+          <div id="banner">
+            <div class="banner-text-area">
+              <p class="banner-title">
+                많은 사람들이 끼리를 통해 삶을 공유하고 있습니다.<br>
+                <span class="banner-sub-title">내 주변의 사람들과 좋아하는 일을 함께 하며 새로운 경험을 즐겨 보세요.</span>
+              </p>
+              <a href="#" class="go-sign-up">끼리 가입하기</a>
+            </div>
+    				<video class='video' autoplay loop muted>
+    					<source src='movie/banner-movie.mp4' type='video/mp4'>
+    				</video>
+            <div class="video-shadow"> </div>
+      		</div>
+          <!-- 배너 end -->
+
+          <!-- 이런 이벤트는 어떠세요? start -->
+          <div id="event-recommend">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+
+                  <h3 class="box-title">
+                    이런 이벤트 어떠세요?<br>
+                    <span class="box-sub-title">끼리에 가입하고 이벤트에 참여하세요.</span>
+                  </h3>
+                  <div class="blog-slider">
+                    <div class="blog-slider__wrp swiper-wrapper">
+                      <div class="blog-slider__item swiper-slide on">
+                        <div class="blog-slider__img">
+                          <img src="img/thumbnail1.PNG" alt="">
+                        </div>
+                        <div class="blog-slider__content">
+                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
+                          <div class="blog-slider__title">
+                            <p class="address">[같이 등산가요1]</p>
+                            <p class="location"><img src="img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
+                          </div>
+                          <div class="blog-slider__text">
+                            <p class="leader">주최자</p>
+                            <div class="content">
+                              <img src="img/profile-ex.png" alt="프로필" class="profile-img">
+                              <p class="leader-info">
+                                주최자 닉네임<br>
+                                <img src="img/star-on.png" alt="별점" class="star-img">
+                                <span class="star-rating">4.2</span>
+                              </p>
+                              <p class="member-count">참석인원 : 4/10</p>
+                            </div>
+                            <p class="ticket">티켓 : 4장</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="blog-slider__item swiper-slide">
+                        <div class="blog-slider__img">
+                          <img src="img/thumbnail2.PNG" alt="">
+                        </div>
+                        <div class="blog-slider__content">
+                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
+                          <div class="blog-slider__title">
+                            <p class="address">[같이 등산가요2]</p>
+                            <p class="location"><img src="img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
+                          </div>
+                          <div class="blog-slider__text">
+                            <p class="leader">주최자</p>
+                            <div class="content">
+                              <img src="img/profile-ex.png" alt="프로필" class="profile-img">
+                              <p class="leader-info">
+                                주최자 닉네임<br>
+                                <img src="img/star-on.png" alt="별점" class="star-img">
+                                <span class="star-rating">4.2</span>
+                              </p>
+                              <p class="member-count">참석인원 : 4/10</p>
+                            </div>
+                            <p class="ticket">티켓 : 4장</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="blog-slider__item swiper-slide">
+                        <div class="blog-slider__img">
+                          <img src="img/thumbnail3.PNG" alt="">
+                        </div>
+                        <div class="blog-slider__content">
+                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
+                          <div class="blog-slider__title">
+                            <p class="address">[같이 등산가요3]</p>
+                            <p class="location"><img src="img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
+                          </div>
+                          <div class="blog-slider__text">
+                            <p class="leader">주최자</p>
+                            <div class="content">
+                              <img src="img/profile-ex.png" alt="프로필" class="profile-img">
+                              <p class="leader-info">
+                                주최자 닉네임<br>
+                                <img src="img/star-on.png" alt="별점" class="star-img">
+                                <span class="star-rating">4.2</span>
+                              </p>
+                              <p class="member-count">참석인원 : 4/10</p>
+                            </div>
+                            <p class="ticket">티켓 : 4장</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="blog-slider__item swiper-slide">
+                        <div class="blog-slider__img">
+                          <img src="img/thumbnail1.PNG" alt="">
+                        </div>
+                        <div class="blog-slider__content">
+                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
+                          <div class="blog-slider__title">
+                            <p class="address">[같이 등산가요4]</p>
+                            <p class="location"><img src="img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
+                          </div>
+                          <div class="blog-slider__text">
+                            <p class="leader">주최자</p>
+                            <div class="content">
+                              <img src="img/profile-ex.png" alt="프로필" class="profile-img">
+                              <p class="leader-info">
+                                주최자 닉네임<br>
+                                <img src="img/star-on.png" alt="별점" class="star-img">
+                                <span class="star-rating">4.2</span>
+                              </p>
+                              <p class="member-count">참석인원 : 4/10</p>
+                            </div>
+                            <p class="ticket">티켓 : 4장</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="blog-slider__item swiper-slide">
+                        <div class="blog-slider__img">
+                          <img src="img/thumbnail2.PNG" alt="">
+                        </div>
+                        <div class="blog-slider__content">
+                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
+                          <div class="blog-slider__title">
+                            <p class="address">[같이 등산가요5]</p>
+                            <p class="location"><img src="img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
+                          </div>
+                          <div class="blog-slider__text">
+                            <p class="leader">주최자</p>
+                            <div class="content">
+                              <img src="img/profile-ex.png" alt="프로필" class="profile-img">
+                              <p class="leader-info">
+                                주최자 닉네임<br>
+                                <img src="img/star-on.png" alt="별점" class="star-img">
+                                <span class="star-rating">4.2</span>
+                              </p>
+                              <p class="member-count">참석인원 : 4/10</p>
+                            </div>
+                            <p class="ticket">티켓 : 4장</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="blog-slider__pagination swiper-pagination-bullets"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 이런 이벤트는 어떠세요? end -->
+
+          <!-- 주최자 랭킹 start -->
+          <div id="ranking">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="box-title">
+                    한주간 가장 높은 평점을 받은 5명을 소개합니다.<br>
+                    <span class="box-sub-title">축하드립니다! 앞으로도 멋진 모임들을 많이 만들어주세요.</span>
+                  </h3>
+                    <div class="ranking-wrap">
+                      <ul class="ranker-list">
+                        <li class="ranker on">
+                          <p class="rank first-rank">1 st</p>
+                          <img src="img/profile-ex.png" alt="회원 썸네일">
+                          <p class="nickname">주최자 닉네임 1</p>
+                          <p class="star-rating"><img src="img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
+                        </li>
+
+                        <li class="ranker">
+                          <p class="rank second-rank">2 nd</p>
+                          <img src="img/profile-ex.png" alt="회원 썸네일">
+                          <p class="nickname">주최자 닉네임 1</p>
+                          <p class="star-rating"><img src="img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
+                        </li>
+
+                        <li class="ranker">
+                          <p class="rank third-rank">3 rd</p>
+                          <img src="img/profile-ex.png" alt="회원 썸네일">
+                          <p class="nickname">주최자 닉네임 1</p>
+                          <p class="star-rating"><img src="img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
+                        </li>
+
+                        <li class="ranker">
+                          <p class="rank least-rank">4 th</p>
+                          <img src="img/profile-ex.png" alt="회원 썸네일">
+                          <p class="nickname">주최자 닉네임 1</p>
+                          <p class="star-rating"><img src="img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
+                        </li>
+
+                        <li class="ranker">
+                          <p class="rank least-rank">5 th</p>
+                          <img src="img/profile-ex.png" alt="회원 썸네일">
+                          <p class="nickname">주최자 닉네임 1</p>
+                          <p class="star-rating"><img src="img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
+                        </li>
+                      </ul>
+                      <!-- <a href="javascript:" class="prev-link btn-link"><img src="img/arrow-prev.png" alt="이전"></a>
+                      <a href="javascript:" class="next-link btn-link"><img src="img/arrow-next.png" alt="다음"></a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- 주최자 랭킹 end -->
+
+          <!-- 카테고리 추천 start -->
+          <div id="category-list">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="box-title">
+                    카테고리<br>
+                    <span class="box-sub-title">관심있는 주제별로 이벤트를 찾아보세요.</span>
+                  </h3>
+                  <ul class="category-ul">
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/travel-icon.png" alt=""></div>
+                        <span class="category-name">여행</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/exercise-icon.png" alt=""></div>
+                        <span class="category-name">운동</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/book-icon.png" alt=""></div>
+                        <span class="category-name">독서</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/business-icon.png" alt=""></div>
+                        <span class="category-name">비즈니스</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="category-ul">
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/language-icon.png" alt=""></div>
+                        <span class="category-name">언어</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/music-icon.png" alt=""></div>
+                        <span class="category-name">음악</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/cinema-icon.png" alt=""></div>
+                        <span class="category-name">영화/공연</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/dance-icon.png" alt=""></div>
+                        <span class="category-name">댄스</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="category-ul">
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/volunteer-icon.png" alt=""></div>
+                        <span class="category-name">봉사활동</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/friend-icon.png" alt=""></div>
+                        <span class="category-name">사교</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/car-icon.png" alt=""></div>
+                        <span class="category-name">차/오토바이</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/camera-icon.png" alt=""></div>
+                        <span class="category-name">사진/영상</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="category-ul">
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/stadium-icon.png" alt=""></div>
+                        <span class="category-name">스포츠관람</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/game-icon.png" alt=""></div>
+                        <span class="category-name">게임</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/cook-icon.png" alt=""></div>
+                        <span class="category-name">요리</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/pet-icon.png" alt=""></div>
+                        <span class="category-name">반려동물</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="category-ul">
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/socialMovement-icon.png" alt=""></div>
+                        <span class="category-name">사회운동</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/beauty-icon.png" alt=""></div>
+                        <span class="category-name">뷰티</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/fashion-icon.png" alt=""></div>
+                        <span class="category-name">패션</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <div class="blue-background"><img src="img/etc-icon.png" alt=""></div>
+                        <span class="category-name">기타</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 카테고리 추천 end -->
+        </div>
+
+        <div id="footer">
+          <div class="container">
+          	<div class="row">
+          		<div class="col-md-12">
+          			<div class="row">
+          				<div class="col-md-4 footer-logo-wrap">
+                    <img class="footer-logo" src="img/logo2-white.png" alt="푸터로고">
+          				</div>
+          				<div class="col-md-8">
+                    <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
+          				</div>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+        </div>
+        </div>
+
+        <div id="button-top">
+          <button type="button" class="top-btn">TOP</button>
+        </div>
+
+
+      <script>
+        function scrollFunction(){
+          if($(window).scrollTop()>=200){
+                $('#button-top').show(0);
+            }else{
+                $('#button-top').hide(0);
+            }
+        }
+       $(function(){
+         scrollFunction();
+         $(window).scroll(function(){
+           scrollFunction();
+         });
+         $('#button-top').on({
+             click : function(){
+                 $('html,body').stop().animate({scrollTop:0},600);
+             }
+         });
+       });
+       </script>
+    </body>
+</html>

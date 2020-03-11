@@ -1,0 +1,38 @@
+.nav-tabs{
+  width:100%;
+} 
+.questionWriteSection{
+    text-align: center;
+    margin-top: 50px;
+}
+.questionWriteSection form.questionForm{
+  margin-top: 70px;
+}
+.questionWriteSection form.questionForm>label{
+  display: block;
+  width: 70%;
+  margin: 20px auto;
+  text-align: left;
+  font-size: 18px;
+}
+.questionWriteSection form.questionForm>input{
+  width: 70%;
+  height: 40px;
+  padding: 10px;
+}
+.questionWriteSection form.questionForm>textarea{
+  resize: none;
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  height: 500px;
+}
+.questionWriteSection form.questionForm button{
+    padding: 0;
+    width: 80px;
+    height: 40px;
+    margin: 20px 0 0 0;
+}
+.questionWriteSection form.questionForm>label:first-child{
+  margin-top : 0;
+}

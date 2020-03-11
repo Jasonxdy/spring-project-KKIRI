@@ -1,0 +1,100 @@
+#header{
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 1.8px 1.2px rgba(0, 0, 0, 0.034), 0 1.7px 0.3px rgba(0, 0, 0, 0.048), 0 5.5px 3px rgba(0, 0, 0, 0.06), 0 13.3px 6.9px rgba(0, 0, 0, 0), 0 10.8px 2.4px rgba(0, 0, 0, 0.01), 0 9px 10px rgba(0, 0, 0, 0.12);
+  padding: 15px 0;
+}
+#header h1.logo{
+  width: 25%;
+  display: inline-block;
+}
+#header h1.logo img{
+  width: 100%;
+  min-width: 200px;
+}
+#header .nav-section{
+  display: inline-block;
+  float: right;
+  height: 73px;
+  line-height: 73px;
+}
+#header .nav-section a{
+  margin: 0 5px;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+#header .nav-section a:hover,
+#header .createEvent-btn{
+  color: #00a185;
+}
+.profile-wrap{
+  display: inline;
+  position: relative;
+}
+.profile-icon{
+  width: 60px;
+  border: 1px solid #cdd2d8;
+  border-radius: 50px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.profile-menu{
+  position: absolute;
+  z-index: 200;
+  width: 150px;
+  background: #00a185;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  top: 53px;
+  right: -48px;
+  display:none;
+}
+.profile-menu.on{
+  display: block;
+}
+.profile-menu a,
+#wrapper #header .profile-menu a:hover{
+  color : #ffffff;
+}
+
+/* 로그인 팝업 start */
+.sign-up-title{
+    margin-left: 29px;
+}
+.link{
+    color: #0056b3;
+}
+.login-form-wrap{
+    margin-top: 30px;
+}
+.login-form-wrap input[name=memberId],
+.login-form-wrap input[name=memberPwd]{
+  width: 90%;
+  margin: 10px auto;
+  display: block;
+  padding: 10px;
+}
+.login-form-wrap #rememberId{
+  margin-left: 40px;
+}
+.login-form-wrap .find-info-link{
+  float: right;
+  margin-right: 30px;
+}
+.login-form-wrap .popup-confirm-btn{
+  margin-top: 5px;
+  width: 90%;
+}
+
+.popup-content .login-conform-btn{
+  margin-top: 30px;
+}
+@media (max-width: 500px){
+  .login-form-wrap .find-info-link{
+    float: left;
+    margin-left: 29px;
+  }
+
+}
+/* 로그인 팝업 end */

@@ -1,0 +1,52 @@
+/* 푸터 */
+#footer{
+  background-color: #55595c;
+  padding: 20px 0;
+  position: absolute;
+  left: 0;
+  bottom: -200px;
+  width: 100%;
+}
+#footer .footer-logo{
+  width: 70%;
+  padding-top: 15px;
+}
+#footer .copyright{
+  color: white;
+  font-size: 17px;
+  line-height: 91.5px;
+  margin-bottom: 0;
+  margin-left : 30px;
+}
+/* 탑 버튼 */
+#button-top{
+  position: fixed;
+  bottom: 100px;
+  right: 5%;
+}
+#button-top .top-btn{
+  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  background-color:#227fbb;
+  display: inline-block;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50px;
+  font-weight: 600;
+  border: none;
+}
+
+/* 반응형 세부 수정사항 */
+@media (max-width: 767px){
+  #footer{
+    bottom:-300px;
+  }
+  #footer .footer-logo-wrap{
+    text-align: center;
+  }
+  #footer .copyright{
+    margin: 0;
+    text-align: center;
+  }
+}
