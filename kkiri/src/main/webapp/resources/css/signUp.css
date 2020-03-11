@@ -1,0 +1,175 @@
+#container{
+  margin-top : 100px;
+}
+.signUp{
+    text-align: center;
+}
+.signUp .progress-bar-wrap{
+  background: #cdd2d8;
+  width: 100%;
+  height: 30px;
+  border-radius: 50px;
+}
+.signUp .progress-bar-wrap>p{
+  width: 25%;
+  background: #227fbb;
+  height: 30px;
+  border-radius: 50px;
+  transition: all 0.3s;
+}
+
+.signUp .signUpForm .signUpTitle{
+  text-align: center;
+  margin-top: 30px;
+  font-size: 30px;
+}
+.signUp .signUpForm .sub-title{
+  text-align: center;
+  font-size: 18px;
+}
+.signUp .map-example{
+  display: block;
+  margin: 0 auto;
+}
+.signUp .input-location-wrap{
+  text-align: center;
+  position: relative;
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  min-width: 400px;
+}
+.signUp .input-location-wrap .search-icon{
+  width: 30px;
+  border-radius: 5px;
+  position: absolute;
+  top: 9px;
+  right: 7px;
+  cursor:pointer;
+}
+.signUp .input-location-wrap>input{
+  padding: 10px;
+  width: 100%;
+}
+.signUp .locationResult{
+  padding: 10px;
+  width: 50%;
+  display: block;
+  min-width: 400px;
+  margin: 12px auto 40px auto;
+}
+
+/* 2단계 */
+.interest-wrap{
+  text-align: center;
+  overflow: hidden;
+  margin: 30px auto;
+}
+.interest-wrap input[type="checkbox"]{
+  display: none;
+}
+.interest-wrap label{
+  cursor: pointer;
+  width: 19%;
+  background-color: #cdd2d8;
+  color: #333333;
+  border-radius: 5px;
+  height: 50px;
+  line-height: 50px;
+  margin: 12px 2px;
+  font-size: 17px;
+  transition: all 0.3s;
+}
+.interest-wrap input[type="checkbox"]:checked+label{
+  background-color: #227fbb;
+  color : #ffffff;
+}
+
+/* 3단계 */
+.insert-member-info{
+  width: 80%;
+  margin: 50px auto 0 auto;
+}
+.insert-member-info label,
+.insert-member-info p{
+  width: 30%;
+  margin-top: 22px;
+  display: inline-block;
+  min-width: 160px;
+  padding-right: 23px;
+}
+.insert-member-info input{
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+}
+.insert-member-info select{
+  margin-top: 10px;
+  padding: 9px;
+  min-width: 100px;
+  width: 14%;
+}
+.insert-member-info .uploadInput{
+  display: none;
+}
+.insert-member-info .uploadImgWrap{
+  width: 50%;
+  display: inline-block;
+}
+.insert-member-info .uploadImgWrap .uploadBtn{
+  background: #00a185;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-size: 1rem;
+  margin: 56px 0 0 20px;
+  float: left;
+}
+.insert-member-info .uploadImg{
+    border: 1px solid #cdd2d8;
+    width: 150px;
+    height: 150px;
+    float: left;
+    border-radius: 100px;
+}
+.insert-member-info .memberBankNumber{
+  width: 36%;
+  min-width: 270px;
+}
+.insert-member-info #memberIntroduce{
+  margin-top: 10px;
+  resize: none;
+  width: 75%;
+  max-width: 445px;
+}
+.insert-member-info label.gender-label{
+  width: 25%;
+  min-width: unset;
+}
+.insert-member-info .memberPhone{
+    width: 16%;
+}
+.insert-member-info .memberIntroduceTitle{
+  margin-top: 80px;
+}
+.insert-member-info input[type=radio]{
+  width: 30px;
+  margin-top: 0;
+}
+@media (max-width: 991px) {
+  .insert-member-info .memberIntroduceTitle{
+    margin-top : 30px;
+  }
+}
+.step4{
+  margin-top : 100px;
+}
+.signUp .signUpForm .step4 .signUpTitle{
+    font-size: 40px;
+}
+.signUp .signUpForm .step4 .sub-title{
+    font-size: 25px;
+}
+.step2,.step3,.step4{
+  display: none;
+}

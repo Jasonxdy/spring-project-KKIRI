@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="dataSource"
+	   class="org.apache.commons.dbcp.BasicDataSource"
+	   destroy-method="close">
+	   
+	   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	   <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	   <property name="username" value="kkiri"/>
+	   <property name="password" value="kkiri"/>
+	   <property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<!-- 트랜잭션 처리를 위한 Transaction Manager 추가 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<tx:annotation-driven/>
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis-config.xml 설정 불러오기 -->   
+		<property name="configLocation" 
+			value="classpath:mybatis-config.xml"/>  
+		<!-- ref == 위에 만들어놓은 bean id="dataSource"를 참조 -->
+		<property name="dataSource" ref="dataSource"/> 
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	<!-- 파일 업로드 관련 bean 등록 -->
+	<!-- MultipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="20000000"/>
+		<property name="maxInMemorySize" value="10000000"/>
+	</bean>
+	
+</beans>
