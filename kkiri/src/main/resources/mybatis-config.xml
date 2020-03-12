@@ -9,10 +9,12 @@
 	
 	<!-- 2. 별칭 작성 부분 -->
 	<typeAliases>
+		<typeAlias type="com.kh.kkiri.member.model.vo.Member" alias="Member"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분 -->
 	<!-- resources 폴더가 기준 -->
 	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<resultMap type="Member" id="memberResultSet">
+		<id property="memberNo" column="MEMBER_No"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberBorth" column="MEMBER_BIRTH"/>
+		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
+		<result property="memberPlace" column="MEMBER_PLACE"/>
+		<result property="memberCategory" column="MEMBER_CATEGORY"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberTicket" column="MEMBER_TICKET"/>
+		<result property="memberAccount" column="MEMBER_ACCOUNT"/>
+		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+	</resultMap>
+	
+	
+	
+</mapper>
