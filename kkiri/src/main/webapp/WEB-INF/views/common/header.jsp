@@ -24,9 +24,9 @@
           		<div class="col-md-12">
                 <h1 class="logo"><a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
                 <div class="nav-section">
-                  <!-- <a href="#" class="login-btn">로그인</a>
-                  <a href="signUp.html">회원가입</a> -->
-                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+                  <a href="#" class="login-btn">로그인</a>
+                  <a href="signUp.html">회원가입</a>
+                  <%-- <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
                   <span class="separation"> | </span>
                   <a href="#">탐색</a>
                   <a href="#">고객센터</a>
@@ -38,7 +38,7 @@
                       <li><a href="#">티켓</a></li>
                       <li><a href="#">로그아웃</a></li>
                     </ul>
-                  </div>
+                  </div> --%>
                 </div>
           		</div>
           	</div>
@@ -65,7 +65,7 @@
           </p>
           <div class="popup-content">
             <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
-            <form class="login-form-wrap custom-checkbox" action="#" method="post">
+            <form class="login-form-wrap custom-checkbox" action="login" method="post">
               <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
               <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
 
