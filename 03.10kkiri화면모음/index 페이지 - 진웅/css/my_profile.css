@@ -67,7 +67,6 @@ html .nav-tabs .nav-link.active,
     display: table-cell;
     width: 30%;
 }
-/* 프로필 부분 start */
 .profile-name{
     text-align: center;
     margin-bottom: 20px;
@@ -93,5 +92,32 @@ html .nav-tabs .nav-link.active,
     padding:10px;
     border-radius: .25rem;
 }
+#profile-nav-wrap.sticky{
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 1.8px 1.2px rgba(0, 0, 0, 0.034), 0 1.7px 0.3px rgba(0, 0, 0, 0.048), 0 5.5px 3px rgba(0, 0, 0, 0.06), 0 13.3px 6.9px rgba(0, 0, 0, 0), 0 10.8px 2.4px rgba(0, 0, 0, 0.01), 0 9px 10px rgba(0, 0, 0, 0.12);
+    padding: 15px 0;
+    background-color: #ffffff;
+    z-index: 1020;
+    position: sticky;
+    top: 0;
+}
+#profile-nav-wrap.sticky>li>a.active{
+    color:#00a185;
+}
 
-/* 프로필 부분 end */
+@media (max-width:1199px){
+    .profile-img{
+        max-width: 200px;     
+    }
+    .my-profile-section-element > h5{
+        font-size:16px;
+    }
+}
+@media (max-width:991px){
+    .profile-img{
+        max-width: 150px;     
+    }
+    .passborder{
+        width: 75%;
+    }
+}
