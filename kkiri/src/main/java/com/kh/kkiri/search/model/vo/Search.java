@@ -17,7 +17,7 @@ public class Search {
 	private String memberId;
 	private double eventScore;
 	
-	public Search(){};
+	public Search(){}
 
 	public Search(int eventNo, String eventTitle, String eventCategory, String eventLocation, double latitude,
 			double longitude, Date eventStart, Date eventEnd, int eventTicket, String eventThumbnail, int eventQuota,
