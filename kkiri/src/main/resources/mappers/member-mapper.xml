@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 	<resultMap type="Member" id="memberResultSet">
-		<id property="memberNo" column="MEMBER_No"/>
+		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="memberNickname" column="MEMBER_NICKNAME"/>
 		<result property="memberPwd" column="MEMBER_PWD"/>
@@ -21,6 +21,19 @@
 		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
 		<result property="memberStatus" column="MEMBER_STATUS"/>
 	</resultMap>
+	
+	<!-- 로그인  -->
+	<select id="signInMember" parameterType="Member" resultMap="memberResultSet"> 
+		SELECT 
+		
+		 FROM MEMBER
+			WHERE MEMBER_ID= #{memberId }
+			AND MEMBER_STATUS = 'Y'
+	
+	</select>
+	
+	
+	
 	
 	
 	
