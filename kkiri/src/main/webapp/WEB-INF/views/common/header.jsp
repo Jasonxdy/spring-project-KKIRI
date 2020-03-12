@@ -13,9 +13,9 @@
     <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board.css">
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
