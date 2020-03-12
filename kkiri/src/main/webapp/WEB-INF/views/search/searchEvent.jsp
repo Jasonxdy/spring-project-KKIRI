@@ -5,7 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/searchEvent.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/searchEvent.css">
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c"></script>
 </head>
 <body>
 	<div id="wrapper">
@@ -221,12 +224,18 @@
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
+		</div>
+		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 
+		<script>
+			var container = document.getElementById('map');
+			var options = {
+				center : new kakao.maps.LatLng(33.450701, 126.570667),
+				level : 3
+			};
 
-
-
-			<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
+			var map = new kakao.maps.Map(container, options);
+		</script>
 </body>
 </html>
