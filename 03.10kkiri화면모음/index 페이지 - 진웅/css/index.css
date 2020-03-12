@@ -1,0 +1,455 @@
+/* 동영상 배너 start*/
+#banner{
+  position: relative;
+  max-height: 750px;
+  overflow: hidden;
+  margin-top:3px;
+}
+#banner .banner-text-area{
+  position: absolute;
+  color: #ffffff;
+  font-size: 2rem;
+  z-index: 100;
+  width: 100%;
+  text-align: center;
+}
+#banner .banner-sub-title{
+    font-size: 65%;
+}
+#banner .go-sign-up{
+  background: #00a185;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 5px 8%;
+  font-size: 1.5rem;
+}
+#banner .video-shadow{
+  background: rgba(0,0,0,.3);
+  bottom: 0;
+  content: "";
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 0;
+}
+/* 동영상 배너 end*/
+
+/* 이런 이벤트 어떠세요? start */
+#event-recommend{
+  margin-top: 30px;
+}
+.box-title{
+  margin: 30px 0;
+}
+.box-title span{
+  font-size: 70%;
+  line-height: 40px;
+}
+.blog-slider {
+  width: 95%;
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  border-radius: 25px;
+  height: 400px;
+  transition: all .3s;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-slider {
+    min-height: 630px;
+    height: auto;
+    margin: 180px auto;
+  }
+  .blog-slider__img img{
+    position: absolute;
+  }
+}
+
+.blog-slider__item {
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__item {
+    flex-direction: column;
+    transform: translateX(-3px) !important;
+  }
+}
+.blog-slider__item.swiper-slide-active .blog-slider__img img {
+  opacity: 1;
+  transition-delay: .3s;
+}
+.blog-slider__item.swiper-slide-active .blog-slider__content > * {
+  opacity: 1;
+  transform: none;
+}
+.blog-slider__item.swiper-slide-active .blog-slider__content > *:nth-child(1) {
+  transition-delay: 0.3s;
+}
+.blog-slider__item.swiper-slide-active .blog-slider__content > *:nth-child(2) {
+  transition-delay: 0.4s;
+}
+.blog-slider__item.swiper-slide-active .blog-slider__content > *:nth-child(3) {
+  transition-delay: 0.5s;
+}
+
+.blog-slider__img {
+  width: 300px;
+  flex-shrink: 0;
+  height: 300px;
+  border-radius: 20px;
+  transform: translateX(-80px);
+  overflow: hidden;
+}
+.blog-slider__img:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  opacity: 0.8;
+}
+.blog-slider__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  border-radius: 20px;
+  transition: all .3s;
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__img {
+    transform: translateY(-50%);
+    width: 90%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .blog-slider__img {
+    width: 95%;
+  }
+}
+@media screen and (max-height: 500px) and (min-width: 992px) {
+  .blog-slider__img {
+    height: 270px;
+  }
+}
+.blog-slider__content {
+  padding-right: 25px;
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__content {
+    margin-top: -80px;
+    text-align: center;
+    padding: 0 30px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .blog-slider__content {
+    padding: 0;
+  }
+}
+.blog-slider__content > * {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all .4s;
+}
+.blog-slider__code {
+  color: #7b7992;
+  margin-bottom: 15px;
+  display: block;
+  font-weight: 500;
+}
+.blog-slider__title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.blog-slider__title .location{
+  font-size: 1.3rem;
+}
+.blog-slider__title .location img{
+  width : 20px;
+}
+.blog-slider__text {
+  margin-bottom: 30px;
+  line-height: 1.5em;
+}
+.blog-slider__text .leader{
+  font-size: 1.3rem;
+  border-bottom: 2px solid #333333;
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.blog-slider__text .content{
+  overflow: hidden;
+  vertical-align: middle;
+}
+.blog-slider__text .profile-img{
+  width: 20%;
+  border-radius: 50%;
+  float: left;
+}
+.blog-slider__text .leader-info{
+  float: left;
+  font-size: 1.1rem;
+  width: 40%;
+  padding-top: 6%;
+}
+.blog-slider__text .star-img{
+    width: 25px;
+}
+.blog-slider__text .content .member-count{
+  float: right;
+  padding-top: 8%;
+}
+.blog-slider__text .ticket{
+  background: #00a185;
+  display: inline-block;
+  padding: 2%;
+  border-radius: 15px;
+  color: #ffffff;
+  border: 1px solid;
+  float: right;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 576px) {
+  .blog-slider__button {
+    width: 100%;
+  }
+}
+.blog-slider .swiper-container-horizontal > .swiper-pagination-bullets, .blog-slider .swiper-pagination-custom, .blog-slider .swiper-pagination-fraction {
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+}
+.blog-slider__pagination {
+  position: absolute;
+  z-index: 21;
+  right: 20px;
+  width: 11px !important;
+  text-align: center;
+  left: auto !important;
+  top: 50%;
+  bottom: auto !important;
+  transform: translateY(-50%);
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__pagination {
+    transform: translateX(-50%);
+    left: 50% !important;
+    top: 205px;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.blog-slider__pagination.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 8px 0;
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__pagination.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 5px;
+  }
+}
+.blog-slider__pagination .swiper-pagination-bullet {
+  width: 11px;
+  height: 11px;
+  display: block;
+  border-radius: 10px;
+  background: #062744;
+  opacity: 0.2;
+  transition: all .3s;
+  cursor: pointer;
+}
+.blog-slider__pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #227fbb;
+  height: 30px;
+  box-shadow: 0px 0px 20px rgba(252, 56, 56, 0.3);
+}
+@media screen and (max-width: 768px) {
+  .blog-slider__pagination .swiper-pagination-bullet-active {
+    height: 11px;
+    width: 30px;
+  }
+  .blog-slider__text .leader{
+    display: block;
+    text-align: left;
+    padding-left: 5%;
+    border:none;
+  }
+}
+
+/* 이런 이벤트 어떠세요? end */
+
+/* 주최자 랭킹 start */
+#ranking{
+  margin-top: 50px;
+  width: 100%;
+  height: 600px;
+}
+#ranking .ranking-wrap{
+  position: relative;
+  text-align: center;
+}
+#ranking .ranker-list{
+  width: 100%;
+  position: relative;
+}
+#ranking .ranker{
+  position: relative;
+  width: 17%;
+  display: inline-block;
+  margin: 0 1%;
+  background: #fff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  border-radius: 25px;
+  height: 400px;
+  transition: all .3s;
+  opacity:0.5;
+  cursor: pointer;
+}
+#ranking .ranker.on{
+  opacity:1;
+  transform: translateY(-30px);
+}
+#ranking .ranker>*{
+  position: absolute;
+}
+#ranking .rank{
+  font-size: 4.3rem;
+  z-index: 100;
+  top: 0px;
+  font-weight: bold;
+}
+#ranking .rank.first-rank{
+  color: #ebcc58;
+}
+#ranking .rank.second-rank{
+  color: #dbdbdb;
+}
+#ranking .rank.third-rank{
+  color: #b69177;
+}
+#ranking .rank.least-rank{
+  color: #55595c;
+}
+#ranking .ranker > img{
+  width: 100%;
+  border-radius: 50%;
+  top: 60px;
+  right: 0;
+}
+#ranking .ranker .nickname{
+  font-size: 20px;
+  font-weight: bold;
+  bottom: 58px;
+  transform: translateX(50%);
+  left: -25%;
+}
+#ranking .ranker > .star-rating{
+  font-size: 27px;
+  font-weight: bold;
+  bottom: 0;
+  right: 15px;
+}
+#ranking .btn-link{
+  position: absolute;
+  top: 37%;
+}
+#ranking .btn-link>img{
+  width: 30%;
+}
+#ranking .prev-link{
+  left: -15%;
+}
+#ranking .next-link{
+  right: -15%;
+}
+@media (max-width: 1200px){
+  #ranking .rank{
+    font-size: 3.3rem;
+  }
+  #ranking .ranker .nickname{
+    font-size: 16px;
+  }
+  #ranking .ranker{
+    height: 350px;
+  }
+}
+@media (max-width: 992px){
+  #ranking .rank{
+    font-size: 2.5rem;
+  }
+  #ranking .ranker .nickname{
+    font-size: 13px;
+  }
+  #ranking .ranker{
+    height: 300px;
+  }
+}
+@media (max-width: 767px){
+  #ranking .rank{
+    font-size: 1.7rem;
+  }
+  #ranking .ranker .nickname{
+    font-size: 12px;
+  }
+  #ranking .ranker .nickname{
+    bottom: 70px;
+    left: -36px;
+  }
+}
+@media (max-width: 405px){
+  #ranking .rank{
+    font-size: 1rem;
+  }
+  #ranking .ranker .nickname{
+    font-size: 10px;
+  }
+}
+/* 주최자 랭킹 end */
+
+/* 카테고리 추천 start */
+#category-list .category-ul{
+  width: 100%;
+  overflow: hidden;
+}
+#category-list .category-ul li{
+      width: 23%;
+      float: left;
+      margin-left: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 1.8px 1.2px rgba(0, 0, 0, 0.034), 0 1.7px 0.3px rgba(0, 0, 0, 0.048), 0 5.5px 3px rgba(0, 0, 0, 0.06), 0 13.3px 6.9px rgba(0, 0, 0, 0), 0 10.8px 2.4px rgba(0, 0, 0, 0.01), 0 9px 10px rgba(0, 0, 0, 0.12);
+      border-radius: 25px 25px 0 0;
+      transition: all .3s;
+}
+#category-list .category-ul li .blue-background{
+  background: #227fbb;
+}
+#category-list .category-ul li .blue-background img{
+  width: 110px;
+}
+#category-list .category-ul li .category-name{
+  height: 50px;
+  font-weight: bold;
+  display: block;
+  font-size: 18px;
+  line-height: 50px;
+  padding-left: 10px;
+  border-bottom: 1px solid rgba(34, 35, 58, 0.2);
+}
+/* 카테고리 추천 end */

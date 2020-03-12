@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/board.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/index.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
+  <script src='../index 페이지 - 진웅/js/index.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <title>KKIRI(끼리)</title>
+  <!-- <style>
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+  </style> -->
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="logo"><a href="#"><img src="../index 페이지 - 진웅/img/logo.png" alt="로고"></a></h1>
+            <div class="nav-section">
+              <a href="#">로그인</a>
+              <a href="#">회원가입</a>
+              <span class="separation"> | </span>
+              <a href="#">고객센터</a>
+              <!-- <div class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                  </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content 시작 -->
+    <div id="container" class="container">
+      <div class="row mt-5">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="admin_member.html" tabindex="-1">회원</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin_event.html" tabindex="-1">이벤트</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin_report.html" tabindex="-1">신고</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin_ask.html" tabindex="-1">문의</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-12">
+          <h2 class="mt-3 mb-3">회원관리</h2>
+          <table id="list-table" class="table table-hover table-striped table-sm">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">회원번호</th>
+                <th scope="col">아이디</th>
+                <th scope="col">닉네임</th>
+                <th scope="col">이메일</th>
+                <th scope="col">생년월일</th>
+                <th scope="col">전화번호</th>
+                <th scope="col">티켓수</th>
+                <th scope="col">환불</th>
+                <th scope="col">삭제/복구</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <th scope="row">1</th>
+                <td>user01</td>
+                <td>내가짱</td>
+                <td>negajjang@naver.com</td>
+                <td>880808</td>
+                <td>010-2222-3333</td>
+                <td>1장</td>
+                <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+                <td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+              </tr>
+              <tr class="text-center">
+                <th scope="row">2</th>
+                <td>user01</td>
+                <td>내가짱</td>
+                <td>negajjang@naver.com</td>
+                <td>880808</td>
+                <td>010-2222-3333</td>
+                <td>1장</td>
+                <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+                <td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
+              </tr>
+              <tr class="text-center">
+                <th scope="row">3</th>
+                <td>user01</td>
+                <td>내가짱</td>
+                <td>negajjang@naver.com</td>
+                <td>880808</td>
+                <td>010-2222-3333</td>
+                <td>1장</td>
+                <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+                <td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <!-- 검색 -->
+        <div class="col-md-2 col-sm-3">
+          <div class="input-group">
+            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <option selected>검색</option>
+              <option value="1">아이디</option>
+              <option value="2">닉네임</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-7">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control inputSection">
+          </div>
+        </div>
+        <div class="col-md-1 col-sm-2">
+          <div class="input-group-append">
+            <button class="green-radius-btn search-btn" type="button">검색</button>
+          </div>
+        </div>
+      </div>
+        <!-- 검색 끝 -->
+        <!-- 페이징 바 -->
+        <div class="row justify-content-center pagination-wrap">
+          <ul class="pagination">
+            <li>
+              <a class="page-link text-success" href="#">&lt;&lt;</a>
+            </li>
+            <li>
+              <a class="page-link text-success" href="#">&lt;</a>
+            </li>
+            <li>
+              <a class="page-link">1</a>
+            </li>
+            <li>
+              <a class="page-link text-success" href="#">2</a>
+            </li>
+            <li>
+              <a class="page-link text-success" href="#">3</a>
+            </li>
+            <li>
+              <a class="page-link text-success" href="#">4</a>
+            </li>
+            <li>
+              <a class="page-link text-success" href="#">5</a>
+            </li>
+            <!-- 다음 페이지로(>) -->
+            <li>
+              <a class="page-link text-success" href="#">&gt;</a>
+            </li>
+            <!-- 맨 끝으로(>>) -->
+            <li>
+              <a class="page-link text-success" href="#">&gt;&gt;</a>
+            </li>
+          </ul>
+        </div>
+      <!-- 페이징 바 끝 -->
+    </div>
+  </div>
+  <!-- content 끝 -->
+  <div id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4 footer-logo-wrap">
+              <img class="footer-logo" src="../index 페이지 - 진웅/img/logo2-white.png" alt="푸터로고">
+            </div>
+            <div class="col-md-8">
+              <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="button-top">
+    <button type="button" class="top-btn">TOP</button>
+  </div>
+
+  <!-- 팝업 start-->
+  <div id="popup" class="popup">
+    <p class="popup-title">
+      티켓 환불
+      <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+    </p>
+    <div class="popup-content">
+      <div class="row justify-content-md-center mb-2">
+        <div class="col-3 text-center">
+          현재 티켓 수
+        </div>
+        &nbsp;&nbsp;
+        <div class="col-3 text-center">
+          취소 티켓 수
+        </div>
+        &nbsp;&nbsp;
+        <div class="col-3 text-center">
+          남은 티켓 수
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-3">
+          <input id="current-ticket" type="text" class="form-control">
+        </div>
+        <b style="line-height: 2rem;">-</b>
+        <div class="col-3">
+          <input id="canceled-ticket" type="text" class="form-control">
+        </div>
+        <b style="line-height: 2rem;">=</b>
+        <div class="col-3">
+          <input id="remained-ticket" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <button class="popup-confirm-btn">확인</button>
+  </div>
+  <div class="popup-shadow"></div>
+  <!-- 로그인 팝업 end-->
+
+  <script>
+    function scrollFunction() {
+      if ($(window).scrollTop() >= 200) {
+        $('#button-top').show(0);
+      } else {
+        $('#button-top').hide(0);
+      }
+    }
+    $(function () {
+      scrollFunction();
+      $(window).scroll(function () {
+        scrollFunction();
+      });
+      $('#button-top').on({
+        click: function () {
+          $('html,body').stop().animate({ scrollTop: 0 }, 600);
+        }
+      });
+    });
+
+    $(function () {
+      $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").on("click", function () {
+        location.href="#";
+      }).mouseenter(function () {
+        $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").css("cursor", "pointer");
+      });
+    });
+
+    // 로그인 팝업 이벤트
+    $(".btn-refund").on({
+      click: function () {
+        $(".popup-shadow, #popup").show(0);
+      }
+    });
+    $(".close-popup, .popup-shadow").on({
+      click: function () {
+        $(".popup-shadow, #popup").hide(0);
+      }
+    });
+
+    $("#canceled-ticket").on("input", function () {
+      $("#remained-ticket").val($("#current-ticket").val() - $("#canceled-ticket").val());
+    });
+
+    $(".btn-delete").on("click", function(){
+      console.log($(".btn-delete").text())
+        if($(this).text() == "삭제"){
+          if(confirm("정말 삭제하시겠습니까?")){
+            $(this).text("복구");
+            $(this).addClass("btn-success");
+            $(this).removeClass("btn-danger");
+          }
+        }else{
+          $(this).addClass("btn-danger");
+          $(this).removeClass("btn-success");
+          $(this).text("삭제");
+        }
+    })
+  </script>
+</body>
+
+</html>
