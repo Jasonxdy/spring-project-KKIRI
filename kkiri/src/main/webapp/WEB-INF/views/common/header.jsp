@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
 </head>
 <body>
+	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 	<div id="header">
           <div class="container">
           	<div class="row">
