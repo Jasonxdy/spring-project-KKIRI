@@ -17,13 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
         rel="stylesheet">
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
-    <link rel="stylesheet" href="../index 페이지 - 진웅/css/index.css">
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
 
     <!-- 이벤트 상세 페이지 CSS 적용 -->
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/eventDetail.css">
-    <script src='../index 페이지 - 진웅/js/index.js'></script>
     <title>KKIRI(끼리)</title>
 </head>
 
@@ -75,7 +73,7 @@
                         <img src="../index 페이지 - 진웅/img/map-ping.png" style="height: 18px;">
                         회기 크로스핏 짐
                     </p>
-                    <p class="text-muted" id="eventPing" name="eventPing">
+                    <p class="text-muted">
 
                         서울시 동대문구 휘경동 204-90
                     </p>
@@ -125,13 +123,12 @@
                             이벤트 참가
                         </a>
                     </li>
-                    <!-- dropdown이 작동을 안하네요 ㅠㅠ -->
                     <li class="nav-item dropdown" id="report-button">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             ···
                         </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">이벤트 신고하기</a>
+                        <div class="declare-wrap">
+                            <a class="declare-btn" href="#">이벤트 신고하기</a>
                         </div>
                     </li>
                 </ul>
@@ -190,15 +187,15 @@
                             시간과 장소
                         </h4>
                         <!-- 이벤트 시작시간, 끝나는 시간 -->
-                        <p class="text-muted" id="eventDate" name="eventDate" style="margin-bottom: 0em;">
+                        <p class="text-muted" style="margin-bottom: 0em;">
                             2020년 3월 9일 월요일 15:00 ~ 17:00
                         </p>
                         <!-- 위도, 경도로 얻은 주소 -->
-                        <p class="mt-3" id="eventLocation" name="eventLocation" style="margin-bottom: 0em;">
-                            <img src="../index 페이지 - 진웅/img/map-ping.png" style="height: 18px;">
+                        <p class="mt-3" style="margin-bottom: 0em;">
+                            <img src="../index 페이지 - 진웅/img/map-ping.png" style="height: 18px;" alt="위치아이콘">
                             회기 크로스핏 짐
                         </p>
-                        <p class="text-muted" id="eventPing" name="eventPing">
+                        <p class="text-muted" id="eventPing">
                             서울시 동대문구 휘경동 204-90
                         </p>
 
@@ -210,7 +207,7 @@
 
                     <div class="event-participant mt-5">
                         <h4>
-                            참석자 (<span id="" name="">9</span>명)
+                            참석자 (<span>9</span>명)
                                 <span id="see-all">
                                     <a href="#">
                                         모두 보기
@@ -279,6 +276,7 @@
     </div>
 
     <script>
+
         function scrollFunction() {
             if ($(window).scrollTop() >= 200) {
                 $('#button-top').show(0);
@@ -296,6 +294,13 @@
                     $('html,body').stop().animate({ scrollTop: 0 }, 600);
                 }
             });
+
+            // 신고 토글 버튼
+            $("#navbardrop").click(function(e){
+                e.preventDefault();
+                $(this).next(".declare-wrap").toggleClass("active");
+            });
+
         });
     </script>
 </body>

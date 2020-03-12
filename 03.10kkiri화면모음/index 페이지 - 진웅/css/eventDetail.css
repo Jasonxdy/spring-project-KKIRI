@@ -5,7 +5,9 @@
         /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
     }
 }
+@media (max-width: 575px){
 
+}
 
 #eventTitle{
     font-weight: bold;
@@ -65,8 +67,9 @@
 
 #event-participate{
     background: #00a185;
-    border-radius: 15px;
+    border-radius: .25rem;
     color: white;
+    min-width: 95px;
 }
 /* 이벤트 상세 페이지 상단 공통 css end */
 
@@ -107,3 +110,23 @@
     cursor: pointer;
 }
 
+.declare-wrap{
+    display: none;
+}
+.declare-wrap.active{
+    display: inline-block;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #a2a2a2;
+    min-width: 120px;
+    border-radius: 0.25rem;
+    padding: 10px 5px;
+    right: -30px;
+    top: 47px;
+}
+.declare-wrap.active a:hover {
+    color : #333333;
+}
+#container .nav-item>.active{
+    color : #00a185;
+}

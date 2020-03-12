@@ -54,18 +54,18 @@
 
           <div class="col-10">
 
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" id="profile-nav-wrap">
               <li class="nav-item">
-                <a class="wty1 nav-link active move-btn" href="#" tabindex="-1">내 정보</a>
+                <a class="wty1 nav-link active move-btn" href="javascript:" tabindex="-1">내 정보</a>
               </li>
               <li class="nav-item">
-                <a class="wty1 nav-link move-btn" href="#" tabindex="-1">비밀번호 변경</a>
+                <a class="wty1 nav-link move-btn" href="javascript:" tabindex="-1">비밀번호 변경</a>
               </li>
               <li class="nav-item">
-                <a class="wty1 nav-link move-btn" href="#" tabindex="-1">환급 계좌</a>
+                <a class="wty1 nav-link move-btn" href="javascript:" tabindex="-1">환급 계좌</a>
               </li>
               <li class="nav-item">
-                <a class="wty1 nav-link move-btn" href="#" tabindex="-1">회원탈퇴</a>
+                <a class="wty1 nav-link move-btn" href="javascript:" tabindex="-1">회원탈퇴</a>
               </li>
             </ul>
             
@@ -213,16 +213,26 @@
 
         $(window).scroll(function(){
           scrollTop = $(window).scrollTop();
-          if(scrollTop>=50){
-
+          if(scrollTop>230){
+            $("#profile-nav-wrap").addClass("sticky").removeClass("nav-tabs");
           }else{
-            
+            $("#profile-nav-wrap").removeClass("sticky").addClass("nav-tabs");
           }
+
+          $(".moving-1").each(function(index){
+            if($(window).scrollTop()>=$(".moving-1").eq(index).offset().top-300){
+              $("#profile-nav-wrap>li>a").removeClass("active");
+              $("#profile-nav-wrap>li").eq(index).find("a").addClass("active");
+            }else{
+              $("#profile-nav-wrap>li").eq(index).find("a").removeClass("active");
+            }
+          });
         });
+
         $(".move-btn").each(function(index){
           $(this).on({
             click: function(){
-              $('html,body').stop().animate({scrollTop: $('.moving-1').eq(index).offset().top-200},600);
+              $('html,body').stop().animate({scrollTop: $('.moving-1').eq(index).offset().top-100},600);
             }
           });
         });

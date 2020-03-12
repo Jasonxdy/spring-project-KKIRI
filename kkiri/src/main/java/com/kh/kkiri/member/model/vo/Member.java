@@ -33,6 +33,8 @@ public class Member {
 		this.memberNickname = memberNickname;
 		this.memberPwd = memberPwd;
 	}
+	
+	
 
 
 
@@ -40,6 +42,57 @@ public class Member {
 
 
 
+
+	public Member(int memberNo, String memberId, String memberNickname, String memberEmail, String memberGender,
+			String memberPhone, String memberBirth, String memberIntroduce, String memberPlace, String memberCategory,
+			String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket, String memberAccount,
+			String memberIdSort, String memberStatus) {
+		super();
+		MemberNo = memberNo;
+		this.memberId = memberId;
+		this.memberNickname = memberNickname;
+		this.memberEmail = memberEmail;
+		this.memberGender = memberGender;
+		this.memberPhone = memberPhone;
+		this.memberBirth = memberBirth;
+		this.memberIntroduce = memberIntroduce;
+		this.memberPlace = memberPlace;
+		this.memberCategory = memberCategory;
+		this.memberProfile = memberProfile;
+		this.memberSignupDate = memberSignupDate;
+		this.memberGrade = memberGrade;
+		this.memberTicket = memberTicket;
+		this.memberAccount = memberAccount;
+		this.memberIdSort = memberIdSort;
+		this.memberStatus = memberStatus;
+	}
+
+
+
+	public Member(int memberNo, String memberId, String memberNickname, String memberPwd, String memberEmail,
+			String memberGender, String memberPhone, String memberBirth, String memberIntroduce, String memberPlace,
+			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,
+			String memberAccount, String memberIdSort, String memberStatus) {
+		super();
+		MemberNo = memberNo;
+		this.memberId = memberId;
+		this.memberNickname = memberNickname;
+		this.memberPwd = memberPwd;
+		this.memberEmail = memberEmail;
+		this.memberGender = memberGender;
+		this.memberPhone = memberPhone;
+		this.memberBirth = memberBirth;
+		this.memberIntroduce = memberIntroduce;
+		this.memberPlace = memberPlace;
+		this.memberCategory = memberCategory;
+		this.memberProfile = memberProfile;
+		this.memberSignupDate = memberSignupDate;
+		this.memberGrade = memberGrade;
+		this.memberTicket = memberTicket;
+		this.memberAccount = memberAccount;
+		this.memberIdSort = memberIdSort;
+		this.memberStatus = memberStatus;
+	}
 
 
 

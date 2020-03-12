@@ -67,7 +67,7 @@
           </p>
           <div class="popup-content">
             <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
-            <form class="login-form-wrap custom-checkbox" action="login" method="post">
+            <form class="login-form-wrap custom-checkbox" action="member/login" method="post">
               <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
               <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
 
