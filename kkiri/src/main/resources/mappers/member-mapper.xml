@@ -9,7 +9,7 @@
 		<result property="memberEmail" column="MEMBER_EMAIL"/>
 		<result property="memberGender" column="MEMBER_GENDER"/>
 		<result property="memberPhone" column="MEMBER_PHONE"/>
-		<result property="memberBorth" column="MEMBER_BIRTH"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
 		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
 		<result property="memberPlace" column="MEMBER_PLACE"/>
 		<result property="memberCategory" column="MEMBER_CATEGORY"/>
@@ -24,10 +24,14 @@
 	
 	<!-- 로그인  -->
 	<select id="signInMember" parameterType="Member" resultMap="memberResultSet"> 
-		SELECT 
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_GENDER,
+			   MEMBER_GENDER, MEMBER_PHONE, MEMBER_BIRTH, MEMBER_INTRODUCE, MEMBER_PLACE,
+			   MEMBER_CATEGORY, MEMBER_PROFILE, MEMBER_SIGNUP_DATE, MEMBER_GRADE,
+			   MEMBER_TICKET, MEMBER_ACCOUNT, MEMBER_ID_SORT, MEMBER_STATUS
 		
 		 FROM MEMBER
 			WHERE MEMBER_ID= #{memberId }
+			AND MEMBER_PWD = #{memberPwd }
 			AND MEMBER_STATUS = 'Y'
 	
 	</select>
