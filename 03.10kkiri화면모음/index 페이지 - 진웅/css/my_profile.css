@@ -1,0 +1,97 @@
+#container{
+    margin : 100px auto;
+}
+.nav-wrap{
+        display: inline-block;
+        height: 250px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+}
+.nav-wrap>a{
+    display: block;
+    line-height: 46px;
+    text-align: left;
+    font-size: 18px;
+    transition: all .3s;
+}
+.nav-wrap>a.active,
+.nav-wrap>a:hover{
+    color: #00a185;
+    font-weight: 500;
+}
+.my-profile-section{
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding :30px 30px 100px 30px;
+    margin: 100px 0;
+    position: relative;
+}
+.my-profile-section>h4{
+    font-size: 2rem;
+    border-bottom: 1px solid lightslategray;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+html .nav-tabs .nav-item.show .nav-link, 
+html .nav-tabs .nav-link.active,
+.nav-tabs .nav-link:focus, 
+.nav-tabs .nav-link:hover{
+    color : #00a185;
+}
+.my-profile-btn,
+.my-profile-btn:hover{
+    background: #227fbb;
+    color: #ffffff;
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+}
+#container .secession-btn{
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    display: table;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.my-profile-tableTitle{
+    display: table;
+    width: 100%;
+}
+.passborder{
+    width: 65%;
+    padding: 5px 10px;
+}
+.my-profile-tableTitle>div{
+    display: table-cell;
+    width: 30%;
+}
+/* 프로필 부분 start */
+.profile-name{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.profile-img{
+    border-radius: 50%;
+    max-width: 250px;
+}
+.my-profile-section-element{
+    margin: 10px 0;
+}
+.member-interest,
+.member-interest-location{
+    background-color: #00a185;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: .25rem;
+    vertical-align: middle;
+    color: #ffffff;
+}
+.introduce-box{
+    border: 1px solid lightslategray;
+    padding:10px;
+    border-radius: .25rem;
+}
+
+/* 프로필 부분 end */

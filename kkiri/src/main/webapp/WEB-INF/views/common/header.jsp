@@ -13,9 +13,9 @@
     <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board.css">
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
@@ -27,9 +27,10 @@
                 <div class="nav-section">
                   <a href="#" class="login-btn">로그인</a>
                   <a href="signUp.html">회원가입</a>
+                  <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
+                  <!--  -->
                   <%-- <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
                   <span class="separation"> | </span>
-                  <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
                   <a href="#">고객센터</a>
                   <div class="profile-wrap">
                     <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">
