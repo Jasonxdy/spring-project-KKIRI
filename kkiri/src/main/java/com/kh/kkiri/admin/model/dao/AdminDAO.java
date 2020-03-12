@@ -16,4 +16,8 @@ public class AdminDAO {
 		return null;
 	}
 
+	public int adminMemberCount() throws Exception {
+		return sqlSession.selectOne("memberMapper.adminMemberCount");
+	}
+
 }

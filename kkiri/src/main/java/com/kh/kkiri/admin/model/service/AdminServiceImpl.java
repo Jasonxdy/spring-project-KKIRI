@@ -14,6 +14,15 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
 	
+	/** 회원 수 조회 Service
+	 * @return memberCount
+	 * @throws Exception
+	 */
+	@Override
+	public int adminMemberCount() throws Exception {
+		return adminDAO.adminMemberCount();
+	}
+	
 	/** 회원 정보 조회(관리자)
 	 * @return mList
 	 * @throws Exception
@@ -22,4 +31,6 @@ public class AdminServiceImpl implements AdminService {
 	public List<Member> adminSelectMember() throws Exception {
 		return adminDAO.adminSelectMember();
 	}
+	
+	
 }

@@ -36,7 +36,9 @@
 	
 	</select>
 	
-	
+	<select id="adminMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
 	
 	
 	
