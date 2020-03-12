@@ -33,13 +33,14 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String signIn(Member member, Model model ) {
 		
-		 System.out.println("로그인 확인 :"+member.getMemberId()+ 
+		 System.out.println("입력 확인 :"+member.getMemberId()+ 
 				 "/ " + member.getMemberPwd());
 		
 		try {
 			
 			Member loginMember = memberService.loginMember(member);
 			
+			System.out.println("로그인 확인 :"+loginMember);
 		//	if( !bCryptPasswordEncoder.matches(member.getMemberPwd(), loginMember.getMemberPwd())) {
 		//	//	loginMember = null;
 		//	}
