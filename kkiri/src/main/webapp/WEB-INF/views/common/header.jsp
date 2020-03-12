@@ -28,7 +28,7 @@
                   <a href="signUp.html">회원가입</a> -->
                   <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
                   <span class="separation"> | </span>
-                  <a href="#">탐색</a>
+                  <a href="../../../WEB-INF/views/search/searchEvent.jsp">탐색</a>
                   <a href="#">고객센터</a>
                   <div class="profile-wrap">
                     <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">
