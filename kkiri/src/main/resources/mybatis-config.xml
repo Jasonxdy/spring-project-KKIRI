@@ -10,7 +10,7 @@
 	<!-- 2. 별칭 작성 부분 -->
 	<typeAliases>
 		<typeAlias type="com.kh.kkiri.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.kkiri.search.model.vo.Member" alias="Search"/>
+		<typeAlias type="com.kh.kkiri.search.model.vo.Search" alias="Search"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분 -->

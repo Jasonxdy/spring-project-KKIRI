@@ -2,5 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="searchMapper">
 	
+	<resultMap type="Search" id="searchResultSet">
+		<id property="eventNo" column="EVENT.EVENT_NO"/>
+		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="eventCategory" column="EVENT_CATEGORY"/>
+		<result property="eventLocation" column="EVENT_LOCATION"/>
+		<result property="latitude" column="LATITUDE"/>
+		<result property="longitude" column="LONGITUDE"/>
+		<result property="eventStart" column="EVENT_START"/>
+		<result property="eventEnd" column="EVENT_END"/>
+		<result property="eventTicket" column="EVENT_TICKET"/>
+		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
+		<result property="eventQuota" column="EVENT_QUOTA"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="eventScore" column="SCORE"/>
+	</resultMap>
 	
 </mapper>
