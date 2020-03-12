@@ -17,7 +17,7 @@
 	   <property name="password" value="kkiri"/>
 	   <property name="defaultAutoCommit" value="false"/>
 	</bean>
-	//
+	
 	<!-- 트랜잭션 처리를 위한 Transaction Manager 추가 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
