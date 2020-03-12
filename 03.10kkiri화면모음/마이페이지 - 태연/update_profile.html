@@ -37,7 +37,7 @@
     .wty2-1{
       background-color: skyblue;
       color: black;
-      margin: 3px 0;
+      
     }
     .wty3{
       border: 2px solid grey;
@@ -46,6 +46,7 @@
     .wty4{
       text-align: center;
       width: 32%;
+      margin: 3px 0;
     }
     .wty5{
       border-top: 2px solid gray;
@@ -53,6 +54,10 @@
     .passborder{
       border: 1px solid grey;
       width: 50%;
+    }
+    .wty6{
+      background-color: black;
+      color: skyblue;
     }
 
   </style>
@@ -137,30 +142,53 @@
               </div>
               <div class="row wty5">
                 <h5 class="col-4 ">관심 카테고리 : </h5>
-                <div class="col-8 " style="padding: 0%;">
-                <div class="btn wty2-1 wty4" >여행</div>  
-                <div class="btn wty2-1 wty4" >운동</div>  
-                <div class="btn wty2-1 wty4" >독서</div>  
-                <div class="btn wty2-1 wty4" >비즈니스</div>  
-                <div class="btn wty2-1 wty4" >언어</div>  
-                <div class="btn wty2-1 wty4" >음악</div>  
-                <div class="btn wty2-1 wty4" >영화/공연</div>  
-                <div class="btn wty2-1 wty4" >댄스</div>  
-                <div class="btn wty2-1 wty4" >봉사활동</div>  
-                <div class="btn wty2-1 wty4" >사교</div>  
-                <div class="btn wty2-1 wty4" >차/오토바이</div>  
-                <div class="btn wty2-1 wty4" >사진/영상</div>  
-                <div class="btn wty2-1 wty4" >스포츠관람</div>  
-                <div class="btn wty2-1 wty4" >게임</div>  
-                <div class="btn wty2-1 wty4" >요리</div>  
-                <div class="btn wty2-1 wty4" >반려동물</div>  
-                <div class="btn wty2-1 wty4" >사회운동</div>  
-                <div class="btn wty2-1 wty4" >뷰티</div>  
-                <div class="btn wty2-1 wty4" >패션</div>  
-                <div class="btn wty2-1 wty4" >기타</div>  
+                <div class="col-8 " style="padding: 0%;" id="category">
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="travle">  <label class="btn wty2-1 wty4 category" for="travle">여행  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="health">  <label class="btn wty2-1 wty4 category" for="health">운동  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="readbook">  <label class="btn wty2-1 wty4 category" for="readbook">독서  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="busisness">  <label class="btn wty2-1 wty4 category"  for="busisness">비즈니스 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="language">  <label class="btn wty2-1 wty4 category" for="language">언어 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="music">  <label class="btn wty2-1 wty4 category" for="music">음악</label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="movie">  <label class="btn wty2-1 wty4 category" for="movie">영화/공연</label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="dance">  <label class="btn wty2-1 wty4 category" for="dance">댄스  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="valunteer">  <label class="btn wty2-1 wty4 category" for="valunteer">봉사활동 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="friendship">  <label class="btn wty2-1 wty4 category" for="friendship">사교  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="car">  <label class="btn wty2-1 wty4 category" for="car">차/오토바이 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="photo">  <label class="btn wty2-1 wty4 category" for="photo">사진/영상 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="sport">  <label class="btn wty2-1 wty4 category" for="sport">스포츠관람  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="game">  <label class="btn wty2-1 wty4 category" for="game">게임  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="cooking">  <label class="btn wty2-1 wty4 category" for="cooking">요리 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="animal">  <label class="btn wty2-1 wty4 category" for="animal">반려동물 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="socialwork">  <label class="btn wty2-1 wty4 category" for="socialwork">사회운동  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="beauty">  <label class="btn wty2-1 wty4 category" for="beauty">뷰티  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="passion">  <label class="btn wty2-1 wty4 category" for="passion">패션  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="others">  <label class="btn wty2-1 wty4 category" for="others">기타  </label>
                 </div>
               </div>
               
+<script>
+  $(function(){
+    $("#category").children('label').click(function(){
+      var classflag = $("this")
+      
+        console.log('123')
+      if($(this).hasClass('wty2-1')){
+        console.log('456')
+        
+        $(this).removeClass("wty2-1");
+        $(this).addClass('wty6');
+      }
+      else if($(this).hasClass('wty6')){
+
+        
+        $(this).removeClass("wty6");
+        $(this).addClass('wty2-1');
+      }
+
+    })
+  })
+</script>
+
               <div class="row wty5">
                 <h5 class="col-4 " style="margin-top: 10px;">소개 :  </h5>
                 <div class="col-8">
@@ -196,7 +224,7 @@
 
       var regExp1 = /^[/d]{3}$/;
       var regExp2 = /^[/d]{4}$/;
-      var regExp3 = /^[a-Z]$/;
+      
 
 
       var signUpCheck = { 
@@ -205,7 +233,7 @@
             "name":false,
             "email":false
             };
-
+            
       $(function(){
         $("#my-profile").click(function(){
           $(".wty3").css("display","none");
@@ -234,7 +262,7 @@
           }
         })
 
-
+        
 
 
       })
