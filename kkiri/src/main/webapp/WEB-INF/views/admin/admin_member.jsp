@@ -16,7 +16,7 @@
   </style> -->
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/header.jsp" />
 	<!-- content 시작 -->
 	<div id="container" class="container">
 		<div class="row mt-5">
@@ -51,94 +51,216 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="text-center">
-							<th scope="row">1</th>
-							<td>user01</td>
-							<td>내가짱</td>
-							<td>negajjang@naver.com</td>
-							<td>880808</td>
-							<td>010-2222-3333</td>
-							<td>1장</td>
-							<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
-							<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+					<c:if test="${empty mList}">
+						<tr>
+							<td> 회원이 없습니다. </td>
 						</tr>
-						<tr class="text-center">
-							<th scope="row">2</th>
-							<td>user01</td>
-							<td>내가짱</td>
-							<td>negajjang@naver.com</td>
-							<td>880808</td>
-							<td>010-2222-3333</td>
-							<td>1장</td>
-							<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
-							<td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
-						</tr>
-						<tr class="text-center">
-							<th scope="row">3</th>
-							<td>user01</td>
-							<td>내가짱</td>
-							<td>negajjang@naver.com</td>
-							<td>880808</td>
-							<td>010-2222-3333</td>
-							<td>1장</td>
-							<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
-							<td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
-						</tr>
+					</c:if>
+					<c:if test="${!empty mList}">
+						<c:forEach var="member" items="${mList}" varStatus="vs">
+							<tr class="text-center">
+								<th scope="row">${member.memberNo}</th>
+								<td>${member.memberId}</td>
+								<td>${member.memberNickname}</td>
+								<td>${member.memberEmail}</td>
+								<td>${member.memberBirth}</td>
+								<td>${member.memberPhone}</td>
+								<td>${member.memberTicket}</td>
+								<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+								<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+							</tr>
+						</c:forEach>
+					</c:if>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
-		<div class="row justify-content-md-center">
-			<!-- 검색 -->
-			<div class="col-md-2 col-sm-3">
-				<div class="input-group">
-					<select class="custom-select" id="inputGroupSelect04"
-						aria-label="Example select with button addon">
-						<option selected>검색</option>
-						<option value="1">아이디</option>
-						<option value="2">닉네임</option>
-					</select>
+		<form action="admin/member" method="GET">
+			<div class="row justify-content-md-center">
+				<!-- 검색 -->
+				<div class="col-md-2 col-sm-3">
+					<div class="input-group">
+						<select name="searchKey" class="custom-select" id="inputGroupSelect04"
+							aria-label="Example select with button addon">
+							<option selected>검색</option>
+							<option value="id">아이디</option>
+							<option value="nickname">닉네임</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-9 col-sm-7">
+					<div class="input-group mb-3">
+						<input type="text" name="searchValue" class="form-control inputSection">
+					</div>
+				</div>
+				<div class="col-md-1 col-sm-2">
+					<div class="input-group-append">
+						<button class="green-radius-btn search-btn" type="button">검색</button>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-9 col-sm-7">
-				<div class="input-group mb-3">
-					<input type="text" class="form-control inputSection">
-				</div>
-			</div>
-			<div class="col-md-1 col-sm-2">
-				<div class="input-group-append">
-					<button class="green-radius-btn search-btn" type="button">검색</button>
-				</div>
-			</div>
-		</div>
+		</form>
 		<!-- 검색 끝 -->
 		<!-- 페이징 바 -->
 		<div class="row justify-content-center pagination-wrap">
 			<ul class="pagination">
-				<li><a class="page-link text-success" href="#">&lt;&lt;</a></li>
-				<li><a class="page-link text-success" href="#">&lt;</a></li>
-				<li><a class="page-link">1</a></li>
-				<li><a class="page-link text-success" href="#">2</a></li>
-				<li><a class="page-link text-success" href="#">3</a></li>
-				<li><a class="page-link text-success" href="#">4</a></li>
-				<li><a class="page-link text-success" href="#">5</a></li>
-				<!-- 다음 페이지로(>) -->
-				<li><a class="page-link text-success" href="#">&gt;</a></li>
-				<!-- 맨 끝으로(>>) -->
-				<li><a class="page-link text-success" href="#">&gt;&gt;</a></li>
-			</ul>
+	            	<c:if test="${pInf.currentPage > 1}">
+		                <li>
+		                	<!-- 맨 처음으로(<<) -->
+		                    <a class="page-link text-success" 
+		                    	href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty paramValues.searchCategory }">
+							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+							       			<c:param name="searchCategory" value="${ct}"/>
+							       		</c:forEach>
+						       		</c:if>
+		                    		<c:param name="currentPage" value="1"/>
+		                    	</c:url>
+	                    	">
+			                    &lt;&lt;
+			                </a>
+		                </li>
+		                
+		                <li>
+		                	<!-- 이전으로(<) -->
+	                   		<a class="page-link text-success" 
+		                    	href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty paramValues.searchCategory }">
+							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+							       			<c:param name="searchCategory" value="${ct}"/>
+							       		</c:forEach>
+						       		</c:if>
+						       		
+		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+		                    	</c:url>
+	                    	">
+			                    &lt;
+			                </a>
+		                </li>
+	                </c:if>
+	                
+	                <!-- 10개의 페이지 목록 -->
+	                <c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+	                
+	                
+	                	<c:if test="${p == pInf.currentPage}">
+			                <li>
+			                    <a class="page-link">${p}</a>
+			                </li>
+		                </c:if>
+	                	
+	                	<c:if test="${p != pInf.currentPage}">
+	                		<li>
+		                    	<a class="page-link text-success" 
+			                    	href=" 
+			                    	<c:url value="list">
+			                    		<c:if test="${!empty param.searchKey }">
+							        		<c:param name="searchKey" value="${param.searchKey}"/>
+							        	</c:if>
+							        	
+							        	<c:if test="${!empty param.searchValue }">
+							        		<c:param name="searchValue" value="${param.searchValue}"/>
+							        	</c:if>
+							        	
+							        	<c:if test="${!empty paramValues.searchCategory }">
+								       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+								       			<c:param name="searchCategory" value="${ct}"/>
+								       		</c:forEach>
+							       		</c:if>
+							       		
+			                    		<c:param name="currentPage" value="${p}"/>
+			                    	</c:url>
+		                    	">
+				                    ${p}
+				                </a>
+		                	</li>
+	                	</c:if>
+	                	
+                	</c:forEach>
+	                
+	                <!-- 다음 페이지로(>) -->
+	                <c:if test="${pInf.currentPage < pInf.maxPage }">
+		                <li>
+							<a class="page-link text-success" 
+		                    	href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty paramValues.searchCategory }">
+							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+							       			<c:param name="searchCategory" value="${ct}"/>
+							       		</c:forEach>
+						       		</c:if>
+						       		
+		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+		                    	</c:url>
+	                    	">
+			                    &gt;
+			                </a>
+		                </li>
+		                
+		                <!-- 맨 끝으로(>>) -->
+		                <li>
+		                    <a class="page-link text-success" 
+		                    	href=" 
+		                    	<c:url value="list">
+		                    		<c:if test="${!empty param.searchKey }">
+						        		<c:param name="searchKey" value="${param.searchKey}"/>
+						        	</c:if>
+						        	<c:if test="${!empty param.searchValue }">
+						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty paramValues.searchCategory }">
+							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
+							       			<c:param name="searchCategory" value="${ct}"/>
+							       		</c:forEach>
+						       		</c:if>
+						       		
+		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+		                    	</c:url>
+	                    	">
+			                    &gt;&gt;
+			                </a>
+		                </li>
+	                
+	                </c:if>
+	            </ul>
 		</div>
 		<!-- 페이징 바 끝 -->
 	</div>
-	</div>
 	<!-- content 끝 -->
-	<jsp:include page="../common/footer.jsp"/>
+	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
 		<p class="popup-title">
-			티켓 환불 <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼"
-				class="close-popup">
+			티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
+				alt="닫기버튼" class="close-popup">
 		</p>
 		<div class="popup-content">
 			<div class="row justify-content-md-center mb-2">
