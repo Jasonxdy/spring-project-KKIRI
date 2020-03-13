@@ -65,17 +65,26 @@
 								<td>${member.memberId}</td>
 								<td>${member.memberNickname}</td>
 								<td>${member.memberEmail}</td>
-								<td>${fn:substring(member.memberBirth, 0, 10)}</td>
+								<td>
+									${fn:substring(member.memberBirth, 0, 4)}년
+									${fn:substring(member.memberBirth, 5, 7)}월
+									${fn:substring(member.memberBirth, 8, 10)}일
+								</td>
 								<%-- ${member.memberBirth} --%>
 								<td>${member.memberPhone}</td>
 								<td>${member.memberTicket}</td>
 								<c:if test="${member.memberAccount != null}">
-								<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+									<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
 								</c:if>
 								<c:if test="${member.memberAccount == null}">
-								<td><button class="btn btn-sm btn-secondary">환불</button></td>
+									<td><button class="btn btn-sm btn-secondary">환불</button></td>
 								</c:if>
-								<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+								<c:if test="${member.memberStatus == 'Y'}">
+									<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+								</c:if>
+								<c:if test="${member.memberStatus == 'N'}">
+									<td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -333,17 +342,47 @@
 		});
 
 		$(".btn-delete").on("click", function() {
-			console.log($(".btn-delete").text())
+			var memberNo = $(this).parent().parent().children().eq(0).text();
+			var memberThis = $(this);
+			//console.log($(".btn-delete").text())
 			if ($(this).text() == "삭제") {
 				if (confirm("정말 삭제하시겠습니까?")) {
-					$(this).text("복구");
-					$(this).addClass("btn-success");
-					$(this).removeClass("btn-danger");
+					$.ajax({
+                		url : "delete",
+                		data : {memberNo: memberNo},
+                		type : "post",
+                		success : function(result){
+                			if(result == "true"){
+                				memberThis.text("복구");
+                				memberThis.addClass("btn-success");
+                				memberThis.removeClass("btn-danger");
+                			}else{
+                			}
+                		},
+                		error : function(e){
+                			console.log("ajax 통신 실패");
+                			console.log(e);
+                		}
+                	});
 				}
 			} else {
-				$(this).addClass("btn-danger");
-				$(this).removeClass("btn-success");
-				$(this).text("삭제");
+				$.ajax({
+            		url : "recover",
+            		data : {memberNo: memberNo},
+            		type : "post",
+            		success : function(result){
+            			if(result == "true"){
+            				memberThis.addClass("btn-danger");
+            				memberThis.removeClass("btn-success");
+            				memberThis.text("삭제");
+            			}else{
+            			}
+            		},
+            		error : function(e){
+            			console.log("ajax 통신 실패");
+            			console.log(e);
+            		}
+            	});
 			}
 		})
 	</script>

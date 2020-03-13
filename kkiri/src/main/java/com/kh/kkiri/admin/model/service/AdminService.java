@@ -29,5 +29,19 @@ public interface AdminService {
 	 */
 	int refundTicket(Map<String, Object> map) throws Exception;
 
+	/** 회원 삭제 Service
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	int delete(Integer memberNo) throws Exception;
+
+	/** 회원 삭제 복구 Service
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	int recover(Integer memberNo) throws Exception;
+
 
 }

@@ -57,4 +57,25 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 	
+	/** 회원 삭제 Service
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int delete(Integer memberNo) throws Exception {
+		return adminDAO.delete(memberNo);
+	}
+	
+	/** 회원 삭제 복구 Service
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int recover(Integer memberNo) throws Exception {
+		return adminDAO.recover(memberNo);
+	}
 }

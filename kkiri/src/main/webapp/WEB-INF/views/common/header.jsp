@@ -25,14 +25,14 @@
           <div class="container">
           	<div class="row">
           		<div class="col-md-12">
-                <h1 class="logo"><a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
+                <h1 class="logo"><a href="${contextPath}"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
                 <div class="nav-section">
                 
                 <!-- 로그인 안될 때(태균) -->
                  
                  <c:if test="${ empty sessionScope.loginMember  }">
 	                 <a href="#" class="login-btn">로그인</a>
-	                 <a href="signUp.html">회원가입</a>
+	                 <a href="${contextPath }/member/signUp">회원가입</a>
 	                 
 	                 <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
                  </c:if>
