@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.kkiri.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.kkiri.search.model.vo.Search" alias="Search"/>
 		<typeAlias type="com.kh.kkiri.payment.model.vo.Payment" alias="Payment"/>
+		<typeAlias type="com.kh.kkiri.event.model.vo.Event" alias="Event"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분 -->
@@ -21,5 +22,6 @@
 		<mapper resource="/mappers/search-mapper.xml"/>
 		<mapper resource="/mappers/home-mapper.xml"/>
 		<mapper resource="/mappers/payment-mapper.xml"/>
+		<mapper resource="/mappers/event-mapper.xml"/>
 	</mappers>
 </configuration>
