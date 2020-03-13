@@ -16,7 +16,8 @@
 	<!-- 3. mapper 파일 등록 부분 -->
 	<!-- resources 폴더가 기준 -->
 	<mappers>
-		<mapper resource="mappers/member-mapper.xml"/>
-		<mapper resource="mappers/search-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/search-mapper.xml"/>
+		<mapper resource="/mappers/home-mapper.xml"/>
 	</mappers>
 </configuration>

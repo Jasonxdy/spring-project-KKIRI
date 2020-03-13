@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="homeMapper">
+
+	<resultMap type="Member" id="memberResultSet">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
+		<result property="memberPlace" column="MEMBER_PLACE"/>
+		<result property="memberCategory" column="MEMBER_CATEGORY"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberTicket" column="MEMBER_TICKET"/>
+		<result property="memberAccount" column="MEMBER_ACCOUNT"/>
+		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberRating" column="MEMBER_RATING"/>
+	</resultMap>
+	
+	
+	<!-- 전체 회원 수 조회 -->
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+	</select>
+	
+	
+	<!-- 한주간 가장 높은 평점을 받은 회원 5명 목록 -->
+	<select id="selectMemberList" parameterType="_int" resultMap="memberResultSet">
+		SELECT  ROWNUM RNUM, MEMBER_NO, MEMBER_NICKNAME, MEMBER_RATING
+		FROM (SELECT ROWNUM RNUM, MEMBER_NO, MEMBER_NICKNAME, MEMBER_RATING
+		        FROM MEMBER
+		        JOIN (SELECT PARTY.MEMBER_NO, AVG(RATING_SCORE) AS MEMBER_RATING
+		                FROM PARTY
+		                JOIN RATING ON (RATING.EVENT_NO = PARTY.EVENT_NO)
+		                WHERE MEMBER_TYPE = 'S'
+		                AND RATING_STATUS = 'Y'
+		                AND TRUNC(SYSDATE) - TRUNC(RATING_MODIFY_DT) &lt;= 7
+		                GROUP BY PARTY.MEMBER_NO) USING (MEMBER_NO)
+		        ORDER BY MEMBER_RATING DESC)
+		WHERE RNUM BETWEEN 1 AND #{memberCount}
+	</select>
+	
+	
 	
 </mapper>

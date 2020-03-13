@@ -6,11 +6,24 @@ import com.kh.kkiri.member.model.vo.Member;
 
 public interface HomeService {
 
+	
+	
+	/**
+	 * 전체 회원 수 조회용 service
+	 * @return memberCount
+	 * @throws Exception
+	 */
+	int selectMemberCount() throws Exception;
+	
+	
+	
 	/**
 	 * 메인 화면 한주간 높은 평점 회원 리스트
+	 * @param memberCount 
 	 * @return list : List<Member>
 	 * @throws Exception
 	 */
-	List<Member> selectMemberList() throws Exception;
+	List<Member> selectMemberList(int memberCount) throws Exception;
+
 
 }

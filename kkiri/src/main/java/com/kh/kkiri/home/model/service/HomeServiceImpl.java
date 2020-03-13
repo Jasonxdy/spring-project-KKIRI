@@ -15,13 +15,25 @@ public class HomeServiceImpl implements HomeService {
 	private HomeDAO homeDAO;
 	
 	/**
+	 * 전체 회원 수 조회용 service
+	 * @return memberCount
+	 * @throws Exception
+	 */
+	@Override
+	public int selectMemberCount() throws Exception {
+		return homeDAO.selectMemberCount();
+	}
+	
+	
+	/**
 	 * 메인 화면 한주간 높은 평점 회원 리스트
+	 * @param memberCount 
 	 * @return list : List<Member>
 	 * @throws Exception
 	 */
 	@Override
-	public List<Member> selectMemberList() throws Exception {
-		return homeDAO.selectMemberList();
+	public List<Member> selectMemberList(int memberCount) throws Exception {
+		return homeDAO.selectMemberList(memberCount);
 	}
 
 }

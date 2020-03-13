@@ -34,9 +34,21 @@ public class HomeController {
 			
 			// 이벤트 추천
 			
-			// 1주간 높은 평점을 받은 회원 목록
-//			List<Member> list = homeService.selectMemberList();
 			
+			
+			
+			
+			
+			// 1주간 높은 평점을 받은 회원 목록
+			int memberCount = homeService.selectMemberCount();
+			
+			if(memberCount > 5) {
+				memberCount = 5;
+			}
+			
+			List<Member> mlist = homeService.selectMemberList(memberCount);
+			
+			model.addAttribute("mlist", mlist);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
