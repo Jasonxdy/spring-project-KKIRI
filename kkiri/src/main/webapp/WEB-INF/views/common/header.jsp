@@ -25,10 +25,18 @@
           		<div class="col-md-12">
                 <h1 class="logo"><a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
                 <div class="nav-section">
+                
+                <!--  -->
                   <a href="#" class="login-btn">로그인</a>
                   <a href="signUp.html">회원가입</a>
+                  
+                  
+                  
                   <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
-                  <!--  -->
+                  
+                  
+                  
+                  
                   <%-- <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
                   <span class="separation"> | </span>
                   <a href="#">고객센터</a>
@@ -41,6 +49,8 @@
                       <li><a href="#">로그아웃</a></li>
                     </ul>
                   </div> --%>
+               
+               
                 </div>
           		</div>
           	</div>
