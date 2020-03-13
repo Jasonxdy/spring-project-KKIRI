@@ -227,6 +227,10 @@
               $("#profile-nav-wrap>li").eq(index).find("a").removeClass("active");
             }
           });
+
+          if(scrollTop == 0){
+            $("#profile-nav-wrap>li:first>a").addClass("active");
+          }
         });
 
         $(".move-btn").each(function(index){

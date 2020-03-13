@@ -1,2 +1,69 @@
-body{
+.my-profile-section{
+    margin : 0;
+}
+.update-input{
+    width: 43%;
+    padding: 5px 10px;
+    min-width: 200px;
+}
+#update-profile .memberPhone{
+    width: 12%;
+    min-width: 60px;
+}
+.radio { background:none; height:15px; }
+.va_m { vertical-align:middle; }
+.memberGenderWrap{
+    height: 15px;
+    margin : 0 10px;
+}
+#container .interest-wrap{
+    padding:0;
+}
+.interest-wrap>input[type="checkbox"]{
+    display: none;
+}
+.interest-wrap>label{
+    cursor: pointer;
+    width: 19%;
+    background-color: #cdd2d8;
+    color: #333333;
+    border-radius: 5px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 17px;
+    transition: all 0.3s;
+    text-align: center;
+    min-width: 100px;
+}
+.interest-wrap input[type="checkbox"]:checked+label{
+    background-color: #00a185;
+    color : #ffffff;
+}
+#container .my-profile-section-element{
+    margin: 20px 0;
+    width: 100%;
+    display: table;
+}
+#container .my-profile-section-element>*:first-child{
+    display: table-cell;
+    width: 25%;
+    vertical-align: middle;
+    text-align: left;
+}
+#container .my-profile-section-element>*:nth-child(2){
+    display: table-cell;
+}
+.memberIntroduce{
+    width: 97%;
+    resize: none;
+    min-height: 150px;
+}
+.uploadInput{
+    display: none;
+}
+#wrapper .uploadBtn{
+    padding: 5px 10px;
+}
+.my-profile-btn, .my-profile-btn:hover{
+    font-size : 20px;
 }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
     rel="stylesheet">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/my_profile.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/update_profile.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
@@ -24,7 +25,7 @@
 </head>
 
 <body>
-  
+  <div id="wrapper">
     <div id="header">
       <div class="container">
         <div class="row">
@@ -41,198 +42,136 @@
         </div>
       </div>
     </div>
+    <div id="container">
+      <div class="container">
+        <!-- content 시작 -->
+        <div class="row">
+          <div class="col-2 nav-wrap">
+            <a class="btn active" href="#">프로필</a>
+            <a class="btn" href="#">이벤트</a>
+            <a class="btn" href="#">티켓</a>
+            <a class="btn" href="#">로그아웃</a>
+          </div>
 
-
-    <div class="container" style=" margin-top: 50px; margin-bottom: 200px;">
-      <!-- content 시작 -->
-      <div class="row">
-        <div class="col-2 " style="margin: 20px 0px; text-align: right;" >
-          <div class="btn">프로필</div><br>
-          <div class="btn">이벤트</div><br>
-          <div class="btn">티켓</div><br>
-          <div class="btn">로그아웃</div><br>
-        </div>
-        <div id="display-profile" class="col-9 wty3" style="display: block; padding: 0;">
-          <h4>&nbsp 내 정보</h4>
-          <div class="row">
-            <div class="col-8 ">
-              <div class="row wty5" style="padding: 0px;">
-                <h5 class="col-4 ">이름 : </h5>
-                <div class="col-8">원태연</div>
-              </div>
-              <div class="row wty5" style="padding: 0px;">
-                <h5 class="col-4 ">닉네임 : </h5>
-                <div class="col-8">wonty3000</div>
-              </div>
-              <div class="row wty5">
-                <h5 class="col-4 ">성별 : </h5>
-                <div id="gender" class="col-8" style="margin-top: 10px;" required>
-                    <input type="radio" name="gender"> <label for="gender"> 남</label>
-                    <input type="radio" name="gender"> <label for="gender"> 여</label>
-                </div>
-              </div>
-              <div class="row wty5">
-                <h5 class="col-4 ">생년월일 : </h5>
-                <div class="col-8">
-                    <input type="text" name="birthday" id="birthday">
-                </div>
-              </div>
-              <div class="row wty5">
-                <h5 class="col-4 ">전화번호 : </h5>
-                <div class="col-8">
-                    <div id="phone" class="row" style="margin: 10px;" >
-
-                        <input id="phone1" class="col-3 passborder" type="text" name="phone1">&nbsp; -&nbsp;
-                        <input id="phone2" class="col-3 passborder" type="text" name="phone2"> &nbsp;-&nbsp;
-                        <input id="phone3" class="col-3 passborder" type="text" name="phone3"> 
+          <div class="col-10">
+            
+            <div id="update-profile" class="my-profile-section moving-1" >
+              <h4>프로필 수정</h4>
+              <form action="#" method="post" class="modify-form">
+              <div class="row">
+                <div class="">
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">닉네임 : </h5>
+                    <input type="text" class="update-input memberNickname" name="memberNickname" value="wonty3000">
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">성별 : </h5>
+                    <div>
+                    <span class="va_m radio memberGenderWrap">
+                      <input type="radio" class="memberGender va_m radio" name="memberGender" value="male" id="male" checked>
+                    </span>
+                    <label for="male" class="va_m radio">남</label>
+                    <span class="va_m radio memberGenderWrap">
+                      <input type="radio" class="memberGender va_m radio" name="memberGender" id="female" value="female">
+                    </span>                      
+                    <label for="female" class="va_m radio">여</label>
+                  </div>
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">생년월일 : </h5>
+                    <input type="date" class="update-input memberBirth" name="memberBirth" value="1991-12-13">
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">전화번호 : </h5>
+                    <div>
+                      <input type="number" class="update-input memberPhone" name="memberPhone1" value="010" maxlength="3" oninput="maxLengthCheck(this)">&nbsp; - &nbsp;
+                      <input type="number" class="update-input memberPhone" name="memberPhone2" value="5625" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
+                      <input type="number" class="update-input memberPhone" name="memberPhone3" value="2489" maxlength="4" oninput="maxLengthCheck(this)">
+                  </div>
+                  </div>
+                  <div class="row  my-profile-section-element">
+                    <h5 class="col-4">이메일 : </h5>
+                    <input type="email" class="update-input memberEmail" name="memberEmail" value="wonty3000@naver.com">
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">관심 지역 : </h5>
+                    <img src="../index 페이지 - 진웅/img/map-2.png" alt="예시이미지">
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4">관심 카테고리 : </h5>
+                    <div class="interest-wrap col-8">
+                      <input type="checkbox" name="memberInterest" value="travel" id="travel" checked><label for="travel">여행</label>
+                      <input type="checkbox" name="memberInterest" value="exercise" id="exercise" checked><label for="exercise">운동</label>
+                      <input type="checkbox" name="memberInterest" value="book" id="book" checked><label for="book">독서</label>
+                      <input type="checkbox" name="memberInterest" value="business" id="business"><label for="business">비즈니스</label>
+                      <input type="checkbox" name="memberInterest" value="language" id="language"><label for="language">언어</label>
+                      <input type="checkbox" name="memberInterest" value="music" id="music"><label for="music">음악</label>
+                      <input type="checkbox" name="memberInterest" value="movie" id="movie"><label for="movie">영화/공연</label>
+                      <input type="checkbox" name="memberInterest" value="dance" id="dance"><label for="dance">댄스</label>
+                      <input type="checkbox" name="memberInterest" value="volunteer" id="volunteer"><label for="volunteer">봉사활동</label>
+                      <input type="checkbox" name="memberInterest" value="meeting" id="meeting"><label for="meeting">사교</label>
+                      <input type="checkbox" name="memberInterest" value="car" id="car"><label for="car">차/오토바이</label>
+                      <input type="checkbox" name="memberInterest" value="picture" id="picture"><label for="picture">사진/영상</label>
+                      <input type="checkbox" name="memberInterest" value="watchingSports" id="watchingSports"><label for="watchingSports">스포츠관람</label>
+                      <input type="checkbox" name="memberInterest" value="game" id="game"><label for="game">게임</label>
+                      <input type="checkbox" name="memberInterest" value="cook" id="cook"><label for="cook">요리</label>
+                      <input type="checkbox" name="memberInterest" value="pet" id="pet"><label for="pet">반려동물</label>
+                      <input type="checkbox" name="memberInterest" value="socialMovement" id="socialMovement"><label for="socialMovement">사회운동</label>
+                      <input type="checkbox" name="memberInterest" value="beauty" id="beauty"><label for="beauty">뷰티</label>
+                      <input type="checkbox" name="memberInterest" value="fashion" id="fashion"><label for="fashion">패션</label>
+                      <input type="checkbox" name="memberInterest" value="etc" id="etc"><label for="etc">기타</label>
                     </div>
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4 ">보유한 티켓 수 :</h5>
+                    <div class="col-8">5개</div>
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="col-4">소개 :  </h5>
+                    <textarea class="update-input memberIntroduce" name="memberIntroduce">얼음과 같으며 지혜는 날카로우나 갑 속에 든 칼이다 청춘의 끓는 피가 아니더면 인간이 얼마나 쓸쓸하랴? 얼음에 싸인 만물은 얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이</textarea>
+                  </div>
+                  <div class="row my-profile-section-element">
+                    <h5 class="profile-name col-4">프로필 사진 : </h5>
+                    <div class="col-8">
+                      <img class="profile-img" src="../index 페이지 - 진웅/img/cat-1.jpg" alt="프로필 사진">
+                      <input type="file" class="uploadInput" name="memberProfile" onchange="loadImg(this)">
+                      <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
+                    </div>
+                  </div>
                 </div>
+                <button class="btn my-profile-btn">
+                  수정하기
+                </button>
               </div>
-              <div class="row  wty5">
-                <h5 class="col-4">이메일 : </h5>
-                <div class="col-8">
-                    <input class="col-8" type="text" placeholder="내용을 입력해주세요">
-                </div>
-              </div>
-              <div class="row wty5">
-                <h5 class="col-4 ">관심 지역 : </h5>
-                <div class="col-8 " >
-                    <img src="../index 페이지 - 진웅/img/map-2.PNG" alt="지도" style="width: 100%; height: 100%;">
-                </div>
-              </div>
-              <div class="row wty5">
-                <h5 class="col-4 ">관심 카테고리 : </h5>
-                <div class="col-8 " style="padding: 0%;" id="category">
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="travle">  <label class="btn wty2-1 wty4 category" for="travle">여행  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="health">  <label class="btn wty2-1 wty4 category" for="health">운동  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="readbook">  <label class="btn wty2-1 wty4 category" for="readbook">독서  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="busisness">  <label class="btn wty2-1 wty4 category"  for="busisness">비즈니스 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="language">  <label class="btn wty2-1 wty4 category" for="language">언어 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="music">  <label class="btn wty2-1 wty4 category" for="music">음악</label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="movie">  <label class="btn wty2-1 wty4 category" for="movie">영화/공연</label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="dance">  <label class="btn wty2-1 wty4 category" for="dance">댄스  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="valunteer">  <label class="btn wty2-1 wty4 category" for="valunteer">봉사활동 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="friendship">  <label class="btn wty2-1 wty4 category" for="friendship">사교  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="car">  <label class="btn wty2-1 wty4 category" for="car">차/오토바이 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="photo">  <label class="btn wty2-1 wty4 category" for="photo">사진/영상 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="sport">  <label class="btn wty2-1 wty4 category" for="sport">스포츠관람  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="game">  <label class="btn wty2-1 wty4 category" for="game">게임  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="cooking">  <label class="btn wty2-1 wty4 category" for="cooking">요리 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="animal">  <label class="btn wty2-1 wty4 category" for="animal">반려동물 </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="socialwork">  <label class="btn wty2-1 wty4 category" for="socialwork">사회운동  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="beauty">  <label class="btn wty2-1 wty4 category" for="beauty">뷰티  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="passion">  <label class="btn wty2-1 wty4 category" for="passion">패션  </label>
-                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="others">  <label class="btn wty2-1 wty4 category" for="others">기타  </label>
-                </div>
-              </div>
-              
-<script>
-  $(function(){
-    $("#category").children('label').click(function(){
-      var classflag = $("this")
-      
-        console.log('123')
-      if($(this).hasClass('wty2-1')){
-        console.log('456')
-        
-        $(this).removeClass("wty2-1");
-        $(this).addClass('wty6');
-      }
-      else if($(this).hasClass('wty6')){
-
-        
-        $(this).removeClass("wty6");
-        $(this).addClass('wty2-1');
-      }
-
-    })
-  })
-</script>
-
-              <div class="row wty5">
-                <h5 class="col-4 " style="margin-top: 10px;">소개 :  </h5>
-                <div class="col-8">
-                    <textarea class="wty3" name="" id="" cols="30" rows="10" placeholder="내용을 입력해주세요" style="margin-top: 10px; width: 100%;"></textarea>
-                </div>
-              </div>
+              </form>
             </div>
-            <div class="col-4 wty5">
-              <h5>프로필 사진</h5>
-              <img src="../index 페이지 - 진웅/img/cat-1.jpg" alt="프로필 사진" style="width: 100%; height: 30%;">
-            </div>
-            <br>
-          </div>
-            <div class="row" >
-              <div class="col-3"></div>
-              <div class="btn wty2 col-2" style="text-align: center; margin: 10px auto;">
-                수정하기
-              </div>
-              <div class="btn wty2 col-2" style="text-align: center; margin: 10px auto;">
-                취소
-              </div>
-              <div class="col-3"></div>
-            </div>
-            
-          </div>
         </div>
-
-
-      
-    </div>
-    
+      </div>
+    </div>  
     <script>
+      function maxLengthCheck(object) {
+        if (object.value.length > object.maxLength) {
+          object.value = object.value.slice(0, object.maxLength);
+        }
+      }
 
-      var regExp1 = /^[/d]{3}$/;
-      var regExp2 = /^[/d]{4}$/;
-      
-
-
-      var signUpCheck = { 
-            "nickName":false,
-            "phone":false,
-            "name":false,
-            "email":false
-            };
-            
       $(function(){
-        $("#my-profile").click(function(){
-          $(".wty3").css("display","none");
-          $("#display-profile").css("display","block");
+        $(".uploadBtn").on({
+          "click" : function(){
+            $(".uploadInput").click();
+          }
         });
-        $("#change-password").click(function(){
-          $(".wty3").css("display","none");
-          $("#display-password").css("display","block");
-        });
-        $("#account").click(function(){
-          $(".wty3").css("display","none");
-          $("#display-account").css("display","block");
-        });
-        $("#delete-member").click(function(){
-          $(".wty3").css("display","none");
-          $("#display-delete").css("display","block");
-        });
-
-        $("#phone").change(function(){
-          if(regExp1.test($("#phone1").val())){
-            if(regExp2.test($("#phone2").val())){
-              if(regExp2.test($("#phone3").val())){
-                signUpCheck.phone = true;
-              }
+      });
+      function loadImg(value){
+          if(value.files && value.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+              $(".profile-img").prop("src",e.target.result);
             }
           }
-        })
-
-        
-
-
-      })
-
-      
-
+          reader.readAsDataURL(value.files[0]);
+      }
     </script>
-  
-
-
   <!-- content 끝 -->
   <div id="footer">
     <div class="container">
@@ -253,7 +192,8 @@
   <div id="button-top">
     <button type="button" class="top-btn">TOP</button>
   </div>
-
+</div>
+</div>
   <script>
     function scrollFunction() {
       if ($(window).scrollTop() >= 200) {
