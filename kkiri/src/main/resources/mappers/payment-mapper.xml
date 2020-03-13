@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="paymentMapper">
+	<resultMap type="Payment" id="paymentResultSet">
+		<id property="paymentNo" column="PAYMENT_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="eventNo" column="EVENT_NO"/>
+		<result property="paymentType" column="PAYMENT_TYPE"/>
+		<result property="paymentTicket" column="PAYMENT_TICKET"/>
+		<result property="paymentDate" column="PAYMENT_DATE"/>
+	</resultMap>
+	
+	<insert id="insertPayment" parameterType="map">
+		INSERT INTO PAYMENT
+		VALUES(PAY_SEQ.NEXTVAL, #{memberNo}, 
+		<if test="eventNo != null">
+			#{eventNo},
+		</if>
+		<if test="eventNo == null">
+			null,
+		</if>
+			#{paymentType}, #{ticket}, SYSDATE
+		)
+		
+	</insert>
+	
+	
+	
+</mapper>

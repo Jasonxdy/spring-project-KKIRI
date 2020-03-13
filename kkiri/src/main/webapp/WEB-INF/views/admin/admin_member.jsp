@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -64,10 +65,16 @@
 								<td>${member.memberId}</td>
 								<td>${member.memberNickname}</td>
 								<td>${member.memberEmail}</td>
-								<td>${member.memberBirth}</td>
+								<td>${fn:substring(member.memberBirth, 0, 10)}</td>
+								<%-- ${member.memberBirth} --%>
 								<td>${member.memberPhone}</td>
 								<td>${member.memberTicket}</td>
+								<c:if test="${member.memberAccount != null}">
 								<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+								</c:if>
+								<c:if test="${member.memberAccount == null}">
+								<td><button class="btn btn-sm btn-secondary">환불</button></td>
+								</c:if>
 								<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
 							</tr>
 						</c:forEach>
@@ -96,7 +103,7 @@
 				</div>
 				<div class="col-md-1 col-sm-2">
 					<div class="input-group-append">
-						<button class="green-radius-btn search-btn" type="button">검색</button>
+						<button class="green-radius-btn search-btn" type="submit">검색</button>
 					</div>
 				</div>
 			</div>
@@ -229,11 +236,12 @@
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
-		<form action="refund" method="GET">
+		<!-- <form action="refund" method="GET"> -->
 			<p class="popup-title">
 				티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
+			<input id="thisMemberNo" type="text" style="display:none;">
 			<div class="popup-content">
 				<div class="row justify-content-md-center mb-2">
 					<div class="col-3 text-center">현재 티켓 수</div>
@@ -256,8 +264,8 @@
 					</div>
 				</div>
 			</div>
-			<button class="popup-confirm-btn">확인</button>
-		</form>
+			<button id="refund" class="popup-confirm-btn" >확인</button>
+		<!-- </form> -->
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -292,13 +300,14 @@
 	      });
 	    });
 		
-		// 로그인 팝업 이벤트
+		// 팝업 이벤트
 		$(".btn-refund").on({
 			click : function() {
 				$(".popup-shadow, #popup").show(0);
 				$("#current-ticket").val($(this).parent().parent().children().eq(6).text());
 				$("#canceled-ticket").val("");
 				$("#remained-ticket").val("");
+				$("#thisMemberNo").val($(this).parent().parent().children().eq(0).text());
 			}
 		});
 		$(".close-popup, .popup-shadow").on({
@@ -314,6 +323,13 @@
 		        $("#canceled-ticket").val("");
 		        $("#remained-ticket").val("");
 			}
+		});
+		
+		$("#refund").click(function(){
+			var memberNo = $("#thisMemberNo").val();
+			var canceledTicket =  $("#canceled-ticket").val(); 
+			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
+			location.href="refund?memberNo=" + memberNo + "&canceledTicket=" + (-canceledTicket);
 		});
 
 		$(".btn-delete").on("click", function() {

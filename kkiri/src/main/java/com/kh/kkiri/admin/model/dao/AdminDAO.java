@@ -16,8 +16,6 @@ public class AdminDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	
 
 	/** 회원 수 조회 DAO
 	 * @return memberCount
@@ -32,10 +30,20 @@ public class AdminDAO {
 	 * @param pInf
 	 * @return mList
 	 */
-	public List<Member> adminSelectMember(Map<String, Object> map, PageInfo pInf) {
+	public List<Member> adminSelectMember(Map<String, Object> map, PageInfo pInf)
+	throws Exception{
 		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("memberMapper.adminSelectMember", map, rowBounds);
+	}
+
+	/** 티켓 환불 DAO
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int refundTicket(Map<String, Object> map) throws Exception {
+		return sqlSession.update("memberMapper.refundTicket", map);
 	}
 
 }

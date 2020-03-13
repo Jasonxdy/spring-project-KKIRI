@@ -101,7 +101,8 @@ html .nav-tabs .nav-link.active,
     position: sticky;
     top: 0;
 }
-#profile-nav-wrap.sticky>li>a.active{
+#profile-nav-wrap.sticky>li>a.active,
+#profile-nav-wrap.sticky>li>a:hover{
     color:#00a185;
 }
 
