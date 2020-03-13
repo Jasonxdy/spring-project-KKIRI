@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
-import com.kh.kkiri.member.service.MemberService;
 
 
 @SessionAttributes({ "loginMember", "msg" })

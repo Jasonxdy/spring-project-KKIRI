@@ -244,11 +244,11 @@
 				</div>
 				<div class="row justify-content-md-center">
 					<div class="col-3">
-						<input id="current-ticket" name="currentTicket" type="text" class="form-control" value="">
+						<input id="current-ticket" type="text" class="form-control" readonly>
 					</div>
 					<b style="line-height: 2rem;">-</b>
 					<div class="col-3">
-						<input id="canceled-ticket" name="currentTicket" type="text" class="form-control">
+						<input id="canceled-ticket" name="canceledTicket" type="number" class="form-control">
 					</div>
 					<b style="line-height: 2rem;">=</b>
 					<div class="col-3">
@@ -291,11 +291,14 @@
 	        $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").css("cursor", "pointer");
 	      });
 	    });
-
+		
 		// 로그인 팝업 이벤트
 		$(".btn-refund").on({
 			click : function() {
 				$(".popup-shadow, #popup").show(0);
+				$("#current-ticket").val($(this).parent().parent().children().eq(6).text());
+				$("#canceled-ticket").val("");
+				$("#remained-ticket").val("");
 			}
 		});
 		$(".close-popup, .popup-shadow").on({
@@ -306,6 +309,11 @@
 
 		$("#canceled-ticket").on("input", function() {
 			$("#remained-ticket").val($("#current-ticket").val() - $("#canceled-ticket").val());
+			if($("#remained-ticket").val()<0){
+				alert("티켓 수가 부족합니다.");
+		        $("#canceled-ticket").val("");
+		        $("#remained-ticket").val("");
+			}
 		});
 
 		$(".btn-delete").on("click", function() {

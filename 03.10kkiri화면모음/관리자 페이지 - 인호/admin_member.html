@@ -100,7 +100,7 @@
                 <td>negajjang@naver.com</td>
                 <td>880808</td>
                 <td>010-2222-3333</td>
-                <td>1장</td>
+                <td>5</td>
                 <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
                 <td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
               </tr>
@@ -111,7 +111,7 @@
                 <td>negajjang@naver.com</td>
                 <td>880808</td>
                 <td>010-2222-3333</td>
-                <td>1장</td>
+                <td>6</td>
                 <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
                 <td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
               </tr>
@@ -122,7 +122,7 @@
                 <td>negajjang@naver.com</td>
                 <td>880808</td>
                 <td>010-2222-3333</td>
-                <td>1장</td>
+                <td>12</td>
                 <td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
                 <td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
               </tr>
@@ -280,20 +280,31 @@
     });
 
     // 로그인 팝업 이벤트
+    // #list-table > tbody > tr:nth-child(1) > td:nth-child(8) > button
+    // #list-table > tbody > tr:nth-child(1) > td:nth-child(7)
+    // $(this).parent().children().eq(0).text();
     $(".btn-refund").on({
-      click: function () {
-        $(".popup-shadow, #popup").show(0);
-      }
-    });
-    $(".close-popup, .popup-shadow").on({
-      click: function () {
-        $(".popup-shadow, #popup").hide(0);
-      }
-    });
+			click : function() {
+				$(".popup-shadow, #popup").show(0);
+				$("#current-ticket").val($(this).parent().parent().children().eq(6).text());
+				$("#canceled-ticket").val("");
+				$("#remained-ticket").val("");
+			}
+		});
+		$(".close-popup, .popup-shadow").on({
+			click : function() {
+				$(".popup-shadow, #popup").hide(0);
+			}
+		});
 
-    $("#canceled-ticket").on("input", function () {
-      $("#remained-ticket").val($("#current-ticket").val() - $("#canceled-ticket").val());
-    });
+    $("#canceled-ticket").on("input", function() {
+			$("#remained-ticket").val($("#current-ticket").val() - $("#canceled-ticket").val());
+			if($("#remained-ticket").val()<0){
+				alert("티켓 수가 부족합니다.");
+        $("#canceled-ticket").val("");
+        $("#remained-ticket").val("");
+			}
+		});
 
     $(".btn-delete").on("click", function(){
       console.log($(".btn-delete").text())

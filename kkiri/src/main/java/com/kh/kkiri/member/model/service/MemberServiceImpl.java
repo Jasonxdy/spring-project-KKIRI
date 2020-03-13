@@ -1,9 +1,9 @@
-package com.kh.kkiri.member.service;
+package com.kh.kkiri.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.kkiri.member.dao.MemberDAO;
+import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service

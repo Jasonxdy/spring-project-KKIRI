@@ -1,4 +1,4 @@
-package com.kh.kkiri.member.dao;
+package com.kh.kkiri.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

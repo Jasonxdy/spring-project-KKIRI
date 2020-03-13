@@ -1,4 +1,4 @@
-package com.kh.kkiri.member.service;
+package com.kh.kkiri.member.model.service;
 
 import com.kh.kkiri.member.model.vo.Member;
 
