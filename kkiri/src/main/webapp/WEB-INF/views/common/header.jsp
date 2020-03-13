@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+    <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
@@ -110,5 +111,6 @@
         });
       </script>
     
+	
 </body>
 </html>
