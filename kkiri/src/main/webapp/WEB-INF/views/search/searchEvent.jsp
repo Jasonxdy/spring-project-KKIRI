@@ -119,10 +119,11 @@
 
 									<div class="dropdown mr-1" style="display: inline-block;">
 										<div>
-											<span class="h4 event-section-title">지역</span> <a
+											<span class="h4 event-section-title">지역</span> 
+											<a
 												class="h4 event-section-title"
 												style="color: white; text-decoration: underline;"
-												data-toggle="dropdown" href="#" id="place">서울특별시 중구</a>
+												data-toggle="dropdown" href="#" id="place">KH정보교육원</a>
 
 											<div class="dropdown-menu find-city-wrap">
 												<!-- <label for="city">도시: </label> -->
@@ -249,33 +250,6 @@
 			  
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
-		
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('서울특별시 중구', function(result, status) {
-	
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-	
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				
-		        /*
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-				
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-		        });
-		        infowindow.open(map, marker);
-		        */
-	
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});  
 			
 			/* 이 위로 지도 관련! */
 			
@@ -286,6 +260,15 @@
 		              select: function(event, ui) {
 		                  console.log(ui.item);
 		                  $("#place").text(ui.item.value);
+		                  
+		               		// 주소로 좌표를 검색합니다
+							geocoder.addressSearch(ui.item.value, function(result, status) {
+								
+						     if (status === kakao.maps.services.Status.OK) {
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						        map.setCenter(coords);
+						    	} 
+							});  
 		              },
 		              focus: function(event, ui) {
 		                  return false;
@@ -302,6 +285,10 @@
 
 		        $("#roundMenu").find("a").on('click',function(){
 		          $("#round").text($(this).text());
+		        });
+		        
+		        $("#place").on('input',function(){
+		        	console.log("aa");
 		        });
 		</script>
 </body>
