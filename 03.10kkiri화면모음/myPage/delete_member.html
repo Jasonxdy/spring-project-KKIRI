@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<p lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -15,40 +15,13 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
     rel="stylesheet">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/my_profile.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/delete_member.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
   <script src='../index 페이지 - 진웅/js/index.js'></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <title>KKIRI(끼리)</title>
-  <style>
-
-    .wty1 {
-     margin: 0px 0;
-      border: 2px solid grey;
-      padding: 1% 2%;
-      height: 100%;
-      }
-    .wty2{
-      background-color: skyblue;
-      color: black;
-      margin-top: 20px;
-    }
-    .wty3{
-      border: 2px solid grey;
-      margin-top: 20px;
-    }
-    .wty4{
-      text-align: center;
-      width: 20%;
-    }
-    .wty5{
-      border-top: 2px solid gray;
-    }
-    .passborder{
-      border: 1px solid grey;
-    }
-
-  </style>
 </head>
 
 <body>
@@ -69,144 +42,104 @@
         </div>
       </div>
     </div>
-    <div class="container" style="margin: 30px auto;  padding: 10px;">
-      <!-- content 시작 -->
-      <div class="row">
-        <div class="col-3"></div>
-        <div class="col-9" style="padding: 0;">
-          <div id="my-profile" class="wty1 btn" style="float: left;">내 정보</div>       &nbsp;
-          <div id="change-password" class="wty1 btn" style="float: left;">비밀번호 변경</div>&nbsp;
-          <div id="account" class="wty1 btn" style="float: left;">환급 계좌</div>&nbsp;
-          <div id="delete-member" class="wty1 btn" style="float: left;">회원탈퇴</div>&nbsp;
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 " style="margin: 20px 0px; text-align: right;" >
-          <div class="btn">프로필</div><br>
-          <div class="btn">이벤트</div><br>
-          <div class="btn">티켓</div><br>
-          <div class="btn">로그아웃</div><br>
-        </div>
+    <div id="container">
+      <div class="container">
+        <!-- content 시작 -->
+        <div class="row">
+          <div class="col-2 nav-wrap">
+            <a class="btn active" href="#">프로필</a>
+            <a class="btn" href="#">이벤트</a>
+            <a class="btn" href="#">티켓</a>
+            <a class="btn" href="#">로그아웃</a>
+          </div>
 
+          <div class="col-10">
+            
+            <div id="secession-member" class="my-profile-section">
+              <h4>회원 탈퇴</h4>
+              <form action="#" method="post" class="secession-form" onsubmit="return validate();">
+                
+                <p class="secession-terms">
+                  KKIRI 회원(이하 "회원")을 탈퇴하기 전에 반드시 읽어 주십시오.<br>
 
+                  본 약관은 KKIRI 주식회사(이하 “당사”)가 KKIRI 회원(이하 “회원”)의 탈퇴에 관한 모든 조건을 규정한 것입니다.
+                  회원탈퇴를 하실 경우에는 아래의 내용에 동의하신 것으로 간주됩니다.<br>
+                  탈퇴 후에는 당사가 운영하는 모든 웹사이트(이하 “KKIRI TRAVEL 사이트”)에서 제공하는 회원 대상 서비스를 이용하실 수 없습니다.<br>
+                  보유하신 KKIRI 포인트는 탈퇴하시는 시점부터 전부 무효가 됩니다.<br>
+                  탈퇴 후에도 카드결제 등으로 발생한 이용요금 지불책임은 이행해야 합니다.<br>
+                  회원 탈퇴 수속이 수리된 후에도 회원정보에 대해서는 당사가 관리하게 됩니다.<br>
+                  탈퇴 후에 회원정보를 삭제하는 경우도 있으므로 양해해 주십시오.<br>
+                  KKIRI 주식회사<br>
+                </p>
 
+                <div class="secession-info-wrap">
+                  <p class="info-title">위의 약관에 대해서 동의 하십니까?</p>
+                  <div class="info-content">
+                    <span class="va_m radio">
+                      <input type="radio" class="va_m radio" name="agree-status" value="yes" id="yes">
+                    </span>
+                    <label for="yes" class="va_m radio">예</label>
+                    <span class="va_m radio">
+                      <input type="radio" class="va_m radio" name="agree-status" id="no" value="no">
+                    </span>                      
+                    <label for="no" class="va_m radio">아니오</label>
+                  </div>
+                  
+                  <p class="info-title">비밀번호 확인</p>
+                  <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요.">
 
-        <div class="col-9" style="padding: 0;">
-          <div id="display-password" class="wty3" >
-            <h4>회원 탈퇴</h4>
-            <hr>
-            <textarea class="passborder" name="" id="" cols="30" rows="25" readonly style="height: 250px; resize:none; margin-left:13% ; width:75%;">회원 탈퇴 약관
-              1조.
-              회원정보 보호 약관
-              얼음과 같으며 지혜는 날카로우나 갑 속에 든 칼이다 청춘의 끓는 피가 아니더면 인간이 얼마나 쓸쓸하랴? 얼음에 싸인 만물은 얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이</textarea>
-             
-             
-              <form action="" method="POST"  onsubmit="return validate();">
-             
-                <div class="row" style="margin-top:20px" id="agree">
-                  <div class="col-4">
-                    위의 약관에 대해서 동의 하십니까?
-                  </div>
-                  <input class="col-1 passborder checker" type="radio" name="agree" style="margin-top: 7px;" id="agreement"> <label for="agreement">동의</label>
-                  <input class="col-1 passborder checker" type="radio" name="agree" style="margin-top: 7px;" id="disagree"> <label for="disagree">거절</label>
+                  <p class="info-title info-title3">
+                    모든 약관에 동의하시며, <br>
+                    회원탈퇴를 원하실 경우<br>
+                    "회원탈퇴"라고 적어주시기 바랍니다.
+                  </p>  
+                  <input type="text" class="form-control" id="user-input-secession">
                 </div>
-                <br>
-                <div class="row" style="margin-top:20px" id="passcheck">
-                  <div class="col-4">
-                    비밀번호 확인
-                  </div>
-                  <input class="col-4 passborder checkpath" type="password" placeholder="내용을 입력해주세요" >
+                <div class="button-wrap">
+                  <button type="button" onclick="location.href='my_profile.html'" class="green-radius-btn prev-btn">이전</button>
+                  <button class="btn green-radius-btn submit-btn">회원탈퇴</button>
                 </div>
-                <br>
-                <div class="row" style="margin-top:20px" id="deletemember">
-                  <div class="col-4">
-                    모든 약관에 동의 하시며, <br>회원 탈퇴를 원하실 경우 <br>'회원탈퇴' 라고 적어주시기 바랍니다.
-                  </div>
-                  <input class="col-4 passborder checkpath" type="text" placeholder="회원탈퇴" id="delete-flag" >
-                </div>
-                <br>
-                <div class="row" >
-                  <div class="btn wty2" style=" margin-left: 40%; margin-bottom : 10px; width: 12%;" >
-                    이전
-                  </div>
-                  <div class="btn wty2" style=" margin-left: 2%; margin-bottom : 10px; width: 12%;" >
-                    회원탈퇴
-                  </div>
-                </div>
-              </form>  
+              </form>
             </div>
         </div>
       </div>
-    </div>
-    
+    </div>  
     <script>
-
-      var signUpCheck = {
-      "agree" : false,
-      "passcheck" :false,
-      "deletemember" : false
+      function maxLengthCheck(object) {
+        if (object.value.length > object.maxLength) {
+          object.value = object.value.slice(0, object.maxLength);
+        }
       }
-
-      var agree = $("#agree");
-      var passcheck = $("#passcheck");
-      var deletemember = $("#deletemember");
-      var flag = true;
-      
-    $(function(){
-//  동의 거절 체크시 다른 작업 불가 기능
-      $(".checker").change(function(){
-        if($("#disagree").is(":checked")){
-            $(".checkpath").prop('readonly',true);
-            flag = false;
-            signUpCheck.agree = false;
-        }else{
-            $(".checkpath").prop('readonly',false);
-            flag = true;
-            signUpCheck.agree = true;
-        }
-      })
-      $(".checkpath").click(function(){
-        if(!flag){
-         alert("약관에 동의해주세요.");
-         return false;
-        }
-      })
-
-      // 비밀번호 체크 부분
-
-      $("")
-     
-     // 회원탈퇴 입력 부분
-     $("#delete-flag").change(function(){
-     
-     if($("#delete-flag").val()=='회원탈퇴'){
-       signUpCheck.deletemember = true;
-       alert('성공')
-
-     }else{
-       signUpCheck.deletemember = false;
-
-     }
-    })
-  })
       function validate(){
-        for(var flag in signUpCheck){
-          if(!signUpCheck[flag]){
-            alert("미 작성된 부분이 있습니다.")
-            var id = "#"+flag;
-					  $(id).focus();
+        if($(".info-content input[name='agree-status']:checked").val()=="yes"){
+          if($("#user-input-secession").val()=="회원탈퇴"){
+            return true;
+          }else{
+            alert('"회원탈퇴"라고 정확히 입력해주셔야 합니다!');
             return false;
           }
+        }else{
+          alert("약관에 동의해주셔야 회원탈퇴를 하실 수 있습니다!");
+          return false;
         }
       }
+      $(function(){
+        $(".uploadBtn").on({
+          "click" : function(){
+            $(".uploadInput").click();
+          }
+        });
+      });
+      function loadImg(value){
+          if(value.files && value.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+              $(".profile-img").prop("src",e.target.result);
+            }
+          }
+          reader.readAsDataURL(value.files[0]);
+      }
     </script>
-
-
-    
-    
-  
-
-
   <!-- content 끝 -->
   <div id="footer">
     <div class="container">
@@ -227,6 +160,7 @@
   <div id="button-top">
     <button type="button" class="top-btn">TOP</button>
   </div>
+</div>
 </div>
   <script>
     function scrollFunction() {
