@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,7 +14,7 @@
     -webkit-appearance: none;
     margin: 0;
     }
-  </style> -->
+     </style> -->
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -22,7 +23,7 @@
 		<div class="row mt-5">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active"
-					href="admin_member.html" tabindex="-1">회원</a></li>
+					href="member" tabindex="-1">회원</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="admin_event.html" tabindex="-1">이벤트</a></li>
 				<li class="nav-item"><a class="nav-link"
@@ -76,14 +77,13 @@
 			</div>
 		</div>
 
-		<form action="admin/member" method="GET">
+		<form action="member" method="GET">
 			<div class="row justify-content-md-center">
 				<!-- 검색 -->
 				<div class="col-md-2 col-sm-3">
 					<div class="input-group">
 						<select name="searchKey" class="custom-select" id="inputGroupSelect04"
 							aria-label="Example select with button addon">
-							<option selected>검색</option>
 							<option value="id">아이디</option>
 							<option value="nickname">닉네임</option>
 						</select>
@@ -108,9 +108,9 @@
 	            	<c:if test="${pInf.currentPage > 1}">
 		                <li>
 		                	<!-- 맨 처음으로(<<) -->
-		                    <a class="page-link text-success" 
-		                    	href=" 
-		                    	<c:url value="list">
+		                    <a class="page-link"
+		                    	href="
+		                    	<c:url value="member">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -119,11 +119,6 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
-						        	<c:if test="${!empty paramValues.searchCategory }">
-							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
-							       			<c:param name="searchCategory" value="${ct}"/>
-							       		</c:forEach>
-						       		</c:if>
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>
 	                    	">
@@ -133,9 +128,9 @@
 		                
 		                <li>
 		                	<!-- 이전으로(<) -->
-	                   		<a class="page-link text-success" 
+	                   		<a class="page-link"
 		                    	href=" 
-		                    	<c:url value="list">
+		                    	<c:url value="member">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -144,12 +139,6 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
-						        	<c:if test="${!empty paramValues.searchCategory }">
-							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
-							       			<c:param name="searchCategory" value="${ct}"/>
-							       		</c:forEach>
-						       		</c:if>
-						       		
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
 	                    	">
@@ -170,9 +159,9 @@
 	                	
 	                	<c:if test="${p != pInf.currentPage}">
 	                		<li>
-		                    	<a class="page-link text-success" 
+		                    	<a  class="page-link"
 			                    	href=" 
-			                    	<c:url value="list">
+			                    	<c:url value="member">
 			                    		<c:if test="${!empty param.searchKey }">
 							        		<c:param name="searchKey" value="${param.searchKey}"/>
 							        	</c:if>
@@ -181,12 +170,6 @@
 							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
-							        	<c:if test="${!empty paramValues.searchCategory }">
-								       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
-								       			<c:param name="searchCategory" value="${ct}"/>
-								       		</c:forEach>
-							       		</c:if>
-							       		
 			                    		<c:param name="currentPage" value="${p}"/>
 			                    	</c:url>
 		                    	">
@@ -200,9 +183,9 @@
 	                <!-- 다음 페이지로(>) -->
 	                <c:if test="${pInf.currentPage < pInf.maxPage }">
 		                <li>
-							<a class="page-link text-success" 
+							<a class="page-link"
 		                    	href=" 
-		                    	<c:url value="list">
+		                    	<c:url value="member">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -211,12 +194,6 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
-						        	<c:if test="${!empty paramValues.searchCategory }">
-							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
-							       			<c:param name="searchCategory" value="${ct}"/>
-							       		</c:forEach>
-						       		</c:if>
-						       		
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 		                    	</c:url>
 	                    	">
@@ -226,9 +203,9 @@
 		                
 		                <!-- 맨 끝으로(>>) -->
 		                <li>
-		                    <a class="page-link text-success" 
+		                    <a class="page-link"
 		                    	href=" 
-		                    	<c:url value="list">
+		                    	<c:url value="member">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -236,12 +213,6 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
-						        	<c:if test="${!empty paramValues.searchCategory }">
-							       		<c:forEach var="ct" items="${paramValues.searchCategory}" varStatus="vs">
-							       			<c:param name="searchCategory" value="${ct}"/>
-							       		</c:forEach>
-						       		</c:if>
-						       		
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
 	                    	">
@@ -258,33 +229,35 @@
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
-		<p class="popup-title">
-			티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
-				alt="닫기버튼" class="close-popup">
-		</p>
-		<div class="popup-content">
-			<div class="row justify-content-md-center mb-2">
-				<div class="col-3 text-center">현재 티켓 수</div>
-				&nbsp;&nbsp;
-				<div class="col-3 text-center">취소 티켓 수</div>
-				&nbsp;&nbsp;
-				<div class="col-3 text-center">남은 티켓 수</div>
+		<form action="refund" method="GET">
+			<p class="popup-title">
+				티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
+					alt="닫기버튼" class="close-popup">
+			</p>
+			<div class="popup-content">
+				<div class="row justify-content-md-center mb-2">
+					<div class="col-3 text-center">현재 티켓 수</div>
+					&nbsp;&nbsp;
+					<div class="col-3 text-center">취소 티켓 수</div>
+					&nbsp;&nbsp;
+					<div class="col-3 text-center">남은 티켓 수</div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col-3">
+						<input id="current-ticket" name="currentTicket" type="text" class="form-control" value="">
+					</div>
+					<b style="line-height: 2rem;">-</b>
+					<div class="col-3">
+						<input id="canceled-ticket" name="currentTicket" type="text" class="form-control">
+					</div>
+					<b style="line-height: 2rem;">=</b>
+					<div class="col-3">
+						<input id="remained-ticket" type="text" class="form-control">
+					</div>
+				</div>
 			</div>
-			<div class="row justify-content-md-center">
-				<div class="col-3">
-					<input id="current-ticket" type="text" class="form-control">
-				</div>
-				<b style="line-height: 2rem;">-</b>
-				<div class="col-3">
-					<input id="canceled-ticket" type="text" class="form-control">
-				</div>
-				<b style="line-height: 2rem;">=</b>
-				<div class="col-3">
-					<input id="remained-ticket" type="text" class="form-control">
-				</div>
-			</div>
-		</div>
-		<button class="popup-confirm-btn">확인</button>
+			<button class="popup-confirm-btn">확인</button>
+		</form>
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -311,21 +284,13 @@
 			});
 		});
 
-		$(function() {
-			$("#list-table td")
-					.not(
-							"#list-table td:nth-child(8), #list-table td:nth-child(9)")
-					.on("click", function() {
-						location.href = "#";
-					})
-					.mouseenter(
-							function() {
-								$("#list-table td")
-										.not(
-												"#list-table td:nth-child(8), #list-table td:nth-child(9)")
-										.css("cursor", "pointer");
-							});
-		});
+		$(function () {
+	      $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").on("click", function () {
+	        location.href="#";
+	      }).mouseenter(function () {
+	        $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").css("cursor", "pointer");
+	      });
+	    });
 
 		// 로그인 팝업 이벤트
 		$(".btn-refund").on({
@@ -339,13 +304,9 @@
 			}
 		});
 
-		$("#canceled-ticket").on(
-				"input",
-				function() {
-					$("#remained-ticket").val(
-							$("#current-ticket").val()
-									- $("#canceled-ticket").val());
-				});
+		$("#canceled-ticket").on("input", function() {
+			$("#remained-ticket").val($("#current-ticket").val() - $("#canceled-ticket").val());
+		});
 
 		$(".btn-delete").on("click", function() {
 			console.log($(".btn-delete").text())

@@ -26,22 +26,34 @@
           		<div class="col-md-12">
                 <h1 class="logo"><a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
                 <div class="nav-section">
-                  <a href="#" class="login-btn">로그인</a>
-                  <a href="signUp.html">회원가입</a>
-                  <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
-                  <!--  -->
-                  <%-- <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
-                  <span class="separation"> | </span>
-                  <a href="#">고객센터</a>
-                  <div class="profile-wrap">
-                    <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">
-                    <ul class="profile-menu">
-                      <li><a href="#">프로필</a></li>
-                      <li><a href="#">이벤트</a></li>
-                      <li><a href="#">티켓</a></li>
-                      <li><a href="#">로그아웃</a></li>
-                    </ul>
-                  </div> --%>
+                
+                <!-- 로그인 안될 때(태균) -->
+                 
+                 <c:if test="${ empty sessionScope.loginMember  }">
+	                 <a href="#" class="login-btn">로그인</a>
+	                 <a href="signUp.html">회원가입</a>
+	                 
+	                 <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
+                 </c:if>
+                  
+                  
+                  <!-- 로그인 된 후(태균) -->
+                  <c:if test="${ ! empty sessionScope.loginMember}">
+	                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+	                  <span class="separation"> | </span>
+	                  <a href="#">고객센터</a>
+	                  <div class="profile-wrap">
+	                    <!--  <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">-->
+	                    <img src="${sessonScope.loginMember.memberProfile }" alt="프로필" class="profile-icon" >
+	                    <ul class="profile-menu">
+	                      <li><a href="#">프로필</a></li>
+	                      <li><a href="#">이벤트</a></li>
+	                      <li><a href="#">티켓</a></li>
+	                      <li><a href="#">로그아웃</a></li>
+	                    </ul>
+	                  </div>
+               	  </c:if>
+               
                 </div>
           		</div>
           	</div>

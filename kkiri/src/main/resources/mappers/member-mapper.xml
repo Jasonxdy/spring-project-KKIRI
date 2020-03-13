@@ -20,6 +20,7 @@
 		<result property="memberAccount" column="MEMBER_ACCOUNT"/>
 		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
 		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
 	<!-- 로그인  -->
@@ -36,11 +37,42 @@
 	
 	</select>
 	
-	<select id="adminMemberCount" resultType="_int">
+	<select id="adminMemberCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'id'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<otherwise>
+						AND MEMBER_NICKNAME LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
 	</select>
 	
-	
+	<select id="adminSelectMember" parameterType="map" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_EMAIL,
+			MEMBER_BIRTH, MEMBER_PHONE, MEMBER_TICKET
+		FROM MEMBER
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'id'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<otherwise>
+						AND MEMBER_NICKNAME LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		ORDER BY MEMBER_NO DESC
+	</select>
 	
 	
 </mapper>
