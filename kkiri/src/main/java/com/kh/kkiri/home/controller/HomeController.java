@@ -35,7 +35,7 @@ public class HomeController {
 			// 이벤트 추천
 			
 			// 1주간 높은 평점을 받은 회원 목록
-			List<Member> list = homeService.selectMemberList();
+//			List<Member> list = homeService.selectMemberList();
 			
 			
 		} catch (Exception e) {
