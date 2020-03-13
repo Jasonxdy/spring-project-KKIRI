@@ -1,5 +1,7 @@
 package com.kh.kkiri.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,9 @@ public class MemberController {
 	
 	// 6번 @세션 어트리뷰트 사용하기
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String signIn(Member member, Model model ) {
+	public String signIn(Member member, Model model, HttpServletRequest request) {
+		
+		String beforeUrl = request.getHeader("referer");
 		
 		 System.out.println("입력 확인 :"+member.getMemberId()+ 
 				 "/ " + member.getMemberPwd());
@@ -54,7 +58,7 @@ public class MemberController {
 				model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
 			}
 			
-			return "redirect:/";
+			return "redirect:" + beforeUrl;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -66,11 +70,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("logout")
-	public String logOut(SessionStatus status ) {
+	public String logOut(SessionStatus status,HttpServletRequest request ) {
 		
+		String beforeUrl = request.getHeader("referer");
 		status.setComplete();
 		
-		return "redirect:/";
+		return "redirect:" + beforeUrl;
 	}
 	
 	
