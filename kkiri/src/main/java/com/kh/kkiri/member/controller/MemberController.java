@@ -85,5 +85,19 @@ public class MemberController {
 		return "member/signUp";
 	}
 	
+	// 회원 가입
+	@RequestMapping("createAccount")
+	public String createAccount() {
+		
+		
+		
+		
+		
+		return "redirect:";
+	}
+	
+	
+	
+	
 	
 }
