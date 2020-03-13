@@ -1,11 +1,13 @@
 package com.kh.kkiri.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.kkiri.admin.model.dao.AdminDAO;
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service
@@ -19,17 +21,18 @@ public class AdminServiceImpl implements AdminService {
 	 * @throws Exception
 	 */
 	@Override
-	public int adminMemberCount() throws Exception {
-		return adminDAO.adminMemberCount();
+	public int adminMemberCount(Map<String, Object> map) throws Exception {
+		return adminDAO.adminMemberCount(map);
 	}
 	
-	/** 회원 정보 조회(관리자)
+	/** 회원 정보 조회(관리자) Service
+	 * @param map
+	 * @param pInf
 	 * @return mList
-	 * @throws Exception
 	 */
 	@Override
-	public List<Member> adminSelectMember() throws Exception {
-		return adminDAO.adminSelectMember();
+	public List<Member> adminSelectMember(Map<String, Object> map, PageInfo pInf) {
+		return adminDAO.adminSelectMember(map, pInf);
 	}
 	
 	
