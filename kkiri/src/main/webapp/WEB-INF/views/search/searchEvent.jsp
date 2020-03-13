@@ -4,15 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/searchEvent.css">
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c"></script>
 </head>
 <body>
 	<div id="wrapper">
 		<jsp:include page="../../../WEB-INF/views/common/header.jsp" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/searchEvent.css">
 		<div id="container" class="container-fluid px-0">
 			<!-- 지도 start -->
 			<div id="map"></div>
@@ -124,7 +122,7 @@
 											<span class="h4 event-section-title">지역</span> <a
 												class="h4 event-section-title"
 												style="color: white; text-decoration: underline;"
-												data-toggle="dropdown" href="#" id="place">서울특별시</a>
+												data-toggle="dropdown" href="#" id="place">서울특별시 중구</a>
 
 											<div class="dropdown-menu find-city-wrap">
 												<!-- <label for="city">도시: </label> -->
@@ -237,7 +235,7 @@
 			var map = new kakao.maps.Map(container, options);
 			
 			 $(function() {
-		          var availableCity = ["서울","부산","대구","광주","울산","서산"];
+		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
 		          $("#city").autocomplete({
 		              source: availableCity,
 		              select: function(event, ui) {
