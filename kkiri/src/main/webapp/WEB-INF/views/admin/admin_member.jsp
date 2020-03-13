@@ -19,6 +19,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	<div id="wrapper">
 	<!-- content 시작 -->
 	<div id="container" class="container">
 		<div class="row mt-5">
@@ -28,7 +29,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="admin_event.html" tabindex="-1">이벤트</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="admin_report.html" tabindex="-1">신고</a></li>
+					href="report" tabindex="-1">신고</a></li>
 				<li class="nav-item"><a class="nav-link" href="admin_ask.html"
 					tabindex="-1">문의</a></li>
 			</ul>
@@ -242,6 +243,7 @@
 		<!-- 페이징 바 끝 -->
 	</div>
 	<!-- content 끝 -->
+	</div>
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">

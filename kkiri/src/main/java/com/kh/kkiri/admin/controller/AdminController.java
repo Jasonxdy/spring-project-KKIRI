@@ -107,6 +107,15 @@ public class AdminController {
 			return "admin/admin_member";
 		}
 	}
+	
+	@RequestMapping("report")
+	public String adminReport(Model model) {
+		
+		return "admin/admin_report";
+	}
+	
+	
+	
 }
 
 
