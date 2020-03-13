@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +28,8 @@
 						<form>
 							<div class="row p-2">
 								<div class="col-md-3">
-									<label class="mt-1 h4 event-section-title">카테고리</label> <input
-										class="form-control mt-1 p-1" autocomplete="off" type="text"
-										id="category" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
+									<label class="mt-1 h4 event-section-title">카테고리</label> 
+									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 									<ul class="dropdown-menu my-1" style="width: 30rem;"
 										id="categoryMenu">
@@ -134,7 +134,7 @@
 								</div>
 
 								<div class="col-md-5 text-center findEventTitleWrap">
-									<input type="text" class="p-1 form-control eventTItleInput"
+									<input type="text" name="searchValue" class="p-1 form-control eventTItleInput"
 										style="border-radius: 0.25rem;" placeholder="제목">
 									<button class="btn btn-primary "
 										style="background-color: #00a185; border: none;">검색</button>
@@ -148,72 +148,51 @@
 			
 			<!-- 이벤트 목록 -->
 			<div class="container my-5">
-
-				<div class="row card shadow my-4">
-					<div class="col-md-12 h-100">
-						<div class="row h-100">
-							<div class="col-md-3 thumb-wrap">
-								<img class="p-2 thumb" src="img/banner-alter-img.png" alt="로고">
-							</div>
-							<div class="col-md-6 p-3">
-								<p class="mb-1" style="color: darkcyan;">2월 21일 (금), 오후 7:00</p>
-								<h2 class="mb-3">[맛집 도장깨기 2기]</h2>
-								<img class="mb-2" src="img/map-ping.png" alt=""
-									style="width: 1rem; height: 1.5rem;"> <span>서울 중구시
-									다산로</span>
-								<p>내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-							</div>
-							<div class="col-md-3">
-								<div class="p-3">
-									<div>
-										<img style="width: 4rem; height: 4rem; border-radius: 50%;"
-											src="img/profile-ex.png" alt="">
-										<div style="display: inline-block;">
-											<p class="mb-1">주최자 아이디</p>
-											<img style="width: 1rem; height: 1rem;" src="img/star-on.png"
-												alt=""> <span>4.5</span>
-										</div>
+				<c:if test="${empty search}">
+					<tr>
+						<td colspan="5">존재하는 이벤트가 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${!empty search }">
+					<c:forEach var="search" items="${search}" varStatus="vs">
+						<div class="row card shadow my-4">
+							<div class="col-md-12 h-100">
+								<div class="row h-100">
+									<div class="col-md-3 thumb-wrap">
+										<img class="p-2 thumb" src="img/banner-alter-img.png" alt="로고">
 									</div>
-									<p class="already-finish-event float-right"
-										style="margin-top: 5rem;">종료된 이벤트</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row card shadow my-4">
-					<div class="col-md-12 h-100">
-						<div class="row h-100">
-							<div class="col-md-3 thumb-wrap">
-								<img class="p-2 thumb" src="img/banner-alter-img.png" alt="로고">
-							</div>
-							<div class="col-md-6 p-3">
-								<p class="mb-1" style="color: darkcyan;">2월 21일 (금), 오후 7:00</p>
-								<h2 class="mb-3">[맛집 도장깨기 2기]</h2>
-								<img class="mb-2" src="img/map-ping.png" alt=""
-									style="width: 1rem; height: 1.5rem;"> <span>서울 중구시
-									다산로</span>
-								<p>내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-							</div>
-							<div class="col-md-3">
-								<div class="p-3">
-									<div>
-										<img style="width: 4rem; height: 4rem; border-radius: 50%;"
-											src="img/profile-ex.png" alt="">
-										<div style="display: inline-block;">
-											<p class="mb-1">주최자 아이디</p>
-											<img style="width: 1rem; height: 1rem;" src="img/star-on.png"
-												alt=""> <span>4.5</span>
-										</div>
-										<p id="join" class="text-center float-right"
+									<div class="col-md-6 p-3">
+										<p class="mb-1" style="color: darkcyan;">
+										<fmt:formatDate value="${search.eventStart}" type="DATE" pattern="yyyy년 MM월 dd일 KK:mm"/>
+										</p>
+										<h2 class="mb-3">${search.eventTitle }</h2>
+										<img class="mb-2" src="img/map-ping.png" alt="" style="width: 1rem; height: 1.5rem;"> 
+										<span>${search.eventLocation }</span>
+										<p>${search.eventContent }</p>
+									</div>
+									<div class="col-md-3">
+										<div class="p-3">
+											<div>
+												<img style="width: 4rem; height: 4rem; border-radius: 50%;"
+													src="img/profile-ex.png" alt="">
+												<div style="display: inline-block;">
+													<p class="mb-1">${search.memberId }</p>
+													<img style="width: 1rem; height: 1rem;" src="img/star-on.png" alt=""> 
+													<span>${search.eventScore }</span>
+												</div>
+											</div>
+											<p class="already-finish-event float-right"
+												style="margin-top: 5rem;">종료된 이벤트</p>
+											<p id="join" class="text-center float-right"
 											style="margin-top: 5rem;">티켓 1장</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+					</c:forEach>
+				</c:if>
+				
 
 				<div class="row">
 					<div class="col-md-12 text-center">

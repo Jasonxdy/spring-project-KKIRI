@@ -96,7 +96,7 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="signUpForm" action="#" method="post">
+              <form class="signUpForm" action="createAccount" method="post">
                 <div class="step1 select-location step">
                   <h3 class="signUpTitle">1단계. 회원님의 관심 지역을 선택해주세요</h3>
                   <p class="sub-title">선택하신 관심 지역을 기반으로 이벤트를 추천해드리고, 다른 회원님과 연결해드립니다.</p>
@@ -106,6 +106,8 @@
                     <input type="text" name="memberLocation" placeholder="주소 검색" class="interest-location-input">
                   </div>
                   <input class="locationResult" type="text" name="locationResult" value="서울시 동대문구" readonly class="interest-location-input-result">
+
+					<!-- https://hongku.tistory.com/250   지도-->
 
                   <button type="button" class="go-main green-radius-btn" onclick="location.href='index.html'">메인으로</button>
                   <button type="button" class="go-step2 green-radius-btn">2단계로</button>

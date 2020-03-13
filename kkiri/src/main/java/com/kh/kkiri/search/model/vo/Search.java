@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Search {
 	private int eventNo;
 	private String eventTitle;
+	private String eventContent;
 	private String eventCategory;
 	private String eventLocation;
 	private double latitude;
@@ -19,12 +20,13 @@ public class Search {
 	
 	public Search(){}
 
-	public Search(int eventNo, String eventTitle, String eventCategory, String eventLocation, double latitude,
-			double longitude, Date eventStart, Date eventEnd, int eventTicket, String eventThumbnail, int eventQuota,
-			String memberId, double eventScore) {
+	public Search(int eventNo, String eventTitle, String eventContent, String eventCategory, String eventLocation,
+			double latitude, double longitude, Date eventStart, Date eventEnd, int eventTicket, String eventThumbnail,
+			int eventQuota, String memberId, double eventScore) {
 		super();
 		this.eventNo = eventNo;
 		this.eventTitle = eventTitle;
+		this.eventContent = eventContent;
 		this.eventCategory = eventCategory;
 		this.eventLocation = eventLocation;
 		this.latitude = latitude;
@@ -52,6 +54,14 @@ public class Search {
 
 	public void setEventTitle(String eventTitle) {
 		this.eventTitle = eventTitle;
+	}
+
+	public String getEventContent() {
+		return eventContent;
+	}
+
+	public void setEventContent(String eventContent) {
+		this.eventContent = eventContent;
 	}
 
 	public String getEventCategory() {
@@ -144,12 +154,12 @@ public class Search {
 
 	@Override
 	public String toString() {
-		return "Search [eventNo=" + eventNo + ", eventTitle=" + eventTitle + ", eventCategory=" + eventCategory
-				+ ", eventLocation=" + eventLocation + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventTicket=" + eventTicket
-				+ ", eventThumbnail=" + eventThumbnail + ", eventQuota=" + eventQuota + ", memberId=" + memberId
-				+ ", eventScore=" + eventScore + "]";
-	};
+		return "Search [eventNo=" + eventNo + ", eventTitle=" + eventTitle + ", eventContent=" + eventContent
+				+ ", eventCategory=" + eventCategory + ", eventLocation=" + eventLocation + ", latitude=" + latitude
+				+ ", longitude=" + longitude + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd
+				+ ", eventTicket=" + eventTicket + ", eventThumbnail=" + eventThumbnail + ", eventQuota=" + eventQuota
+				+ ", memberId=" + memberId + ", eventScore=" + eventScore + "]";
+	}
 	
 	
 }
