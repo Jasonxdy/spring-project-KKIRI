@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <title>KKIRI(끼리)</title>
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/my_profile.css">
 </head>
 
 <body>
   <div id="wrapper">
-    <jsp:include page="../common/header.jsp">
+    <jsp:include page="../common/header.jsp"/>
+    
     <div id="container">
       <div class="container">
         <!-- content 시작 -->
@@ -45,45 +48,55 @@
                 <div class="col-8 ">
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">닉네임 : </h5>
-                    <div class="col-8">wonty3000</div>
+                    <div class="col-8">${loginMember.memberNickname }</div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">성별 : </h5>
-                    <div class="col-8">남</div>
+                    <div class="col-8">
+                    <c:if test="${loginMember.memberGender =='M'}">
+                    	남	
+                    </c:if>
+                    <c:if test="${loginMember.memberGender =='F'}">
+                    	여	
+                    </c:if>
+                   
+                    </div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <div class="col-8">1991.12.13</div>
+                    <div class="col-8">${loginMember.memberBirth}</div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">전화번호 : </h5>
-                    <div class="col-8">010-5625-2489</div>
+                    <div class="col-8">${loginMember.memberPhone }</div>
                   </div>
                   <div class="row  my-profile-section-element">
                     <h5 class="col-4">이메일 : </h5>
-                    <div class="col-8">wonty3000@naver.com</div>
+                    <div class="col-8">${loginMember.memberEmail }</div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">관심 지역 : </h5>
                     <div class="col-8">
-                      <p class="member-interest-location">서울시 은평구</p>
+                      <p class="member-interest-location">${loginMember.memberPlace }</p>
                     </div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4">관심 카테고리 : </h5>
                     <div class="col-8">
-                      <p class="member-interest">운동</p>  
-                      <p class="member-interest">운동</p>  
-                      <p class="member-interest">운동</p>  
+                    	<c:forEach var="i" varStatus="vs"  items="${loginMember.memberCategory}">
+                    	
+                      <p class="member-interest">${vs.current}</p>  
+
+                    	</c:forEach>
                     </div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">보유한 티켓 수 :</h5>
-                    <div class="col-8">5개</div>
+                    <div class="col-8">${loginMember.memberTicket }개</div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4">소개 :  </h5>
-                    <p class="col-8 introduce-box">얼음과 같으며 지혜는 날카로우나 갑 속에 든 칼이다 청춘의 끓는 피가 아니더면 인간이 얼마나 쓸쓸하랴? 얼음에 싸인 만물은 얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이</p>
+                    <p class="col-8 introduce-box">${loginMember.memberIntroduce }</p>
                   </div>
                 </div>
                 <div class="col-4">
@@ -197,6 +210,10 @@
               $("#profile-nav-wrap>li").eq(index).find("a").removeClass("active");
             }
           });
+          
+          if(scrollTop == 0){
+              $("#profile-nav-wrap>li:first>a").addClass("active");
+          }
         });
 
         $(".move-btn").each(function(index){
@@ -214,48 +231,8 @@
     </script>
   
 
-
-  <!-- content 끝 -->
-  <div id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-4 footer-logo-wrap">
-              <img class="footer-logo" src="../index 페이지 - 진웅/img/logo2-white.png" alt="푸터로고">
-            </div>
-            <div class="col-md-8">
-              <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
-</div>
-  <script>
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
-  </script>
+<jsp:include page="../common/footer.jsp"/>
+  
 </body>
 
 </html>
