@@ -69,6 +69,7 @@ public class MemberController {
 		
 	}
 	
+	// 로그 아웃(태균)
 	@RequestMapping("logout")
 	public String logOut(SessionStatus status,HttpServletRequest request ) {
 		
@@ -78,9 +79,11 @@ public class MemberController {
 		return "redirect:" + beforeUrl;
 	}
 	
-	
-	
-	
+	// 회원가입 이동
+	@RequestMapping("signUp")
+	public String signUp() {
+		return "member/signUp";
+	}
 	
 	
 }
