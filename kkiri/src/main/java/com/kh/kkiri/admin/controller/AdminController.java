@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
@@ -82,6 +83,28 @@ public class AdminController {
 		}catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("delete")
+	public String adminDelete(Integer memberNo, Model model) {
+		try {
+			return adminService.delete(memberNo) == 1 ? true + "" : false + "";
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "admin/admin_member";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("recover")
+	public String adminRecover(Integer memberNo, Model model) {
+		try {
+			return adminService.recover(memberNo) == 1 ? true + "" : false + "";
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "admin/admin_member";
 		}
 	}
 }

@@ -46,4 +46,22 @@ public class AdminDAO {
 		return sqlSession.update("memberMapper.refundTicket", map);
 	}
 
+	/** 회원 삭제 DAO
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int delete(Integer memberNo) throws Exception {
+		return sqlSession.update("memberMapper.adminDelete", memberNo);
+	}
+
+	/** 회원 삭제 복구 DAO
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int recover(Integer memberNo) throws Exception {
+		return sqlSession.update("memberMapper.adminRecover", memberNo);
+	}
+
 }
