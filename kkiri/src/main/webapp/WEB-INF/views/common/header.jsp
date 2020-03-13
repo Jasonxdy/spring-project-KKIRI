@@ -44,7 +44,9 @@
 	                  <a href="#">고객센터</a>
 	                  <div class="profile-wrap">
 	                    <!--  <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">-->
-	                    <img src="${sessonScope.loginMember.memberProfile }" alt="프로필" class="profile-icon" >
+	                    
+	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/default.png"/>
+	                    <img src="${src}" alt="프로필" class="profile-icon" >
 	                    <ul class="profile-menu">
 	                      <li><a href="#">프로필</a></li>
 	                      <li><a href="#">이벤트</a></li>
