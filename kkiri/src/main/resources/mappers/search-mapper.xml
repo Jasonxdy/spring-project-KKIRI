@@ -3,8 +3,9 @@
 <mapper namespace="searchMapper">
 	
 	<resultMap type="Search" id="searchResultSet">
-		<id property="eventNo" column="EVENT.EVENT_NO"/>
+		<id property="eventNo" column="EVENT_NO"/>
 		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="eventContent" column="EVENT_TITLE"/>
 		<result property="eventCategory" column="EVENT_CATEGORY"/>
 		<result property="eventLocation" column="EVENT_LOCATION"/>
 		<result property="latitude" column="LATITUDE"/>
@@ -18,4 +19,34 @@
 		<result property="eventScore" column="SCORE"/>
 	</resultMap>
 	
+	<!-- 탐색페이지 이벤트 수 조회 -->
+	<select id="getSearchCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM V_SEARCH
+		<where>
+			<if test="searchKey != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
+				AND EVENT_CATEGORY LIKE #{searchKey}
+			</if>
+			<if test="searchValue != null">
+				AND EVENT_TITLE LIKE #{sv}
+			</if>
+			AND EVENT_STATUS ='Y'
+		</where>
+	</select>
+	
+	<!-- 탐색페이지 이벤트 조회 -->
+	<select id="selectList" parameterType="map" resultMap="searchResultSet">
+		SELECT * FROM V_SEARCH
+		<where>
+			<if test="searchKey != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
+				AND EVENT_CATEGORY LIKE #{searchKey}
+			</if>
+			<if test="searchValue != null">
+				AND EVENT_TITLE LIKE #{sv}
+			</if>
+			AND EVENT_STATUS ='Y'
+		</where>
+		ORDER BY EVENT_NO
+	</select>
 </mapper>
