@@ -2,6 +2,7 @@ package com.kh.kkiri.home.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.kkiri.home.model.service.HomeService;
+import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
 public class HomeController {
@@ -26,7 +28,23 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
+		
+		try {
+			
+			// 이벤트 추천
+			
+			// 1주간 높은 평점을 받은 회원 목록
+			List<Member> list = homeService.selectMemberList();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "메인 화면 로딩 과정 중 오류 발생");
+			return "common/errorPage";
+		}
+		
+		
 		
 		
 		

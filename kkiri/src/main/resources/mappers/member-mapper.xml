@@ -20,6 +20,7 @@
 		<result property="memberAccount" column="MEMBER_ACCOUNT"/>
 		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
 		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
 	<!-- 로그인  -->
