@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/update_profile.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
+  <script src='../index 페이지 - 진웅/js/index.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <title>KKIRI(끼리)</title>
+</head>
+
+<body>
+  
+    <div id="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="logo"><a href="#"><img src="../index 페이지 - 진웅/img/logo.png" alt="로고"></a></h1>
+            <div class="nav-section">
+              <a href="#">로그인</a>
+              <a href="#">회원가입</a>
+              <span class="separation"> | </span>
+              <a href="#">고객센터</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container" style=" margin-top: 50px; margin-bottom: 200px;">
+      <!-- content 시작 -->
+      <div class="row">
+        <div class="col-2 " style="margin: 20px 0px; text-align: right;" >
+          <div class="btn">프로필</div><br>
+          <div class="btn">이벤트</div><br>
+          <div class="btn">티켓</div><br>
+          <div class="btn">로그아웃</div><br>
+        </div>
+        <div id="display-profile" class="col-9 wty3" style="display: block; padding: 0;">
+          <h4>&nbsp 내 정보</h4>
+          <div class="row">
+            <div class="col-8 ">
+              <div class="row wty5" style="padding: 0px;">
+                <h5 class="col-4 ">이름 : </h5>
+                <div class="col-8">원태연</div>
+              </div>
+              <div class="row wty5" style="padding: 0px;">
+                <h5 class="col-4 ">닉네임 : </h5>
+                <div class="col-8">wonty3000</div>
+              </div>
+              <div class="row wty5">
+                <h5 class="col-4 ">성별 : </h5>
+                <div id="gender" class="col-8" style="margin-top: 10px;" required>
+                    <input type="radio" name="gender"> <label for="gender"> 남</label>
+                    <input type="radio" name="gender"> <label for="gender"> 여</label>
+                </div>
+              </div>
+              <div class="row wty5">
+                <h5 class="col-4 ">생년월일 : </h5>
+                <div class="col-8">
+                    <input type="text" name="birthday" id="birthday">
+                </div>
+              </div>
+              <div class="row wty5">
+                <h5 class="col-4 ">전화번호 : </h5>
+                <div class="col-8">
+                    <div id="phone" class="row" style="margin: 10px;" >
+
+                        <input id="phone1" class="col-3 passborder" type="text" name="phone1">&nbsp; -&nbsp;
+                        <input id="phone2" class="col-3 passborder" type="text" name="phone2"> &nbsp;-&nbsp;
+                        <input id="phone3" class="col-3 passborder" type="text" name="phone3"> 
+                    </div>
+                </div>
+              </div>
+              <div class="row  wty5">
+                <h5 class="col-4">이메일 : </h5>
+                <div class="col-8">
+                    <input class="col-8" type="text" placeholder="내용을 입력해주세요">
+                </div>
+              </div>
+              <div class="row wty5">
+                <h5 class="col-4 ">관심 지역 : </h5>
+                <div class="col-8 " >
+                    <img src="../index 페이지 - 진웅/img/map-2.PNG" alt="지도" style="width: 100%; height: 100%;">
+                </div>
+              </div>
+              <div class="row wty5">
+                <h5 class="col-4 ">관심 카테고리 : </h5>
+                <div class="col-8 " style="padding: 0%;" id="category">
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="travle">  <label class="btn wty2-1 wty4 category" for="travle">여행  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="health">  <label class="btn wty2-1 wty4 category" for="health">운동  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="readbook">  <label class="btn wty2-1 wty4 category" for="readbook">독서  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="busisness">  <label class="btn wty2-1 wty4 category"  for="busisness">비즈니스 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="language">  <label class="btn wty2-1 wty4 category" for="language">언어 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="music">  <label class="btn wty2-1 wty4 category" for="music">음악</label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="movie">  <label class="btn wty2-1 wty4 category" for="movie">영화/공연</label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="dance">  <label class="btn wty2-1 wty4 category" for="dance">댄스  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="valunteer">  <label class="btn wty2-1 wty4 category" for="valunteer">봉사활동 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="friendship">  <label class="btn wty2-1 wty4 category" for="friendship">사교  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="car">  <label class="btn wty2-1 wty4 category" for="car">차/오토바이 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="photo">  <label class="btn wty2-1 wty4 category" for="photo">사진/영상 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="sport">  <label class="btn wty2-1 wty4 category" for="sport">스포츠관람  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="game">  <label class="btn wty2-1 wty4 category" for="game">게임  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="cooking">  <label class="btn wty2-1 wty4 category" for="cooking">요리 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="animal">  <label class="btn wty2-1 wty4 category" for="animal">반려동물 </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="socialwork">  <label class="btn wty2-1 wty4 category" for="socialwork">사회운동  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="beauty">  <label class="btn wty2-1 wty4 category" for="beauty">뷰티  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="passion">  <label class="btn wty2-1 wty4 category" for="passion">패션  </label>
+                <input class="btn wty2-1 wty4" name="category" style="display: none;" id="others">  <label class="btn wty2-1 wty4 category" for="others">기타  </label>
+                </div>
+              </div>
+              
+<script>
+  $(function(){
+    $("#category").children('label').click(function(){
+      var classflag = $("this")
+      
+        console.log('123')
+      if($(this).hasClass('wty2-1')){
+        console.log('456')
+        
+        $(this).removeClass("wty2-1");
+        $(this).addClass('wty6');
+      }
+      else if($(this).hasClass('wty6')){
+
+        
+        $(this).removeClass("wty6");
+        $(this).addClass('wty2-1');
+      }
+
+    })
+  })
+</script>
+
+              <div class="row wty5">
+                <h5 class="col-4 " style="margin-top: 10px;">소개 :  </h5>
+                <div class="col-8">
+                    <textarea class="wty3" name="" id="" cols="30" rows="10" placeholder="내용을 입력해주세요" style="margin-top: 10px; width: 100%;"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-4 wty5">
+              <h5>프로필 사진</h5>
+              <img src="../index 페이지 - 진웅/img/cat-1.jpg" alt="프로필 사진" style="width: 100%; height: 30%;">
+            </div>
+            <br>
+          </div>
+            <div class="row" >
+              <div class="col-3"></div>
+              <div class="btn wty2 col-2" style="text-align: center; margin: 10px auto;">
+                수정하기
+              </div>
+              <div class="btn wty2 col-2" style="text-align: center; margin: 10px auto;">
+                취소
+              </div>
+              <div class="col-3"></div>
+            </div>
+            
+          </div>
+        </div>
+
+
+      
+    </div>
+    
+    <script>
+
+      var regExp1 = /^[/d]{3}$/;
+      var regExp2 = /^[/d]{4}$/;
+      
+
+
+      var signUpCheck = { 
+            "nickName":false,
+            "phone":false,
+            "name":false,
+            "email":false
+            };
+            
+      $(function(){
+        $("#my-profile").click(function(){
+          $(".wty3").css("display","none");
+          $("#display-profile").css("display","block");
+        });
+        $("#change-password").click(function(){
+          $(".wty3").css("display","none");
+          $("#display-password").css("display","block");
+        });
+        $("#account").click(function(){
+          $(".wty3").css("display","none");
+          $("#display-account").css("display","block");
+        });
+        $("#delete-member").click(function(){
+          $(".wty3").css("display","none");
+          $("#display-delete").css("display","block");
+        });
+
+        $("#phone").change(function(){
+          if(regExp1.test($("#phone1").val())){
+            if(regExp2.test($("#phone2").val())){
+              if(regExp2.test($("#phone3").val())){
+                signUpCheck.phone = true;
+              }
+            }
+          }
+        })
+
+        
+
+
+      })
+
+      
+
+    </script>
+  
+
+
+  <!-- content 끝 -->
+  <div id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4 footer-logo-wrap">
+              <img class="footer-logo" src="../index 페이지 - 진웅/img/logo2-white.png" alt="푸터로고">
+            </div>
+            <div class="col-md-8">
+              <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="button-top">
+    <button type="button" class="top-btn">TOP</button>
+  </div>
+
+  <script>
+    function scrollFunction() {
+      if ($(window).scrollTop() >= 200) {
+        $('#button-top').show(0);
+      } else {
+        $('#button-top').hide(0);
+      }
+    }
+    $(function () {
+      scrollFunction();
+      $(window).scroll(function () {
+        scrollFunction();
+      });
+      $('#button-top').on({
+        click: function () {
+          $('html,body').stop().animate({ scrollTop: 0 }, 600);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
