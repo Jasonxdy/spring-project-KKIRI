@@ -93,4 +93,10 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	<update id="updateAccount" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_ACCOUNT = #{memberAccount}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

@@ -40,8 +40,8 @@ html .nav-tabs .nav-link.active,
 }
 .my-profile-btn,
 .my-profile-btn:hover{
-    background: #227fbb;
-    color: #ffffff;
+    background: #227fbb !important;
+    color: #ffffff !important;
     position: absolute;
     right: 50px;
     bottom: 30px;

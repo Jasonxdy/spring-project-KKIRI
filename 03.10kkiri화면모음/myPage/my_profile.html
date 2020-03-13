@@ -15,16 +15,16 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
     rel="stylesheet">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
-  
+  <link rel="stylesheet" href="../index 페이지 - 진웅/css/my_profile.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
   <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
-  
+  <script src='../index 페이지 - 진웅/js/index.js'></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <title>KKIRI(끼리)</title>
 </head>
 
 <body>
-  <div id="wrapper">
+  <form id="wrapper">
     <div id="header">
       <div class="container">
         <div class="row">
@@ -161,34 +161,46 @@
                     
               </div>
               
-              <div id="display-account" class="my-profile-section moving-1" >
-                <h4>환급 계좌</h4>
+                <form id="display-account" class="my-profile-section moving-1" >
+                  <h4>환급 계좌</h4>
+                  <div class="row my-profile-tableTitle">
+                    <div class="col-4">
+                      은행
+                  </div>
+                  <select class="passborder" name="bankname" id="">
+                    <option value="null">등록된 은행이 없습니다.</option>
+                    <option value="국민">국민은행</option>
+                    <option value="우리">우리은행</option>
+                    <option value="신한">신한은행</option>
+                    <option value="농협">농협은행</option>
+                    <option value="기업">기업은행</option>
+                    <option value="하나">하나은행</option>
+                    
+                  </select>
+                  
+                  
+                </div>
+                <br>
                 <div class="row my-profile-tableTitle">
                   <div class="col-4">
-                    은행
+                    계좌번호
                   </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." readonly disabled>
-              </div>
-              <br>
-              <div class="row my-profile-tableTitle">
-                <div class="col-4">
-                  계좌번호
+                  <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." value="123456">
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다.">
-              </div>
-              <br>
-              <div class="row my-profile-tableTitle">
-                <div class="col-4">
-                  예금주
+                <br>
+                <div class="row my-profile-tableTitle">
+                  <div class="col-4">
+                    예금주
+                  </div>
+                  <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다.">
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다.">
-              </div>
-              <br>
-              <div class="btn my-profile-btn">
-                수정하기
-              </div>
-            </div>
-            
+                <br>
+                <div class="btn my-profile-btn">
+                  수정하기
+                </div>
+              </form>
+           
+              
             <div id="display-delete" class="my-profile-section moving-1">
               <h4>회원 탈퇴</h4>
               <br>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="ko">
 
 <head>
@@ -9,11 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
   rel="stylesheet">
   <link rel="stylesheet" href="../resources/css/my_profile.css">
-  <script src='../resources/js/index.js'></script>
-  <link rel="stylesheet" href="../resources/css/common.css">
-  <link rel="stylesheet" href="../resources/css/my_profile.css">
-  <link rel="stylesheet" href="../resources/css/header.css">
-  <link rel="stylesheet" href="../resources/css/footer.css">
+
   
   <title>KKIRI(끼리)</title>
 </head>
@@ -27,10 +24,10 @@
         <!-- content 시작 -->
         <div class="row">
           <div class="col-2 nav-wrap">
-            <a class="btn active" href="#">프로필</a>
-            <a class="btn" href="#">이벤트</a>
-            <a class="btn" href="#">티켓</a>
-            <a class="btn" href="#">로그아웃</a>
+            <a class="btn active" href="../mypage/in">프로필</a>
+            <a class="btn" href="../mypage/event">이벤트</a>
+            <a class="btn" href="../mypage/ticket">티켓</a>
+            <a class="btn" href="${contextPath}/member/logout">로그아웃</a>
           </div>
 
           <div class="col-10">
@@ -72,7 +69,12 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <div class="col-8">${loginMember.memberBirth}</div>
+                    <div class="col-8">
+                    ${fn:substring(loginMember.memberBirth,0,4) }년 &nbsp;
+                    ${fn:substring(loginMember.memberBirth,5,7) }월  &nbsp;
+                    ${fn:substring(loginMember.memberBirth,8,10) }일
+                    
+                    </div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">전화번호 : </h5>
@@ -152,33 +154,58 @@
                     
               </div>
               
-              <div id="display-account" class="my-profile-section moving-1" >
+              <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount">
                 <h4>환급 계좌</h4>
                 <div class="row my-profile-tableTitle">
+                  
+                  
                   <div class="col-4">
                     은행
                   </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." readonly disabled>
+                <select class="passborder" name="bankName" >
+                
+                	<option value="null"
+                <c:if test="${loginMember.memberAccount ==null }">
+                	selected
+                </c:if>
+                	>등록된 은행이 없습니다.</option>
+                
+                    <option value="국민" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '국민'}">selected</c:if>>국민은행</option>
+                    <option value="우리" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '우리'}">selected</c:if>>우리은행</option>
+                    <option value="신한" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '신한'}">selected</c:if>>신한은행</option>
+                    <option value="농협" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '농협'}">selected</c:if>>농협은행</option>
+                    <option value="기업" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '기업'}">selected</c:if>>기업은행</option>
+                    <option value="하나" <c:if test="${fn:substring(loginMember.memberAccount,0,2)  == '하나'}">selected</c:if>>하나은행</option>
+
+                  </select>
               </div>
               <br>
               <div class="row my-profile-tableTitle">
                 <div class="col-4">
                   계좌번호
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다.">
+                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankNumber" 
+                <c:if test="${loginMember.memberAccount !=null }">
+                	value ="${fn:substring(loginMember.memberAccount,3,19)}"
+                	
+                </c:if> >
               </div>
               <br>
               <div class="row my-profile-tableTitle">
                 <div class="col-4">
                   예금주
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다.">
+                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankOrner" 
+                <c:if test="${loginMember.memberAccount !=null }">
+                	value ="${fn:substring(loginMember.memberAccount,20,23)}"
+                </c:if> >
+                
               </div>
               <br>
-              <div class="btn my-profile-btn">
+              <button class="btn my-profile-btn" type="submit" >
                 수정하기
-              </div>
-            </div>
+              </button>
+            </form>
             
             <div id="display-delete" class="my-profile-section moving-1">
               <h4>회원 탈퇴</h4>
