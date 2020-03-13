@@ -52,7 +52,7 @@
 	                      <li><a href="#">프로필</a></li>
 	                      <li><a href="#">이벤트</a></li>
 	                      <li><a href="#">티켓</a></li>
-	                      <li><a href="#">로그아웃</a></li>
+	                      <li><a href="${contextPath}/member/logout">로그아웃</a></li>
 	                    </ul>
 	                  </div>
                	  </c:if>

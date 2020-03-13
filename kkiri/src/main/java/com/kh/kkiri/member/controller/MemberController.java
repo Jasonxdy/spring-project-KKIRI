@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
@@ -48,13 +49,11 @@ public class MemberController {
 			if(loginMember !=null) {
 				model.addAttribute("loginMember", loginMember);
 				
-				
 			}else {
 				
 				model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
 			}
 			
-
 			return "redirect:/";
 			
 		}catch (Exception e) {
@@ -64,7 +63,14 @@ public class MemberController {
 			
 		}
 		
+	}
+	
+	@RequestMapping("logout")
+	public String logOut(SessionStatus status ) {
 		
+		status.setComplete();
+		
+		return "redirect:/";
 	}
 	
 	
