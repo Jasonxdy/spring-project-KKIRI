@@ -17,8 +17,20 @@ public class EventController {
 	private EventService eventService;
 	
 	
+	// 이벤트 상세 페이지 이동
 	@RequestMapping("detail")
 	public String eventDetail(@RequestParam(value = "no", required = false) Integer no) {
+		
+		try {
+			
+			// 이벤트 얻어오기
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		return "event/eventDetail"; 
 		

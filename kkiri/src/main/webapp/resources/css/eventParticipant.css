@@ -1,6 +1,9 @@
+/* 이벤트 상세 페이지 상단 공통 css start */
+
 #eventTitle{
     font-weight: bold;
 }
+
 #eventDate{
     font-size: large;
 }
@@ -28,6 +31,7 @@
 .event-creator-info > img{
     float: left;
 }
+
 #stripe{
     margin-top: 70px;
     border-radius: 0 0 10px 10px;
@@ -51,28 +55,41 @@
     float: right;   
 }
 
-.event-participant-profile-wrap{
-    width: 100%;
-}
 #event-participate{
     background: #00a185;
-    border-radius: .25rem;
     color: white;
-    min-width: 95px;
-    text-align: center;
+    border-radius: .25rem;
 }
 /* 이벤트 상세 페이지 상단 공통 css end */
 
-
-
-
-
-
 .event-thumbnail{
-    width: 100%;
+    width: 400px;
+}
+.profile-card{
+    cursor: pointer;
+    transition: all .3s;
+}
+.profile-card:hover{
+    opacity: 0.7;
 }
 
-
+.declare-wrap{
+    display: none;
+}
+.declare-wrap.active{
+    display: inline-block;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #a2a2a2;
+    min-width: 120px;
+    border-radius: 0.25rem;
+    padding: 10px 5px;
+    right: -30px;
+    top: 47px;
+}
+.declare-wrap.active a:hover {
+    color : #333333;
+}
 
 .time-and-place > h4{
     margin-bottom: 10px;
@@ -94,44 +111,30 @@
 }
 
 .event-participant-profile > img{
-    width: 23%;
-    margin-right:5px;
+    width: 80px;
     border: 1px solid #cdd2d8;
     border-radius: 50px;
     cursor: pointer;
 }
 
-.declare-wrap{
-    display: none;
-}
-.declare-wrap.active{
-    display: inline-block;
-    position: absolute;
-    background: #ffffff;
-    border: 1px solid #a2a2a2;
-    min-width: 120px;
-    border-radius: 0.25rem;
-    padding: 10px 5px;
-    right: -30px;
-    top: 47px;
-}
-.declare-wrap.active a:hover {
-    color : #333333;
-}
+/* 회원 상세보기 css start */
 #event-navi .nav-link.active, 
 #wrapper .navbar-light .navbar-nav .nav-link:hover,
 #see-all>a:hover{
     color : #00a185;
 }
 
-/* 이벤트 상세 페이지 상단 공통 css start */
-@media (max-width: 1199px){
-    .event-participant-profile > img{
-        margin-right:2px;
-    }
+.profile-card{
+    margin-bottom: 5px;
 }
+
 @media (max-width: 900px){
     .event-thumbnail{
         /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
+    }
+}
+@media (max-width: 767px){
+    .time-and-place{
+        margin-top : 50px;
     }
 }
