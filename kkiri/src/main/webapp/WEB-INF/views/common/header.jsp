@@ -25,7 +25,7 @@
           <div class="container">
           	<div class="row">
           		<div class="col-md-12">
-                <h1 class="logo"><a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
+                <h1 class="logo"><a href="${contextPath}"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt="로고"></a></h1>
                 <div class="nav-section">
                 
                 <!-- 로그인 안될 때(태균) -->
