@@ -1,18 +1,6 @@
-/* 이벤트 상세 페이지 상단 공통 css start */
-
-@media (max-width: 900px){
-    .event-thumbnail{
-        /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
-    }
-}
-@media (max-width: 575px){
-
-}
-
 #eventTitle{
     font-weight: bold;
 }
-
 #eventDate{
     font-size: large;
 }
@@ -64,12 +52,15 @@
     float: right;   
 }
 
-
+.event-participant-profile-wrap{
+    width: 100%;
+}
 #event-participate{
     background: #00a185;
     border-radius: .25rem;
     color: white;
     min-width: 95px;
+    text-align: center;
 }
 /* 이벤트 상세 페이지 상단 공통 css end */
 
@@ -79,7 +70,7 @@
 
 
 .event-thumbnail{
-    width: 400px;
+    width: 100%;
 }
 
 
@@ -104,7 +95,8 @@
 }
 
 .event-participant-profile > img{
-    width: 80px;
+    width: 23%;
+    margin-right:5px;
     border: 1px solid #cdd2d8;
     border-radius: 50px;
     cursor: pointer;
@@ -127,6 +119,23 @@
 .declare-wrap.active a:hover {
     color : #333333;
 }
-#container .nav-item>.active{
+#event-navi .nav-link.active{
     color : #00a185;
+}
+
+/* 이벤트 상세 페이지 상단 공통 css start */
+@media (max-width: 1199px){
+    .event-participant-profile > img{
+        margin-right:2px;
+    }
+}
+@media (max-width: 900px){
+    .event-thumbnail{
+        /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
+    }
+}
+@media (max-width: 575px){
+    #event-navi .navbar-nav {
+        display: block;
+    }
 }
