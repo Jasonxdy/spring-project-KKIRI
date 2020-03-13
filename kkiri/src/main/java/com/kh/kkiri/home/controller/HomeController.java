@@ -22,8 +22,8 @@ public class HomeController {
 	private HomeService homeService;
 	
 	/**
-	 * ¼­¹ö ½ÃÀÛ ½Ã ¸ŞÀÎÈ­¸é ·Îµù
-	 * @return String
+	 * ë©”ì¸ í™”ë©´ ë¡œë”©ìš© Controller
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
