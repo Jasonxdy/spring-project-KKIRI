@@ -5,16 +5,21 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.admin.model.dao.AdminDAO;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.payment.model.dao.PaymentDAO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminDAO adminDAO;
+	
+	@Autowired
+	private PaymentDAO paymentDAO;
 	
 	/** 회원 수 조회 Service
 	 * @return memberCount
@@ -29,11 +34,27 @@ public class AdminServiceImpl implements AdminService {
 	 * @param map
 	 * @param pInf
 	 * @return mList
+	 * @throws Exception 
 	 */
 	@Override
-	public List<Member> adminSelectMember(Map<String, Object> map, PageInfo pInf) {
+	public List<Member> adminSelectMember(Map<String, Object> map, PageInfo pInf) throws Exception {
 		return adminDAO.adminSelectMember(map, pInf);
 	}
 	
+	/** 티켓 환불 Service
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int refundTicket(Map<String, Object> map) throws Exception {
+		int result = adminDAO.refundTicket(map);
+		if(result>0) {
+			result = paymentDAO.insertPayment(map);
+		}
+				
+		return result;
+	}
 	
 }

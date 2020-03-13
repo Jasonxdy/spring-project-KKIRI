@@ -56,7 +56,7 @@
 	
 	<select id="adminSelectMember" parameterType="map" resultMap="memberResultSet">
 		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_EMAIL,
-			MEMBER_BIRTH, MEMBER_PHONE, MEMBER_TICKET
+			MEMBER_BIRTH, MEMBER_PHONE, MEMBER_TICKET, MEMBER_ACCOUNT
 		FROM MEMBER
 		<where>
 			<if test="searchValue != null">
@@ -73,6 +73,12 @@
 		</where>
 		ORDER BY MEMBER_NO DESC
 	</select>
+	
+	<update id="refundTicket" parameterType="map">
+		UPDATE MEMBER SET
+		MEMBER_TICKET = MEMBER_TICKET + #{ticket}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 	
 	
 </mapper>

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,4 +56,46 @@ public class AdminController {
 		
 		return "admin/admin_member";
 	}
+	
+	@RequestMapping("refund")
+	public String refundTicket(Model model, Integer memberNo, 
+			Integer canceledTicket, HttpServletRequest request) {
+		try {
+			// 티켓 취소
+			String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴.
+			
+			Map<String, Object> map = null;
+			map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("ticket", canceledTicket);
+			map.put("paymentType", "B");
+			System.out.println("취소 티켓:" + canceledTicket);
+			int result = adminService.refundTicket(map);
+			if(result>0) {
+				model.addAttribute("msg", "환불 성공");
+			}else {
+				model.addAttribute("msg", "환불 실패");
+			}
+			
+			return "redirect:"+beforeUrl;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/";
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
