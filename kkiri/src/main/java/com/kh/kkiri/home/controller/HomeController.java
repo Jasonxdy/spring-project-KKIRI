@@ -36,9 +36,6 @@ public class HomeController {
 			
 			
 			
-			
-			
-			
 			// 1주간 높은 평점을 받은 회원 목록
 			int memberCount = homeService.selectMemberCount();
 			
@@ -55,10 +52,6 @@ public class HomeController {
 			model.addAttribute("msg", "메인 화면 로딩 과정 중 오류 발생");
 			return "common/errorPage";
 		}
-		
-		
-		
-		
 		
 		return "home";
 	}

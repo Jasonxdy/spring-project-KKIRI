@@ -6,8 +6,16 @@
 
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
+  rel="stylesheet">
+  <link rel="stylesheet" href="../resources/css/my_profile.css">
+  <script src='../resources/js/index.js'></script>
+  <link rel="stylesheet" href="../resources/css/common.css">
+  <link rel="stylesheet" href="../resources/css/my_profile.css">
+  <link rel="stylesheet" href="../resources/css/header.css">
+  <link rel="stylesheet" href="../resources/css/footer.css">
+  
   <title>KKIRI(끼리)</title>
-  <link rel="stylesheet" href="../index 페이지 - 진웅/css/my_profile.css">
 </head>
 
 <body>
@@ -101,7 +109,7 @@
                 </div>
                 <div class="col-4">
                   <h5 class="profile-name">프로필 사진</h5>
-                  <img class="profile-img" src="../index 페이지 - 진웅/img/cat-1.jpg" alt="프로필 사진">
+                  <img class="profile-img" src="../resources/img/cat-1.jpg" alt="프로필 사진">
                 </div>
                 <br>
                 <div class="btn my-profile-btn">
