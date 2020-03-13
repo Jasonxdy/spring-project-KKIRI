@@ -28,7 +28,6 @@
 .event-creator-info > img{
     float: left;
 }
-
 #stripe{
     margin-top: 70px;
     border-radius: 0 0 10px 10px;
@@ -119,7 +118,9 @@
 .declare-wrap.active a:hover {
     color : #333333;
 }
-#event-navi .nav-link.active{
+#event-navi .nav-link.active, 
+#wrapper .navbar-light .navbar-nav .nav-link:hover,
+#see-all>a:hover{
     color : #00a185;
 }
 
@@ -132,10 +133,5 @@
 @media (max-width: 900px){
     .event-thumbnail{
         /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
-    }
-}
-@media (max-width: 575px){
-    #event-navi .navbar-nav {
-        display: block;
     }
 }
