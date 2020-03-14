@@ -10,6 +10,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	<c:if test="${loginMember.memberGrade == 'A'}">
 	<div id="wrapper">
 		<!-- content 시작 -->
 		<div id="container" class="container">
@@ -71,17 +72,16 @@
 				<!-- 검색 -->
 				<div class="col-md-2 col-sm-3">
 					<div class="input-group">
-						<select class="custom-select" id="inputGroupSelect04"
+						<select class="custom-select" id="inputGroupSelect04" name="searchKey"
 							aria-label="Example select with button addon">
-							<option selected>검색</option>
-							<option value="1">신고자</option>
-							<option value="2">신고대상</option>
+							<option value="report">신고자</option>
+							<option value="reported">신고대상</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-9 col-sm-7">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder=""
+						<input type="text" class="form-control" placeholder="" name="searchValue"
 							aria-label="Username" aria-describedby="basic-addon1">
 					</div>
 				</div>
@@ -199,7 +199,7 @@
 		<!-- content 끝 -->
 	</div>
 
-
+	</c:if>
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">

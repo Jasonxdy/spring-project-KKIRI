@@ -21,7 +21,7 @@ import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin/*")
-@SessionAttributes({"loginMember", "msg"})
+@SessionAttributes("msg")
 public class AdminController {
 	
 	@Autowired
@@ -59,15 +59,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("refund")
-	public String refundTicket(Model model, Integer memberNo, 
+	public String refundTicket(Model model, Integer thisMemberNo, 
 			Integer canceledTicket, HttpServletRequest request) {
 		try {
 			// 티켓 취소
 			String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴.
-			
+			canceledTicket = -(canceledTicket);
 			Map<String, Object> map = null;
 			map = new HashMap<String, Object>();
-			map.put("memberNo", memberNo);
+			map.put("memberNo", thisMemberNo);
 			map.put("ticket", canceledTicket);
 			map.put("paymentType", "B");
 			System.out.println("취소 티켓:" + canceledTicket);
@@ -109,7 +109,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("report")
-	public String adminReport(Model model) {
+	public String adminReport(Model model,
+			@RequestParam(value="searchKey" required=false) String searchKey,
+			) {
 		
 		return "admin/admin_report";
 	}

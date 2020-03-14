@@ -19,6 +19,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	<c:if test="${loginMember.memberGrade == 'A'}">
 	<div id="wrapper">
 	<!-- content 시작 -->
 	<div id="container" class="container">
@@ -244,15 +245,16 @@
 	</div>
 	<!-- content 끝 -->
 	</div>
+	</c:if>
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
-		<!-- <form action="refund" method="GET"> -->
+		<form action="refund" method="POST">
 			<p class="popup-title">
 				티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
-			<input id="thisMemberNo" type="text" style="display:none;">
+			<input id="thisMemberNo" name="thisMemberNo" type="text" style="display:none;">
 			<div class="popup-content">
 				<div class="row justify-content-md-center mb-2">
 					<div class="col-3 text-center">현재 티켓 수</div>
@@ -276,7 +278,7 @@
 				</div>
 			</div>
 			<button id="refund" class="popup-confirm-btn" >확인</button>
-		<!-- </form> -->
+		</form>
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -336,13 +338,14 @@
 			}
 		});
 		
-		$("#refund").click(function(){
+		// 환불 기능
+		/* $("#refund").click(function(){
 			var memberNo = $("#thisMemberNo").val();
 			var canceledTicket =  $("#canceled-ticket").val(); 
 			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 			location.href="refund?memberNo=" + memberNo + "&canceledTicket=" + (-canceledTicket);
 		});
-
+ */
 		$(".btn-delete").on("click", function() {
 			var memberNo = $(this).parent().parent().children().eq(0).text();
 			var memberThis = $(this);
