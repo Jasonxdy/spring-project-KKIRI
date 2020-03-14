@@ -110,8 +110,10 @@ public class AdminController {
 	
 	@RequestMapping("report")
 	public String adminReport(Model model,
-			@RequestParam(value="searchKey" required=false) String searchKey,
-			) {
+						@RequestParam(value="currentPage", required=false) Integer currentPage,
+						@RequestParam(value="searchKey", required=false) String searchKey,
+						@RequestParam(value="searchValue", required=false) String searchValue
+						) {
 		
 		return "admin/admin_report";
 	}
