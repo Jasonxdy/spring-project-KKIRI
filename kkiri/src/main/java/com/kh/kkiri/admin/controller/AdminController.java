@@ -18,6 +18,7 @@ import com.kh.kkiri.admin.model.service.AdminService;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.report.model.service.ReportService;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -26,6 +27,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private ReportService reportService;
 	
 	@RequestMapping("member")
 	public String adminMain(Model model,
@@ -114,6 +118,27 @@ public class AdminController {
 						@RequestParam(value="searchKey", required=false) String searchKey,
 						@RequestParam(value="searchValue", required=false) String searchValue
 						) {
+		try {
+			Map<String, String> map = null;
+			if(searchKey != null && searchValue != null) {
+				map = new HashMap<String, String>();
+				map.put("searchKey",searchKey);
+				map.put("searchValue",searchValue);
+			}
+			int memberCount = reportService.adminReportCount(map);
+			//System.out.println("회원 수: " + memberCount);
+			if(currentPage == null) currentPage = 1;
+			
+			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, memberCount);
+			
+			List<Member> rList = reportService.adminSelectReport(map, pInf);
+			
+			model.addAttribute("pInf", pInf);
+			model.addAttribute("rList", rList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "admin/admin_report";
 	}

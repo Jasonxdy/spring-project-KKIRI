@@ -39,7 +39,7 @@
 		<div class="row justify-content-md-center">
 			<div class="col-12">
 				<h2 class="mt-3 mb-3">회원관리</h2>
-				<table id="list-table"
+				<table id="admin-table"
 					class="table table-hover table-striped table-sm">
 					<thead>
 						<tr class="text-center">
@@ -306,10 +306,10 @@
 		});
 
 		$(function () {
-	      $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").on("click", function () {
+	      $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").on("click", function () {
 	        location.href="#";
 	      }).mouseenter(function () {
-	        $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").css("cursor", "pointer");
+	        $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").css("cursor", "pointer");
 	      });
 	    });
 		

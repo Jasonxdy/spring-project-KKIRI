@@ -30,7 +30,7 @@
 			<div class="row justify-content-md-center">
 				<div class="col-12 rounded-sm">
 					<h2 class="mt-3 mb-3">신고</h2>
-					<table id="list-table"
+					<table id="admin-table"
 						class="table table-hover table-striped table-sm">
 						<thead>
 							<tr class="text-center">
@@ -53,11 +53,17 @@
 							<c:forEach var="report" items="${rList}" varStatus="vs">
 							<tr class="text-center">
 								<th scope="row">${report.reportNo}</th>
-								<td>user01</td>
-								<td>neagaJ</td>
+								<td>${report.reportMember}</td>
+								<td>${report.reportedMember}</td>
+								<c:if test="${report.reportCategory == 'A'}">
 								<td>광고</td>
-								<td>잘 키운 수박 팝니다. 잘 키운 수박 팝니다. 잘 키운 수박 팝니다.</td>
-								<td>2020-02-22</td>
+								</c:if>
+								<c:if test="${report.reportCategory == 'B'}">
+								<td>욕설</td>
+								</c:if>
+								<td>${report.eventTitle}</td>
+								<td>${report.reportDate}</td>
+								<td style="display:none;">${report.reportContent}</td>
 								<td id="lastTd"><button class="btn btn-sm btn-primary">이동</button></td>
 							</tr>
 							</c:forEach>
@@ -67,7 +73,7 @@
 				</div>
 			</div>
 
-
+			<form action="report" method="get">
 			<div class="row justify-content-md-center">
 				<!-- 검색 -->
 				<div class="col-md-2 col-sm-3">
@@ -87,10 +93,11 @@
 				</div>
 				<div class="col-md-1 col-sm-2">
 					<div class="input-group-append">
-						<button class="green-radius-btn search-btn" type="button">검색</button>
+						<button class="green-radius-btn search-btn" type="submit">검색</button>
 					</div>
 				</div>
 			</div>
+			</form>
 			<!-- 검색 끝 -->
 			<!-- 페이징 바 -->
 			<div class="row justify-content-center pagination-wrap">
@@ -214,7 +221,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-sm">카테고리</span>
 						</div>
-						<input type="text" class="form-control" value="광고글" readonly>
+						<input id="modal_category" type="text" class="form-control" readonly>
 					</div>
 				</div>
 				<div class="col-2"></div>
@@ -223,7 +230,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-sm">신고자</span>
 						</div>
-						<input type="text" class="form-control" value="user02" readonly>
+						<input id="modal_reportId" type="text" class="form-control" readonly>
 					</div>
 				</div>
 			</div>
@@ -233,32 +240,26 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-sm">신고대상</span>
 						</div>
-						<input type="text" class="form-control" value="user03" readonly>
+						<input id="modal_reportedId" type="text" class="form-control" readonly>
 					</div>
 				</div>
 				<div class="col-4"></div>
 				<div class="col-4 text-center">
 					<div class="input-group input-group-sm mb-3">
 						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-sm">작성일</span>
+							<span class="input-group-text" id="inputGroup-sizing-sm">신고일</span>
 						</div>
-						<input type="text" class="form-control" value="2020-02-21"
-							readonly>
+						<input id="modal_reportDate" type="text" class="form-control"	readonly>
 					</div>
 				</div>
 			</div>
 			<div class="row justify-content-md-center">
-				<div class="col-11"
+				<div id="modal_reportContent" class="col-11"
 					style="border: 2px solid lightgray; height: 20rem; overflow: auto;">
-					신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br>
-					신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br>
-					신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br>
-					신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br>
-					신고내용<br> 신고내용<br> 신고내용<br> 신고내용<br>
 				</div>
 			</div>
 		</div>
-		<button class="popup-confirm-btn">확인</button>
+		<button class="close-popup popup-confirm-btn">확인</button>
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -285,10 +286,22 @@
 		});
 
 		$(function() {
-			$("#list-table td").not("#lastTd").on("click", function() {
+			$("#admin-table td").not("#lastTd").on("click", function() {
 				$(".popup-shadow, #popup").show(0);
+				//var thisReportNo = $(this).parent().children().eq(0).text();
+				var thisReportId = $(this).parent().children().eq(1).text();
+				var thisReportCategory = $(this).parent().children().eq(3).text();
+				var thisReportedId = $(this).parent().children().eq(2).text();
+				var thisReportDate = $(this).parent().children().eq(5).text();
+				var thisReportContent = $(this).parent().children().eq(6).html();
+				$("#modal_reportId").val(thisReportId);
+				$("#modal_category").val(thisReportCategory);
+				$("#modal_reportedId").val(thisReportedId);
+				$("#modal_reportDate").val(thisReportDate);
+				$("#modal_reportContent").html(thisReportContent);
+				
 			}).mouseenter(function() {
-				$("#list-table td").not("#lastTd").css("cursor", "pointer");
+				$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 			});
 		});
 

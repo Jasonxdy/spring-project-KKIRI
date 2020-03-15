@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reportMapper">
+	<resultMap type="Report" id="reportResultSet">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="eventNo" column="EVENT_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="reportCategory" column="REPORT_CATEGORY"/>
+		<result property="reportContent" column="REPORT_CONTENT"/>
+		<result property="reportDate" column="REPORT_DATE"/>
+	</resultMap>
+	
+	<resultMap type="Report_A" id="report_AResultSet">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="reportMember" column="MEMBER_ID"/>
+		<result property="reportedMember" column="REPORTED"/>
+		<result property="reportCategory" column="REPORT_CATEGORY"/>
+		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="reportDate" column="REPORT_DATE"/>
+		<result property="reportContent" column="REPORT_CONTENT"/>
+		<result property="eventNo" column="R.EVENT_NO"/>
+	</resultMap>
+	
+	<select id="adminReportCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM V_REPORT_A
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'report'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<otherwise>
+						AND REPORTED LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="adminSelectReport" parameterType="map" resultMap="report_AResultSet">
+		SELECT * FROM V_REPORT_A
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'report'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<otherwise>
+						AND REPORTED LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	
+	
+</mapper>
