@@ -48,25 +48,29 @@ public class MypageController {
 		}
 	}
 	@RequestMapping("updatePassword")
-	public String updatePassword (Model model, String originPassword, String changePassword) {
+	public String updatePassword (Model model, String originPassword, String changePassword, RedirectAttributes rdAttr) {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		
 		loginMember.setMemberPwd(originPassword);
-		
+		String msg = "";
 		// 비밀번호 확인 작업
 		try {
 			
 		int result = mypageService.updatePassword(loginMember ,changePassword);
 		
+		if(result==0)  msg="기존 비밀번호가 틀렸습니다.";
+		else if(result ==1) msg="비밀번호 변경에 성공하였습니다.";
+		else msg="비밀번호 변경에 실패하였습니다.";
+		 rdAttr.addFlashAttribute("msg", msg);
 		
 		}catch(Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", "비밀번호 변경 과정중 오류가 발생했습니다.");
+			model.addAttribute("errorMsg", "비밀번호 변경 과정중 오류가 발생했습니다.");
 			return "common/errorPage";
 		}
 		
 		
-		return "";
+		return "redirect:/mypage/in";
 	}
 }

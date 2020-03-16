@@ -21,6 +21,11 @@
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
+	<c:if test="${!empty msg }">
+		<script>alert("${msg}")</script>
+		<c:remove var="msg"/>
+	</c:if>
+	
 	<div id="header">
           <div class="container">
           	<div class="row">

@@ -33,12 +33,13 @@ public class MypageServiceimpl implements MypageService{
 	@Transactional(rollbackFor = Exception.class)
 	public int updatePassword(Member loginMember, String changePassword) throws Exception {
 		
-		int result = 0;
+		int result = 0; //아이디와 비밀번호가 일치하지 않음
 		Member checkMember = null;
 		checkMember = memberDAO.signInMember(loginMember);
 		if(checkMember != null) {
 			loginMember.setMemberPwd(changePassword);
 		result = mypageDAO.updatePassword(loginMember);
+		if(result == 0) result=-1; // 변경 실패
 		}
 		
 		return result;
