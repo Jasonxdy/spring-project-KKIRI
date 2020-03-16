@@ -211,7 +211,8 @@
 			문의 내용 <img src="${contextPath}/resources/img/close-btn.png"
 				alt="닫기버튼" class="close-popup">
 		</p>
-		<input id="thisAnswerEmail" name="thisAnswerEmail" type="text" style="display:none;">
+		<input id="thisAskNo" name="askNo" type="text" style="display:none;">
+		<input id="thisAnswerEmail" name="askEmail" type="text" style="display:none;">
 		<div class="popup-content">
 			<div class="row mb-1">
 				<div class="col-8 text-center">
@@ -227,7 +228,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-sm">문의자</span>
 						</div>
-						<input type="text" class="form-control" id="modal_askId" readonly>
+						<input type="text" name="memberId" class="form-control" id="modal_askId" readonly>
 					</div>
 				</div>
 			</div>
@@ -251,7 +252,7 @@
 			</div>
 			<br>
 			<div class="row justify-content-md-center">
-				<textarea class="col-11"
+				<textarea class="col-11" name="answerContent"
 					style="border: 2px solid lightgray; height: 9rem; overflow: auto; resize: none;" placeholder="답변 작성"></textarea>
 			</div>
 		</div>
@@ -285,18 +286,21 @@
 		$(function() {
 			$("#admin-table td").not("#lastTd").on("click",	function() {
 						$(".popup-shadow, #popup").show(0);
-						//var thisReportNo = $(this).parent().children().eq(0).text();
+						var thisAskNo = $(this).parent().children().eq(0).text();
+						var thisAnswerEmail = $(this).parent().children().eq(2).text();
+						
 						var thisAskId = $(this).parent().children().eq(1).text();
 						var thisAskTitle = $(this).parent().children().eq(3).text();
 						var thisAskEnrollDate = $(this).parent().children().eq(7).text();
 						var thisAskContent = $(this).parent().children().eq(6).html();
-						var thisAnswerEmail = $(this).parent().children().eq(2).text();
-						console.log(thisAskEnrollDate);
+						console.log(thisAskNo);
+						$("#thisAskNo").val(thisAskNo);
+						$("#thisAnswerEmail").val(thisAnswerEmail);
+						
 						$("#modal_askId").val(thisAskId);
 						$("#modal_askTitle").val(thisAskTitle);
 						$("#modal_askEnrollDate").val(thisAskEnrollDate);
 						$("#modal_askContent").html(thisAskContent);
-						$("#thisAnswerEmail").val(thisAnswerEmail);
 	
 					}).mouseenter(function() {
 				$("#admin-table td").not("#lastTd").css("cursor", "pointer");
