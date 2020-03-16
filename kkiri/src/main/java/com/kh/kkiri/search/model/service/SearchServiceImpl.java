@@ -21,10 +21,12 @@ public class SearchServiceImpl implements SearchService {
 	 * @return searchCount
 	 * @throws Exception
 	 */
+	/*
 	@Override
-	public int getSearchCount(Map<String, String> map) throws Exception {
+	public int getSearchCount(Map<String, String> map) throws Exception{
 		return searchDAO.getSearchCount(map);
 	}
+	*/
 
 	/** 탐색 목록 조회용 Service
 	 * @param map
@@ -32,9 +34,11 @@ public class SearchServiceImpl implements SearchService {
 	 * @return list
 	 * @throws Exception
 	 */
+	/*
 	@Override
-	public List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
+	public List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
 		return searchDAO.selectList(map,pInf);
 	}
+	*/
 
 }

@@ -40,11 +40,37 @@ public class MypageController {
 			msg = "회원정보 수정 완료";
 			rdAttr.addFlashAttribute("msg", msg);
 		}
-		return "redirect:/myPage/in";
+		return "redirect:/mypage/in";
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "계좌정보 수정중 오류가 발생하였습니다.");
 			return "common/errorPage";
 		}
+	}
+	@RequestMapping("updatePassword")
+	public String updatePassword (Model model, String originPassword, String changePassword, RedirectAttributes rdAttr) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		
+		loginMember.setMemberPwd(originPassword);
+		String msg = "";
+		// 비밀번호 확인 작업
+		try {
+			
+		int result = mypageService.updatePassword(loginMember ,changePassword);
+		
+		if(result==0)  msg="기존 비밀번호가 틀렸습니다.";
+		else if(result ==1) msg="비밀번호 변경에 성공하였습니다.";
+		else msg="비밀번호 변경에 실패하였습니다.";
+		 rdAttr.addFlashAttribute("msg", msg);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "비밀번호 변경 과정중 오류가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		
+		return "redirect:/mypage/in";
 	}
 }

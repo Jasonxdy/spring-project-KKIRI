@@ -22,5 +22,6 @@ public interface ReportService {
 	 * @throws Exception
 	 */
 	List<Member> adminSelectReport(Map<String, String> map, PageInfo pInf) throws Exception;
-	
+
+		
 }

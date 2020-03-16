@@ -16,5 +16,10 @@ public class MypageDAO {
 
 		return sqlSession.update("memberMapper.updateAccount", account);
 	}
+
+	public int updatePassword(Member loginMember) throws Exception{
+
+		return sqlSession.update("memberMapper.updatePassword", loginMember);
+	}
 	
 }

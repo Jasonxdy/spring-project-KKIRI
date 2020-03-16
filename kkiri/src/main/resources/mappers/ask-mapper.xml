@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="askMapper">
+	<resultMap type="Ask" id="AskResultSet">
+		<id property="askNo" column="ASK_NO"/>
+		<result property="askTitle" column="ASK_TITLE"/>
+		<result property="askContent" column="ASK_CONTENT"/>
+		<result property="askEmail" column="ASK_EMAIL"/>
+		<result property="answerStatus" column="ANSWER_STATUS"/>
+		<result property="askAnswer" column="ASK_ANSWER"/>
+		<result property="askEnrollDate" column="ASK_ENROLL_DT"/>
+		<result property="answerEnrollDate" column="ANSWER_ENROLL_DT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		
+	</resultMap>
+	<!-- <resultMap type="Ask_A" id="Ask_AResultSet">
+		<id property="askNo" column="ASK_NO"/>
+		<result property="askTitle" column="ASK_TITLE"/>
+		<result property="askContent" column="ASK_CONTENT"/>
+		<result property="askEmail" column="ASK_EMAIL"/>
+		<result property="answerStatus" column="ANSWER_STATUS"/>
+		<result property="askAnswer" column="ASK_ANSWER"/>
+		<result property="memberId" column="MEMBER_Id"/>
+	</resultMap> -->
+	
+	<select id="adminAskCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM ASK
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'writer'">
+						AND ASK_EMAIL LIKE #{sv}
+					</when>
+					<otherwise>
+						AND ASK_TITLE LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="adminSelectAsk" parameterType="map" resultMap="AskResultSet">
+		SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_EMAIL, ANSWER_STATUS,
+				ASK_ANSWER, ASK_ENROLL_DT, ANSWER_ENROLL_DT, NVL(MEMBER_ID, '비회원') AS MEMBER_ID
+		FROM ASK
+		LEFT JOIN MEMBER USING(MEMBER_NO)
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'writer'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<when test="searchKey == 'email'">
+						AND ASK_EMAIL LIKE #{sv}
+					</when>
+					<otherwise>
+						AND ASK_TITLE LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		ORDER BY ASK_NO DESC
+	</select>
+	
+	
+</mapper>

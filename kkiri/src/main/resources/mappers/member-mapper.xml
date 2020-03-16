@@ -98,5 +98,10 @@
 		MEMBER_ACCOUNT = #{memberAccount}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	<update id="updatePassword" parameterType="Member">
 	
+	UPDATE MEMBER SET MEMBER_PWD = #{memberPwd}
+	WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
 </mapper>

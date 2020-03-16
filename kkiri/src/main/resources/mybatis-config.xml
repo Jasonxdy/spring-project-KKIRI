@@ -15,6 +15,8 @@
 		<typeAlias type="com.kh.kkiri.event.model.vo.Event" alias="Event"/>
 		<typeAlias type="com.kh.kkiri.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="com.kh.kkiri.report.model.vo.Report_A" alias="Report_A"/>
+		<typeAlias type="com.kh.kkiri.ask.model.vo.Ask" alias="Ask"/>
+		<typeAlias type="com.kh.kkiri.ask.model.vo.Ask_A" alias="Ask_A"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분 -->
@@ -26,5 +28,6 @@
 		<mapper resource="/mappers/payment-mapper.xml"/>
 		<mapper resource="/mappers/event-mapper.xml"/>
 		<mapper resource="/mappers/report-mapper.xml"/>
+		<mapper resource="/mappers/ask-mapper.xml"/>
 	</mappers>
 </configuration>
