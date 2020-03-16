@@ -269,6 +269,8 @@
 		        $("#place").on('input',function(){
 		        	console.log("aa");
 		        });
+		        
+		    // 이 위로 검색창 관련 스크립트
 		</script>
 </body>
 </html>

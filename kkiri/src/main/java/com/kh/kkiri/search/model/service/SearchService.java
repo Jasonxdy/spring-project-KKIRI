@@ -16,7 +16,7 @@ public interface SearchService {
 	 * @return searchCount
 	 * @throws Exception
 	 */
-	public abstract int getSearchCount(Map<String, String> map) throws Exception;
+	//public abstract int getSearchCount(Map<String, String> map) throws Exception;
 
 	
 	/** 탐색 목록 조회용 Service
@@ -25,6 +25,6 @@ public interface SearchService {
 	 * @return list
 	 * @throws Exception
 	 */
-	public abstract List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+	//public abstract List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
 
 }

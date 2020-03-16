@@ -49,12 +49,7 @@
 								<c:forEach var="ask" items="${aList}" varStatus="vs">
 								<tr class="text-center">
 									<th scope="row">${ask.askNo}</th>
-									<c:if test="${ask.memberId == null}">
-										<td>비회원</td>
-									</c:if>
-									<c:if test="${ask.memberId != null}">
 									<td>${ask.memberId}</td>
-									</c:if>
 									<td>${ask.askEmail}</td>
 									<td>${ask.askTitle}</td>
 									<c:set var="enrollDate" value ="${fn:substring(ask.askEnrollDate, 0, 4)}년
@@ -79,9 +74,9 @@
 						<div class="col-md-2 col-sm-3">
 							<div class="input-group">
 								<select class="custom-select" id="inputGroupSelect04"
-									aria-label="Example select with button addon">
+									name="searchKey" aria-label="Example select with button addon">
 									<option value="writer">작성자</option>
-									<option value="email">작성자</option>
+									<option value="email">이메일</option>
 									<option value="title">제목</option>
 								</select>
 							</div>
@@ -89,7 +84,7 @@
 						<div class="col-md-9 col-sm-7">
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" placeholder=""
-									aria-label="Username" aria-describedby="basic-addon1">
+									name="searchValue" aria-label="Username" aria-describedby="basic-addon1">
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-2">
@@ -211,10 +206,12 @@
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
+	<form action="sendAnswer" method="post">
 		<p class="popup-title">
 			문의 내용 <img src="${contextPath}/resources/img/close-btn.png"
 				alt="닫기버튼" class="close-popup">
 		</p>
+		<input id="thisAnswerEmail" name="thisAnswerEmail" type="text" style="display:none;">
 		<div class="popup-content">
 			<div class="row mb-1">
 				<div class="col-8 text-center">
@@ -258,7 +255,8 @@
 					style="border: 2px solid lightgray; height: 9rem; overflow: auto; resize: none;" placeholder="답변 작성"></textarea>
 			</div>
 		</div>
-		<button class="popup-confirm-btn">확인</button>
+		<button class="popup-confirm-btn" type="submit" >확인</button>
+	</form>
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -292,16 +290,19 @@
 						var thisAskTitle = $(this).parent().children().eq(3).text();
 						var thisAskEnrollDate = $(this).parent().children().eq(7).text();
 						var thisAskContent = $(this).parent().children().eq(6).html();
+						var thisAnswerEmail = $(this).parent().children().eq(2).text();
 						console.log(thisAskEnrollDate);
 						$("#modal_askId").val(thisAskId);
 						$("#modal_askTitle").val(thisAskTitle);
 						$("#modal_askEnrollDate").val(thisAskEnrollDate);
 						$("#modal_askContent").html(thisAskContent);
-
+						$("#thisAnswerEmail").val(thisAnswerEmail);
+	
 					}).mouseenter(function() {
 				$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 			});
 		});
+		
 
 		// 로그인 팝업 이벤트
 		$(".close-popup, .popup-shadow, .popup-confirm-btn").on({
