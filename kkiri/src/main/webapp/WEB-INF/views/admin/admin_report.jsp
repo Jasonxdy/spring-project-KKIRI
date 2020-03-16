@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="wrapper">
 	<jsp:include page="../common/header.jsp" />
 	<c:if test="${loginMember.memberGrade == 'A'}">
-	<div id="wrapper">
 		<!-- content 시작 -->
 		<div id="container" class="container">
 			<div class="row mt-5">
@@ -22,7 +22,7 @@
 						tabindex="-1">이벤트</a></li>
 					<li class="nav-item"><a class="nav-link active" href="report"
 						tabindex="-1">신고</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"
+					<li class="nav-item"><a class="nav-link" href="ask"
 						tabindex="-1">문의</a></li>
 				</ul>
 			</div>
@@ -204,9 +204,9 @@
 			<!-- 페이징 바 끝 -->
 		</div>
 		<!-- content 끝 -->
+	</c:if>
 	</div>
 
-	</c:if>
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
