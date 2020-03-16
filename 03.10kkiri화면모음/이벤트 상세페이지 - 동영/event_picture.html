@@ -266,7 +266,7 @@
                     </p>
                     <div class="popup-content popup-img">
                         <img src="../index 페이지 - 진웅/img/thumbnail3.png" alt="이미지예시">
-                        <div class="">
+                        <div class="content-wrap">
                             <p class="popup-picture-title">이미지 제목9</p>
                             <p class="popup-picture-date">2020년 03월 13일 13:15</p>
                             <p class="popup-picture-content">이미지 내용9</p>
@@ -274,13 +274,18 @@
                     </div>
                   </div>
                   <div class="popup-shadow"></div>
-            
+           
                 <script>
                   $(".picture-wrap").on({
                     click : function(){
+                      $("#popup .popup-img>img").attr("src",$(this).children("img").attr("src"));
+                      $("#popup .popup-picture-title").text($(this).find(".picture-title").text());
+                      $("#popup .popup-picture-date").text($(this).find(".picture-date").text());
+                      $("#popup .popup-picture-content").text($(this).find(".picture-content").text());
                       $(".popup-shadow, #popup").show(0);
                     }
                   });
+
                   $(".close-popup, .popup-shadow").on({
                     click : function(){
                       $(".popup-shadow, #popup").hide(0);
