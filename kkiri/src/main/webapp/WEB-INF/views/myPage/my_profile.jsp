@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-4">
                   <h5 class="profile-name">프로필 사진</h5>
-                  <img class="profile-img" src="../resources/img/cat-1.jpg" alt="프로필 사진">
+                  <img class="profile-img" src="../resources/img/${loginMember.memberProfile}" alt="프로필 사진">
                 </div>
                 <br>
                 <div class="btn my-profile-btn">
@@ -121,40 +121,41 @@
             </div>
     
     
-            <div id="display-password" class="my-profile-section moving-1" >
+            <form id="display-password" class="my-profile-section moving-1" action="updatePassword" onsubmit="return passCheck();" method="POST">
               <h4>비밀번호 변경</h4>
                 
                   <div class="row my-profile-tableTitle" >
                     <div class="col-4">
                       현재 비밀번호
                     </div>
-                    <input class="passborder" type="password" placeholder="현재 비밀번호를 입력해주세요." >
+                    <input class="passborder" type="password" placeholder="현재 비밀번호를 입력해주세요." name ="originPassword" >
                   </div>
                   <br>
                   <div class="row my-profile-tableTitle">
                     <div class="col-4">
                       새로운 비밀번호
                     </div>
-                    <input class="passborder" type="password" placeholder="새로운 비밀번호를 입력해주세요." >
+                    <input id="passCheck1" class="passborder" type="password" placeholder="새로운 비밀번호를 입력해주세요." name ="changePassword" >
                   </div>
                   <br>
                   <div class="row my-profile-tableTitle">
                     <div class="col-4">
                       비밀번호 확인
                     </div>
-                    <input class="passborder" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요." >
+                    <input id="passCheck2" class="passborder" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요." >
                   </div>
                   <br>
                   <div class="row">
 
-                    <div class="btn my-profile-btn">
+                    <button class="btn my-profile-btn" type="submit" >
                       수정하기
-                    </div>
+                    </button>
                   </div>
                     
-              </div>
+              </form>
               
-              <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount">
+              <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount" onsubmit="">
+              <c:set var="banks" value="${fn:split(loginMember.memberAccount, ',')}"/>
                 <h4>환급 계좌</h4>
                 <div class="row my-profile-tableTitle">
                   
@@ -186,7 +187,7 @@
                 </div>
                 <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankNumber" 
                 <c:if test="${loginMember.memberAccount !=null }">
-                	value ="${fn:substring(loginMember.memberAccount,3,19)}"
+                	value ="${banks[1]}"
                 	
                 </c:if> >
               </div>
@@ -197,7 +198,7 @@
                 </div>
                 <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankOrner" 
                 <c:if test="${loginMember.memberAccount !=null }">
-                	value ="${fn:substring(loginMember.memberAccount,20,23)}"
+                	value ="${banks[2]}"
                 </c:if> >
                 
               </div>
@@ -221,8 +222,30 @@
       </div>
     </div>  
     <script>
+    // 비밀번호 정규표현식 확인용
+    function passCheck(){
+	    var regExp = /^[A-Za-z0-9]{6,12}$/;
+	    	
+	    if(!regExp.test($("#passCheck1").val())){
+	    		alert("유효하지 않은 양식의 비밀번호 입니다.");
+	    		return false;
+	    	console.log("passcheck gg");
+	    	
+	    }
+    	if(!$("#passCheck1").val($("#passCheck2").val())){
+    		alert("변경된 비밀번호가 다릅니다. 다시 확인해주시기 바랍니다.");
+    		return false;
+    	}
+
+
+    }
+    
       // 회원 탈퇴용 확인창 값이 true 면 화면이동
       $(function(){
+    	  
+    	  
+    	  
+    	  
         $("#delete-modal").click(function(){
           var flag1 = confirm("회원탈퇴 하시겠습니까?");
         });
