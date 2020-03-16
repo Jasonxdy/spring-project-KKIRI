@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.kkiri.common.Pagination;
@@ -27,7 +28,7 @@ public class SearchController {
 	
 	private int limit=10;
 	private int pagingBarSize=10;
-	
+	/*
 	@RequestMapping("searchEvent")
 	public String searchEvent(Model model,
 								@RequestParam(value="searchKey", required=false) String searchKey,
@@ -64,5 +65,33 @@ public class SearchController {
 			model.addAttribute("errorMsg", "탐색페이지 목록 조회중 오류발생");
 			return "common/errorPage";
 		}
+	}
+	*/
+	
+	@ResponseBody
+	@RequestMapping(value = "searchEvent", produces= "application/json; charset=utf-8")
+	public String searchEvent(Model model,
+								@RequestParam(value="searchKey", required=false) String searchKey,
+								@RequestParam(value="searchValue", required=false) String searchValue,
+								@RequestParam(value="currentPage", required=false) Integer currentPage
+								) {
+		
+		Map<String, String> map = null;
+		if(searchKey != null && searchValue != null) {
+			map = new HashMap<String, String>();
+			map.put("searchKey", searchKey);
+			map.put("searchValue", searchValue);
+		}
+		
+		//int listCount = searchService.getSearchCount(map);
+		
+		//if(currentPage == null) currentPage = 1;
+		
+		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
+		
+		//List<Search> search = searchService.selectList(map, pInf);
+		
+		
+		return null;
 	}
 }
