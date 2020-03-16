@@ -16,6 +16,10 @@
 		<result property="eventTicket" column="EVENT_TICKET"/>
 		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
 		<result property="eventQuota" column="EVENT_QUOTA"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
 	
@@ -43,22 +47,22 @@
 	
 	
 	
-	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
-		SELECT * FROM EVENT
+		SELECT * FROM V_EVENT
 		WHERE EVENT_NO = #{eventNo}
-		AND EVENT_STATUS = 'Y'
 	</select>
 	
-	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
-		SELECT MEMBER_NO, MEMBER_NICKNAME, NVL(MEMBER_RATING, 0)
-		FROM MEMBER
-		JOIN PARTY USING (MEMBER_NO)
-		LEFT JOIN V_MEM_SCORE_AVG USING (MEMBER_NO)
-		WHERE MEMBER_TYPE = 'S'
-		AND EVENT_NO = #{eventNo}; 
+	
+	<select id="selectPartyList" parameterType="_int" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE
+		FROM PARTY
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE EVENT_NO = #{eventNo}
+		AND PERMISSION = 'Y'
+		AND MEMBER_STATUS = 'Y'
 	</select>
+
 
 
 

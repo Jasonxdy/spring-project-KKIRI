@@ -1,5 +1,7 @@
 package com.kh.kkiri.event.model.service;
 
+import java.util.List;
+
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -14,13 +16,14 @@ public interface EventService {
 	Event selectEvent(int eventNo) throws Exception;
 
 	/**
-	 * 이벤트 주최자 정보 조회
+	 * 이벤트 참석자 조회
 	 * @param eventNo
-	 * @return member
+	 * @return partyList
 	 * @throws Exception
 	 */
-	Member selectMember(int eventNo) throws Exception;
-	
+	List<Member> selectPartyList(int eventNo) throws Exception;
+
+
 	
 	
 }

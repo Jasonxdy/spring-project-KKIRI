@@ -1,5 +1,7 @@
 package com.kh.kkiri.event.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,13 +28,15 @@ public class EventDAO {
 
 
 	/**
-	 * 이벤트 주최자 정보 조회 dao
+	 * 이벤트 참석자 조회
 	 * @param eventNo
-	 * @return member
+	 * @return partyList
 	 * @throws Exception
 	 */
-	public Member selectMember(int eventNo) throws Exception{
-		return sqlSession.selectOne("eventMapper.selectMember", eventNo);
+	public List<Member> selectPartyList(int eventNo) throws Exception{
+		return sqlSession.selectList("eventMapper.selectPartyList", eventNo);
 	}
+
+
 
 }

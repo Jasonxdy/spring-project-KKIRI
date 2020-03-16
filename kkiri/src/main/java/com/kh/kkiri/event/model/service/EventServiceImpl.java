@@ -1,5 +1,7 @@
 package com.kh.kkiri.event.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +27,15 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	/**
-	 * 이벤트 주최자 정보 조회
+	 * 이벤트 참석자 조회
 	 * @param eventNo
-	 * @return member
+	 * @return partyList
 	 * @throws Exception
 	 */
 	@Override
-	public Member selectMember(int eventNo) throws Exception {
-		return eventDAO.selectMember(eventNo);
+	public List<Member> selectPartyList(int eventNo) throws Exception {
+		return eventDAO.selectPartyList(eventNo);
 	}
+	
 
 }
