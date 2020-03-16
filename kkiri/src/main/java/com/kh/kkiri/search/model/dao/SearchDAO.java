@@ -22,9 +22,11 @@ public class SearchDAO {
 	 * @return searchCount
 	 * @throws Exception
 	 */
-	public int getSearchCount(Map<String, String> map) throws Exception {
+	/*
+	public int getSearchCount(Map<String, String> map) throws Exception{
 		return sqlSession.selectOne("searchMapper.getSearchCount", map);
 	}
+	*/
 
 	/** 탐색 목록 조회용 DAO
 	 * @param map
@@ -32,11 +34,12 @@ public class SearchDAO {
 	 * @return list
 	 * @throws Exception
 	 */
-	public List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception {
+	/*
+	public List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
 		int offset = (pInf.getCurrentPage()-1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		
 		return sqlSession.selectList("searchMapper.selectList", map, rowBounds);
 	}
-
+	*/
 }
