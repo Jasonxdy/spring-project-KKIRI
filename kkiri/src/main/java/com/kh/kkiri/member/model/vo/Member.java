@@ -3,7 +3,7 @@ package com.kh.kkiri.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private int MemberNo;
+	private int memberNo;
 	private String memberId;
 	private String memberNickname;
 	private String memberPwd;
@@ -30,7 +30,7 @@ public class Member {
 			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,
 			String memberAccount, String memberIdSort, String memberStatus, double memberRating) {
 		super();
-		MemberNo = memberNo;
+		memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberNickname = memberNickname;
 		this.memberPwd = memberPwd;
@@ -52,11 +52,11 @@ public class Member {
 	}
 
 	public int getMemberNo() {
-		return MemberNo;
+		return memberNo;
 	}
 
 	public void setMemberNo(int memberNo) {
-		MemberNo = memberNo;
+		memberNo = memberNo;
 	}
 
 	public String getMemberId() {
@@ -205,7 +205,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [MemberNo=" + MemberNo + ", memberId=" + memberId + ", memberNickname=" + memberNickname
+		return "Member [MemberNo=" + memberNo + ", memberId=" + memberId + ", memberNickname=" + memberNickname
 				+ ", memberPwd=" + memberPwd + ", memberEmail=" + memberEmail + ", memberGender=" + memberGender
 				+ ", memberPhone=" + memberPhone + ", memberBirth=" + memberBirth + ", memberIntroduce="
 				+ memberIntroduce + ", memberPlace=" + memberPlace + ", memberCategory=" + memberCategory
