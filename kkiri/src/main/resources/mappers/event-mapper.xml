@@ -4,11 +4,60 @@
 	
 	
 	<resultMap type="Event" id="eventResultSet">
-	
+		<id property="eventNo" column="EVENT_NO"/>
+		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="eventContent" column="EVENT_CONTENT"/>
+		<result property="eventCategory" column="EVENT_CATEGORY"/>
+		<result property="eventLocation" column="EVENT_LOCATION"/>
+		<result property="latitude" column="LATITUDE"/>
+		<result property="longtitude" column="LONGITUDE"/>
+		<result property="eventStart" column="EVENT_START"/>
+		<result property="eventEnd" column="EVENT_END"/>
+		<result property="eventTicket" column="EVENT_TICKET"/>
+		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
+		<result property="eventQuota" column="EVENT_QUOTA"/>
 	</resultMap>
+	
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
+		<result property="memberPlace" column="MEMBER_PLACE"/>
+		<result property="memberCategory" column="MEMBER_CATEGORY"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberTicket" column="MEMBER_TICKET"/>
+		<result property="memberAccount" column="MEMBER_ACCOUNT"/>
+		<result property="memberIdSort" column="MEMBER_ID_SORT"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberRating" column="MEMBER_RATING"/>
+	</resultMap>
+	
+	
+	
+	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
+		SELECT * FROM EVENT
+		WHERE EVENT_NO = #{eventNo}
+		AND EVENT_STATUS = 'Y'
+	</select>
 	
+	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, NVL(MEMBER_RATING, 0)
+		FROM MEMBER
+		JOIN PARTY USING (MEMBER_NO)
+		LEFT JOIN V_MEM_SCORE_AVG USING (MEMBER_NO)
+		WHERE MEMBER_TYPE = 'S'
+		AND EVENT_NO = #{eventNo}; 
 	</select>
 
 

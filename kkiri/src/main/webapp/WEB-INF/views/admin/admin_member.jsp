@@ -18,7 +18,9 @@
      </style> -->
 </head>
 <body>
+	<div id="wrapper">
 	<jsp:include page="../common/header.jsp" />
+	<c:if test="${loginMember.memberGrade == 'A'}">
 	<!-- content 시작 -->
 	<div id="container" class="container">
 		<div class="row mt-5">
@@ -26,10 +28,10 @@
 				<li class="nav-item"><a class="nav-link active"
 					href="member" tabindex="-1">회원</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="admin_event.html" tabindex="-1">이벤트</a></li>
+					href="#" tabindex="-1">이벤트</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="admin_report.html" tabindex="-1">신고</a></li>
-				<li class="nav-item"><a class="nav-link" href="admin_ask.html"
+					href="report" tabindex="-1">신고</a></li>
+				<li class="nav-item"><a class="nav-link" href="ask"
 					tabindex="-1">문의</a></li>
 			</ul>
 		</div>
@@ -37,7 +39,7 @@
 		<div class="row justify-content-md-center">
 			<div class="col-12">
 				<h2 class="mt-3 mb-3">회원관리</h2>
-				<table id="list-table"
+				<table id="admin-table"
 					class="table table-hover table-striped table-sm">
 					<thead>
 						<tr class="text-center">
@@ -242,15 +244,17 @@
 		<!-- 페이징 바 끝 -->
 	</div>
 	<!-- content 끝 -->
+	</c:if>
+	</div>
 	<jsp:include page="../common/footer.jsp" />
 	<!-- 팝업 start-->
 	<div id="popup" class="popup">
-		<!-- <form action="refund" method="GET"> -->
+		<form action="refund" method="POST">
 			<p class="popup-title">
 				티켓 환불 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
-			<input id="thisMemberNo" type="text" style="display:none;">
+			<input id="thisMemberNo" name="thisMemberNo" type="text" style="display:none;">
 			<div class="popup-content">
 				<div class="row justify-content-md-center mb-2">
 					<div class="col-3 text-center">현재 티켓 수</div>
@@ -274,7 +278,7 @@
 				</div>
 			</div>
 			<button id="refund" class="popup-confirm-btn" >확인</button>
-		<!-- </form> -->
+		</form>
 	</div>
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
@@ -302,10 +306,10 @@
 		});
 
 		$(function () {
-	      $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").on("click", function () {
+	      $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").on("click", function () {
 	        location.href="#";
 	      }).mouseenter(function () {
-	        $("#list-table td").not("#list-table td:nth-child(8), #list-table td:nth-child(9)").css("cursor", "pointer");
+	        $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").css("cursor", "pointer");
 	      });
 	    });
 		
@@ -334,13 +338,14 @@
 			}
 		});
 		
-		$("#refund").click(function(){
+		// 환불 기능
+		/* $("#refund").click(function(){
 			var memberNo = $("#thisMemberNo").val();
 			var canceledTicket =  $("#canceled-ticket").val(); 
 			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
 			location.href="refund?memberNo=" + memberNo + "&canceledTicket=" + (-canceledTicket);
 		});
-
+ */
 		$(".btn-delete").on("click", function() {
 			var memberNo = $(this).parent().parent().children().eq(0).text();
 			var memberThis = $(this);

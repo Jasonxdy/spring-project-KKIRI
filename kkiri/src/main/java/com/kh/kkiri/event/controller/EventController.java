@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
 @SessionAttributes({"loginMember", "msg"})
@@ -26,17 +27,22 @@ public class EventController {
 		
 		int eventNo = 0;
 		
+//		테스트용으로 삭제 예정
 		if(no != null) {
 			eventNo = no;
 		} else {
-			eventNo = 1;
+			eventNo = 99;
 		}
 		
 		
 		try {
 			
 			// 이벤트 얻어오기
-//			Event event = eventService.selectEvent(eventNo);
+			Event event = eventService.selectEvent(eventNo);
+			
+			// 이벤트 주최자 얻어오기
+			Member member = eventService.selectMember(eventNo);
+			
 			
 			
 			

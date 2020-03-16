@@ -30,7 +30,7 @@ public class Member {
 			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,
 			String memberAccount, String memberIdSort, String memberStatus, double memberRating) {
 		super();
-		memberNo = memberNo;
+		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberNickname = memberNickname;
 		this.memberPwd = memberPwd;
@@ -56,7 +56,7 @@ public class Member {
 	}
 
 	public void setMemberNo(int memberNo) {
-		memberNo = memberNo;
+		this.memberNo = memberNo;
 	}
 
 	public String getMemberId() {
@@ -205,7 +205,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [MemberNo=" + memberNo + ", memberId=" + memberId + ", memberNickname=" + memberNickname
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberNickname=" + memberNickname
 				+ ", memberPwd=" + memberPwd + ", memberEmail=" + memberEmail + ", memberGender=" + memberGender
 				+ ", memberPhone=" + memberPhone + ", memberBirth=" + memberBirth + ", memberIntroduce="
 				+ memberIntroduce + ", memberPlace=" + memberPlace + ", memberCategory=" + memberCategory
@@ -214,7 +214,6 @@ public class Member {
 				+ ", memberIdSort=" + memberIdSort + ", memberStatus=" + memberStatus + ", memberRating=" + memberRating
 				+ "]";
 	}
-	
 	
 }
  

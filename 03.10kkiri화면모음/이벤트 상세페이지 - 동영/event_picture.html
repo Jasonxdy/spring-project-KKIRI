@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
+
+    <!-- 이벤트 상세 페이지 CSS 적용 -->
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/eventPicture.css">
+    <title>KKIRI(끼리)</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="logo"><a href="#"><img src="../index 페이지 - 진웅/img/logo.png" alt="로고"></a></h1>
+                        <div class="nav-section">
+                            <!-- <a href="#" class="login-btn">로그인</a>
+                    <a href="signUp.html">회원가입</a> -->
+                            <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+                            <span class="separation"> | </span>
+                            <a href="#">탐색</a>
+                            <a href="#">고객센터</a>
+                            <div class="profile-wrap">
+                                <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="프로필" class="profile-icon">
+                                <ul class="profile-menu">
+                                    <li><a href="#">프로필</a></li>
+                                    <li><a href="#">이벤트</a></li>
+                                    <li><a href="#">티켓</a></li>
+                                    <li><a href="#">로그아웃</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 이벤트 상세 페이지 start -->
+        <div id="container" class="container mt-5">
+
+            <!-- 이벤트 상세 상단 정보 start -->
+            <div class="row event-detail-info">
+                <div class="col-md-7" id="eventDetailDiv">
+                    <!-- 이벤트 시작시간, 끝나는 시간 -->
+                    <p class="text-muted" id="eventDate" style="margin-bottom: 0em;">
+                        2020년 3월 9일 월요일 · 15:00 ~ 17:00
+                    </p>
+                    <h2 id="eventTitle">
+                        크로스 핏 모여서 즐겨요
+                    </h2>
+                    <!-- 위도, 경도로 얻은 주소 -->
+                    <p id="eventLocation" style="margin-bottom: 0em;">
+                        <img src="../index 페이지 - 진웅/img/map-ping.png" style="height: 18px;" alt="위치아이콘">
+                        회기 크로스핏 짐
+                    </p>
+                    <p class="text-muted">
+
+                        서울시 동대문구 휘경동 204-90
+                    </p>
+                    <p id="eventTicket">
+                        <img src="../index 페이지 - 진웅/img/dollor-icon.png" alt="돈모양"> <b>2</b> 티켓
+                    </p>
+                </div>
+                <div class="col-md-5" id="eventCreater">
+                    <h3>
+                        이벤트 주최자
+                    </h3>
+                    <div class="event-creator-info mt-3">
+                        <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자" class="eventCreater-profile mr-3">
+                        <div class="id-rating">
+                            <h5>jasonxdy</h5>
+                            <p class="star-rating"><img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"
+                                    class="star-img">&nbsp; 4.9</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 이벤트 상세 상단 정보 end -->
+
+
+
+        <!-- 이벤트 sticky element start // sticky element 사용-->
+        <nav class="navbar navbar-expand-sm navbar-light" id="stripe">
+            <div class="container" id="event-navi">
+                <ul class="navbar-nav nav-ul ml-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">참가회원</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">사진</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">후기</a>
+                    </li>
+                </ul>
+                
+                <ul class="nav-ul ml-2">
+                    <li class="nav-item mt-2 text-muted">
+                        <b>
+                            4자리 남음
+                        </b>
+                    </li>
+                    <li class="">
+                        <a class="nav-link" href="#" id="event-participate">
+                            이벤트 참가
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" id="report-button">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            ···
+                        </a>
+                        <div class="declare-wrap">
+                            <a class="declare-btn" href="#">이벤트 신고하기</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- 이벤트 sticky element end -->
+
+        <div class="container">
+            <div class="row mt-5 event-detail-container">
+                <div class="col-md-7 event-picture">
+                    <ul>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail1.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목1</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용1</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail2.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목2</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용2</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail3.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목3</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용3</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail1.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목4</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용4</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail2.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목5</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용5</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail3.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목6</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용6</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail1.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목7</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용7</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail2.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목8</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용8</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="picture-wrap">
+                                <img src="../index 페이지 - 진웅/img/thumbnail3.png" alt="이미지예시">
+                                <p class="picture-title">이미지 제목9</p>
+                                <p class="picture-date">2020년 03월 13일 13:15</p>
+                                <p class="picture-content">이미지 내용9</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                     <!-- 페이징 바 -->
+                        <div class="row justify-content-center pagination-wrap">
+                            <div>
+                            <ul class="pagination">
+                                <li>
+                                <a class="page-link " href="#">&lt;&lt;</a>
+                                </li>
+                                <li>
+                                <a class="page-link " href="#">&lt;</a>
+                                </li>
+                                <li>
+                                <a class="page-link" href="#">1</a>
+                                </li>
+                                <li>
+                                <a class="page-link " href="#">2</a>
+                                </li>
+                                <li>
+                                <a class="page-link " href="#">3</a>
+                                </li>
+                                <li>
+                                <a class="page-link " href="#">4</a>
+                                </li>
+                                <li>
+                                <a class="page-link " href="#">5</a>
+                                </li>
+                                <!-- 다음 페이지로(>) -->
+                                <li>
+                                <a class="page-link " href="#">&gt;</a>
+                                </li>
+                                <!-- 맨 끝으로(>>) -->
+                                <li>
+                                <a class="page-link " href="#">&gt;&gt;</a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    <!-- 페이징 바 끝 -->
+                </div>
+
+                <div id="popup" class="popup">
+                    <p class="popup-title">
+                      사진 자세히보기
+                      <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+                    </p>
+                    <div class="popup-content popup-img">
+                        <img src="../index 페이지 - 진웅/img/thumbnail3.png" alt="이미지예시">
+                        <div class="content-wrap">
+                            <p class="popup-picture-title">이미지 제목9</p>
+                            <p class="popup-picture-date">2020년 03월 13일 13:15</p>
+                            <p class="popup-picture-content">이미지 내용9</p>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="popup-shadow"></div>
+           
+                <script>
+                  $(".picture-wrap").on({
+                    click : function(){
+                      $("#popup .popup-img>img").attr("src",$(this).children("img").attr("src"));
+                      $("#popup .popup-picture-title").text($(this).find(".picture-title").text());
+                      $("#popup .popup-picture-date").text($(this).find(".picture-date").text());
+                      $("#popup .popup-picture-content").text($(this).find(".picture-content").text());
+                      $(".popup-shadow, #popup").show(0);
+                    }
+                  });
+
+                  $(".close-popup, .popup-shadow").on({
+                    click : function(){
+                      $(".popup-shadow, #popup").hide(0);
+                    }
+                  });
+                </script>
+
+                <div class="col-md-5">
+                    <div class="time-and-place">
+                        <h4>
+                            시간과 장소
+                        </h4>
+                        <!-- 이벤트 시작시간, 끝나는 시간 -->
+                        <p class="text-muted" style="margin-bottom: 0em;">
+                            2020년 3월 9일 월요일 15:00 ~ 17:00
+                        </p>
+                        <!-- 위도, 경도로 얻은 주소 -->
+                        <p class="mt-3" style="margin-bottom: 0em;">
+                            <img src="../index 페이지 - 진웅/img/map-ping.png" style="height: 18px;" alt="위치아이콘">
+                            회기 크로스핏 짐
+                        </p>
+                        <p class="text-muted" id="eventPing">
+                            서울시 동대문구 휘경동 204-90
+                        </p>
+
+                        <!-- 지도 부분 start -->
+                        <div style="height: 250px; background-color: gray;">
+                        </div>
+                        <!-- 지도 부분 end -->
+                    </div>
+
+                    <div class="event-participant mt-5">
+                        <h4>
+                            참석자 (<span>9</span>명)
+                                <span id="see-all">
+                                    <a href="#">
+                                        모두 보기
+                                    </a>
+                                </span>
+                        </h4>
+                    </div>
+                    <div class="event-participant-profile-wrap">
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                        <span class="event-participant-profile">
+                            <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- 이벤트 상세 페이지 end -->
+
+        </div>
+
+
+        <div id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 footer-logo-wrap">
+                                <img class="footer-logo" src="../index 페이지 - 진웅/img/logo2-white.png" alt="푸터로고">
+                            </div>
+                            <div class="col-md-8">
+                                <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="button-top">
+        <button type="button" class="top-btn">TOP</button>
+    </div>
+
+    <script>
+
+        function scrollFunction() {
+            if ($(window).scrollTop() >= 200) {
+                $('#button-top').show(0);
+            } else {
+                $('#button-top').hide(0);
+            }
+        }
+        $(function () {
+            scrollFunction();
+            $(window).scroll(function () {
+                scrollFunction();
+            });
+            $('#button-top').on({
+                click: function () {
+                    $('html,body').stop().animate({ scrollTop: 0 }, 600);
+                }
+            });
+
+            // 신고 토글 버튼
+            $("#navbardrop").click(function(e){
+                e.preventDefault();
+                $(this).next(".declare-wrap").toggleClass("active");
+            });
+
+        });
+    </script>
+</body>
+
+</html>

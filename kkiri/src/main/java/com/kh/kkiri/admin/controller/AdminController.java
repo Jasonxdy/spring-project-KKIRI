@@ -15,17 +15,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
+import com.kh.kkiri.ask.model.service.AskService;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.report.model.service.ReportService;
 
 @Controller
 @RequestMapping("/admin/*")
-@SessionAttributes({"loginMember", "msg"})
+@SessionAttributes("msg")
 public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private ReportService reportService;
+	
+	@Autowired
+	private AskService askService;
 	
 	@RequestMapping("member")
 	public String adminMain(Model model,
@@ -59,15 +67,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("refund")
-	public String refundTicket(Model model, Integer memberNo, 
+	public String refundTicket(Model model, Integer thisMemberNo, 
 			Integer canceledTicket, HttpServletRequest request) {
 		try {
 			// 티켓 취소
 			String beforeUrl = request.getHeader("referer"); // 이전 페이지 주소를 얻어옴.
-			
+			canceledTicket = -(canceledTicket);
 			Map<String, Object> map = null;
 			map = new HashMap<String, Object>();
-			map.put("memberNo", memberNo);
+			map.put("memberNo", thisMemberNo);
 			map.put("ticket", canceledTicket);
 			map.put("paymentType", "B");
 			System.out.println("취소 티켓:" + canceledTicket);
@@ -107,6 +115,70 @@ public class AdminController {
 			return "admin/admin_member";
 		}
 	}
+	
+	@RequestMapping("report")
+	public String adminReport(Model model,
+						@RequestParam(value="currentPage", required=false) Integer currentPage,
+						@RequestParam(value="searchKey", required=false) String searchKey,
+						@RequestParam(value="searchValue", required=false) String searchValue
+						) {
+		try {
+			Map<String, String> map = null;
+			if(searchKey != null && searchValue != null) {
+				map = new HashMap<String, String>();
+				map.put("searchKey",searchKey);
+				map.put("searchValue",searchValue);
+			}
+			int memberCount = reportService.adminReportCount(map);
+			//System.out.println("회원 수: " + memberCount);
+			if(currentPage == null) currentPage = 1;
+			
+			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, memberCount);
+			
+			List<Member> rList = reportService.adminSelectReport(map, pInf);
+			
+			model.addAttribute("pInf", pInf);
+			model.addAttribute("rList", rList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "admin/admin_report";
+	}
+	
+	@RequestMapping("ask")
+	public String adminAsk(Model model,
+						@RequestParam(value="currentPage", required=false) Integer currentPage,
+						@RequestParam(value="searchKey", required=false) String searchKey,
+						@RequestParam(value="searchValue", required=false) String searchValue
+						) {
+		try {
+			Map<String, String> map = null;
+			if(searchKey != null && searchValue != null) {
+				map = new HashMap<String, String>();
+				map.put("searchKey",searchKey);
+				map.put("searchValue",searchValue);
+			}
+			int askCount = askService.adminAskCount(map);
+			//System.out.println("회원 수: " + memberCount);
+			if(currentPage == null) currentPage = 1;
+			
+			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, askCount);
+			
+			List<Member> aList = askService.adminSelectAsk(map, pInf);
+			
+			model.addAttribute("pInf", pInf);
+			model.addAttribute("aList", aList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "admin/admin_ask";
+	}
+	
+	
 }
 
 

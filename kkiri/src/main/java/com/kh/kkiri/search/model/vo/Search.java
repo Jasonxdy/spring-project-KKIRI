@@ -1,6 +1,7 @@
 package com.kh.kkiri.search.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.sql.Timestamp;
 
 public class Search {
 	private int eventNo;
@@ -10,8 +11,8 @@ public class Search {
 	private String eventLocation;
 	private double latitude;
 	private double longitude;
-	private Date eventStart;
-	private Date eventEnd;
+	private Timestamp eventStart;
+	private Timestamp eventEnd;
 	private int eventTicket;
 	private String eventThumbnail;
 	private int eventQuota;
@@ -21,7 +22,7 @@ public class Search {
 	public Search(){}
 
 	public Search(int eventNo, String eventTitle, String eventContent, String eventCategory, String eventLocation,
-			double latitude, double longitude, Date eventStart, Date eventEnd, int eventTicket, String eventThumbnail,
+			double latitude, double longitude, Timestamp eventStart, Timestamp eventEnd, int eventTicket, String eventThumbnail,
 			int eventQuota, String memberId, double eventScore) {
 		super();
 		this.eventNo = eventNo;
@@ -96,19 +97,19 @@ public class Search {
 		this.longitude = longitude;
 	}
 
-	public Date getEventStart() {
+	public Timestamp getEventStart() {
 		return eventStart;
 	}
 
-	public void setEventStart(Date eventStart) {
+	public void setEventStart(Timestamp eventStart) {
 		this.eventStart = eventStart;
 	}
 
-	public Date getEventEnd() {
+	public Timestamp getEventEnd() {
 		return eventEnd;
 	}
 
-	public void setEventEnd(Date eventEnd) {
+	public void setEventEnd(Timestamp eventEnd) {
 		this.eventEnd = eventEnd;
 	}
 
