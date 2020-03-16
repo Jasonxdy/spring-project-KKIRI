@@ -232,7 +232,7 @@
 	    	console.log("passcheck gg");
 	    	
 	    }
-    	if(!$("#passCheck1").val($("#passCheck2").val())){
+    	if($("#passCheck1").val()!=$("#passCheck2").val()){
     		alert("변경된 비밀번호가 다릅니다. 다시 확인해주시기 바랍니다.");
     		return false;
     	}
@@ -240,16 +240,20 @@
 
     }
     
-      // 회원 탈퇴용 확인창 값이 true 면 화면이동
       $(function(){
     	  
     	  
     	  
+      // 회원 탈퇴용 확인창 값이 true 면 화면이동
     	  
         $("#delete-modal").click(function(){
           var flag1 = confirm("회원탈퇴 하시겠습니까?");
+        	if(flag1){
+        		location.href="deleteMember?loginMember=loginMember";
+        	}
+        
         });
-
+		
         var scrollTop=0; 
 
         $(window).scroll(function(){
