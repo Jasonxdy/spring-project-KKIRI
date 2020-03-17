@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/common.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board.css">
 </head>
 <body>
@@ -45,9 +44,16 @@
                   
                   <!-- 로그인 된 후(태균) -->
                   <c:if test="${ ! empty sessionScope.loginMember}">
+	                  <c:if test="${loginMember.memberGrade == 'A' }">
+	                  <a href="${contextPath}/admin/member" class="createEvent-btn">관리자 페이지</a>
+	                  </c:if>
+	                  <c:if test="${loginMember.memberGrade != 'A' }">
 	                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+	                  </c:if>
 	                  <span class="separation"> | </span>
 	                  <a href="#">고객센터</a>
+	                  <span class="separation"> | </span>
+	                  <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
 	                  <div class="profile-wrap">
 	                    <!--  <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">-->
 	                    
@@ -61,6 +67,8 @@
 	                    </ul>
 	                  </div>
                	  </c:if>
+               	  
+               	  <!-- 로그인 후 관리자 -->
                
                 </div>
           		</div>

@@ -76,16 +76,16 @@
 								<td>${member.memberPhone}</td>
 								<td>${member.memberTicket}</td>
 								<c:if test="${member.memberAccount != null}">
-									<td><button class="btn btn-sm btn-primary btn-refund">환불</button></td>
+									<td><button class="btn btn-sm btn-outline-primary btn-refund">환불</button></td>
 								</c:if>
 								<c:if test="${member.memberAccount == null}">
-									<td><button class="btn btn-sm btn-secondary">환불</button></td>
+									<td><button class="btn btn-sm btn-outline-secondary">환불</button></td>
 								</c:if>
 								<c:if test="${member.memberStatus == 'Y'}">
-									<td><button class="btn btn-sm btn-danger btn-delete">삭제</button></td>
+									<td><button class="btn btn-sm btn-outline-danger btn-delete">삭제</button></td>
 								</c:if>
 								<c:if test="${member.memberStatus == 'N'}">
-									<td><button class="btn btn-sm btn-success btn-delete">복구</button></td>
+									<td><button class="btn btn-sm btn-outline-success btn-delete">복구</button></td>
 								</c:if>
 							</tr>
 						</c:forEach>

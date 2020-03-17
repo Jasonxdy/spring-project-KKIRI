@@ -25,27 +25,8 @@
 	</resultMap> -->
 	
 	<select id="adminAskCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*) FROM ASK
-		<where>
-			<if test="searchValue != null">
-				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
-				<choose>
-					<when test="searchKey == 'writer'">
-						AND ASK_EMAIL LIKE #{sv}
-					</when>
-					<otherwise>
-						AND ASK_TITLE LIKE #{sv}
-					</otherwise>
-				</choose>
-			</if>
-		</where>
-	</select>
-	
-	<select id="adminSelectAsk" parameterType="map" resultMap="AskResultSet">
-		SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_EMAIL, ANSWER_STATUS,
-				ASK_ANSWER, ASK_ENROLL_DT, ANSWER_ENROLL_DT, NVL(MEMBER_ID, '비회원') AS MEMBER_ID
-		FROM ASK
-		LEFT JOIN MEMBER USING(MEMBER_NO)
+		SELECT COUNT(*) 
+		FROM V_ASK_A
 		<where>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
@@ -62,8 +43,36 @@
 				</choose>
 			</if>
 		</where>
-		ORDER BY ASK_NO DESC
 	</select>
+	
+	<select id="adminSelectAsk" parameterType="map" resultMap="AskResultSet">
+		SELECT *
+		FROM V_ASK_A
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'writer'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<when test="searchKey == 'email'">
+						AND ASK_EMAIL LIKE #{sv}
+					</when>
+					<otherwise>
+						AND ASK_TITLE LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<update id="adminSendAnswer" parameterType="Ask">
+		UPDATE ASK SET
+		ANSWER_STATUS = 'Y',
+		ASK_ANSWER = #{askAnswer},
+		ANSWER_ENROLL_DT = SYSDATE
+		WHERE ASK_NO = #{askNo}
+	</update>
 	
 	
 </mapper>

@@ -88,7 +88,7 @@
               얼음과 같으며 지혜는 날카로우나 갑 속에 든 칼이다 청춘의 끓는 피가 아니더면 인간이 얼마나 쓸쓸하랴? 얼음에 싸인 만물은 얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이</textarea>
              
              
-              <form action="" method="POST"  onsubmit="return validate();">
+              <form action="deleteMember" method="POST"  onsubmit="return validate();">
              
                 <div class="row" style="margin-top:20px" id="agree">
                   <div class="col-4">
@@ -102,7 +102,7 @@
                   <div class="col-4">
                     비밀번호 확인
                   </div>
-                  <input class="col-4 passborder checkpath" type="password" placeholder="내용을 입력해주세요" >
+                  <input class="col-4 passborder checkpath" type="password" placeholder="내용을 입력해주세요" id="pass-flag" name ="password" >
                 </div>
                 <br>
                 <div class="row" style="margin-top:20px" id="deletemember">
@@ -161,7 +161,14 @@
 
       // 비밀번호 체크 부분
 
-      $("")
+      $("#pass-flag").change(function(){
+    	  if($("#pass-flag").val()==""){
+    		 alert("비밀번호 확인란을 입력해주세요");
+    		 return false;
+    	  }else if ($("#pass-flag").val()!=""){
+    		  passcheck = true;
+    	  }
+      })
      
      // 회원탈퇴 입력 부분
      $("#delete-flag").change(function(){
@@ -187,55 +194,8 @@
         }
       }
     </script>
-
-
     
-    
-  
-
-
-  <!-- content 끝 -->
-  
-  <div id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-4 footer-logo-wrap">
-              <img class="footer-logo" src="../index 페이지 - 진웅/img/logo2-white.png" alt="푸터로고">
-            </div>
-            <div class="col-md-8">
-              <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
-</div>
-  <script>
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
-  </script>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 
 </html>

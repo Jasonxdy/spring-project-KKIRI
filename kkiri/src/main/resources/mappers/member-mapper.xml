@@ -104,4 +104,9 @@
 	WHERE MEMBER_NO = #{memberNo}
 	
 	</update>
+	
+	<update id="deleteMember" parameterType="Member" >
+	UPDATE MEMBER SET MEMBER_STATUS = 'N'
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

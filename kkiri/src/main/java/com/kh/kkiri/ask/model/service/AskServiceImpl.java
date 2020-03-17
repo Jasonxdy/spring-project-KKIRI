@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.ask.model.dao.AskDAO;
+import com.kh.kkiri.ask.model.vo.Ask;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -37,5 +39,16 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public List<Member> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception {
 		return askDAO.adminSelectAsk(map, pInf);
+	}
+	
+	/** 관리자: 1:1문의 답변 작성 Service
+	 * @param ask
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int adminSendAnswer(Ask ask) throws Exception {
+		return askDAO.adminSendAnswer(ask);
 	}
 }

@@ -61,6 +61,7 @@
 									<td>${ask.answerStatus}</td>
 									<td style="display:none;">${ask.askContent}</td>
 									<td style="display:none;">${fn:substring(ask.askEnrollDate, 0, 10)}</td>
+									<td style="display:none;">${ask.askAnswer}</td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -252,11 +253,11 @@
 			</div>
 			<br>
 			<div class="row justify-content-md-center">
-				<textarea class="col-11" name="answerContent"
+				<textarea class="col-11" id="askAnswer" name="askAnswer"
 					style="border: 2px solid lightgray; height: 9rem; overflow: auto; resize: none;" placeholder="답변 작성"></textarea>
 			</div>
 		</div>
-		<button class="popup-confirm-btn" type="submit" >확인</button>
+		<button id="sendButton" class="popup-confirm-btn" type="submit" >확인</button>
 	</form>
 	</div>
 	<div class="popup-shadow"></div>
@@ -283,29 +284,39 @@
 			});
 		});
 		
-		$(function() {
-			$("#admin-table td").not("#lastTd").on("click",	function() {
-						$(".popup-shadow, #popup").show(0);
-						var thisAskNo = $(this).parent().children().eq(0).text();
-						var thisAnswerEmail = $(this).parent().children().eq(2).text();
-						
-						var thisAskId = $(this).parent().children().eq(1).text();
-						var thisAskTitle = $(this).parent().children().eq(3).text();
-						var thisAskEnrollDate = $(this).parent().children().eq(7).text();
-						var thisAskContent = $(this).parent().children().eq(6).html();
-						console.log(thisAskNo);
-						$("#thisAskNo").val(thisAskNo);
-						$("#thisAnswerEmail").val(thisAnswerEmail);
-						
-						$("#modal_askId").val(thisAskId);
-						$("#modal_askTitle").val(thisAskTitle);
-						$("#modal_askEnrollDate").val(thisAskEnrollDate);
-						$("#modal_askContent").html(thisAskContent);
-	
-					}).mouseenter(function() {
-				$("#admin-table td").not("#lastTd").css("cursor", "pointer");
-			});
+		
+		$("#admin-table td").not("#lastTd").on("click",	function() {
+					$(".popup-shadow, #popup").show(0);
+					var thisAskNo = $(this).parent().children().eq(0).text();
+					var thisAnswerEmail = $(this).parent().children().eq(2).text();
+					
+					var thisAskId = $(this).parent().children().eq(1).text();
+					var thisAskTitle = $(this).parent().children().eq(3).text();
+					var thisAskEnrollDate = $(this).parent().children().eq(7).text();
+					var thisAskContent = $(this).parent().children().eq(6).html();
+					var thisAskAnswer = $(this).parent().children().eq(8).html();
+					console.log(thisAskNo);
+					$("#thisAskNo").val(thisAskNo);
+					$("#thisAnswerEmail").val(thisAnswerEmail);
+					
+					$("#modal_askId").val(thisAskId);
+					$("#modal_askTitle").val(thisAskTitle);
+					$("#modal_askEnrollDate").val(thisAskEnrollDate);
+					$("#modal_askContent").html(thisAskContent);
+					
+					if(thisAskAnswer != ""){
+						$("#askAnswer").val(thisAskAnswer);
+						$("#askAnswer").prop("readonly", true);
+						$("#sendButton").css("display", "none");
+					} else{
+						$("#askAnswer").val("");
+						$("#askAnswer").prop("readonly", false);
+						$("#sendButton").removeAttr("style");
+					}
+				}).mouseenter(function() {
+			$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 		});
+		
 		
 
 		// 로그인 팝업 이벤트
