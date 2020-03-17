@@ -73,9 +73,19 @@ public class EventController {
 			model.addAttribute("errorMsg", "이벤트 상세 페이지 조회 과정 중 오류 발생");
 			return "common/errorPage.jsp";
 		}
-
 		return url;
-
 	}
+	
+	
+	
+	
+	/*
+	 * // 이벤트 참가회원 조회
+	 * 
+	 * @RequestMapping("selectParty") public String partyList(@RequestParam(value =
+	 * "")) {
+	 * 
+	 * }
+	 */
 
 }

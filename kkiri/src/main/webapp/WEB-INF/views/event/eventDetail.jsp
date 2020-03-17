@@ -65,14 +65,9 @@
 	</div>
 	<!-- 이벤트 상세 상단 정보 end -->
 
-	<!-- 참석자 명수 변수 선언 -->
-	<c:set var="partyCount" value="${fn:length(partyList)}" />
-
 
 	<!-- 이벤트 sticky element start // sticky element 사용-->
-	<jsp:include page="eventStripe.jsp">
-		<jsp:param value="${event.eventQuota-partyCount}" name="roomLeft" />
-	</jsp:include>
+	<jsp:include page="eventStripe.jsp" />
 	<!-- 이벤트 sticky element end -->
 
 	<div class="container">
@@ -170,28 +165,31 @@
 
 				<div class="event-participant mt-5">
 
-
+					
+					<c:set var="partySize" value="${fn:length(partyList)}"/>
+					<c:set var="count" value=1 />
+					<c:choose>
+						<c:when test="${partySize <= 12}">
+						
+						</c:when>
+					
+					</c:choose>
 					<h4>
-						참석자 (<span>${partyCount}</span>명) <span id="see-all"> <a
+						참석자 (<span>${partySize}</span>명) <span id="see-all"> <a
 							href="#"> 모두 보기 </a>
 						</span>
 					</h4>
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
-
-					<c:forEach var="party" items="${partyList}">
-						<c:if test="${party.memberNo == event.memberNo}">
-							<span class="event-participant-profile"> <img
-								src="${contextPath}/resources/img/${party.memberProfile}"
-								alt="주최자">
-							</span>
-						</c:if>
-					</c:forEach>
+						<span class="event-participant-profile"> <img
+							src="${contextPath}/resources/img/${party.memberProfile}"
+							alt="주최자">
+						</span>
 					<c:forEach var="party" items="${partyList}">
 						<c:if test="${party.memberNo != event.memberNo}">
 							<span class="event-participant-profile"> <img
 								src="${contextPath}/resources/img/${party.memberProfile}"
-								alt="주최자">
+								alt="참석자">
 							</span>
 						</c:if>
 					</c:forEach>
