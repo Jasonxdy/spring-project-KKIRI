@@ -46,15 +46,18 @@ public class MypageServiceimpl implements MypageService{
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int deleteMember(Member loginMember) throws Exception {
 
 		int result = 0;
 		Member checkMember = null;
 		checkMember = memberDAO.signInMember(loginMember);
+		if(checkMember != null) {
+			result = mypageDAO.deleteMember(loginMember);
+			if(result == 0) result=-1;
+		}
 		
-		
-		
-		return 0;
+		return result;
 	}
 	
 	
