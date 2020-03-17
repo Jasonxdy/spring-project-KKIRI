@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.member.model.vo.Member;
@@ -73,16 +74,38 @@ public class MypageController {
 		
 		return "redirect:/mypage/in";
 	}
+	@RequestMapping("movedeleteMember")
+	public String movedeleteMember() {
+		return "myPage/deleteMember";
+	}
+	
 	@RequestMapping("deleteMember")
-	public String deleteMember (Model model , String password) {
+	public String deleteMember (Model model , String password, SessionStatus status , RedirectAttributes arAttr) {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int result =0;
 		loginMember.setMemberPwd(password);
-		
+		String msg = "";
 		try {
 			
 			result = mypageService.deleteMember(loginMember);
+			
+			if(result ==-1) {
+				msg="회원탈퇴에 실패하였습니다.";
+				arAttr.addFlashAttribute("msg", msg);
+				return "redirect:/mypage/movedeleteMember";
+			}
+			else if(result==0) {
+				msg="비밀번호가 틀렸습니다.";
+				arAttr.addFlashAttribute("msg", msg);
+				return "redirect:/mypage/movedeleteMember"; // 삭제페이지로 이동
+			}else {
+				// session 만료 
+				status.setComplete();
+				msg="회원탈퇴에 성공하였습니다.";
+				
+				return "redirect:/member/logout";
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -91,7 +114,7 @@ public class MypageController {
 		}
 		
 		
-		return "";
+		
 	}
 	
 }

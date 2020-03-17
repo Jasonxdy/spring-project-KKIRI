@@ -17,6 +17,19 @@ public class SearchDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	/** 탐색 목록 조회용 DAO
+	 * @param map
+	 * @param currentPage
+	 * @param limit
+	 * @return search
+	 */
+	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit) {
+		int offset = (currentPage-1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("searchMapper.selectList", map, rowBounds);
+	}
+
 	/** 탐색페이지 이벤트 수 조회용 DAO
 	 * @param map
 	 * @return searchCount

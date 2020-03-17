@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c"></script> -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
@@ -25,11 +24,11 @@
 					style="background-color: #272e37; width: 100%;">
 					<div class="col-md-12">
 
-						<form>
+						<!-- <form> -->
 							<div class="row p-2">
 								<div class="col-md-3">
 									<label class="mt-1 h4 event-section-title">카테고리</label> 
-									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="searchKey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 									<ul class="dropdown-menu my-1" style="width: 30rem;"
 										id="categoryMenu">
@@ -134,74 +133,19 @@
 								</div>
 
 								<div class="col-md-5 text-center findEventTitleWrap">
-									<input type="text" name="searchValue" class="p-1 form-control eventTItleInput"
+									<input type="text" name="searchValue" id="searchValue" class="p-1 form-control eventTItleInput"
 										style="border-radius: 0.25rem;" placeholder="제목">
-									<button class="btn btn-primary "
-										style="background-color: #00a185; border: none;">검색</button>
+									<a class="btn btn-primary" style="background-color: #00a185; border: none;" onclick="searchSlist()">검색</a>
 								</div>
 							</div>
-						</form>
+						<!-- </form> -->
 					</div>
 				</div>
 			</div>
 			<!-- 검색창 end -->
 			
 			<!-- 이벤트 목록 -->
-			<div class="container my-5">
-				<c:if test="${empty search}">
-					<tr>
-						<td colspan="5">존재하는 이벤트가 없습니다.</td>
-					</tr>
-				</c:if>
-				<c:if test="${!empty search }">
-					<c:forEach var="search" items="${search}" varStatus="vs">
-						<div class="row card shadow my-4">
-							<div class="col-md-12 h-100">
-								<div class="row h-100">
-									<div class="col-md-3 thumb-wrap">
-										<img class="p-2 thumb" src="img/banner-alter-img.png" alt="로고">
-									</div>
-									<div class="col-md-6 p-3">
-										<p class="mb-1" style="color: darkcyan;">
-										<fmt:formatDate value="${search.eventStart}" type="DATE" pattern="yyyy년 MM월 dd일 KK:mm"/>
-										</p>
-										<h2 class="mb-3">${search.eventTitle }</h2>
-										<img class="mb-2" src="img/map-ping.png" alt="" style="width: 1rem; height: 1.5rem;"> 
-										<span>${search.eventLocation }</span>
-										<p>${search.eventContent }</p>
-									</div>
-									<div class="col-md-3">
-										<div class="p-3">
-											<div>
-												<img style="width: 4rem; height: 4rem; border-radius: 50%;"
-													src="img/profile-ex.png" alt="">
-												<div style="display: inline-block;">
-													<p class="mb-1">${search.memberId }</p>
-													<img style="width: 1rem; height: 1rem;" src="img/star-on.png" alt=""> 
-													<span>${search.eventScore }</span>
-												</div>
-											</div>
-											<p class="already-finish-event float-right"
-												style="margin-top: 5rem;">종료된 이벤트</p>
-											<p id="join" class="text-center float-right"
-											style="margin-top: 5rem;">티켓 1장</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</c:if>
-				
-
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<div>
-							<button class="btn btn-primary"
-								style="background-color: #00a185; border: none;">더보기</button>
-						</div>
-					</div>
-				</div>
+			<div class="container my-5" id="searchListArea">
 			</div>
 		</div>
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
@@ -259,7 +203,7 @@
 			 /* 이 위로 지도 관련 스크립트 */
 			 
 			 $("#categoryMenu").find("a").on('click',function(){
-		          $("#category").prop("value",$(this).text());
+		          $("#searchKey").prop("value",$(this).text());
 		        });
 
 		        $("#roundMenu").find("a").on('click',function(){
@@ -271,6 +215,76 @@
 		        });
 		        
 		    // 이 위로 검색창 관련 스크립트
+		    
+		    function searchSlist(){
+		    	var searchKey = $("#searchKey").val();
+		    	var searchValue =  $("#searchValue").val();
+		    	
+		    	$.ajax({
+		    		url : "searchEvents",
+		    		type : "POST",
+		    		data : {"searchKey" : searchKey,
+		    				"searchValue" : searchValue},
+		    		dataType : "json",
+		    		success : function(sList){
+		    			var content = "";
+		    			
+		    			if(sList == ""){
+		    				//document.getElementById("searchListArea").innerHTML="";
+		    				$("#searchListArea").empty();
+		    				content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>"
+		    				$(content).appendTo("#searchListArea");
+		    			} else{
+		    				//document.getElementById("searchListArea").innerHTML="";
+		    				$("#searchListArea").empty();
+		    				$.each(sList, function(i){
+		    					content +=
+		    								"<div class='row card shadow my-4' id='searchList'>" +
+		    									"<div class='col-md-12 h-100'>" +
+		    										"<div class='row h-100'>" +
+														"<div class='col-md-3 thumb-wrap'>" +
+															"<img class='p-2 thumb' src='img/banner-alter-img.png' alt='로고'>" +
+														"</div>" +
+														"<div class='col-md-6 p-3'>" +
+															"<p class='mb-1' style='color: darkcyan;'>" +
+															sList[i].eventStart +
+															"</p>" +
+															"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
+															"<img class='mb-2' src='img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
+															"<span>" + sList[i].eventLocation + "</span>" +
+															"<p>" + sList[i].eventContent + "</p>" +
+														"</div>" +
+														"<div class='col-md-3'>" +
+															"<div class='p-3'>" +
+																"<div>" +
+																	"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='img/profile-ex.png' alt=''>" +
+																	"<div style='display: inline-block;'>" +
+																		"<p class='mb-1'>" + sList[i].memberId + "</p>" +
+																		"<img style='width: 1rem; height: 1rem;' src='img/star-on.png' alt=''>" +
+																		"<span>" + sList[i].eventScore + "</span>" +
+																	"</div>" +
+																"</div>" +
+																"<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
+																"<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓 1장</p>" +
+															"</div>" +
+														"</div>" +
+													"</div>" +
+												"</div>" +
+											"</div>"
+		    				});
+		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;'>더보기</button></div></div></div>"
+		    				$(content).appendTo("#searchListArea");
+		    			}
+		    		} ,
+		    		error : function(){
+		    			alert("이벤트 목록 조회 ajax 호출 실패");
+		    		}
+		    	});
+		    };
+		    
+		    $(function(){ 
+		    	searchSlist();
+		    });
 		</script>
 </body>
 </html>

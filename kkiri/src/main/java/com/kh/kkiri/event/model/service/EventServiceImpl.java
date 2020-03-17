@@ -1,6 +1,7 @@
 package com.kh.kkiri.event.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,14 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.selectPartyList(eventNo);
 	}
 	
+	/** 관리자: 이벤트 수 조회 Service
+	 * @param map
+	 * @return eventCount
+	 * @throws Exception
+	 */
+	@Override
+	public int adminEventCount(Map<String, String> map) throws Exception {
+		return eventDAO.adminEventCount(map);
+	}
 
 }

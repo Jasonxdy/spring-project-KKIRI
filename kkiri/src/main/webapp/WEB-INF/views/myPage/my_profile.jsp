@@ -249,7 +249,7 @@
         $("#delete-modal").click(function(){
           var flag1 = confirm("회원탈퇴 하시겠습니까?");
         	if(flag1){
-        		location.href="deleteMember?loginMember=loginMember";
+        		location.href="movedeleteMember";
         	}
         
         });

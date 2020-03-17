@@ -11,14 +11,13 @@
 <body>
 	<div id="wrapper">
 	<jsp:include page="../common/header.jsp" />
-	<c:if test="${loginMember.memberGrade == 'A'}">
 		<!-- content 시작 -->
 		<div id="container" class="container">
 			<div class="row mt-5">
 				<ul class="nav nav-tabs">
 					<li class="nav-item"><a class="nav-link" href="member"
 						tabindex="-1">회원</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"
+					<li class="nav-item"><a class="nav-link" href="event"
 						tabindex="-1">이벤트</a></li>
 					<li class="nav-item"><a class="nav-link active" href="report"
 						tabindex="-1">신고</a></li>
@@ -204,7 +203,6 @@
 			<!-- 페이징 바 끝 -->
 		</div>
 		<!-- content 끝 -->
-	</c:if>
 	</div>
 
 	<jsp:include page="../common/footer.jsp" />

@@ -18,13 +18,12 @@ public interface SearchService {
 	 */
 	//public abstract int getSearchCount(Map<String, String> map) throws Exception;
 
-	
-	/** 탐색 목록 조회용 Service
+	/** 탐색 페이지 이벤트 조회용 Service
 	 * @param map
-	 * @param pInf
-	 * @return list
-	 * @throws Exception
+	 * @param currentPage
+	 * @param limit
+	 * @return search
 	 */
-	//public abstract List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception;
+	public abstract List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit);
 
 }
