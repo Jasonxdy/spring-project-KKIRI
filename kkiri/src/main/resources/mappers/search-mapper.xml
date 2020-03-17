@@ -5,7 +5,7 @@
 	<resultMap type="Search" id="searchResultSet">
 		<id property="eventNo" column="EVENT_NO"/>
 		<result property="eventTitle" column="EVENT_TITLE"/>
-		<result property="eventContent" column="EVENT_TITLE"/>
+		<result property="eventContent" column="EVENT_CONTENT"/>
 		<result property="eventCategory" column="EVENT_CATEGORY"/>
 		<result property="eventLocation" column="EVENT_LOCATION"/>
 		<result property="latitude" column="LATITUDE"/>
@@ -39,10 +39,10 @@
 		SELECT * FROM V_SEARCH
 		<where>
 			<if test="searchKey != null">
-				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				AND EVENT_CATEGORY LIKE #{searchKey}
 			</if>
 			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				AND EVENT_TITLE LIKE #{sv}
 			</if>
 			AND EVENT_STATUS ='Y'

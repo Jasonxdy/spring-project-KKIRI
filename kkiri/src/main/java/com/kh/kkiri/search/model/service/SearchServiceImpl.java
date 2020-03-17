@@ -15,6 +15,18 @@ public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	private SearchDAO searchDAO;
+
+	/** 탐색 페이지 이벤트 조회용 Service
+	 * @param map
+	 * @param currentPage
+	 * @param limit
+	 * @return search
+	 */
+	@Override
+	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit) {
+		return searchDAO.selectSearchList(map, currentPage, limit);
+	}
+
 	
 	/** 탐색페이지 이벤트 수 조회용 Service
 	 * @param map
@@ -25,19 +37,6 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public int getSearchCount(Map<String, String> map) throws Exception{
 		return searchDAO.getSearchCount(map);
-	}
-	*/
-
-	/** 탐색 목록 조회용 Service
-	 * @param map
-	 * @param pInf
-	 * @return list
-	 * @throws Exception
-	 */
-	/*
-	@Override
-	public List<Search> selectList(Map<String, String> map, PageInfo pInf) throws Exception{
-		return searchDAO.selectList(map,pInf);
 	}
 	*/
 

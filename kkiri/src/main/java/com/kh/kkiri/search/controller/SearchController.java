@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.search.model.service.SearchService;
@@ -28,6 +30,7 @@ public class SearchController {
 	
 	private int limit=10;
 	private int pagingBarSize=10;
+	
 	/*
 	@RequestMapping("searchEvent")
 	public String searchEvent(Model model,
@@ -68,30 +71,41 @@ public class SearchController {
 	}
 	*/
 	
+	@RequestMapping("searchEvent")
+	public String searchHome() {
+		return "search/searchEvent";
+	}
+	
 	@ResponseBody
-	@RequestMapping(value = "searchEvent", produces= "application/json; charset=utf-8")
-	public String searchEvent(Model model,
-								@RequestParam(value="searchKey", required=false) String searchKey,
+	@RequestMapping(value = "searchEvents", produces= "application/json; charset=utf-8")
+	public String searchEvent(@RequestParam(value="searchKey", required=false) String searchKey,
 								@RequestParam(value="searchValue", required=false) String searchValue,
 								@RequestParam(value="currentPage", required=false) Integer currentPage
 								) {
 		
-		Map<String, String> map = null;
-		if(searchKey != null && searchValue != null) {
-			map = new HashMap<String, String>();
-			map.put("searchKey", searchKey);
-			map.put("searchValue", searchValue);
+		Map<String, Object> map = null;
+		if(searchKey != "" || searchValue != "") {
+			map = new HashMap<String, Object>();
+			if(searchKey != "") {
+				map.put("searchKey", searchKey);
+			} else if(searchValue != "") {
+				map.put("searchValue", searchValue);
+			}
 		}
 		
+		if(currentPage == null) currentPage = 1;
 		//int listCount = searchService.getSearchCount(map);
 		
-		//if(currentPage == null) currentPage = 1;
-		
 		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
+
+		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
 		
-		//List<Search> search = searchService.selectList(map, pInf);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 Hh:mm").create();
 		
+		System.out.println(sList);
 		
-		return null;
+		//yyyy년 MM월 dd일 KK:mm
+		
+		return gson.toJson(sList);
 	}
 }
