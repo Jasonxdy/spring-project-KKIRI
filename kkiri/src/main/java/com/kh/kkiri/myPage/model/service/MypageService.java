@@ -19,5 +19,12 @@ public interface MypageService {
 	 */
 	int updatePassword(Member loginMember, String changePassword)throws Exception;
 
+	/**
+	 * @param loginMember
+	 * @return result
+	 * @throws Exception
+	 */
+	int deleteMember(Member loginMember)throws Exception;
+
 	
 }
