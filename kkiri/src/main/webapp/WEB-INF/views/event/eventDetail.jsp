@@ -40,7 +40,7 @@
 						<img src="${contextPath}/resources/img/map-ping.png"
 							style="height: 18px;"> ${event.eventLocation}
 					</p>
-					<p class="text-muted">서울시 동대문구 휘경동 204-90</p>
+					<p class="text-muted" id="eventAddress">서울시 동대문구 휘경동 204-90</p>
 					<p id="eventTicket">
 						<img src="${contextPath}/resources/img/dollor-icon.png"> <b>${event.eventTicket}</b>
 						티켓
@@ -107,7 +107,64 @@
 					<p class="text-muted" id="eventPing">서울시 동대문구 휘경동 204-90</p>
 
 					<!-- 지도 부분 start -->
-					<div style="height: 250px; background-color: gray;"></div>
+					<div id="eventMap" style="height: 250px;"></div>
+					<script type="text/javascript"
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
+					<script>
+						var container = document.getElementById('eventMap');
+						var options = {
+							center : new kakao.maps.LatLng(${event.latitude}, ${event.longtitude}),
+							level : 3
+						};
+
+						var map = new kakao.maps.Map(container, options);
+						
+						// 마커가 표시될 위치입니다 
+						var markerPosition  = new kakao.maps.LatLng(${event.latitude}, ${event.longtitude}); 
+
+						// 마커를 생성합니다
+						var marker = new kakao.maps.Marker({
+						    position: markerPosition
+						});
+
+						// 마커가 지도 위에 표시되도록 설정합니다
+						marker.setMap(map);
+						
+						
+						
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
+						 
+						var callback = function(result, status) {
+							    if (status === kakao.maps.services.Status.OK) {
+							    	var detailAddress = result[0].address.address_name;
+							    	// id가 eventPing인 곳에 지번 주소 표기
+							    	document.getElementById("eventPing").innerHTML = detailAddress;
+							    	// id가 eventAddress인 곳에 지번 주소 표기
+							    	document.getElementById("eventAddress").innerHTML = detailAddress;
+							    }
+						};
+						
+						// 지번 주소 호출
+						geocoder.coord2Address(${event.longtitude}, ${event.latitude}, callback);
+						 
+						
+						/* 지도 도구 start */
+						// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+						var mapTypeControl = new kakao.maps.MapTypeControl();
+
+						// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+						// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+						map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+						// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+						var zoomControl = new kakao.maps.ZoomControl();
+						map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+						/* 지도 도구 end */
+						
+						
+						
+					</script>
 					<!-- 지도 부분 end -->
 				</div>
 
@@ -157,12 +214,7 @@
 				e.preventDefault();
 				$(this).next(".declare-wrap").toggleClass("active");
 			});
-			
-			
-			// console 값 테스트 용
-			console.log("${partyList}");
-			console.log("${fn:length(partyList)}")
-			
+
 		});
 	</script>
 

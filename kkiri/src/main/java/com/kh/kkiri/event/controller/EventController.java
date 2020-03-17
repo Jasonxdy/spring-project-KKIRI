@@ -56,10 +56,6 @@ public class EventController {
 					model.addAttribute("partyList", partyList);
 					url = "event/eventDetail";
 					
-					System.out.println("event : " + event);
-					System.out.println("partyList : " + partyList);
-					
-					
 				} else {
 					msg = "이벤트 상세 페이지 조회 실패";
 					rdAttr.addFlashAttribute("msg", msg);
