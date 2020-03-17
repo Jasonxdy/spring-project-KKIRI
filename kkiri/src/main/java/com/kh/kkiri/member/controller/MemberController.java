@@ -86,9 +86,11 @@ public class MemberController {
 	}
 	
 	// 회원 가입
-	@RequestMapping("createAccount")
-	public String createAccount() {
-		
+	@RequestMapping("createAccount")  //바뀔 쑤 있음 ㅎㅎ 
+	public String createAccount(Member member, Model model,
+							String address,
+							String phone1, String phone2, String phone3) {
+	
 		
 		
 		
@@ -100,4 +102,23 @@ public class MemberController {
 	
 	
 	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
