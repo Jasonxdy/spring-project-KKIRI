@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.ask.model.vo.Ask;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -27,6 +28,16 @@ public class AskDAO {
 		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("askMapper.adminSelectAsk", map, rowBounds);
+	}
+
+
+	/** 관리자: 1:1문의 답변 작성
+	 * @param ask
+	 * @return result
+	 * @throws Exception
+	 */
+	public int adminSendAnswer(Ask ask) throws Exception {
+		return sqlSession.update("askMapper.adminSendAnswer", ask);
 	}
 
 }

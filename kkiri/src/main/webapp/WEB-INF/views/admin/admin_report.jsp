@@ -64,7 +64,7 @@
 								<td>${report.eventTitle}</td>
 								<td>${report.reportDate}</td>
 								<td style="display:none;">${report.reportContent}</td>
-								<td id="lastTd"><button class="btn btn-sm btn-primary">이동</button></td>
+								<td id="lastTd"><button class="btn btn-sm btn-outline-dark">이동</button></td>
 							</tr>
 							</c:forEach>
 							</c:if>
