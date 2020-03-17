@@ -1,6 +1,7 @@
 package com.kh.kkiri.event.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class EventDAO {
 	 */
 	public List<Member> selectPartyList(int eventNo) throws Exception{
 		return sqlSession.selectList("eventMapper.selectPartyList", eventNo);
+	}
+
+
+	/** 관리자: 이벤트 수 조회 DAO
+	 * @param map
+	 * @return eventCount
+	 * @throws Exception
+	 */
+	public int adminEventCount(Map<String, String> map) throws Exception {
+		return sqlSession.selectOne("eventMapper.adminEventCount", map);
 	}
 
 

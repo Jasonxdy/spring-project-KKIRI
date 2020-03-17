@@ -22,6 +22,7 @@ import com.kh.kkiri.ask.model.vo.Ask;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.SendEmail;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.report.model.service.ReportService;
 
@@ -41,6 +42,9 @@ public class AdminController {
 	
 	@Autowired
 	private SendEmail sendEmail;
+	
+	@Autowired
+	private EventService eventService;
 	
 	@RequestMapping("member")
 	public String adminMain(Model model,
@@ -225,8 +229,43 @@ public class AdminController {
             e.printStackTrace();
             return "common/errorPage.jsp";
 	     }
+	}
+	
+	@RequestMapping("event")
+	public String adminEvent(Model model,
+						@RequestParam(value="currentPage", required=false) Integer currentPage,
+						@RequestParam(value="searchKey", required=false) String searchKey,
+						@RequestParam(value="searchValue", required=false) String searchValue,
+						HttpSession session, RedirectAttributes rdAttr
+						) {
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(!loginMember.getMemberGrade().equals("A")) {
+			rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+			return "redirect:/";
+		}
+		try {
+			Map<String, String> map = null;
+			if(searchKey != null && searchValue != null) {
+				map = new HashMap<String, String>();
+				map.put("searchKey",searchKey);
+				map.put("searchValue",searchValue);
+			}
+			int eventCount = eventService.adminEventCount(map);
+			//System.out.println("회원 수: " + memberCount);
+			if(currentPage == null) currentPage = 1;
+			
+			//PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, askCount);
+			
+			//List<Member> eList = eventService.adminSelectEvent(map, pInf);
+			
+			//model.addAttribute("pInf", pInf);
+			//model.addAttribute("aList", aList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		
+		return "admin/admin_event";
 	}
 	
 }

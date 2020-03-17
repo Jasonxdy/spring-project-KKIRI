@@ -20,11 +20,11 @@
 					<ul class="nav nav-tabs">
 						<li class="nav-item"><a class="nav-link" href="member"
 							tabindex="-1">회원</a></li>
-						<li class="nav-item"><a class="nav-link" href="event"
+						<li class="nav-item"><a class="nav-link active" href="event"
 							tabindex="-1">이벤트</a></li>
 						<li class="nav-item"><a class="nav-link" href="report"
 							tabindex="-1">신고</a></li>
-						<li class="nav-item"><a class="nav-link active" href="ask"
+						<li class="nav-item"><a class="nav-link" href="ask"
 							tabindex="-1">문의</a></li>
 					</ul>
 				</div>
@@ -36,16 +36,18 @@
 							class="table table-hover table-striped table-sm">
 							<thead>
 								<tr class="text-center">
-									<th scope="col">문의번호</th>
-									<th scope="col">작성자</th>
-									<th scope="col">이메일</th>
-									<th scope="col">제목</th>
-									<th scope="col">일자</th>
-									<th scope="col">답장여부</th>
-								</tr>
+					                <th scope="col">이벤트번호</th>
+					                <th scope="col">주최자</th>
+					                <th scope="col">제목</th>
+					                <th scope="col">장소</th>
+					                <th scope="col">정원</th>
+					                <th scope="col">참석인원</th>
+					                <th scope="col">입장티켓</th>
+					                <th scope="col">종료여부</th>
+					            </tr>
 							</thead>
 							<tbody>
-								<c:forEach var="ask" items="${aList}" varStatus="vs">
+								<c:forEach var="ask" items="${eList}" varStatus="vs">
 								<tr class="text-center">
 									<th scope="row">${ask.askNo}</th>
 									<td>${ask.memberId}</td>
@@ -68,15 +70,14 @@
 					</div>
 				</div>
 
-				<form action="ask" method="get">
+				<form action="event" method="get">
 					<div class="row justify-content-md-center">
 						<!-- 검색 -->
 						<div class="col-md-2 col-sm-3">
 							<div class="input-group">
 								<select class="custom-select" id="inputGroupSelect04"
 									name="searchKey" aria-label="Example select with button addon">
-									<option value="writer">작성자</option>
-									<option value="email">이메일</option>
+									<option value="sponsor">주최자</option>
 									<option value="title">제목</option>
 								</select>
 							</div>
@@ -102,7 +103,7 @@
 							<li>
 								<!-- 맨 처음으로(<<) --> <a class="page-link"
 								href="
-		                    	<c:url value="ask">
+		                    	<c:url value="event">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -119,7 +120,7 @@
 							<li>
 								<!-- 이전으로(<) --> <a class="page-link"
 								href=" 
-		                    	<c:url value="ask">
+		                    	<c:url value="event">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -145,7 +146,7 @@
 							<c:if test="${p != pInf.currentPage}">
 								<li><a class="page-link"
 									href=" 
-			                    	<c:url value="ask">
+			                    	<c:url value="event">
 			                    		<c:if test="${!empty param.searchKey }">
 							        		<c:param name="searchKey" value="${param.searchKey}"/>
 							        	</c:if>
@@ -166,7 +167,7 @@
 						<c:if test="${pInf.currentPage < pInf.maxPage }">
 							<li><a class="page-link"
 								href=" 
-		                    	<c:url value="ask">
+		                    	<c:url value="event">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -182,7 +183,7 @@
 							<!-- 맨 끝으로(>>) -->
 							<li><a class="page-link"
 								href=" 
-		                    	<c:url value="ask">
+		                    	<c:url value="event">
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
@@ -203,61 +204,7 @@
 	<!-- content 끝 -->
 
 	<jsp:include page="../common/footer.jsp" />
-	<!-- 팝업 start-->
-	<div id="popup" class="popup">
-	<form action="sendAnswer" method="post">
-		<p class="popup-title">
-			문의 내용 <img src="${contextPath}/resources/img/close-btn.png"
-				alt="닫기버튼" class="close-popup">
-		</p>
-		<input id="thisAskNo" name="askNo" type="text" style="display:none;">
-		<input id="thisAnswerEmail" name="askEmail" type="text" style="display:none;">
-		<div class="popup-content">
-			<div class="row mb-1">
-				<div class="col-8 text-center">
-					<div class="input-group input-group-sm mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-sm">제목</span>
-						</div>
-						<input type="text" class="form-control" id="modal_askTitle" readonly>
-					</div>
-				</div>
-				<div class="col-4 text-center">
-					<div class="input-group input-group-sm mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-sm">문의자</span>
-						</div>
-						<input type="text" name="memberId" class="form-control" id="modal_askId" readonly>
-					</div>
-				</div>
-			</div>
-			<div class="row mb-1">
-				<div class="col-4 text-center"></div>
-				<div class="col-4"></div>
-				<div class="col-4 text-center">
-					<div class="input-group input-group-sm mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-sm">문의일</span>
-						</div>
-						<input type="text" class="form-control" id="modal_askEnrollDate"
-							readonly>
-					</div>
-				</div>
-			</div>
-			<div class="row justify-content-md-center">
-				<div class="col-11" id="modal_askContent"
-					style="border: 2px solid lightgray; height: 9rem; overflow: auto;">
-				</div>
-			</div>
-			<br>
-			<div class="row justify-content-md-center">
-				<textarea class="col-11" id="askAnswer" name="askAnswer"
-					style="border: 2px solid lightgray; height: 9rem; overflow: auto; resize: none;" placeholder="답변 작성"></textarea>
-			</div>
-		</div>
-		<button id="sendButton" class="popup-confirm-btn" type="submit" >확인</button>
-	</form>
-	</div>
+	
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
 	<script>
