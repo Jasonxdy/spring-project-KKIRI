@@ -44,6 +44,18 @@ public class MypageServiceimpl implements MypageService{
 		
 		return result;
 	}
+
+	@Override
+	public int deleteMember(Member loginMember) throws Exception {
+
+		int result = 0;
+		Member checkMember = null;
+		checkMember = memberDAO.signInMember(loginMember);
+		
+		
+		
+		return 0;
+	}
 	
 	
 }

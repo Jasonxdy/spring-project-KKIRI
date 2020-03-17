@@ -73,4 +73,25 @@ public class MypageController {
 		
 		return "redirect:/mypage/in";
 	}
+	@RequestMapping("deleteMember")
+	public String deleteMember (Model model , String password) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int result =0;
+		loginMember.setMemberPwd(password);
+		
+		try {
+			
+			result = mypageService.deleteMember(loginMember);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "회원탈퇴 과정에서 오류가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		
+		return "";
+	}
+	
 }
