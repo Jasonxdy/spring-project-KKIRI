@@ -71,7 +71,7 @@
 
 	<!-- 이벤트 sticky element start // sticky element 사용-->
 	<jsp:include page="eventStripe.jsp">
-		<jsp:param value="${partyCount}" name="partyCount" />
+		<jsp:param value="${event.eventQuota-partyCount}" name="roomLeft" />
 	</jsp:include>
 	<!-- 이벤트 sticky element end -->
 
@@ -121,9 +121,23 @@
 					</h4>
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
-					<%-- 					<span class="event-participant-profile"> <img
-						src="${contextPath}/resources/img/profile-ex.png" alt="주최자">
-					</span> --%>
+
+					<c:forEach var="party" items="${partyList}">
+						<c:if test="${party.memberNo == event.memberNo}">
+							<span class="event-participant-profile"> <img
+								src="${contextPath}/resources/img/${party.memberProfile}"
+								alt="주최자">
+							</span>
+						</c:if>
+					</c:forEach>
+					<c:forEach var="party" items="${partyList}">
+						<c:if test="${party.memberNo != event.memberNo}">
+							<span class="event-participant-profile"> <img
+								src="${contextPath}/resources/img/${party.memberProfile}"
+								alt="주최자">
+							</span>
+						</c:if>
+					</c:forEach>
 				</div>
 
 
@@ -149,25 +163,6 @@
 			console.log("${partyList}");
 			console.log("${fn:length(partyList)}")
 			
-			// 참석자 목록 출력
-			var $partyList = $("#event-party-list");
-			/* 
-				$.each(${partyList}, function(i) {
-				
-				if(${partyList.memberNo == event.memberNo}) {
-					
-					var $span = $("<span class='event-participant-profile'>");
-					var $img = $("<img src='${contextPath}/resources/img/${partyList.memberProfile}' alt='주최자'>");
-
-					$span.append($img);
-					$partyList.append($span);
-					
-				}
-					
-				
-				});
-			
- */			
 		});
 	</script>
 
