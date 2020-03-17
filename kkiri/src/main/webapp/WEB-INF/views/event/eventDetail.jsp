@@ -40,7 +40,7 @@
 						<img src="${contextPath}/resources/img/map-ping.png"
 							style="height: 18px;"> ${event.eventLocation}
 					</p>
-					<p class="text-muted" id="eventAddress">서울시 동대문구 휘경동 204-90</p>
+					<p class="text-muted" id="eventAddress"></p>
 					<p id="eventTicket">
 						<img src="${contextPath}/resources/img/dollor-icon.png"> <b>${event.eventTicket}</b>
 						티켓
@@ -104,7 +104,7 @@
 							style="height: 18px;" alt="위치아이콘"> ${event.eventLocation}
 
 					</p>
-					<p class="text-muted" id="eventPing">서울시 동대문구 휘경동 204-90</p>
+					<p class="text-muted" id="eventPing"></p>
 
 					<!-- 지도 부분 start -->
 					<div id="eventMap" style="height: 250px;"></div>
