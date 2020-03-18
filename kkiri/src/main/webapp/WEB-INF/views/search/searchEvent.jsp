@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,6 +145,8 @@
 			</div>
 			<!-- 검색창 end -->
 			
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyyMMddHHmm" var="nowDate" />
 			<!-- 이벤트 목록 -->
 			<div class="container my-5" id="searchListArea">
 			</div>
@@ -215,10 +218,13 @@
 		        });
 		        
 		    // 이 위로 검색창 관련 스크립트
+		    var searchKey = "";
+		    var searchValue ="";
+		    var currentPage = 2;
 		    
 		    function searchSlist(){
-		    	var searchKey = $("#searchKey").val();
-		    	var searchValue =  $("#searchValue").val();
+		    	searchKey = $("#searchKey").val();
+		    	searchValue =  $("#searchValue").val();
 		    	
 		    	$.ajax({
 		    		url : "searchEvents",
@@ -228,56 +234,153 @@
 		    		dataType : "json",
 		    		success : function(sList){
 		    			var content = "";
+		    			var startDate ="";
 		    			
 		    			if(sList == ""){
-		    				//document.getElementById("searchListArea").innerHTML="";
 		    				$("#searchListArea").empty();
 		    				content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>"
-		    				$(content).appendTo("#searchListArea");
+		    				$(content).appendTo("#searchListArea");	
 		    			} else{
-		    				//document.getElementById("searchListArea").innerHTML="";
 		    				$("#searchListArea").empty();
 		    				$.each(sList, function(i){
+		    					startDate = sList[i].eventStart.substring(0,4) +
+		    								 "년 " + 
+		    								 sList[i].eventStart.substring(4,6) +
+		    								 "월 "+
+		    								 sList[i].eventStart.substring(6,8) +
+		    								 "일 " +
+		    								 sList[i].eventStart.substring(8,10) +
+		    								 ":" +
+		    								 sList[i].eventStart.substring(10,12)
+		    								 ;
 		    					content +=
 		    								"<div class='row card shadow my-4' id='searchList'>" +
 		    									"<div class='col-md-12 h-100'>" +
 		    										"<div class='row h-100'>" +
 														"<div class='col-md-3 thumb-wrap'>" +
-															"<img class='p-2 thumb' src='img/banner-alter-img.png' alt='로고'>" +
+															"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
 														"</div>" +
 														"<div class='col-md-6 p-3'>" +
-															"<p class='mb-1' style='color: darkcyan;'>" +
-															sList[i].eventStart +
+															"<p class='mb-1' style='color: darkcyan;'>" + 
+															startDate +
 															"</p>" +
 															"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
-															"<img class='mb-2' src='img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
+															"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
 															"<span>" + sList[i].eventLocation + "</span>" +
 															"<p>" + sList[i].eventContent + "</p>" +
 														"</div>" +
 														"<div class='col-md-3'>" +
 															"<div class='p-3'>" +
 																"<div>" +
-																	"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='img/profile-ex.png' alt=''>" +
+																	"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
 																	"<div style='display: inline-block;'>" +
 																		"<p class='mb-1'>" + sList[i].memberId + "</p>" +
-																		"<img style='width: 1rem; height: 1rem;' src='img/star-on.png' alt=''>" +
-																		"<span>" + sList[i].eventScore + "</span>" +
+																		"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
+																		"<span>x" + sList[i].eventScore + "</span>" +
+																	"</div>" +
+																"</div>";
+											if(${nowDate} < sList[i].eventEnd){
+															content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓 1장</p>" +
 																	"</div>" +
 																"</div>" +
-																"<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
-																"<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓 1장</p>" +
+															"</div>" +
+														"</div>" +
+													"</div>";
+											} else{
+															content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
 															"</div>" +
 														"</div>" +
 													"</div>" +
 												"</div>" +
-											"</div>"
+											"</div>";
+											}
 		    				});
-		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;'>더보기</button></div></div></div>"
+		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
 		    			}
 		    		} ,
 		    		error : function(){
 		    			alert("이벤트 목록 조회 ajax 호출 실패");
+		    		}
+		    	});
+		    };
+		    
+		    function moreSlist(){
+		    	$.ajax({
+		    		url : "searchEvents",
+		    		type : "POST",
+		    		data : {"searchKey" : searchKey,
+		    				"searchValue" : searchValue,
+		    				"currentPage" : currentPage},
+		    		dataType : "json",
+		    		success : function(sList){
+		    			var content = "";
+		    			var startDate ="";
+		    			currentPage += 1;
+		    			
+		    			if(sList == ""){
+		    				$("#addBtn").remove();
+		    			} else{
+		    				$("#addBtn").remove();
+		    				$.each(sList, function(i){
+		    					startDate = sList[i].eventStart.substring(0,4) +
+		    								 "년 " + 
+		    								 sList[i].eventStart.substring(4,6) +
+		    								 "월 "+
+		    								 sList[i].eventStart.substring(6,8) +
+		    								 "일 " +
+		    								 sList[i].eventStart.substring(8,10) +
+		    								 ":" +
+		    								 sList[i].eventStart.substring(10,12)
+		    								 ;
+		    					content +=
+		    								"<div class='row card shadow my-4' id='searchList'>" +
+		    									"<div class='col-md-12 h-100'>" +
+		    										"<div class='row h-100'>" +
+														"<div class='col-md-3 thumb-wrap'>" +
+															"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
+														"</div>" +
+														"<div class='col-md-6 p-3'>" +
+															"<p class='mb-1' style='color: darkcyan;'>" + 
+															startDate +
+															"</p>" +
+															"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
+															"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
+															"<span>" + sList[i].eventLocation + "</span>" +
+															"<p>" + sList[i].eventContent + "</p>" +
+														"</div>" +
+														"<div class='col-md-3'>" +
+															"<div class='p-3'>" +
+																"<div>" +
+																	"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
+																	"<div style='display: inline-block;'>" +
+																		"<p class='mb-1'>" + sList[i].memberId + "</p>" +
+																		"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
+																		"<span>x" + sList[i].eventScore + "</span>" +
+																	"</div>" +
+																"</div>";
+											if(${nowDate} < sList[i].eventEnd){
+															content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓 1장</p>" +
+																	"</div>" +
+																"</div>" +
+															"</div>" +
+														"</div>" +
+													"</div>";
+											} else{
+															content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
+															"</div>" +
+														"</div>" +
+													"</div>" +
+												"</div>" +
+											"</div>";
+											}
+		    				});
+		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
+		    				$(content).appendTo("#searchListArea");
+		    			}
+		    		} ,
+		    		error : function(){
+		    			alert("이벤트 목록 더보기 ajax 호출 실패");
 		    		}
 		    	});
 		    };

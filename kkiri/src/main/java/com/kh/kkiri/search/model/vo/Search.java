@@ -17,13 +17,14 @@ public class Search {
 	private String eventThumbnail;
 	private int eventQuota;
 	private String memberId;
+	private String memberProfile;
 	private double eventScore;
 	
-	public Search(){}
-
+	public Search() {}
+	
 	public Search(int eventNo, String eventTitle, String eventContent, String eventCategory, String eventLocation,
-			double latitude, double longitude, Timestamp eventStart, Timestamp eventEnd, int eventTicket, String eventThumbnail,
-			int eventQuota, String memberId, double eventScore) {
+			double latitude, double longitude, Timestamp eventStart, Timestamp eventEnd, int eventTicket,
+			String eventThumbnail, int eventQuota, String memberId, String memberProfile, double eventScore) {
 		super();
 		this.eventNo = eventNo;
 		this.eventTitle = eventTitle;
@@ -38,6 +39,7 @@ public class Search {
 		this.eventThumbnail = eventThumbnail;
 		this.eventQuota = eventQuota;
 		this.memberId = memberId;
+		this.memberProfile = memberProfile;
 		this.eventScore = eventScore;
 	}
 
@@ -145,6 +147,14 @@ public class Search {
 		this.memberId = memberId;
 	}
 
+	public String getMemberProfile() {
+		return memberProfile;
+	}
+
+	public void setMemberProfile(String memberProfile) {
+		this.memberProfile = memberProfile;
+	}
+
 	public double getEventScore() {
 		return eventScore;
 	}
@@ -159,8 +169,7 @@ public class Search {
 				+ ", eventCategory=" + eventCategory + ", eventLocation=" + eventLocation + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd
 				+ ", eventTicket=" + eventTicket + ", eventThumbnail=" + eventThumbnail + ", eventQuota=" + eventQuota
-				+ ", memberId=" + memberId + ", eventScore=" + eventScore + "]";
+				+ ", memberId=" + memberId + ", memberProfile=" + memberProfile + ", eventScore=" + eventScore + "]";
 	}
-	
 	
 }

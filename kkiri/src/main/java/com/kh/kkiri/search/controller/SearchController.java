@@ -28,7 +28,7 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	
-	private int limit=10;
+	private int limit=2;
 	private int pagingBarSize=10;
 	
 	/*
@@ -100,9 +100,11 @@ public class SearchController {
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 Hh:mm").create();
+		System.out.println(currentPage);
 		
-		System.out.println(sList);
+		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
+		//Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
+		//Gson gson = new GsonBuilder().create();
 		
 		//yyyy년 MM월 dd일 KK:mm
 		

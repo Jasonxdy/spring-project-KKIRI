@@ -16,6 +16,7 @@
 		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
 		<result property="eventQuota" column="EVENT_QUOTA"/>
 		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
 		<result property="eventScore" column="SCORE"/>
 	</resultMap>
 	
