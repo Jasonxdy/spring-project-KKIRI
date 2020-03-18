@@ -225,33 +225,11 @@
 		
 		
 		$("#admin-table td").not("#lastTd").on("click",	function() {
-					var thisAskNo = $(this).parent().children().eq(0).text();
-					var thisAnswerEmail = $(this).parent().children().eq(2).text();
-					
-					var thisAskId = $(this).parent().children().eq(1).text();
-					var thisAskTitle = $(this).parent().children().eq(3).text();
-					var thisAskEnrollDate = $(this).parent().children().eq(7).text();
-					var thisAskContent = $(this).parent().children().eq(6).html();
-					var thisAskAnswer = $(this).parent().children().eq(8).html();
-					console.log(thisAskNo);
-					$("#thisAskNo").val(thisAskNo);
-					$("#thisAnswerEmail").val(thisAnswerEmail);
-					
-					$("#modal_askId").val(thisAskId);
-					$("#modal_askTitle").val(thisAskTitle);
-					$("#modal_askEnrollDate").val(thisAskEnrollDate);
-					$("#modal_askContent").html(thisAskContent);
-					
-					if(thisAskAnswer != ""){
-						$("#askAnswer").val(thisAskAnswer);
-						$("#askAnswer").prop("readonly", true);
-						$("#sendButton").css("display", "none");
-					} else{
-						$("#askAnswer").val("");
-						$("#askAnswer").prop("readonly", false);
-						$("#sendButton").removeAttr("style");
-					}
-				}).mouseenter(function() {
+			var eventNo = $(this).parent().children().eq(0).text();
+			
+			location.href="${contextPath}/event/detail?no="+eventNo;
+				
+			}).mouseenter(function() {
 			$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 		});
 		

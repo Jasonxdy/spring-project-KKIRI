@@ -50,7 +50,7 @@
 							<th scope="col">전화번호</th>
 							<th scope="col">티켓수</th>
 							<th scope="col">환불</th>
-							<th scope="col">삭제/복구</th>
+							<th scope="col">삭제/복구▽</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -311,6 +311,25 @@
 	      });
 	    });
 		
+		$(function () {
+		      $("#admin-table th").eq(8).on("click", function () {
+		    	  <c:url var="member" value="member">
+            		<c:if test="${!empty param.searchKey }">
+	        		<c:param name="searchKey" value="${param.searchKey}"/>
+		        	</c:if>
+		        	<c:if test="${!empty param.searchValue }">
+		        		<c:param name="searchValue" value="${param.searchValue}"/>
+		        	</c:if>
+	               	<c:param name="delSort" value="delSort"/>
+	               	<c:param name="currentPage" value="${param.currentPage}"/>
+	             	</c:url>
+				
+				location.href="${member}";
+		      }).mouseenter(function () {
+		        $("#admin-table th").eq(8).css("cursor", "pointer");
+		      });
+		    });
+		
 		// 팝업 이벤트
 		$(".btn-refund").on({
 			click : function() {
@@ -388,6 +407,8 @@
             	});
 			}
 		})
+		
+		$("")
 	</script>
 </body>
 
