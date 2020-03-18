@@ -297,9 +297,40 @@
                         </form>
                     </div>
                   </div>
+
+                  <div class="popup declare-event-popup">
+                    <p class="popup-title">
+                        이벤트 신고
+                        <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+                    </p>
+                    <div class="popup-content"> 
+                        <form action="#" method="post">
+                            <label for="declare-reason">신고사유를 선택해주세요.</label>
+                            <select name="reportCategory" id="declare-reason">
+                                <option value="none">신고 사유 선택</option>
+                                <option value="A">부적절한 이벤트</option>
+                                <option value="B">선정적인 내용 포함</option>
+                                <option value="C">지나친 사행성 관련 이벤트</option>
+                                <option value="D">기타</option>
+                            </select>
+                            <label for="declare-content">추가적인 신고사유를 입력해주세요.</label>
+                            <textarea name="reportContent" id="declare-content"></textarea>
+                            <button class="green-radius-btn">수정 완료</button>
+                        </form>
+                    </div>
+                  </div>
+
                   <div class="popup-shadow"></div>
            
                 <script>
+                // 신고하기 버튼 클릭시 팝업
+                $(".declare-btn").on({
+                    click : function(){
+                        $(".declare-event-popup, .popup-shadow")
+                    }
+                });
+
+
                   // 후기 작성 팝업
                   $(".insert-comment").on({
                     click : function(){
@@ -336,6 +367,7 @@
                             return false;
                         }
                     }
+
 
                     // 후기 수정 팝업
                     $(".update-my-con").on({
@@ -375,6 +407,17 @@
                             }else{
                                 $(".update-comment-popup .starRev .starR").removeClass("on");
                                 $(".update-comment-popup .starRev .starR:lt(1)").addClass("on");
+                            }
+                        }
+                    });
+
+                    // 후기 삭제
+                    $(".delete-my-con").on({
+                        click : function(){
+                            if(!confirm("후기를 삭제하시겠습니까?")){
+                                return false;
+                            }else{
+                                alert("백단 후기 삭제 실행!");
                             }
                         }
                     });
