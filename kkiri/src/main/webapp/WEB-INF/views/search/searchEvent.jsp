@@ -237,7 +237,7 @@
 		    			var startDate ="";
 		    			
 		    			if(sList == ""){
-		    				$("#searchListArea").empty();
+		    				var markers = [];
 		    				content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>"
 		    				$(content).appendTo("#searchListArea");	
 		    			} else{
