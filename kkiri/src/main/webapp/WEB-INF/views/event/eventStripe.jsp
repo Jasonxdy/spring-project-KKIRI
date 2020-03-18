@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,14 @@
 			</ul>
 
 			<ul class="navbar-nav nav-ul ml-2">
-				<li class="nav-item mt-2 text-muted"><b> ${event.eventQuota - fn:length(partyList)}자리 남음 </b></li>
+				<c:choose>
+					<c:when test="${(event.eventQuota - fn:length(partyList)-1) <= 0}">
+						<li class="nav-item mt-2 text-muted"><b class="text-danger"> 모집 완료 </b></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item mt-2 text-muted"><b> ${event.eventQuota - fn:length(partyList)-1}자리 남음 </b></li>
+					</c:otherwise>
+				</c:choose>
 				<li class=""><a class="nav-link" href="selectParty"
 					id="event-participate"> 이벤트 참가 </a></li>
 				<li class="nav-item dropdown" id="report-button"><a

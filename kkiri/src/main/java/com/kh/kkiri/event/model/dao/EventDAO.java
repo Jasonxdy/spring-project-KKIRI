@@ -37,7 +37,10 @@ public class EventDAO {
 	 * @throws Exception
 	 */
 	public List<Member> selectPartyList(int eventNo) throws Exception{
-		return sqlSession.selectList("eventMapper.selectPartyList", eventNo);
+		int offset = 0;
+		int limit = 11;
+		RowBounds rbound = new RowBounds(offset, limit);
+		return sqlSession.selectList("eventMapper.selectPartyList", eventNo, rbound);
 	}
 
 

@@ -53,6 +53,8 @@ public class EventController {
 				model.addAttribute("event", event);
 				
 				if(partyList != null && !partyList.isEmpty()) {
+					System.out.println("partyList : " + partyList);
+					System.out.println("partyList 크기 : " + partyList.size());
 					model.addAttribute("partyList", partyList);
 					url = "event/eventDetail";
 					
