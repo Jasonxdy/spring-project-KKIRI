@@ -11,9 +11,9 @@
 <nav class="navbar navbar-expand-sm navbar-light" id="stripe">
 		<div class="container" id="event-navi">
 			<ul class="navbar-nav nav-ul ml-2">
-				<li class="nav-item"><a class="nav-link active" href="#">정보</a>
+				<li class="nav-item"><a class="nav-link active" id="detail" href="detail?no=${event.eventNo}">정보</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">참가회원</a></li>
+				<li class="nav-item"><a class="nav-link" id="selectParticipant" href="selectParticipant?no=${event.eventNo}">참가회원</a></li>
 			</ul>
 
 			<ul class="navbar-nav nav-ul ml-2">
@@ -36,6 +36,35 @@
 			</ul>
 		</div>
 	</nav>
+	
+	<script>
+		var pathname = window.location.pathname;
+		var shortPathname = pathname.substring(13, pathname.length);
+		switch(shortPathname){
+			case "detail" :
+				$("#event-navi li a").removeClass("active");
+				$("#detail").addClass("active");
+				break;
+			
+			case "selectParticipant" :
+				$("#event-navi li a").removeClass("active");
+				$("#selectParticipant").addClass("active");
+				break;
+		}
+		
+		console.log(shortPathname);
+		
+		
+		
+		
+	</script>
+	
+<!-- 	<script>
+		$(function(){
+			$("#event-navi li a").removeClass("active");
+			$("선택자").addClass("active");
+		});
+	</script> -->
 
 </body>
 </html>

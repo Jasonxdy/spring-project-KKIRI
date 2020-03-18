@@ -4,14 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
 <head>
 <!-- 이벤트 상세 페이지 CSS 적용 -->
 <link rel="stylesheet"
-	href="${contextPath}/resources/css/eventDetail.css">
+	href="${contextPath}/resources/css/eventParticipant.css">
 <title>KKIRI(끼리)</title>
-
 </head>
+
 <body>
 	<div id="wrapper">
 
@@ -66,19 +65,30 @@
 	<!-- 이벤트 상세 상단 정보 end -->
 
 
+
 	<!-- 이벤트 sticky element start // sticky element 사용-->
 	<jsp:include page="eventStripe.jsp" />
 	<!-- 이벤트 sticky element end -->
 
 	<div class="container">
 		<div class="row mt-5 event-detail-container">
+			<!-- 하단 좌측 div start -->
 			<div class="col-md-7 event-detail">
-				<!-- 최대 크기 적용, 사진 가운데 정렬 필요 -->
-				<img src="${contextPath}/resources/img/${event.eventThumbnail}"
-					class="event-thumbnail">
-				<p class="mt-3" id="eventContent">${event.eventContent}</p>
+				<h3 class="mb-5">
+					현재 <span class="participant-count">${event.partyCount}</span>명의 회원이 참가 중입니다.
+				</h3>
+
+				<div class="media border p-3 profile-card">
+					<img src="../index 페이지 - 진웅/img/profile-ex.png" alt="John Doe"
+						class="rounded-circle mt-1" style="width: 60px;">
+					<div class="media-body ml-3 mt-1">
+						<h4>jasonxdy</h4>
+						<p class="text-muted">2020년 3월 11일 참가</p>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-5">
+			<!-- 하단 좌측 div end -->
+			<div class="col-md-5 ">
 				<div class="time-and-place">
 					<h4>시간과 장소</h4>
 					<!-- 이벤트 시작시간, 끝나는 시간 -->
@@ -95,11 +105,10 @@
 					</p>
 					<!-- 위도, 경도로 얻은 주소 -->
 					<p class="mt-3" style="margin-bottom: 0em;">
-						<img src="${contextPath}/resources/img/map-ping.png"
+						<img src="${contextPath}/resources/img/map-ping.png" alt="지도 핑"
 							style="height: 18px;" alt="위치아이콘"> ${event.eventLocation}
-
 					</p>
-					<p class="text-muted" id="eventPing"></p>
+					<p class="text-muted" id="eventPing">서울시 동대문구 휘경동 204-90</p>
 
 					<!-- 지도 부분 start -->
 					<div id="eventMap" style="height: 250px;"></div>
@@ -163,54 +172,32 @@
 					<!-- 지도 부분 end -->
 				</div>
 
-				<div class="event-participant mt-5">
-
-					
-					<c:set var="partySize" value="${fn:length(partyList)}"/>
-						<c:if test="${partySize > 11}">
-							<c:set var="partySize" value="11"/>
-						</c:if>
-					
-					<h4>
-						참석자 (<span>${event.partyCount}</span>명) <span id="see-all"> <a
-							href="#"> 모두 보기 </a>
-						</span>
-					</h4>
-				</div>
-				<div class="event-participant-profile-wrap" id="event-party-list">
-					<span class="event-participant-profile"> 
-						<img src="${contextPath}/resources/img/${event.memberProfile}" alt="주최자">
-					</span>
-					<c:forEach var="party" items="${partyList}" varStatus="vs">
-						<c:if test="${vs.count < 12}">
-							<span class="event-participant-profile"> <img
-								src="${contextPath}/resources/img/${party.memberProfile}"
-								alt="참석자">
-							</span>
-						</c:if>
-					</c:forEach>
-				</div>
-
 
 			</div>
-		</div>
-		<!-- 이벤트 상세 페이지 end -->
+			<!-- 이벤트 상세 페이지 end -->
 
+		</div>
 	</div>
+
 
 	<jsp:include page="../common/footer.jsp" />
 
+	<div id="button-top">
+		<button type="button" class="top-btn">TOP</button>
+	</div>
 
 	<script>
-		$(function() {
-			// 신고 토글 버튼
-			$("#navbardrop").click(function(e) {
-				e.preventDefault();
-				$(this).next(".declare-wrap").toggleClass("active");
-			});
-
+	$(function() {
+		// 신고 토글 버튼
+		$("#navbardrop").click(function(e) {
+			e.preventDefault();
+			$(this).next(".declare-wrap").toggleClass("active");
 		});
+		
+		console.log(${event.partyCount});
+		
+	});
 	</script>
-
 </body>
+
 </html>

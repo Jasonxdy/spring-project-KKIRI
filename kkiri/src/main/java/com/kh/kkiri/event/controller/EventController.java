@@ -53,10 +53,61 @@ public class EventController {
 				model.addAttribute("event", event);
 				
 				if(partyList != null && !partyList.isEmpty()) {
-					System.out.println("partyList : " + partyList);
-					System.out.println("partyList 크기 : " + partyList.size());
 					model.addAttribute("partyList", partyList);
 					url = "event/eventDetail";
+					
+				} else {
+					msg = "이벤트 상세 페이지 조회 실패";
+					rdAttr.addFlashAttribute("msg", msg);
+					url = "redirect:/";
+				}
+
+			} else {
+				msg = "이벤트 상세 페이지 조회 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				url = "redirect:/";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이벤트 상세 페이지 조회 과정 중 오류 발생");
+			return "common/errorPage.jsp";
+		}
+		return url;
+	}
+	
+	
+	@RequestMapping("selectParticipant")
+	public String selectParticipant(@RequestParam(value = "no", required = false) Integer no, Model model,
+			RedirectAttributes rdAttr) {
+		
+		int eventNo = 0;
+
+//		테스트용으로 삭제 예정
+		if (no != null) {
+			eventNo = no;
+		} else {
+			eventNo = 99;
+		}
+
+		String msg = null;
+		String url = null;
+
+		try {
+
+			// 이벤트 + 주최자 정보 얻어오기
+			Event event = eventService.selectEvent(eventNo);
+
+			// 이벤트 참석자 정보 얻어오기
+			List<Member> partyList = eventService.selectPartyList(eventNo);
+
+			if (event != null) {
+
+				model.addAttribute("event", event);
+				
+				if(partyList != null && !partyList.isEmpty()) {
+					model.addAttribute("partyList", partyList);
+					url = "event/eventParticipant";
 					
 				} else {
 					msg = "이벤트 상세 페이지 조회 실패";
