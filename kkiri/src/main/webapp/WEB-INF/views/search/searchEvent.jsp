@@ -162,22 +162,30 @@
 	
 			// 지도를 생성합니다    
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
 			// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 			var mapTypeControl = new kakao.maps.MapTypeControl();
-
 			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
 			// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
 			map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
 			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 			var zoomControl = new kakao.maps.ZoomControl();
 			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-			  
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
+			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+			var markers = [];
 			
-			/* 이 위로 지도 관련! */
+			// 마커를 생성하고 지도위에 표시하는 함수입니다
+			function addMarker(position) {
+			    // 마커를 생성합니다
+			    var marker = new kakao.maps.Marker({
+			        position: position
+			    });
+			    // 마커가 지도 위에 표시되도록 설정합니다
+			    marker.setMap(map);
+			    // 생성된 마커를 배열에 추가합니다
+			    markers.push(marker);
+			}
 			
 			 $(function() {
 		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
@@ -294,6 +302,9 @@
 												"</div>" +
 											"</div>";
 											}
+											
+											// 마커 하나를 지도위에 표시합니다 
+											addMarker(new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude));
 		    				});
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
@@ -374,6 +385,8 @@
 												"</div>" +
 											"</div>";
 											}
+											// 마커 하나를 지도위에 표시합니다 
+											addMarker(new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude));
 		    				});
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
