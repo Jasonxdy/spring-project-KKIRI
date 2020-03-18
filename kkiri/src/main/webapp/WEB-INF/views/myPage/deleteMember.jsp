@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../resources/css/my_profile.css">
+  <link rel="stylesheet" href="../resources/css/delete_member.css">
   <script src="../resources/js/index.js"></script>
   <title>KKIRI(끼리)</title>
 </head>
@@ -67,15 +68,16 @@
                   <input type="text" class="form-control" id="user-input-secession">
                 </div>
                 <div class="button-wrap">
-                  <button type="button" onclick="location.href='my_profile.jsp'" class="green-radius-btn prev-btn">이전</button>
+                  <button type="button" onclick="location.href='in'" class="green-radius-btn prev-btn">이전</button>
                   <button class="btn green-radius-btn submit-btn">회원탈퇴</button>
                 </div>
               </form>
             </div>
+           </div>
         </div>
       </div>
-    </div>
-    </div>
+    
+   
    
     <script>
       function maxLengthCheck(object) {
@@ -131,6 +133,7 @@
     </script>
   <!-- content 끝 -->
   <jsp:include page="../common/footer.jsp"/>
+  </div>
 </body>
 
 </html>

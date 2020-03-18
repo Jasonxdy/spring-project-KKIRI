@@ -1,0 +1,48 @@
+#wrapper .my-profile-section{
+    margin: 0;
+}
+.secession-terms{
+    border: 1px solid lightslategray;
+    padding: 15px;
+    border-radius: 0.25rem;
+    margin-bottom: 50px;
+}
+.secession-info-wrap{
+
+}
+.info-title{
+    display: inline-block;
+    margin-bottom: 50px;
+    width: 45%;
+}
+.info-content{
+    width: 50%;
+    display: inline-block;
+}
+.info-content>span{
+    margin-right: 5px;
+}
+.info-content>label{
+    margin-right : 15px;
+}
+.secession-info-wrap .form-control{
+    width: 50%;
+    display: inline-block;
+}
+#secession-member .button-wrap{
+    text-align: center;
+}
+#secession-member .button-wrap button{
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    margin: 0 2px;
+    margin-top: 20px;
+}
+#secession-member .button-wrap button:hover{
+    color: #ffffff;
+}
+.info-title3{
+    transform: translateY(30px);
+}
