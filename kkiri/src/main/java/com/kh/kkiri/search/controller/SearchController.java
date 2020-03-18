@@ -100,8 +100,6 @@ public class SearchController {
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
 		
-		System.out.println(currentPage);
-		
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		//Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
 		//Gson gson = new GsonBuilder().create();
