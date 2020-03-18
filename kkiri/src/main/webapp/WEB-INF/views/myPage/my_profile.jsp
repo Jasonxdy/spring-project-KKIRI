@@ -222,6 +222,19 @@
       </div>
     </div>  
     <script>
+    
+    // 로그인이 되어 있지 않으면 메인을 ㅗ보냄
+    
+    $(function(){
+    	if(${loginMember == null}){
+    		location.href="../mypage/main";	
+    	}
+    })
+    
+
+
+    
+    
     // 비밀번호 정규표현식 확인용
     function passCheck(){
 	    var regExp = /^[A-Za-z0-9]{6,12}$/;

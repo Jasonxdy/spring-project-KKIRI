@@ -101,10 +101,10 @@ public class MypageController {
 				return "redirect:/mypage/movedeleteMember"; // 삭제페이지로 이동
 			}else {
 				// session 만료 
-				status.setComplete();
+				 status.setComplete();
 				msg="회원탈퇴에 성공하였습니다.";
-				
-				return "redirect:/member/logout";
+				System.out.println("회원탈퇴 진행합니다");
+				return "redirect:/";
 			}
 			
 		}catch (Exception e) {
@@ -113,8 +113,10 @@ public class MypageController {
 			return "common/errorPage";
 		}
 		
-		
-		
+	}
+	@RequestMapping("main")
+	public String main () {
+	return "redirect:/";	
 	}
 	
 }
