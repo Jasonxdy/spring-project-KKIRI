@@ -167,26 +167,22 @@
 
 					
 					<c:set var="partySize" value="${fn:length(partyList)}"/>
-					<c:set var="count" value=1 />
-					<c:choose>
-						<c:when test="${partySize <= 12}">
-						
-						</c:when>
+						<c:if test="${partySize > 11}">
+							<c:set var="partySize" value="11"/>
+						</c:if>
 					
-					</c:choose>
 					<h4>
-						참석자 (<span>${partySize}</span>명) <span id="see-all"> <a
+						참석자 (<span>${event.partyCount}</span>명) <span id="see-all"> <a
 							href="#"> 모두 보기 </a>
 						</span>
 					</h4>
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
-						<span class="event-participant-profile"> <img
-							src="${contextPath}/resources/img/${party.memberProfile}"
-							alt="주최자">
-						</span>
-					<c:forEach var="party" items="${partyList}">
-						<c:if test="${party.memberNo != event.memberNo}">
+					<span class="event-participant-profile"> 
+						<img src="${contextPath}/resources/img/${event.memberProfile}" alt="주최자">
+					</span>
+					<c:forEach var="party" items="${partyList}" varStatus="vs">
+						<c:if test="${vs.count < 12}">
 							<span class="event-participant-profile"> <img
 								src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참석자">
