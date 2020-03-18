@@ -1,5 +1,6 @@
 package com.kh.kkiri.admin.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,21 @@ public class AdminController {
 			@RequestParam(value="searchValue", required=false) String searchValue,
 			HttpSession session, RedirectAttributes rdAttr
 			) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(!loginMember.getMemberGrade().equals("A")) {
-			rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+		Enumeration<String> names = session.getAttributeNames();
+		boolean flag = false;
+		while(names.hasMoreElements()) {
+			if(names.nextElement().toString().equals("loginMember")) {
+				flag = true;
+			}
+		}
+		if(flag) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			if(!loginMember.getMemberGrade().equals("A")) {
+				rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+				return "redirect:/";
+			}
+		}else {
+			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			return "redirect:/";
 		}
 				
@@ -142,9 +155,21 @@ public class AdminController {
 						@RequestParam(value="searchValue", required=false) String searchValue,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(!loginMember.getMemberGrade().equals("A")) {
-			rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+		Enumeration<String> names = session.getAttributeNames();
+		boolean flag = false;
+		while(names.hasMoreElements()) {
+			if(names.nextElement().toString().equals("loginMember")) {
+				flag = true;
+			}
+		}
+		if(flag) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			if(!loginMember.getMemberGrade().equals("A")) {
+				rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+				return "redirect:/";
+			}
+		}else {
+			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			return "redirect:/";
 		}
 		try {
@@ -179,9 +204,21 @@ public class AdminController {
 						@RequestParam(value="searchValue", required=false) String searchValue,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(!loginMember.getMemberGrade().equals("A")) {
-			rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+		Enumeration<String> names = session.getAttributeNames();
+		boolean flag = false;
+		while(names.hasMoreElements()) {
+			if(names.nextElement().toString().equals("loginMember")) {
+				flag = true;
+			}
+		}
+		if(flag) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			if(!loginMember.getMemberGrade().equals("A")) {
+				rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+				return "redirect:/";
+			}
+		}else {
+			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			return "redirect:/";
 		}
 		try {
@@ -238,9 +275,21 @@ public class AdminController {
 						@RequestParam(value="searchValue", required=false) String searchValue,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(!loginMember.getMemberGrade().equals("A")) {
-			rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+		Enumeration<String> names = session.getAttributeNames();
+		boolean flag = false;
+		while(names.hasMoreElements()) {
+			if(names.nextElement().toString().equals("loginMember")) {
+				flag = true;
+			}
+		}
+		if(flag) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			if(!loginMember.getMemberGrade().equals("A")) {
+				rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+				return "redirect:/";
+			}
+		}else {
+			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			return "redirect:/";
 		}
 		try {

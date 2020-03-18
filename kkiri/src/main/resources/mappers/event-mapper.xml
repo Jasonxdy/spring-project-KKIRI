@@ -70,7 +70,7 @@
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
 				<choose>
 					<when test="searchKey == 'sponsor'">
-						AND MEMBER_ID LIKE #{sv}
+						AND EVENT_CATEGORY LIKE #{sv}
 					</when>
 					<otherwise>
 						AND EVENT_TITLE LIKE #{sv}
@@ -87,7 +87,7 @@
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
 				<choose>
 					<when test="searchKey == 'sponsor'">
-						AND MEMBER_ID LIKE #{sv}
+						AND EVENT_CATEGORY LIKE #{sv}
 					</when>
 					<otherwise>
 						AND EVENT_TITLE LIKE #{sv}
