@@ -219,7 +219,7 @@
                             </div>
                         </li>
                     </ul>
-
+                    <button type="button" class="upload-image green-radius-btn">사진 업로드</button>
                      <!-- 페이징 바 -->
                         <div class="row justify-content-center pagination-wrap">
                             <div>
@@ -259,7 +259,7 @@
                     <!-- 페이징 바 끝 -->
                 </div>
 
-                <div id="popup" class="popup">
+                 <div class="popup detail-image-popup" id="popup">
                     <p class="popup-title">
                       사진 자세히보기
                       <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
@@ -272,10 +272,91 @@
                             <p class="popup-picture-content">이미지 내용9</p>
                         </div>
                     </div>
+                    <div class="button-area">
+                        <button type="button" class="modify-button green-radius-btn">수정하기</button>
+                        <button type="button" class="delete-button green-radius-btn">삭제하기</button>
+                    </div>
                   </div>
+
+                  <div class="popup upload-image-popup common-image-popup">
+                    <p class="popup-title">
+                      사진 업로드
+                      <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+                    </p>
+                    <form action="#" method="get">
+                        <img class="upload-image-section">
+                        <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
+                        <input type="file" class="upload-file" onchange="loadImg(this)">
+
+                        <label for="upload-image-title">제목</label>
+                        <input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
+
+                        <label for="upload-image-content">내용</label>
+                        <textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
+
+                        <button class="green-radius-btn submit-upload-img">작성 완료</button>
+                    </form>
+                  </div>
+
+                  <div class="popup update-image-popup common-image-popup">
+                    <p class="popup-title">
+                      사진 수정하기
+                      <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+                    </p>
+                    <form action="#" method="get">
+                        <img class="upload-image-section" src="../index 페이지 - 진웅/img/thumbnail3.png" alt="예시 이미지">
+                        <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
+                        <input type="file" class="upload-file" onchange="loadImg(this)">
+
+                        <label for="upload-image-title">제목</label>
+                        <input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
+
+                        <label for="upload-image-content">내용</label>
+                        <textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
+
+                        <button class="green-radius-btn submit-upload-img">수정 완료</button>
+                    </form>
+                  </div>
+                  
                   <div class="popup-shadow"></div>
            
                 <script>
+                  // 사진 삭제 이벤트
+                  $(".button-area .delete-button").on({
+                      click : function(){
+                        if(!confirm("정말로 해당 게시글을 삭제하시겠습니까?")){
+                            return false;
+                        }else{
+                            alert("사진 게시글 삭제 백단 수행!");
+                        }
+                      }
+                  });
+
+                  // 사진 수정하기 버튼 클릭시 수정 팝업 나오는 이벤트
+                  $(".button-area .modify-button").on({
+                      click : function(){
+                        $("#popup").hide();
+                        $(".update-image-popup").show();
+                      }
+                  });
+
+                  // 사진 업로드되는 이벤트
+                  $(".upload-image-btn").on({
+                      click : function(){
+                        $(this).next().click();
+                      }
+                  });
+
+                  function loadImg(value){
+                    if(value.files && value.files[0]){
+                        var reader = new FileReader();
+                        reader.onload = function(e){
+                            $(".upload-image-section").prop("src",e.target.result);
+                        }
+                    }
+                    reader.readAsDataURL(value.files[0]);
+                  }
+
                   $(".picture-wrap").on({
                     click : function(){
                       $("#popup .popup-img>img").attr("src",$(this).children("img").attr("src"));
@@ -288,8 +369,15 @@
 
                   $(".close-popup, .popup-shadow").on({
                     click : function(){
-                      $(".popup-shadow, #popup").hide(0);
+                      $(".popup-shadow, .popup").hide(0);
                     }
+                  });
+
+                  // 사진 업로드 버튼 클릭시 팝업 나오는 이벤트
+                  $(".upload-image").on({
+                      click : function(){
+                        $(".upload-image-popup, .popup-shadow").show(0);
+                      }
                   });
                 </script>
 

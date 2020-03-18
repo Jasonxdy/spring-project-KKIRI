@@ -112,8 +112,11 @@
         width: 100%;
         padding: 0;
 }
+html body .pagination-wrap{
+    clear: both;
+}
 .event-picture>ul>li{
-    width: 32%;
+    width: 32.5%;
     display: inline-block;
     border-radius: .25rem;
     border:1px solid #cdd2d8;
@@ -122,15 +125,17 @@
     cursor:pointer;
     transition: all .3s;
 }
+.event-picture .upload-image{
+    float: right;
+    margin-bottom: 40px;
+    margin-top: -15px;
+}
 .event-picture>ul>li:hover{
     opacity:0.8;
 }
 .event-picture .picture-wrap img{
     width: 100%;
     height: 150px;
-}
-.event-picture .picture-wrap p{
-
 }
 .event-picture .picture-wrap p.picture-title{
     padding: 10px 0 0 10px;
@@ -158,6 +163,13 @@
 .popup-img>*{
     float: left;
 }
+.detail-image-popup .button-area{
+    text-align: center;
+    margin-top: 20px;
+}
+.detail-image-popup .button-area button{
+  margin : 0 5px;
+}
 .popup .content-wrap{
     margin-left: 30px;
     width: 40%;
@@ -170,8 +182,40 @@
     border-bottom: 1px solid lightslategray;
     padding-bottom: 30px;
 }
-.popup .content-wrap .popup-picture-content{
-
+.common-image-popup form{
+    padding: 30px;
+    width: 100%;
+}
+.common-image-popup form img{
+    width: 200px;
+    height:  200px;
+}
+.common-image-popup{
+    top:50%;
+}
+.common-image-popup .upload-file{
+    display: none;
+}
+.common-image-popup form label{
+    display: block;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+.common-image-popup form #upload-image-title{
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+}
+.common-image-popup form textarea{
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    height: 200px;
+}
+.common-image-popup .submit-upload-img{
+    display: block;
+    margin: 20px auto 0 auto;
 }
 
 /* 이벤트 상세 페이지 상단 공통 css start */
@@ -180,16 +224,17 @@
         margin-right:2px;
     }
 }
-@media (max-width: 900px){
-    .event-thumbnail{
-        /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
-    }
-}
 @media (max-width: 816px){
     #popup{
         width: 90%;
     }
     .popup .content-wrap{
         margin-left:10px;
+    }
+}
+@media (max-width: 500px){
+    .common-image-popup form img{
+        width: 150px;
+        height:  150px;
     }
 }

@@ -22,6 +22,7 @@
 
     <!-- 이벤트 상세 페이지 CSS 적용 -->
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/eventAfterComment.css">
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/eventJoinModal.css">
     <title>KKIRI(끼리)</title>
 </head>
 
@@ -63,7 +64,7 @@
                 <div class="col-md-7" id="eventDetailDiv">
                     <!-- 이벤트 시작시간, 끝나는 시간 -->
                     <p class="text-muted" id="eventDate" style="margin-bottom: 0em;">
-                        2020년 3월 9일 월요일 · 15:00 ~ 17:00
+                        2020년 3월 9일 월요일 · 15:00
                     </p>
                     <h2 id="eventTitle">
                         크로스 핏 모여서 즐겨요
@@ -125,8 +126,11 @@
                         </b>
                     </li>
                     <li class="">
-                        <a class="nav-link" href="#" id="event-participate">
+                        <a class="nav-link event-participate-btn" href="#" id="event-participate">
                             이벤트 참가
+                        </a>
+                        <a class="nav-link event-participate-btn" href="#" id="cancel-event-participate">
+                            이벤트 참가취소
                         </a>
                     </li>
                     <li class="nav-item dropdown" id="report-button">
@@ -304,7 +308,7 @@
                         <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
                     </p>
                     <div class="popup-content"> 
-                        <form action="#" method="post">
+                        <form action="#" method="post" onsubmit="return declareCondition();">
                             <label for="declare-reason">신고사유를 선택해주세요.</label>
                             <select name="reportCategory" id="declare-reason">
                                 <option value="none">신고 사유 선택</option>
@@ -313,23 +317,72 @@
                                 <option value="C">지나친 사행성 관련 이벤트</option>
                                 <option value="D">기타</option>
                             </select>
-                            <label for="declare-content">추가적인 신고사유를 입력해주세요.</label>
+                            <label for="declare-content" class="declare-content-label">추가적인 신고사유를 입력해주세요.</label>
                             <textarea name="reportContent" id="declare-content"></textarea>
-                            <button class="green-radius-btn">수정 완료</button>
+                            <button class="green-radius-btn">신고하기</button>
                         </form>
+                    </div>
+                  </div>
+
+
+                  <div class="popup join-event-popup">
+                    <p class="popup-title">
+                        이벤트 참가 신청
+                        <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
+                    </p>
+                    <div class="popup-content"> 
+                        <p class="event-title">크로스 핏 모여서 즐겨요</p>
+                        <p class="event-date">2020년 3월 9일 월요일 · 15:00 ~ 17:00</p>
+                        <p class="join-money">
+                            참가비용 : <img src="../index 페이지 - 진웅/img/dollor-icon.png" alt="참가비용">
+                            <span>2 티켓</span>
+                        </p>
+                        <p class="popup-comment">이벤트에 참가하시겠습니까?</p>
+                        <button type="button" class="join-event-btn green-radius-btn">이벤트 참가</button>
                     </div>
                   </div>
 
                   <div class="popup-shadow"></div>
            
                 <script>
-                // 신고하기 버튼 클릭시 팝업
-                $(".declare-btn").on({
-                    click : function(){
-                        $(".declare-event-popup, .popup-shadow")
+                // 이벤트 참가 버튼 클릭시 팝업
+                $("#event-participate").on({
+                    click : function(e){
+                        e.preventDefault();
+                        $(".join-event-popup, .popup-shadow").show(0);
                     }
                 });
 
+                $(".join-event-btn").on({
+                    click : function(){
+                        $(".join-event-popup, .popup-shadow").hide(0);
+                        $("#event-participate").hide(0);
+                        $("#cancel-event-participate").css({"display":"block"});
+                    }
+                });
+
+                $("#cancel-event-participate").on({
+                    click : function(){
+                        if(confirm("정말로 이벤트 참가를 취소하시겠습니까?")){
+                            alert("이벤트 참가 취소 백단 실행");
+                            $("#cancel-event-participate").hide(0);
+                            $("#event-participate").show(0);
+                        }
+                    }
+                });
+
+                $(".already-join").on({
+                    click : function(){
+                       alert();
+                    }
+                });
+                // 신고하기 버튼 클릭시 팝업
+                $(".declare-btn").on({
+                    click : function(e){
+                        e.preventDefault();
+                        $(".declare-event-popup, .popup-shadow").show(0);
+                    }
+                });
 
                   // 후기 작성 팝업
                   $(".insert-comment").on({
@@ -368,6 +421,13 @@
                         }
                     }
 
+                    function declareCondition(){
+                        if($("#declare-reason").val()=="none"){
+                            alert("신고 사유를 선택해주세요");
+                            $("#declare-reason").focus();
+                            return false;
+                        }
+                    }
 
                     // 후기 수정 팝업
                     $(".update-my-con").on({
@@ -486,14 +546,10 @@
                             <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="주최자">
                         </span>
                     </div>
-
-
                 </div>
             </div>
             <!-- 이벤트 상세 페이지 end -->
-
         </div>
-
 
         <div id="footer">
             <div class="container">
@@ -542,7 +598,6 @@
                 e.preventDefault();
                 $(this).next(".declare-wrap").toggleClass("active");
             });
-
         });
     </script>
 </body>
