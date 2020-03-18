@@ -66,8 +66,24 @@
 	</select>
 
 	<select id="adminEventCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*) FROM V_EVENT
-		JOIN MEMBER USING(MEMBER_NO)
+		SELECT COUNT(*) FROM V_EVENT_A
+		<where>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
+				<choose>
+					<when test="searchKey == 'sponsor'">
+						AND MEMBER_ID LIKE #{sv}
+					</when>
+					<otherwise>
+						AND EVENT_TITLE LIKE #{sv}
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="adminSelectEvent" parameterType="map" resultMap="eventResultSet">
+		SELECT * FROM V_EVENT_A
 		<where>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />

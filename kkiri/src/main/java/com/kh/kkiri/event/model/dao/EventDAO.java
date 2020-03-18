@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -50,6 +51,13 @@ public class EventDAO {
 	 */
 	public int adminEventCount(Map<String, String> map) throws Exception {
 		return sqlSession.selectOne("eventMapper.adminEventCount", map);
+	}
+
+
+	public List<Member> adminSelectEvent(Map<String, String> map, PageInfo pInf) {
+		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("eventMapper.adminSelectEvent", map, rowBounds);
 	}
 
 

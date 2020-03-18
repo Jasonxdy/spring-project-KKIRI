@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
@@ -46,6 +47,17 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int adminEventCount(Map<String, String> map) throws Exception {
 		return eventDAO.adminEventCount(map);
+	}
+	
+	/** 관리자: 이벤트 목록 조회 Service
+	 * @param map
+	 * @param pInf
+	 * @return eList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Member> adminSelectEvent(Map<String, String> map, PageInfo pInf) throws Exception {
+		return eventDAO.adminSelectEvent(map, pInf);
 	}
 
 }

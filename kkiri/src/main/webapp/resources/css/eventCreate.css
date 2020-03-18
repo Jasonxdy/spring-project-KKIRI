@@ -130,14 +130,27 @@
   max-width: 445px;
 }
 .insert-event-info .eventIntroduceTitle{
-  margin-top: 80px;
+    transform: translateY(-88px);
 }
 .event-thumbnail-label{
-  
+  transform: translateY(-170px);
+}
+@media (max-width: 1199px) {
+  .insert-event-info #eventIntroduce{
+    max-width:372px;
+  }
 }
 @media (max-width: 991px) {
   .insert-event-info .eventIntroduceTitle{
     margin-top : 30px;
+  }
+  .insert-event-info #eventIntroduce{
+    max-width:276px;
+  }
+}
+@media (max-width: 767px) {
+  .insert-event-info .eventIntroduceTitle{
+    transform: translateY(0);
   }
 }
 .step4{
@@ -149,6 +162,6 @@
 .eventCreate .eventCreateForm .step4 .sub-title{
     font-size: 25px;
 }
-.step1,.step2,.step4{
+.step2,.step3,.step4{
   display: none;
 }

@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../resources/css/my_profile.css">
+  <link rel="stylesheet" href="../resources/css/delete_member.css">
   <script src="../resources/js/index.js"></script>
   <title>KKIRI(끼리)</title>
 </head>
@@ -21,7 +22,7 @@
             <a class="btn active" href="#">프로필</a>
             <a class="btn" href="#">이벤트</a>
             <a class="btn" href="#">티켓</a>
-            <a class="btn" href="#">로그아웃</a>
+            <a class="btn" href="${contextPath}/member/logout">로그아웃</a>
           </div>
 
           <div class="col-10">
@@ -67,17 +68,26 @@
                   <input type="text" class="form-control" id="user-input-secession">
                 </div>
                 <div class="button-wrap">
-                  <button type="button" onclick="location.href='my_profile.jsp'" class="green-radius-btn prev-btn">이전</button>
+                  <button type="button" onclick="location.href='in'" class="green-radius-btn prev-btn">이전</button>
                   <button class="btn green-radius-btn submit-btn">회원탈퇴</button>
                 </div>
               </form>
             </div>
+           </div>
         </div>
       </div>
-    </div>
-    </div>
+    
+   
    
     <script>
+    
+    $(function(){
+    	if(${loginMember == null}){
+    		location.href="../mypage/main";	
+    	}
+    })
+    
+    
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
           object.value = object.value.slice(0, object.maxLength);
@@ -131,6 +141,7 @@
     </script>
   <!-- content 끝 -->
   <jsp:include page="../common/footer.jsp"/>
+  </div>
 </body>
 
 </html>
