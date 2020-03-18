@@ -254,17 +254,16 @@ public class AdminController {
 			//System.out.println("회원 수: " + memberCount);
 			if(currentPage == null) currentPage = 1;
 			
-			//PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, askCount);
+			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, eventCount);
 			
-			//List<Member> eList = eventService.adminSelectEvent(map, pInf);
+			List<Member> eList = eventService.adminSelectEvent(map, pInf);
 			
-			//model.addAttribute("pInf", pInf);
-			//model.addAttribute("aList", aList);
+			model.addAttribute("pInf", pInf);
+			model.addAttribute("eList", eList);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return "admin/admin_event";
 	}
 	

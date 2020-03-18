@@ -3,6 +3,7 @@ package com.kh.kkiri.event.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -30,6 +31,14 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int adminEventCount(Map<String, String> map) throws Exception;
+
+	/** 관리자: 이벤트 목록 조회 Service
+	 * @param map
+	 * @param pInf
+	 * @return eList
+	 * @throws Exception
+	 */
+	List<Member> adminSelectEvent(Map<String, String> map, PageInfo pInf) throws Exception;
 
 
 	

@@ -47,22 +47,16 @@
 					            </tr>
 							</thead>
 							<tbody>
-								<c:forEach var="ask" items="${eList}" varStatus="vs">
+								<c:forEach var="event" items="${eList}" varStatus="vs">
 								<tr class="text-center">
-									<th scope="row">${ask.askNo}</th>
-									<td>${ask.memberId}</td>
-									<td>${ask.askEmail}</td>
-									<td>${ask.askTitle}</td>
-									<c:set var="enrollDate" value ="${fn:substring(ask.askEnrollDate, 0, 4)}년
-										${fn:substring(ask.askEnrollDate, 5, 7)}월
-										${fn:substring(ask.askEnrollDate, 8, 10)}일" />
-									<td>
-										${enrollDate}
-									</td>
-									<td>${ask.answerStatus}</td>
-									<td style="display:none;">${ask.askContent}</td>
-									<td style="display:none;">${fn:substring(ask.askEnrollDate, 0, 10)}</td>
-									<td style="display:none;">${ask.askAnswer}</td>
+									<th scope="row">${event.eventNo}</th>
+									<td>${event.eventCategory}</td>
+									<td>${event.eventTitle}</td>
+									<td>${event.eventLocation}</td>
+									<td>${event.eventQuota}</td>
+									<td>${event.memberNo}</td>
+									<td>${event.eventTicket}</td>
+									<td>${event.eventThumbnail}</td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -231,7 +225,6 @@
 		
 		
 		$("#admin-table td").not("#lastTd").on("click",	function() {
-					$(".popup-shadow, #popup").show(0);
 					var thisAskNo = $(this).parent().children().eq(0).text();
 					var thisAnswerEmail = $(this).parent().children().eq(2).text();
 					
