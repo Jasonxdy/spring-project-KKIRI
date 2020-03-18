@@ -136,6 +136,10 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
+						        	<c:if test="${!empty param.delSort }">
+						        		<c:param name="delSort" value="${param.delSort}"/>
+						        	</c:if>
+						        	
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>
 	                    	">
@@ -154,6 +158,10 @@
 						        	
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.delSort }">
+						        		<c:param name="delSort" value="${param.delSort}"/>
 						        	</c:if>
 						        	
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
@@ -187,6 +195,10 @@
 							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
+							        	<c:if test="${!empty param.delSort }">
+						        			<c:param name="delSort" value="${param.delSort}"/>
+						        		</c:if>
+							        	
 			                    		<c:param name="currentPage" value="${p}"/>
 			                    	</c:url>
 		                    	">
@@ -211,6 +223,10 @@
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
 						        	
+						        	<c:if test="${!empty param.delSort }">
+					        			<c:param name="delSort" value="${param.delSort}"/>
+					        		</c:if>
+						        	
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 		                    	</c:url>
 	                    	">
@@ -229,6 +245,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.delSort }">
+					        			<c:param name="delSort" value="${param.delSort}"/>
+					        		</c:if>
 						        	
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
@@ -314,15 +334,15 @@
 		$(function () {
 		      $("#admin-table th").eq(8).on("click", function () {
 		    	  <c:url var="member" value="member">
+	               	<c:param name="delSort" value="sort"/>
             		<c:if test="${!empty param.searchKey }">
-	        		<c:param name="searchKey" value="${param.searchKey}"/>
+	        			<c:param name="searchKey" value="${param.searchKey}"/>
 		        	</c:if>
 		        	<c:if test="${!empty param.searchValue }">
 		        		<c:param name="searchValue" value="${param.searchValue}"/>
 		        	</c:if>
-	               	<c:param name="delSort" value="delSort"/>
 	               	<c:param name="currentPage" value="${param.currentPage}"/>
-	             	</c:url>
+	             </c:url>
 				
 				location.href="${member}";
 		      }).mouseenter(function () {

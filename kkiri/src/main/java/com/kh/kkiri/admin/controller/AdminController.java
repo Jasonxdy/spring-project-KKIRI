@@ -75,11 +75,13 @@ public class AdminController {
 				
 		try {
 			Map<String, Object> map = null;
+			map = new HashMap<String, Object>();
 			if(searchKey != null && searchValue != null) {
-				map = new HashMap<String, Object>();
 				map.put("searchKey",searchKey);
 				map.put("searchValue",searchValue);
-				map.put("delSort",delSort);
+			}
+			if(delSort != null) {
+				map.put("delSort", delSort);
 			}
 			int memberCount = adminService.adminMemberCount(map);
 			//System.out.println("회원 수: " + memberCount);
@@ -88,7 +90,6 @@ public class AdminController {
 			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, memberCount);
 			
 			List<Member> mList = adminService.adminSelectMember(map, pInf);
-			System.out.println("mList: " + mList);
 			model.addAttribute("pInf", pInf);
 			model.addAttribute("mList", mList);
 			

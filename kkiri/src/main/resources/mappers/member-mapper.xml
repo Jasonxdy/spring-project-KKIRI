@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="adminMemberCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
+		SELECT COUNT(*) FROM V_MEMBER_A
 		<where>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
@@ -55,12 +55,10 @@
 	</select>
 	
 	<select id="adminSelectMember" parameterType="map" resultMap="memberResultSet">
-		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_EMAIL,
-			MEMBER_BIRTH, MEMBER_PHONE, MEMBER_TICKET, MEMBER_ACCOUNT,
-			MEMBER_STATUS
-		FROM MEMBER
-		<where>
+		SELECT *
+		FROM V_MEMBER_A
 			<if test="searchValue != null">
+		<where>
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'" />
 				<choose>
 					<when test="searchKey == 'id'">
@@ -70,16 +68,11 @@
 						AND MEMBER_NICKNAME LIKE #{sv}
 					</otherwise>
 				</choose>
-			</if>
 		</where>
-		<choose>
-			<when test="delSort == 'delSort'">
+			</if>
+			<if test="delSort != null">
 			ORDER BY MEMBER_STATUS
-			</when>
-			<otherwise>
-			ORDER BY MEMBER_NO DESC
-			</otherwise>
-		</choose>
+			</if>
 	</select>
 	
 	<update id="refundTicket" parameterType="map">
