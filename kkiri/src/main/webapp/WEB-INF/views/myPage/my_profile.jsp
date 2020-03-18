@@ -114,9 +114,9 @@
                   <img class="profile-img" src="../resources/img/${loginMember.memberProfile}" alt="프로필 사진">
                 </div>
                 <br>
-                <div class="btn my-profile-btn">
+                <button class="btn my-profile-btn" id="updateMyPage">
                   수정하기
-                </div>
+                </button>
               </div>
             </div>
     
@@ -231,7 +231,11 @@
     	}
     })
     
-
+	$(function(){
+		$("#updateMyPage").click(function(){
+			location.href="../mypage/updateMyPage";
+		})
+	})
 
     
     
