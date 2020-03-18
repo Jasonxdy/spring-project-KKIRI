@@ -72,7 +72,14 @@
 				</choose>
 			</if>
 		</where>
-		ORDER BY MEMBER_NO DESC
+		<choose>
+			<when test="delSort == 'delSort'">
+			ORDER BY MEMBER_STATUS
+			</when>
+			<otherwise>
+			ORDER BY MEMBER_NO DESC
+			</otherwise>
+		</choose>
 	</select>
 	
 	<update id="refundTicket" parameterType="map">

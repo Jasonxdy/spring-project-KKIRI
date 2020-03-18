@@ -119,4 +119,9 @@ public class MypageController {
 	return "redirect:/";	
 	}
 	
+	@RequestMapping("updateMyPage")
+	public String updateMyPage () {
+		return "myPage/update_profile";
+	}
+	
 }
