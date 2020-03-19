@@ -1,5 +1,7 @@
 package com.kh.kkiri.myPage.model.service;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,14 +68,27 @@ public class MypageServiceimpl implements MypageService{
 	@Transactional(rollbackFor = Exception.class)
 	public int updateMember(Member loginMember, Member member, MultipartFile profile, String savepath) throws Exception {
 		int result = 0;
+		
 		member.setMemberNo(loginMember.getMemberNo());
 		String changeFileName = FileRename.rename(profile.getOriginalFilename());
 		member.setMemberProfile(changeFileName);
 		result = memberDAO.updateMember(member);
 		
+		
+		if(result>0) {
+			// 파일 넣기
+			profile.transferTo(new File(savepath+"/"+changeFileName));
+			if(profile.getOriginalFilename().equals("default.png")) {
+				// 중복 파일 제거
+				File deleteFile = new File(savepath+"/"+profile.getOriginalFilename());
+				deleteFile.delete();
+				
+			}
+		}
+		
 			
 		
-		return 0;
+		return result;
 	}
 	
 	

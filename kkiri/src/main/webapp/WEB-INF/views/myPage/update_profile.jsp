@@ -61,7 +61,7 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <input type="text" class="update-input memberBirth" name="memberBirth" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월 ${fn:substring(loginMember.memberBirth,8,10) }월">
+                    <input type="text" class="update-input memberBirth" name="birthDay" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월${fn:substring(loginMember.memberBirth,8,10) }일">
                   </div>
                   <c:set var ="phones" value="${fn:split(loginMember.memberPhone,'-')}"/>
                   
@@ -144,14 +144,14 @@
           object.value = object.value.slice(0, object.maxLength);
         }
       }
-	var distinguisher = /^([1[9]|2[0])[\d]{4}[년](0[1-9]|1[0-2]){2}[월](0[1-9]|1[0-9]|2[0-9]|3[0-2]){2}[일]$/ 
+	var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
     var flag = false;
       function validate(){
     	  console.log("입장");
     	  if($("#nickName").val()!=""){
     		if($(".memberGender").val()!=""){
    			  if($(".memberBirth").val()!=""){
-   				  if(!distinguisher.test($(".memberBirth").val())){
+   				  if(!distinguisher.test($(".memberBirth").val().trim())){
    					  alert("xxxx년xx월xx일 형식으로 적어주세요")
    					  return false;
    				  }

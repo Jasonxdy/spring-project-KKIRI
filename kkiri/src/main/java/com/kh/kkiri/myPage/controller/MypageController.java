@@ -131,22 +131,8 @@ public class MypageController {
 		return "myPage/update_profile";
 	}
 	@RequestMapping("updateMember")
-	public String updateMember (Member member, Model model, RedirectAttributes rdAttr, MultipartFile profile, HttpServletRequest request) {
+	public String updateMember (Member member, Model model, RedirectAttributes rdAttr, MultipartFile profile, HttpServletRequest request , String birthDay) {
 		System.out.println("updateController 입장");
-		
-		
-		
-		// member.getMemberBirth().replace('년', '-');
-		// member.getMemberBirth().replace('월', '-');
-		// member.getMemberBirth().replace('일', '-');
-		
-		
-		
-		
-
-
-
-
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		
@@ -159,23 +145,40 @@ public class MypageController {
 			folder.mkdir();
 		}
 		int result = 0;
+		String msg = "";
+		
 		try {
-		/*	String from = member.getMemberBirth();
-
+			String from = birthDay;
+			System.out.println(birthDay);
+			from = from.replace("년", "-");
+			from = from.replace("월", "-"); 
+			System.out.println(from);
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-			Date to = (Date) transFormat.parse(from);
+			Date to = Date.valueOf(from);
 			
 			System.out.println(to);
-			*/
+			member.setMemberBirth(to);
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
+			
+			if(result >0) {
+				// 업데이트 성공
+				msg="회원정보 수정에 성공했습니다.";
+				
+			}else if(result ==0) {
+				// 업데이트 실패
+				msg = "회원정보 수정에 실패했습니다.";
+				rdAttr.addFlashAttribute("msg", msg);
+			
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "회원정보 수정 과정에서 오류가 발생했습니다.");
 			return "common/errorPage";
 		}
 		
-		return "";
+		return "redirect:/in";
 	}
 	
 }
