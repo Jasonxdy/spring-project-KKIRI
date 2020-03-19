@@ -52,10 +52,12 @@
 									<!-- 신고유형 -->
 									<select id="reportC" 
 										<c:if test="${!empty param.reportC}">
-										style="background-color: #00a185; color: white"
+											<c:if test="${param.reportC != 'no'}">
+												style="background-color: #00a185; color: white"
+											</c:if>
 										</c:if>
 									>
-										<option>신고유형▽</option>
+										<option value="no">신고유형▽</option>
 										<option value="A">선정적,불법</option>
 										<option value="B">부적합 주제</option>
 										<option value="C">욕설,광고,저작권</option>
@@ -372,12 +374,23 @@
 		        	</c:if>
 	               	<c:param name="currentPage" value="${param.currentPage}"/>
 	             </c:url>
-				
+				//console.log(reportC);
 				location.href="${report}&reportC=" + reportC;
 		      }).mouseenter(function () {
 		        $("#admin-table th").eq(8).css("cursor", "pointer");
 		      });
 		    });
+		
+		$(function(){
+			var select = $("#reportC").children();
+			for(var i=0; i<select.length; i++){
+				//console.log(select[i].innerHTML + "${param.reportC}");
+				if(select[i].value == "${param.reportC}"){
+					select[i].setAttribute("selected", "true");
+				}
+			}
+			//console.log($("#reportC").children().eq(0).val());
+		})
 		
 		$(".moveEvent").on("click", function(){
 			var eventNo = $(this).parent().parent().children().eq(7).text();
