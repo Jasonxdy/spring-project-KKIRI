@@ -6,7 +6,19 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자페이지 - 신고</title>
+	<style>
+		#reportC{
+		border: none;
+		font-weight: bold;
+		/* vertical-align: middle; */
+		text-align-last: center;
+		border-radius:0; /* 아이폰 사파리 보더 없애기 */
+		-webkit-appearance:none; /* 화살표 없애기 for chrome*/
+		-moz-appearance:none; /* 화살표 없애기 for firefox*/
+		}
+
+	</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -28,7 +40,7 @@
 
 			<div class="row justify-content-md-center">
 				<div class="col-12 rounded-sm">
-					<h2 class="mt-3 mb-3">신고</h2>
+					<h2 class="mt-3 mb-3">신고 관리</h2>
 					<table id="admin-table"
 						class="table table-hover table-striped table-sm">
 						<thead>
@@ -36,7 +48,22 @@
 								<th scope="col">신고번호</th>
 								<th scope="col">신고자</th>
 								<th scope="col">신고대상</th>
-								<th scope="col">신고유형</th>
+								<th scope="col">
+									<!-- 신고유형 -->
+									<select id="reportC" 
+										<c:if test="${!empty param.reportC}">
+										style="background-color: #00a185; color: white"
+										</c:if>
+									>
+										<option>신고유형▽</option>
+										<option value="A">선정적,불법</option>
+										<option value="B">부적합 주제</option>
+										<option value="C">욕설,광고,저작권</option>
+										<option value="D">정보 부족</option>
+										<option value="E">불참,괴롭힘,폭력</option>
+										<option value="F">기타</option>
+									</select>
+								</th>
 								<th scope="col">이벤트명</th>
 								<th scope="col">신고일자</th>
 								<th scope="col">상세</th>
@@ -55,15 +82,33 @@
 								<td>${report.reportMember}</td>
 								<td>${report.reportedMember}</td>
 								<c:if test="${report.reportCategory == 'A'}">
-								<td>광고</td>
+								<td>선정적, 불법</td>
 								</c:if>
 								<c:if test="${report.reportCategory == 'B'}">
-								<td>욕설</td>
+								<td>부적합 주제</td>
 								</c:if>
-								<td>${report.eventTitle}</td>
+								<c:if test="${report.reportCategory == 'C'}">
+								<td>욕설, 광고, 저작권</td>
+								</c:if>
+								<c:if test="${report.reportCategory == 'D'}">
+								<td>정보 부족</td>
+								</c:if>
+								<c:if test="${report.reportCategory == 'E'}">
+								<td>불참, 괴롭힘, 폭력</td>
+								</c:if>
+								<c:if test="${report.reportCategory == 'F'}">
+								<td>기타</td>
+								</c:if>
+								<c:if test="${fn:length(report.eventTitle) gt '20'}">
+									<td>${fn:substring(report.eventTitle, 0, 20)}...</td>
+								</c:if>
+								<c:if test="${fn:length(report.eventTitle) lt '21'}">
+									<td>${report.eventTitle}</td>
+								</c:if>
 								<td>${report.reportDate}</td>
 								<td style="display:none;">${report.reportContent}</td>
-								<td id="lastTd"><button class="btn btn-sm btn-outline-dark">이동</button></td>
+								<td style="display:none;">${report.eventNo}</td>
+								<td id="lastTd"><button class="btn btn-sm btn-outline-dark moveEvent">이동</button></td>
 							</tr>
 							</c:forEach>
 							</c:if>
@@ -80,14 +125,25 @@
 						<select class="custom-select" id="inputGroupSelect04" name="searchKey"
 							aria-label="Example select with button addon">
 							<option value="report">신고자</option>
-							<option value="reported">신고대상</option>
+							<option value="reported"
+								<c:if test="${param.searchKey == 'reported'}">
+								selected
+								</c:if>
+							>신고대상</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-9 col-sm-7">
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="" name="searchValue"
-							aria-label="Username" aria-describedby="basic-addon1">
+							aria-label="Username" aria-describedby="basic-addon1"
+							<c:if test="${!empty param.searchValue }">
+							value="${param.searchValue}"
+							</c:if>
+							>
+						<c:if test="${!empty param.reportC }">
+							<input type="text" id="reportC" name="reportC" value="${param.reportC}" style="display:none;">
+        				</c:if>
 					</div>
 				</div>
 				<div class="col-md-1 col-sm-2">
@@ -301,6 +357,32 @@
 			}).mouseenter(function() {
 				$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 			});
+		});
+		
+		// 유형 검색
+		$(function () {
+		      $("#reportC").on("change", function () {
+		    	  var reportC = $("#reportC").val();
+		    	  <c:url var="report" value="report">
+          			<c:if test="${!empty param.searchKey }">
+	        			<c:param name="searchKey" value="${param.searchKey}"/>
+		        	</c:if>
+		        	<c:if test="${!empty param.searchValue }">
+		        		<c:param name="searchValue" value="${param.searchValue}"/>
+		        	</c:if>
+	               	<c:param name="currentPage" value="${param.currentPage}"/>
+	             </c:url>
+				
+				location.href="${report}&reportC=" + reportC;
+		      }).mouseenter(function () {
+		        $("#admin-table th").eq(8).css("cursor", "pointer");
+		      });
+		    });
+		
+		$(".moveEvent").on("click", function(){
+			var eventNo = $(this).parent().parent().children().eq(7).text();
+			console.log(eventNo);
+			location.href = "${contextPath}/event/detail?eventNo=" + eventNo 
 		});
 
 		// 로그인 팝업 이벤트

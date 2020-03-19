@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자페이지 - 이벤트</title>
 	<style>
 		td{line-height: 31px;}
 	</style>
@@ -31,7 +31,7 @@
 
 				<div class="row justify-content-md-center">
 					<div class="col-12 rounded-sm">
-						<h2 class="mt-3 mb-3">문의 관리</h2>
+						<h2 class="mt-3 mb-3">이벤트 관리</h2>
 						<table id="admin-table"
 							class="table table-hover table-striped table-sm">
 							<thead>
@@ -51,11 +51,17 @@
 								<tr class="text-center">
 									<th scope="row">${event.eventNo}</th>
 									<td>${event.eventCategory}</td>
-									<td>${event.eventTitle}</td>
+									<c:if test="${fn:length(event.eventTitle) gt '20'}">
+									<td>${fn:substring(event.eventTitle, 0, 20)}...</td>
+									</c:if>
+									<c:if test="${fn:length(event.eventTitle) lt '21'}">
+										<td>${event.eventTitle}</td>
+									</c:if>
 									<td>${event.eventLocation}</td>
 									<td>${event.eventQuota}</td>
 									<td>${event.memberNo}</td>
 									<td>${event.eventTicket}</td>
+									<!-- eventThumbnail에 종료여부 담음 -->
 									<td>${event.eventThumbnail}</td>
 								</tr>
 								</c:forEach>
@@ -72,14 +78,22 @@
 								<select class="custom-select" id="inputGroupSelect04"
 									name="searchKey" aria-label="Example select with button addon">
 									<option value="sponsor">주최자</option>
-									<option value="title">제목</option>
+									<option value="title"
+										<c:if test="${param.searchKey == 'title'}">
+										selected
+										</c:if>
+									>제목</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-md-9 col-sm-7">
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" placeholder=""
-									name="searchValue" aria-label="Username" aria-describedby="basic-addon1">
+									name="searchValue" aria-label="Username" aria-describedby="basic-addon1"
+									<c:if test="${!empty param.searchValue }">
+									value="${param.searchValue}"
+									</c:if>
+									>
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-2">
