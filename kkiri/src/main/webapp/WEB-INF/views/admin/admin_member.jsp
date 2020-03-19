@@ -52,7 +52,7 @@
 							<th scope="col">환불</th>
 							<th scope="col" 
 								<c:if test="${!empty param.delSort}">
-								style="background-color: #00a185; color: white"
+								style="background-color: rgba(0,161,133,.6); "
 								</c:if>
 							>삭제/복구▽</th>
 						</tr>
