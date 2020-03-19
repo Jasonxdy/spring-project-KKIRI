@@ -20,6 +20,7 @@
 		<result property="memberNickname" column="MEMBER_NICKNAME"/>
 		<result property="memberProfile" column="MEMBER_PROFILE"/>
 		<result property="memberRating" column="MEMBER_RATING"/>
+		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
 	</resultMap>
 	
@@ -56,7 +57,7 @@
 	
 	
 	<select id="selectPartyList" parameterType="_int" resultMap="memberResultSet">
-		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE, MEMBER_SIGNUP_DATE
 		FROM PARTY
 		JOIN MEMBER USING (MEMBER_NO)
 		WHERE EVENT_NO = #{eventNo}

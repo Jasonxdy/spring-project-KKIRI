@@ -18,11 +18,11 @@
 
 			<ul class="navbar-nav nav-ul ml-2">
 				<c:choose>
-					<c:when test="${(event.eventQuota - fn:length(partyList)-1) <= 0}">
+					<c:when test="${(event.eventQuota - event.partyCount-1) <= 0}">
 						<li class="nav-item mt-2 text-muted"><b class="text-danger"> 모집 완료 </b></li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item mt-2 text-muted"><b> ${event.eventQuota - fn:length(partyList)-1}자리 남음 </b></li>
+						<li class="nav-item mt-2 text-muted"><b> ${event.eventQuota - event.partyCount-1}자리 남음 </b></li>
 					</c:otherwise>
 				</c:choose>
 				<li class=""><a class="nav-link" href="selectParty"

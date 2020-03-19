@@ -61,5 +61,20 @@ public class EventDAO {
 	}
 
 
+	
+	/**
+	 * 참가회원 목록 처음 조회 DAO
+	 * @param eventNo
+	 * @return partyList
+	 * @throws Exception
+	 */
+	public List<Member> selectInitPartyList(int eventNo) throws Exception{
+		int offset = 0;
+		int limit = 4;
+		RowBounds rbound = new RowBounds(offset, limit);
+		return sqlSession.selectList("eventMapper.selectPartyList", eventNo, rbound);
+	}
+
+
 
 }

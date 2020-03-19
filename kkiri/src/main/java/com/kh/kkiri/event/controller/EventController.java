@@ -1,6 +1,5 @@
 package com.kh.kkiri.event.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +98,7 @@ public class EventController {
 			Event event = eventService.selectEvent(eventNo);
 
 			// 이벤트 참석자 정보 얻어오기
-			List<Member> partyList = eventService.selectPartyList(eventNo);
+			List<Member> partyList = eventService.selectInitPartyList(eventNo);
 
 			if (event != null) {
 

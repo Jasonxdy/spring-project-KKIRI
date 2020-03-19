@@ -40,6 +40,16 @@ public interface EventService {
 	 */
 	List<Member> adminSelectEvent(Map<String, String> map, PageInfo pInf) throws Exception;
 
+	
+	
+	/**
+	 * 참가회원 목록 처음 조회 Service
+	 * @param eventNo
+	 * @return partyList
+	 * @throws Exception
+	 */
+	List<Member> selectInitPartyList(int eventNo) throws Exception;
+
 
 	
 	
