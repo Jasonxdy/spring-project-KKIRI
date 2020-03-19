@@ -136,9 +136,9 @@ public class MypageController {
 		
 		
 		
-		 member.getMemberBirth().replace('년', '-');
-		 member.getMemberBirth().replace('월', '-');
-		 member.getMemberBirth().replace('일', '-');
+		// member.getMemberBirth().replace('년', '-');
+		// member.getMemberBirth().replace('월', '-');
+		// member.getMemberBirth().replace('일', '-');
 		
 		
 		
@@ -160,12 +160,14 @@ public class MypageController {
 		}
 		int result = 0;
 		try {
-			String from = member.getMemberBirth();
+		/*	String from = member.getMemberBirth();
 
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 			Date to = (Date) transFormat.parse(from);
+			
 			System.out.println(to);
+			*/
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 		}catch (Exception e) {
 			e.printStackTrace();
