@@ -1,0 +1,87 @@
+/* 내역 */
+.ticket-wrap{
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: .25rem;
+}
+.ticket-wrap .have-ticket{
+  font-weight: bold;
+  font-size: 20px;
+  margin: 20px 0 50px 0;
+}
+.ticket-wrap .have-ticket span{
+  color: #227fbb;
+}
+.ticket-wrap #ticket-sort{
+  width: 25%;
+  height: 35px;
+  margin-bottom: 30px;
+}
+.ticket-wrap .ticket-table{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.ticket-wrap .ticket-table .ticket-sort{
+  width: 10%;
+}
+.ticket-wrap .ticket-table .ticket-date{
+  width: 20%;
+}
+.ticket-wrap .ticket-table .ticket-amount{
+  width: 15%;
+}
+.ticket-wrap .ticket-table .ticket-name{
+  width: 35%;
+}
+
+/* 충전 */
+.recharge-wrap .recharge-title{
+  font-weight: bold;
+  font-size: 20px;
+}
+.recharge-wrap .recharge-box{
+  text-align: center;
+}
+.recharge-wrap input[type=radio]{
+  display: none;
+}
+.recharge-wrap input[type=radio]:checked+label{
+  background-color:#00a185;
+  color: #ffffff;
+}
+.recharge-wrap label{
+  cursor: pointer;
+  width: 25%;
+  background-color: #cdd2d8;
+  color: #333333;
+  border-radius: 5px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 17px;
+  transition: all 0.3s;
+  text-align: center;
+  margin: 15px 2%;
+  min-width: 80px;
+}
+.recharge-wrap .recharge-way{
+  margin-top: 50px;
+}
+.recharge-form button[type=submit]{
+  display: block;
+  margin: 100px auto 50px auto;
+  width: 25%;
+  background-color: #227fbb;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 17px;
+  min-width: 80px;
+}
+@media (max-width:767px){
+  .recharge-wrap label{
+    font-size:15px;
+  }
+}
