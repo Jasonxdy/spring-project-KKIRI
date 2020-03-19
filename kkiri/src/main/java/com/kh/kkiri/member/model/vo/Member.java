@@ -10,7 +10,7 @@ public class Member {
 	private String memberEmail;
 	private String memberGender;
 	private String memberPhone;
-	private String memberBirth;
+	private Date memberBirth;
 	private String memberIntroduce;
 	private String memberPlace;
 	private String memberCategory;
@@ -23,10 +23,15 @@ public class Member {
 	private String memberStatus;
 	private double memberRating;
 	
-	public Member() { }
-
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
 	public Member(int memberNo, String memberId, String memberNickname, String memberPwd, String memberEmail,
-			String memberGender, String memberPhone, String memberBirth, String memberIntroduce, String memberPlace,
+			String memberGender, String memberPhone, Date memberBirth, String memberIntroduce, String memberPlace,
 			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,
 			String memberAccount, String memberIdSort, String memberStatus, double memberRating) {
 		super();
@@ -51,157 +56,126 @@ public class Member {
 		this.memberRating = memberRating;
 	}
 
+
+
+
 	public int getMemberNo() {
 		return memberNo;
 	}
-
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-
 	public String getMemberId() {
 		return memberId;
 	}
-
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-
 	public String getMemberNickname() {
 		return memberNickname;
 	}
-
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-
 	public String getMemberPwd() {
 		return memberPwd;
 	}
-
 	public void setMemberPwd(String memberPwd) {
 		this.memberPwd = memberPwd;
 	}
-
 	public String getMemberEmail() {
 		return memberEmail;
 	}
-
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-
 	public String getMemberGender() {
 		return memberGender;
 	}
-
 	public void setMemberGender(String memberGender) {
 		this.memberGender = memberGender;
 	}
-
 	public String getMemberPhone() {
 		return memberPhone;
 	}
-
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
-
-	public String getMemberBirth() {
+	public Date getMemberBirth() {
 		return memberBirth;
 	}
-
-	public void setMemberBirth(String memberBirth) {
+	public void setMemberBirth(Date memberBirth) {
 		this.memberBirth = memberBirth;
 	}
-
 	public String getMemberIntroduce() {
 		return memberIntroduce;
 	}
-
 	public void setMemberIntroduce(String memberIntroduce) {
 		this.memberIntroduce = memberIntroduce;
 	}
-
 	public String getMemberPlace() {
 		return memberPlace;
 	}
-
 	public void setMemberPlace(String memberPlace) {
 		this.memberPlace = memberPlace;
 	}
-
 	public String getMemberCategory() {
 		return memberCategory;
 	}
-
 	public void setMemberCategory(String memberCategory) {
 		this.memberCategory = memberCategory;
 	}
-
 	public String getMemberProfile() {
 		return memberProfile;
 	}
-
 	public void setMemberProfile(String memberProfile) {
 		this.memberProfile = memberProfile;
 	}
-
 	public Date getMemberSignupDate() {
 		return memberSignupDate;
 	}
-
 	public void setMemberSignupDate(Date memberSignupDate) {
 		this.memberSignupDate = memberSignupDate;
 	}
-
 	public String getMemberGrade() {
 		return memberGrade;
 	}
-
 	public void setMemberGrade(String memberGrade) {
 		this.memberGrade = memberGrade;
 	}
-
 	public int getMemberTicket() {
 		return memberTicket;
 	}
-
 	public void setMemberTicket(int memberTicket) {
 		this.memberTicket = memberTicket;
 	}
-
 	public String getMemberAccount() {
 		return memberAccount;
 	}
-
 	public void setMemberAccount(String memberAccount) {
 		this.memberAccount = memberAccount;
 	}
-
 	public String getMemberIdSort() {
 		return memberIdSort;
 	}
-
 	public void setMemberIdSort(String memberIdSort) {
 		this.memberIdSort = memberIdSort;
 	}
-
 	public String getMemberStatus() {
 		return memberStatus;
 	}
-
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}
-
 	public double getMemberRating() {
 		return memberRating;
 	}
-
 	public void setMemberRating(double memberRating) {
 		this.memberRating = memberRating;
 	}
+
+
+
 
 	@Override
 	public String toString() {
@@ -215,5 +189,6 @@ public class Member {
 				+ "]";
 	}
 	
+	
+	
 }
- 

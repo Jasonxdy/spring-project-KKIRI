@@ -1,6 +1,8 @@
 package com.kh.kkiri.myPage.controller;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
-
-import sun.print.resources.serviceui;
 
 @RequestMapping("/mypage/*")
 @Controller
@@ -134,6 +134,20 @@ public class MypageController {
 	public String updateMember (Member member, Model model, RedirectAttributes rdAttr, MultipartFile profile, HttpServletRequest request) {
 		System.out.println("updateController 입장");
 		
+		
+		
+		 member.getMemberBirth().replace('년', '-');
+		 member.getMemberBirth().replace('월', '-');
+		 member.getMemberBirth().replace('일', '-');
+		
+		
+		
+		
+
+
+
+
+		
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -146,6 +160,12 @@ public class MypageController {
 		}
 		int result = 0;
 		try {
+			String from = member.getMemberBirth();
+
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+			Date to = (Date) transFormat.parse(from);
+			System.out.println(to);
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 		}catch (Exception e) {
 			e.printStackTrace();
