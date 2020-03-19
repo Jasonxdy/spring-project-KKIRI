@@ -64,6 +64,9 @@
 				</choose>
 			</if>
 		</where>
+		<if test="ansSort == 'sort'">
+			ORDER BY ANSWER_STATUS
+		</if>
 	</select>
 	
 	<update id="adminSendAnswer" parameterType="Ask">

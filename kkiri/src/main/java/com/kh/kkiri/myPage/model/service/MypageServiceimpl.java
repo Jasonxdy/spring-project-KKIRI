@@ -3,7 +3,9 @@ package com.kh.kkiri.myPage.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
@@ -58,6 +60,20 @@ public class MypageServiceimpl implements MypageService{
 		}
 		
 		return result;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateMember(Member loginMember, Member member, MultipartFile profile, String savepath) throws Exception {
+		int result = 0;
+		member.setMemberNo(loginMember.getMemberNo());
+		String changeFileName = FileRename.rename(profile.getOriginalFilename());
+		member.setMemberProfile(changeFileName);
+		result = memberDAO.updateMember(member);
+		
+			
+		
+		return 0;
 	}
 	
 	

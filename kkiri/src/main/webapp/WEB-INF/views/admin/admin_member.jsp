@@ -37,7 +37,7 @@
 
 		<div class="row justify-content-md-center">
 			<div class="col-12">
-				<h2 class="mt-3 mb-3">회원관리</h2>
+				<h2 class="mt-3 mb-3">회원 관리</h2>
 				<table id="admin-table"
 					class="table table-hover table-striped table-sm">
 					<thead>
@@ -50,7 +50,11 @@
 							<th scope="col">전화번호</th>
 							<th scope="col">티켓수</th>
 							<th scope="col">환불</th>
-							<th scope="col">삭제/복구▽</th>
+							<th scope="col" 
+								<c:if test="${!empty param.delSort}">
+								style="background-color: #00a185; color: white"
+								</c:if>
+							>삭제/복구▽</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,13 +106,24 @@
 						<select name="searchKey" class="custom-select" id="inputGroupSelect04"
 							aria-label="Example select with button addon">
 							<option value="id">아이디</option>
-							<option value="nickname">닉네임</option>
+							<option value="nickname"
+								<c:if test="${param.searchKey == 'nickname'}">
+								selected
+								</c:if>
+							>닉네임</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-9 col-sm-7">
 					<div class="input-group mb-3">
-						<input type="text" name="searchValue" class="form-control inputSection">
+						<input type="text" name="searchValue" class="form-control inputSection"
+							<c:if test="${!empty param.searchValue }">
+							value="${param.searchValue}"
+							</c:if>
+						>
+						<c:if test="${!empty param.delSort }">
+							<input type="text" id="delSort" name="delSort" value="sort" style="display:none;">
+		        		</c:if>
 					</div>
 				</div>
 				<div class="col-md-1 col-sm-2">
@@ -331,6 +346,7 @@
 	      });
 	    });
 		
+		// 회원 관리 정렬 기능
 		$(function () {
 		      $("#admin-table th").eq(8).on("click", function () {
 		    	  <c:url var="member" value="member">
@@ -396,8 +412,8 @@
                 		success : function(result){
                 			if(result == "true"){
                 				memberThis.text("복구");
-                				memberThis.addClass("btn-success");
-                				memberThis.removeClass("btn-danger");
+                				memberThis.addClass("btn-outline-success");
+                				memberThis.removeClass("btn-outline-danger");
                 			}else{
                 			}
                 		},
@@ -414,8 +430,8 @@
             		type : "post",
             		success : function(result){
             			if(result == "true"){
-            				memberThis.addClass("btn-danger");
-            				memberThis.removeClass("btn-success");
+            				memberThis.addClass("btn-outline-danger");
+            				memberThis.removeClass("btn-outline-success");
             				memberThis.text("삭제");
             			}else{
             			}

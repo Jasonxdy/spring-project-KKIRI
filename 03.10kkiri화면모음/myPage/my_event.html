@@ -64,12 +64,33 @@
             </ul>
             
 
+            <script>
+              // 탭별로 내용 보여지는 이벤트
+              $(function(){
+                $("#profile-nav-wrap li a").each(function(index){
+                  $(this).on({
+                    click : function(){
+                      $("#profile-nav-wrap li a").removeClass("active");
+                      $(this).addClass("active");
+
+                      $(".event_content").stop().hide(0)
+                      $(".event_content").eq(index).stop().show(0);
+                    }
+                  });
+                });
+              });
+              
+              </script>
+
+
             <div class="my_event_wrapper">
               <!-- 내가 만든 이벤트 -->
                 <div class="event_content create_event_con">
                   <ul>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -81,7 +102,9 @@
                       </div>  
                     </li>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -93,7 +116,9 @@
                       </div>  
                     </li>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -113,7 +138,9 @@
                 <div class="event_content participate_event_con">
                   <ul>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -126,13 +153,15 @@
                       <div class="creator-con">
                         <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
                         <p class="creator-id">
-                          주최자 아이디<br>
+                          <span>주최자 아이디</span>
                           <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
                         </p>
                       </div>  
                     </li>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -145,13 +174,15 @@
                       <div class="creator-con">
                         <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
                         <p class="creator-id">
-                          주최자 아이디<br>
+                          <span>주최자 아이디</span>
                           <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
                         </p>
                       </div>  
                     </li>
                     <li>
-                      <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      <div class="thumb-wrap">
+                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                      </div>
                       <div class="sub-con">
                         <p class="event-date">2020년 02월 21일 19:00</p>
                         <p class="event-title">[맛집 도장깨기 2기]</p>
@@ -164,7 +195,7 @@
                       <div class="creator-con">
                         <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
                         <p class="creator-id">
-                          주최자 아이디<br>
+                          <span>주최자 아이디</span>
                           <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
                         </p>
                         <p class="end-event">종료된 이벤트</p>

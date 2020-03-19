@@ -26,6 +26,12 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.signInMember", member);
 	}
 
+
+
+	public int updateMember(Member member) throws Exception{
+		return sqlSession.update("memberMapper.updateMember", member);
+	}
+
 	
 	
 	

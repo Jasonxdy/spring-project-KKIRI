@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자페이지 - 문의</title>
 	<style>
 		td{line-height: 31px;}
 	</style>
@@ -41,7 +41,11 @@
 									<th scope="col">이메일</th>
 									<th scope="col">제목</th>
 									<th scope="col">일자</th>
-									<th scope="col">답장여부</th>
+									<th scope="col"
+										<c:if test="${!empty param.ansSort}">
+										style="background-color: #00a185; color: white"
+										</c:if>
+									>답장여부▽</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -50,17 +54,29 @@
 									<th scope="row">${ask.askNo}</th>
 									<td>${ask.memberId}</td>
 									<td>${ask.askEmail}</td>
-									<td>${ask.askTitle}</td>
+									<c:if test="${fn:length(ask.askTitle) gt '20'}">
+										<td>${fn:substring(ask.askTitle, 0, 20)}...</td>
+									</c:if>
+									<c:if test="${fn:length(ask.askTitle) lt '21'}">
+										<td>${ask.askTitle}</td>
+									</c:if>
+									
 									<c:set var="enrollDate" value ="${fn:substring(ask.askEnrollDate, 0, 4)}년
 										${fn:substring(ask.askEnrollDate, 5, 7)}월
 										${fn:substring(ask.askEnrollDate, 8, 10)}일" />
 									<td>
 										${enrollDate}
 									</td>
-									<td>${ask.answerStatus}</td>
+									<c:if test="${ask.answerStatus == 'Y'}">
+									<td><img src="${contextPath}/resources/img/answerY_Small.png" alt="answerComplete"></td>
+									</c:if>
+									<c:if test="${ask.answerStatus == 'N'}">
+									<td><img src="${contextPath}/resources/img/answerN_Small.png" alt="answerComplete"></td>
+									</c:if>
 									<td style="display:none;">${ask.askContent}</td>
 									<td style="display:none;">${fn:substring(ask.askEnrollDate, 0, 10)}</td>
 									<td style="display:none;">${ask.askAnswer}</td>
+									<td style="display:none;">${ask.askTitle}</td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -76,15 +92,30 @@
 								<select class="custom-select" id="inputGroupSelect04"
 									name="searchKey" aria-label="Example select with button addon">
 									<option value="writer">작성자</option>
-									<option value="email">이메일</option>
-									<option value="title">제목</option>
+									<option value="email"
+										<c:if test="${param.searchKey == 'email'}">
+										selected
+										</c:if>
+									>이메일</option>
+									<option value="title"
+										<c:if test="${param.searchKey == 'title'}">
+										selected
+										</c:if>
+									>제목</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-md-9 col-sm-7">
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" placeholder=""
-									name="searchValue" aria-label="Username" aria-describedby="basic-addon1">
+									name="searchValue" aria-label="Username" aria-describedby="basic-addon1"
+									<c:if test="${!empty param.searchValue }">
+									value="${param.searchValue}"
+									</c:if>
+									>
+								<c:if test="${!empty param.ansSort }">
+									<input type="text" id="ansSort" name="ansSort" value="sort" style="display:none;">
+		        				</c:if>
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-2">
@@ -110,6 +141,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.ansSort }">
+						        		<c:param name="ansSort" value="${param.ansSort}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>
 	                    	">
@@ -126,6 +161,10 @@
 						        	
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.ansSort }">
+						        		<c:param name="ansSort" value="${param.ansSort}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
@@ -154,6 +193,10 @@
 							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
+							        	<c:if test="${!empty param.ansSort }">
+							        		<c:param name="ansSort" value="${param.ansSort}"/>
+							        	</c:if>
+							        	
 			                    		<c:param name="currentPage" value="${p}"/>
 			                    	</c:url>
 		                    	">
@@ -174,6 +217,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.ansSort }">
+						        		<c:param name="ansSort" value="${param.ansSort}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 		                    	</c:url>
 	                    	">
@@ -186,8 +233,13 @@
 		                    		<c:if test="${!empty param.searchKey }">
 						        		<c:param name="searchKey" value="${param.searchKey}"/>
 						        	</c:if>
+						        	
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.ansSort }">
+						        		<c:param name="ansSort" value="${param.ansSort}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
@@ -232,8 +284,15 @@
 				</div>
 			</div>
 			<div class="row mb-1">
-				<div class="col-4 text-center"></div>
-				<div class="col-4"></div>
+				<div class="col-8 text-center">
+					<div class="input-group input-group-sm mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">이메일</span>
+						</div>
+						<input type="text" class="form-control" id="modal_askEmail"
+							readonly>
+					</div>
+				</div>
 				<div class="col-4 text-center">
 					<div class="input-group input-group-sm mb-3">
 						<div class="input-group-prepend">
@@ -289,13 +348,14 @@
 					var thisAnswerEmail = $(this).parent().children().eq(2).text();
 					
 					var thisAskId = $(this).parent().children().eq(1).text();
-					var thisAskTitle = $(this).parent().children().eq(3).text();
+					var thisAskTitle = $(this).parent().children().eq(9).text();
 					var thisAskEnrollDate = $(this).parent().children().eq(7).text();
 					var thisAskContent = $(this).parent().children().eq(6).html();
 					var thisAskAnswer = $(this).parent().children().eq(8).html();
 					console.log(thisAskNo);
 					$("#thisAskNo").val(thisAskNo);
 					$("#thisAnswerEmail").val(thisAnswerEmail);
+					$("#modal_askEmail").val(thisAnswerEmail);
 					
 					$("#modal_askId").val(thisAskId);
 					$("#modal_askTitle").val(thisAskTitle);
@@ -315,7 +375,25 @@
 			$("#admin-table td").not("#lastTd").css("cursor", "pointer");
 		});
 		
-		
+		// 답장 여부 정렬 기능
+		$(function () {
+		      $("#admin-table th").eq(5).on("click", function () {
+		    	  <c:url var="ask" value="ask">
+	               	<c:param name="ansSort" value="sort"/>
+          			<c:if test="${!empty param.searchKey }">
+	        			<c:param name="searchKey" value="${param.searchKey}"/>
+		        	</c:if>
+		        	<c:if test="${!empty param.searchValue }">
+		        		<c:param name="searchValue" value="${param.searchValue}"/>
+		        	</c:if>
+	               	<c:param name="currentPage" value="${param.currentPage}"/>
+	             </c:url>
+				
+				location.href="${ask}";
+		      }).mouseenter(function () {
+		        $("#admin-table th").eq(5).css("cursor", "pointer");
+		      });
+		    });
 
 		// 로그인 팝업 이벤트
 		$(".close-popup, .popup-shadow, .popup-confirm-btn").on({

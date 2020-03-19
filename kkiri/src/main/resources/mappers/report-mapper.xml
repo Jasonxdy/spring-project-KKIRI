@@ -18,7 +18,7 @@
 		<result property="eventTitle" column="EVENT_TITLE"/>
 		<result property="reportDate" column="REPORT_DATE"/>
 		<result property="reportContent" column="REPORT_CONTENT"/>
-		<result property="eventNo" column="R.EVENT_NO"/>
+		<result property="eventNo" column="EVENT_NO"/>
 	</resultMap>
 	
 	<select id="adminReportCount" parameterType="map" resultType="_int">
@@ -34,6 +34,9 @@
 						AND REPORTED LIKE #{sv}
 					</otherwise>
 				</choose>
+			</if>
+			<if test="reportC != null">
+				AND REPORT_CATEGORY = #{reportC}
 			</if>
 		</where>
 	</select>
@@ -51,6 +54,9 @@
 						AND REPORTED LIKE #{sv}
 					</otherwise>
 				</choose>
+			</if>
+			<if test="reportC != null">
+				AND REPORT_CATEGORY = #{reportC}
 			</if>
 		</where>
 	</select>

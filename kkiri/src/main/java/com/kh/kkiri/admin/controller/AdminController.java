@@ -156,6 +156,7 @@ public class AdminController {
 						@RequestParam(value="currentPage", required=false) Integer currentPage,
 						@RequestParam(value="searchKey", required=false) String searchKey,
 						@RequestParam(value="searchValue", required=false) String searchValue,
+						@RequestParam(value="reportC", required=false) String reportC,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
 		Enumeration<String> names = session.getAttributeNames();
@@ -177,10 +178,13 @@ public class AdminController {
 		}
 		try {
 			Map<String, String> map = null;
+			map = new HashMap<String, String>();
 			if(searchKey != null && searchValue != null) {
-				map = new HashMap<String, String>();
 				map.put("searchKey",searchKey);
 				map.put("searchValue",searchValue);
+			}
+			if(reportC != null) {
+				map.put("reportC", reportC);
 			}
 			int memberCount = reportService.adminReportCount(map);
 			//System.out.println("회원 수: " + memberCount);
@@ -205,6 +209,7 @@ public class AdminController {
 						@RequestParam(value="currentPage", required=false) Integer currentPage,
 						@RequestParam(value="searchKey", required=false) String searchKey,
 						@RequestParam(value="searchValue", required=false) String searchValue,
+						@RequestParam(value="ansSort", required=false) String ansSort,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
 		Enumeration<String> names = session.getAttributeNames();
@@ -226,10 +231,13 @@ public class AdminController {
 		}
 		try {
 			Map<String, String> map = null;
+			map = new HashMap<String, String>();
 			if(searchKey != null && searchValue != null) {
-				map = new HashMap<String, String>();
 				map.put("searchKey",searchKey);
 				map.put("searchValue",searchValue);
+			}
+			if(ansSort != null) {
+				map.put("ansSort", ansSort);
 			}
 			int askCount = askService.adminAskCount(map);
 			//System.out.println("회원 수: " + memberCount);
