@@ -175,7 +175,8 @@ input::-webkit-inner-spin-button{
 /* 폼 포커스 색상통일 */
 input:focus,
 select:focus,
-textarea:focus{
+textarea:focus,
+.form-control:focus{
   border-color: #00a185;
   box-shadow: 0 0 0 0.2rem rgba(0,161,133,.25);
   outline:0;

@@ -283,10 +283,10 @@
                       사진 업로드
                       <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼" class="close-popup">
                     </p>
-                    <form action="#" method="get">
+                    <form action="#" method="get" onsubmit="return uploadValidate();">
                         <img class="upload-image-section">
                         <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
-                        <input type="file" class="upload-file" onchange="loadImg(this)">
+                        <input type="file" class="upload-file" id="upload-file" onchange="loadImg(this)">
 
                         <label for="upload-image-title">제목</label>
                         <input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
@@ -382,6 +382,22 @@
                         $(".upload-image-popup, .popup-shadow").show(0);
                       }
                   });
+
+                  // 사진 팝업 업로드시 유효성 검사
+                  function uploadValidate(){
+                      if($("#upload-file").val()==""){
+                          alert("사진을 업로드해주세요!");
+                          return false;
+                      }else if($(".upload-image-popup #upload-image-title").val().trim()==""){
+                          alert("제목을 입력해주세요!");
+                          return false;
+                      }else if($(".upload-image-popup #upload-image-content").val().trim()==""){
+                          alert("내용을 입력해주세요!");
+                          return false;
+                      }else{
+                          return true;
+                      }
+                  }
                 </script>
 
                 <div class="col-md-5">
