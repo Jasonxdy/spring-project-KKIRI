@@ -17,52 +17,20 @@
 		<!-- Header -->
 		<jsp:include page="../common/header.jsp" />
 
-		<!-- 이벤트 상세 페이지 start -->
-		<div id="container" class="container mt-5">
+		<!-- date format 변경 -->
+		<fmt:formatDate var="startDate" value="${event.eventStart}"
+			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+		<fmt:formatDate var="endDate" value="${event.eventEnd}"
+			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 
-			<!-- 이벤트 상세 상단 정보 start -->
-			<div class="row event-detail-info">
-				<div class="col-md-7" id="eventDetailDiv">
+		<!-- 이벤트 상세 상단 정보 start -->
+		<jsp:include page="eventHeader.jsp">
+			<jsp:param value="${startDate}" name="startDate" />
+			<jsp:param value="${endDate}" name="endDate" />
+		</jsp:include>
+		<!-- 이벤트 상세 상단 정보 end -->
 
-					<!-- date format 변경 -->
-					<fmt:formatDate var="startDate" value="${event.eventStart}"
-						pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
-					<fmt:formatDate var="endDate" value="${event.eventEnd}"
-						pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
-
-					<!-- 이벤트 시작시간, 끝나는 시간 -->
-					<p class="text-muted" id="eventDate" style="margin-bottom: 0em;">
-						${startDate}</p>
-					<h2 id="eventTitle">${event.eventTitle}</h2>
-					<!-- 위도, 경도로 얻은 주소 -->
-					<p id="eventLocation" style="margin-bottom: 0em;">
-						<img src="${contextPath}/resources/img/map-ping.png"
-							style="height: 18px;"> ${event.eventLocation}
-					</p>
-					<p class="text-muted" id="eventAddress"></p>
-					<p id="eventTicket">
-						<img src="${contextPath}/resources/img/dollor-icon.png"> <b>${event.eventTicket}</b>
-						티켓
-					</p>
-				</div>
-				<div class="col-md-5" id="eventCreater">
-					<h3>이벤트 주최자</h3>
-					<div class="event-creator-info mt-3">
-						<img src="${contextPath}/resources/img/${event.memberProfile}"
-							alt="주최자" class="eventCreater-profile mr-3">
-						<div class="id-rating">
-							<h5>${event.memberNickname}</h5>
-							<p class="star-rating">
-								<img src="${contextPath}/resources/img/star-on.png" alt="별점"
-									class="star-img">&nbsp; ${event.memberRating}
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
-	<!-- 이벤트 상세 상단 정보 end -->
 
 
 
@@ -73,19 +41,35 @@
 	<div class="container">
 		<div class="row mt-5 event-detail-container">
 			<!-- 하단 좌측 div start -->
-			<div class="col-md-7 event-detail">
+			<div class="col-md-7 event-detail" id="attendList">
 				<h3 class="mb-5">
-					현재 <span class="participant-count">${event.partyCount}</span>명의 회원이 참가 중입니다.
+					현재 <span class="participant-count">${event.partyCount}</span>명의 회원이
+					참가 중입니다.
 				</h3>
 
+				<fmt:formatDate var="memberSignupDate"
+					value="${event.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
+
 				<div class="media border p-3 profile-card">
-					<img src="../index 페이지 - 진웅/img/profile-ex.png" alt="John Doe"
-						class="rounded-circle mt-1" style="width: 60px;">
+					<img src="${contextPath}/resources/img/${event.memberProfile}"
+						alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 					<div class="media-body ml-3 mt-1">
-						<h4>jasonxdy</h4>
-						<p class="text-muted">2020년 3월 11일 참가</p>
+						<h4>${event.memberNickname}</h4>
+						<p class="text-muted">${memberSignupDate}가입</p>
 					</div>
 				</div>
+				<c:forEach var="party" items="${partyList}">
+					<fmt:formatDate var="memberSignupDate"
+						value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
+					<div class="media border p-3 profile-card">
+						<img src="${contextPath}/resources/img/${party.memberProfile}"
+							alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
+						<div class="media-body ml-3 mt-1">
+							<h4>${party.memberNickname}</h4>
+							<p class="text-muted">${memberSignupDate}가입</p>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 			<!-- 하단 좌측 div end -->
 			<div class="col-md-5 ">
@@ -174,7 +158,6 @@
 
 
 			</div>
-			<!-- 이벤트 상세 페이지 end -->
 
 		</div>
 	</div>
@@ -194,7 +177,37 @@
 			$(this).next(".declare-wrap").toggleClass("active");
 		});
 		
-		console.log(${event.partyCount});
+		
+		/* 무한 스크롤 */
+		//Javascript
+		var count = 0; // 스크롤 갱신 횟수
+		var limit = 3; // 3명씩 보여줌
+		var eventNo = '${event.eventNo}';
+		//스크롤 바닥 감지
+		window.onscroll = function(e) {
+		    //추가되는 임시 콘텐츠
+		    //window height + window scrollY 값이 document height보다 클 경우,
+		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		    	//실행할 로직 (콘텐츠 추가)
+		    	
+		    	// count*limit + 4 <= evetn.partyCount 일때만 ajax 실행 
+		    	if(count*limit+4 <= ${event.partyCount}){
+			    	$.ajax({
+			    		url : "addPartyList";
+				    	type : "GET",
+						data : {count : count, eventNo : eventNo},
+						dataType : "json",
+						success : function (partyList){
+							$.each(partyList, function(i){
+								
+							}
+							count++;
+						}
+			    	});
+		    	}
+		    	
+		    }
+		};
 		
 	});
 	</script>

@@ -59,5 +59,18 @@ public class EventServiceImpl implements EventService {
 	public List<Member> adminSelectEvent(Map<String, String> map, PageInfo pInf) throws Exception {
 		return eventDAO.adminSelectEvent(map, pInf);
 	}
+	
+	
+	
+	/**
+	 * 참가회원 목록 처음 조회 Service
+	 * @param eventNo
+	 * @return partyList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Member> selectInitPartyList(int eventNo) throws Exception {
+		return eventDAO.selectInitPartyList(eventNo);
+	}
 
 }

@@ -18,52 +18,19 @@
 		<!-- Header -->
 		<jsp:include page="../common/header.jsp" />
 
-		<!-- 이벤트 상세 페이지 start -->
-		<div id="container" class="container mt-5">
+		<!-- date format 변경 -->
+		<fmt:formatDate var="startDate" value="${event.eventStart}"
+			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+		<fmt:formatDate var="endDate" value="${event.eventEnd}"
+			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 
-			<!-- 이벤트 상세 상단 정보 start -->
-			<div class="row event-detail-info">
-				<div class="col-md-7" id="eventDetailDiv">
-
-					<!-- date format 변경 -->
-					<fmt:formatDate var="startDate" value="${event.eventStart}"
-						pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
-					<fmt:formatDate var="endDate" value="${event.eventEnd}"
-						pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
-
-					<!-- 이벤트 시작시간, 끝나는 시간 -->
-					<p class="text-muted" id="eventDate" style="margin-bottom: 0em;">
-						${startDate}</p>
-					<h2 id="eventTitle">${event.eventTitle}</h2>
-					<!-- 위도, 경도로 얻은 주소 -->
-					<p id="eventLocation" style="margin-bottom: 0em;">
-						<img src="${contextPath}/resources/img/map-ping.png"
-							style="height: 18px;"> ${event.eventLocation}
-					</p>
-					<p class="text-muted" id="eventAddress"></p>
-					<p id="eventTicket">
-						<img src="${contextPath}/resources/img/dollor-icon.png"> <b>${event.eventTicket}</b>
-						티켓
-					</p>
-				</div>
-				<div class="col-md-5" id="eventCreater">
-					<h3>이벤트 주최자</h3>
-					<div class="event-creator-info mt-3">
-						<img src="${contextPath}/resources/img/${event.memberProfile}"
-							alt="주최자" class="eventCreater-profile mr-3">
-						<div class="id-rating">
-							<h5>${event.memberNickname}</h5>
-							<p class="star-rating">
-								<img src="${contextPath}/resources/img/star-on.png" alt="별점"
-									class="star-img">&nbsp; ${event.memberRating}
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- 이벤트 상세 상단 정보 start -->
+		<jsp:include page="eventHeader.jsp">
+			<jsp:param value="${startDate}" name="startDate"/>
+			<jsp:param value="${endDate}" name="endDate"/>
+		</jsp:include>
+		<!-- 이벤트 상세 상단 정보 end -->
 	</div>
-	<!-- 이벤트 상세 상단 정보 end -->
 
 
 	<!-- 이벤트 sticky element start // sticky element 사용-->
@@ -165,21 +132,22 @@
 
 				<div class="event-participant mt-5">
 
-					
-					<c:set var="partySize" value="${fn:length(partyList)}"/>
-						<c:if test="${partySize > 11}">
-							<c:set var="partySize" value="11"/>
-						</c:if>
-					
+
+					<c:set var="partySize" value="${fn:length(partyList)}" />
+					<c:if test="${partySize > 11}">
+						<c:set var="partySize" value="11" />
+					</c:if>
+
 					<h4>
-						참석자 (<span>${event.partyCount}</span>명) <span id="see-all"> <a
-							href="#"> 모두 보기 </a>
+						참석자 (<span>${event.partyCount}</span>명) <span id="see-all">
+							<a href="#"> 모두 보기 </a>
 						</span>
 					</h4>
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
-					<span class="event-participant-profile"> 
-						<img src="${contextPath}/resources/img/${event.memberProfile}" alt="주최자">
+					<span class="event-participant-profile"> <img
+						src="${contextPath}/resources/img/${event.memberProfile}"
+						alt="주최자">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">

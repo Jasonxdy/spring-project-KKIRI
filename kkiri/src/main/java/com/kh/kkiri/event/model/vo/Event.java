@@ -19,6 +19,7 @@ public class Event {
 	private String memberNickname;
 	private String memberProfile;
 	private double memberRating;
+	private Timestamp memberSignupDate;
 	private int partyCount;
 	
 	
@@ -30,7 +31,7 @@ public class Event {
 	public Event(int eventNo, String eventTitle, String eventContent, String eventCategory, String eventLocation,
 			double latitude, double longtitude, Timestamp eventStart, Timestamp eventEnd, int eventTicket,
 			String eventThumbnail, int eventQuota, int memberNo, String memberNickname, String memberProfile,
-			double memberRating, int partyCount) {
+			double memberRating, Timestamp memberSignupDate, int partyCount) {
 		super();
 		this.eventNo = eventNo;
 		this.eventTitle = eventTitle;
@@ -48,6 +49,7 @@ public class Event {
 		this.memberNickname = memberNickname;
 		this.memberProfile = memberProfile;
 		this.memberRating = memberRating;
+		this.memberSignupDate = memberSignupDate;
 		this.partyCount = partyCount;
 	}
 
@@ -212,6 +214,16 @@ public class Event {
 	}
 
 
+	public Timestamp getMemberSignupDate() {
+		return memberSignupDate;
+	}
+
+
+	public void setMemberSignupDate(Timestamp memberSignupDate) {
+		this.memberSignupDate = memberSignupDate;
+	}
+
+
 	public int getPartyCount() {
 		return partyCount;
 	}
@@ -229,11 +241,13 @@ public class Event {
 				+ ", longtitude=" + longtitude + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd
 				+ ", eventTicket=" + eventTicket + ", eventThumbnail=" + eventThumbnail + ", eventQuota=" + eventQuota
 				+ ", memberNo=" + memberNo + ", memberNickname=" + memberNickname + ", memberProfile=" + memberProfile
-				+ ", memberRating=" + memberRating + ", partyCount=" + partyCount + "]";
+				+ ", memberRating=" + memberRating + ", memberSignupDate=" + memberSignupDate + ", partyCount="
+				+ partyCount + "]";
 	}
 	
 	
 	
+
 
 	
 		
