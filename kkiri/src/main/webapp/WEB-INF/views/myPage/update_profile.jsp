@@ -61,11 +61,7 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <input type="date" class="update-input memberBirth" name="memberBirth" value="
-                    ${fn:substring(loginMember.memberBirth,0,4) }년 &nbsp;
-                    ${fn:substring(loginMember.memberBirth,5,7) }월 &nbsp;
-                    ${fn:substring(loginMember.memberBirth,8,10) }월 &nbsp;
-                    ">
+                    <input type="text" class="update-input memberBirth" name="memberBirth" value=" ${fn:substring(loginMember.memberBirth,0,4) }년  &nbsp; ${fn:substring(loginMember.memberBirth,5,7) }월 &nbsp; ${fn:substring(loginMember.memberBirth,8,10) }월 &nbsp;">
                   </div>
                   <c:set var ="phones" value="${fn:split(loginMember.memberPhone,'-')}"/>
                   
@@ -126,7 +122,7 @@
                   <div class="row my-profile-section-element">
                     <h5 class="profile-name col-4">프로필 사진 : </h5>
                     <div class="col-8">
-                      <img class="profile-img" src="../index 페이지 - 진웅/img/${loginMember.memberProfile}" alt="프로필 사진">
+                      <img class="profile-img" src="../resources/img/${loginMember.memberProfile}" alt="프로필 사진">
                       <input type="file" class="uploadInput" name="memberProfile" onchange="loadImg(this)">
                       <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
                     </div>
