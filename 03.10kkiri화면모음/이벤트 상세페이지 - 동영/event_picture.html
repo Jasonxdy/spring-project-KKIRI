@@ -308,11 +308,11 @@
                         <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
                         <input type="file" class="upload-file" onchange="loadImg(this)">
 
-                        <label for="upload-image-title">제목</label>
-                        <input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
+                        <label for="upload-updateImg-title">제목</label>
+                        <input type="text" id="upload-updateImg-title" placeholder="제목을 작성해주세요.">
 
-                        <label for="upload-image-content">내용</label>
-                        <textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
+                        <label for="upload-updateImg-content">내용</label>
+                        <textarea id="upload-updateImg-content" placeholder="내용을 작성해주세요."></textarea>
 
                         <button class="green-radius-btn submit-upload-img">수정 완료</button>
                     </form>
@@ -331,12 +331,15 @@
                         }
                       }
                   });
-
+                  
                   // 사진 수정하기 버튼 클릭시 수정 팝업 나오는 이벤트
                   $(".button-area .modify-button").on({
                       click : function(){
                         $("#popup").hide();
                         $(".update-image-popup").show();
+                        $(".update-image-popup form > img").attr("src",$("#popup .popup-content img").attr("src"));
+                        $(".update-image-popup #upload-updateImg-title").val($("#popup .popup-picture-title").text());
+                        $(".update-image-popup #upload-updateImg-content").text($("#popup .popup-picture-content").text());
                       }
                   });
 
@@ -351,7 +354,7 @@
                     if(value.files && value.files[0]){
                         var reader = new FileReader();
                         reader.onload = function(e){
-                            $(".upload-image-section").prop("src",e.target.result);
+                            $(value).prev().prev(".upload-image-section").prop("src",e.target.result);
                         }
                     }
                     reader.readAsDataURL(value.files[0]);
