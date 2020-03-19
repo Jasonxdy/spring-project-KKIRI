@@ -109,4 +109,18 @@
 	UPDATE MEMBER SET MEMBER_STATUS = 'N'
 	WHERE MEMBER_NO = #{memberNo}
 	</update>
+	<update id="updateMember" parameterType="Member">
+	UPDATE MEMBER SET 
+	MEMBER_NICKNAME = #{memberNickname},
+	MEMBER_PROFILE = #{memberProfile},
+	MEMBER_EMAIL = #{memberEmail},
+	MEMBER_GENDER = #{memberGender},
+	MEMBER_PHONE = #{memberPhone},
+	MEMBER_BIRTH = #{memberBirth},
+	MEMBER_INTRODUCE = #{memberIntroduce},
+	MEMBER_PLACE = #{#memberPlace},
+	MEMBER_CATEGORY = #{memberCategory},
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

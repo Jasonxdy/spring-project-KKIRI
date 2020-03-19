@@ -31,7 +31,7 @@
             
             <div id="update-profile" class="my-profile-section moving-1" >
               <h4>프로필 수정</h4>
-              <form action="updateMember" method="post" class="modify-form" enctype="multipart/form-data" onsubmit="return validate();")> 
+              <form action="updateMember" method="post" class="modify-form"  onsubmit="return validate();")> 
               <div class="row">
                 <div class="">
                   <div class="row my-profile-section-element">
@@ -61,7 +61,7 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <input type="text" class="update-input memberBirth" name="memberBirth" value=" ${fn:substring(loginMember.memberBirth,0,4) }년  &nbsp; ${fn:substring(loginMember.memberBirth,5,7) }월 &nbsp; ${fn:substring(loginMember.memberBirth,8,10) }월 &nbsp;">
+                    <input type="text" class="update-input memberBirth" name="memberBirth" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월 ${fn:substring(loginMember.memberBirth,8,10) }월">
                   </div>
                   <c:set var ="phones" value="${fn:split(loginMember.memberPhone,'-')}"/>
                   
@@ -80,7 +80,7 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">관심 지역 : </h5>
-                    <img src="../resources/img/map-2.png" alt="예시이미지">
+                    <img src="../resources/img/map-example.png" alt="예시이미지">
                   </div>
                   <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
 	                  <c:forEach var="i" items="${category}" >
@@ -144,19 +144,39 @@
           object.value = object.value.slice(0, object.maxLength);
         }
       }
-	
+	var distinguisher = /^([1[9]|2[0])[\d]{4}[년](0[1-9]|1[0-2]){2}[월](0[1-9]|1[0-9]|2[0-9]|3[0-2]){2}[일]$/ 
+    var flag = false;
       function validate(){
+    	  console.log("입장");
     	  if($("#nickName").val()!=""){
     		if($(".memberGender").val()!=""){
    			  if($(".memberBirth").val()!=""){
+   				  if(!distinguisher.test($(".memberBirth").val())){
+   					  alert("xxxx년xx월xx일 형식으로 적어주세요")
+   					  return false;
+   				  }
    				if($(".memberPhone").val()!=""){
    				  if($(".memberEmail").val()!=""){
-   					if()
+   					if($(".interest-wrap>input").val()!=""){
+   						   console.log("123");
+   					 if($(".memberIntroduce").val()!=""){
+   						   console.log("456");
+   					   if($(".profile-img").src()!=""){
+   						   flag = true;
+   					   }
+   					 }
+   					}
    				  }
    				}
    			  }
     		}
     	  }
+    	  if(!flag){
+    		  alert("페이지를 전부 입력해주시기 바랍니다.")
+    	  }
+    	  console.log(flag);
+      return flag;
+      
       }
       
       $(function(){
@@ -179,6 +199,7 @@
   <!-- content 끝 -->
   
   <jsp:include page="../common/footer.jsp"/>
+  </div>
 </body>
 
 </html>

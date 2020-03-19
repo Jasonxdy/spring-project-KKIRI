@@ -1,5 +1,7 @@
 package com.kh.kkiri.myPage.model.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface MypageService {
@@ -25,6 +27,15 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	int deleteMember(Member loginMember)throws Exception;
+
+	/** 마이페이지 정보 수정을 위한 Service
+	 * @param loginMember
+	 * @param member
+	 * @param profile
+	 * @return result 
+	 * @throws Exception
+	 */
+	int updateMember(Member loginMember, Member member, MultipartFile profile, String savepath)throws Exception;
 
 	
 }
