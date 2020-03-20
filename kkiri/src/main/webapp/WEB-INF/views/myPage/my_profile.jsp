@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-4">
                   <h5 class="profile-name">프로필 사진</h5>
-                  <img class="profile-img" src="../resources/img/${loginMember.memberProfile}" alt="프로필 사진">
+                  <img class="profile-img" src="../resources/upProfileImage/${loginMember.memberProfile}" alt="프로필 사진">
                 </div>
                 <br>
                 <button class="btn my-profile-btn" id="updateMyPage">
