@@ -19,7 +19,7 @@
                 많은 사람들이 끼리를 통해 삶을 공유하고 있습니다.<br>
                 <span class="banner-sub-title">내 주변의 사람들과 좋아하는 일을 함께 하며 새로운 경험을 즐겨 보세요.</span>
               </p>
-              <a href="#" class="go-sign-up">끼리 가입하기</a>
+              <a href="${contextPath}/member/signUp" class="go-sign-up">끼리 가입하기</a>
             </div>
     				<video class='video' autoplay loop muted>
     					<source src='<%=request.getContextPath() %>/resources/movie/banner-movie.mp4' type='video/mp4'>

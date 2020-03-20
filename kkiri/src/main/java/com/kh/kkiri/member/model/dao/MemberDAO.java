@@ -27,10 +27,27 @@ public class MemberDAO {
 	}
 
 
+	
+	/** 회원 가입 DAO
+	 * @param createMember
+	 * @return result
+	 * @throws Exception
+	 */
+	public int createId(Member createMember) throws Exception {
+		
+		return sqlSession.insert("memberMapper.createId", createMember);
+		
+	}
+
+	
+	
 
 	public int updateMember(Member member) throws Exception{
 		return sqlSession.update("memberMapper.updateMember", member);
 	}
+
+
+
 
 	
 	

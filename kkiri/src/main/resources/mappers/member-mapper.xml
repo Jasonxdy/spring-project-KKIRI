@@ -37,6 +37,22 @@
 	
 	</select>
 	
+	<!-- 회원 가입  -->
+	<insert id="createId" parameterType="Member">
+		INSERT INTO MEMBER
+			VALUES(MEM_SEQ.NEXTVAL, #{memberId}, #{memberNickname}, #{memberPwd}, 
+				#{memberEmail}, #{memberGender}, #{memberPhone}, #{memberBirth},
+				#{memberIntroduce}, #{memberPlace}, #{memberCategory},
+				DEFAULT, SYSDATE, DEFAULT,
+				DEFAULT, #{memberAccount}, 'N', DEFAULT)
+				
+			
+	
+	</insert>
+	
+	
+	
+	
 	<select id="adminMemberCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM V_MEMBER_A
 		<where>
