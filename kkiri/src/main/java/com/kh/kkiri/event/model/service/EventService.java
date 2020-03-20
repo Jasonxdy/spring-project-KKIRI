@@ -50,6 +50,15 @@ public interface EventService {
 	 */
 	List<Member> selectInitPartyList(int eventNo) throws Exception;
 
+	/**
+	 * 참가회원 목록 추가 조회 Service
+	 * @param count
+	 * @param eventNo
+	 * @param eventNo2 
+	 * @return partyList
+	 */
+	List<Member> selectAddPartyList(int count, int limit, int eventNo);
+
 
 	
 	
