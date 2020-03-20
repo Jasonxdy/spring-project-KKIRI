@@ -169,16 +169,6 @@
 	<jsp:include page="../common/footer.jsp" />
 
 
-	<script>
-		$(function() {
-			// 신고 토글 버튼
-			$("#navbardrop").click(function(e) {
-				e.preventDefault();
-				$(this).next(".declare-wrap").toggleClass("active");
-			});
-
-		});
-	</script>
 
 </body>
 </html>

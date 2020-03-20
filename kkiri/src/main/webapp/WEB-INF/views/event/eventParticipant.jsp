@@ -205,27 +205,15 @@
 	
 	function morePartyList() {
 		if(count+2 <= Math.ceil(${event.partyCount}/limit)){
-			console.log("count++ 실행 전 count : " + count);
 	    	executeAjax();
 	    	if(count+2 == Math.ceil(${event.partyCount}/limit)){
-	    		console.log("remove 실행 및 count : " + count);
 	    		$("#addPartyList").remove();
 	    	}
 	    	count++;
-			console.log("count++ 실행 후 count : " + count);
     	}
 	}
 	
 	
-	$(function() {
-		// 신고 토글 버튼
-		$("#navbardrop").click(function(e) {
-			e.preventDefault();
-			$(this).next(".declare-wrap").toggleClass("active");
-		});
-		
-	});
-		
 	</script>
 </body>
 

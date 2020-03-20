@@ -1,0 +1,21 @@
+.join-event-popup .popup-content{
+  text-align: center;
+}
+.join-event-popup .popup-content .event-title{
+  font-weight: bold;
+  font-size: 2rem;
+}
+.join-event-popup .popup-content .event-date{
+  color: #6c757d;
+  font-size: 20px;
+}
+.join-event-popup .popup-content .join-money{
+  font-size: 20px;
+}
+.join-event-popup .popup-content .popup-comment{
+  font-size: 20px;
+  margin: 50px 0;
+}
+#cancel-event-participate{
+  display: none;
+}
