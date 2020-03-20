@@ -53,6 +53,27 @@ public class Member {
 		this.memberRating = memberRating;
 	}
 
+	
+	
+	
+	
+	public Member(String memberId, String memberNickname, String memberPwd, String memberEmail, String memberGender,
+			String memberPhone, Date memberBirth, String memberIntroduce, String memberPlace, String memberCategory,
+			String memberAccount) {
+		super();
+		this.memberId = memberId;
+		this.memberNickname = memberNickname;
+		this.memberPwd = memberPwd;
+		this.memberEmail = memberEmail;
+		this.memberGender = memberGender;
+		this.memberPhone = memberPhone;
+		this.memberBirth = memberBirth;
+		this.memberIntroduce = memberIntroduce;
+		this.memberPlace = memberPlace;
+		this.memberCategory = memberCategory;
+		this.memberAccount = memberAccount;
+	}
+
 	public int getMemberNo() {
 		return memberNo;
 	}
