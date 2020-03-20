@@ -44,8 +44,18 @@
 						<div class="id-rating">
 							<h5>${event.memberNickname}</h5>
 							<p class="star-rating">
-								<img src="${contextPath}/resources/img/star-on.png" alt="별점"
-									class="star-img">&nbsp; ${event.memberRating}
+							<c:choose>
+								<c:when test="${event.memberRating != 0}">
+									<img src="${contextPath}/resources/img/star-on.png" alt="별점"
+										class="star-img">&nbsp; ${event.memberRating}
+								</c:when>
+								<c:otherwise>
+									<p class="text-muted">
+									<img src="${contextPath}/resources/img/star-on.png" alt="별점"
+										class="star-img"> 아직 작성된 평가가 없습니다.
+									</p>
+								</c:otherwise>
+							</c:choose>
 							</p>
 						</div>
 					</div>
