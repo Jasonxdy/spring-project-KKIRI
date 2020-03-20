@@ -17,6 +17,9 @@
 
 		<!-- Header -->
 		<jsp:include page="../common/header.jsp" />
+		
+		<!-- 현재시간 구하기 -->
+		<jsp:useBean id="currTime" class="java.util.Date" />
 
 		<!-- date format 변경 -->
 		<fmt:formatDate var="startDate" value="${event.eventStart}"
@@ -25,10 +28,7 @@
 			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 
 		<!-- 이벤트 상세 상단 정보 start -->
-		<jsp:include page="eventHeader.jsp">
-			<jsp:param value="${startDate}" name="startDate"/>
-			<jsp:param value="${endDate}" name="endDate"/>
-		</jsp:include>
+		<jsp:include page="eventHeader.jsp"/>
 		<!-- 이벤트 상세 상단 정보 end -->
 	</div>
 
@@ -123,6 +123,13 @@
 						var zoomControl = new kakao.maps.ZoomControl();
 						map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 						/* 지도 도구 end */
+						
+						
+						if(${currTime < event.eventEnd}){
+							console.log("이벤트 발생 전");
+						} else {
+							console.log("이벤트 발생 후");
+						}
 						
 						
 						
