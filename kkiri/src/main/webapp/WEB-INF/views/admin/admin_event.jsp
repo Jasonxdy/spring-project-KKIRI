@@ -7,9 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 - 이벤트</title>
-	<style>
-		td{line-height: 31px;}
-	</style>
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -43,7 +41,20 @@
 					                <th scope="col">정원</th>
 					                <th scope="col">참석인원</th>
 					                <th scope="col">입장티켓</th>
-					                <th scope="col">종료여부</th>
+					                <th scope="col">
+				                	<select id="eventStatus" 
+										<c:if test="${!empty param.eventStatus}">
+											<c:if test="${param.eventStatus != 'no'}">
+												style="background-color: rgba(0,161,133,.6)"
+											</c:if>
+										</c:if>
+									>
+										<option value="no">상태▽</option>
+										<option value="end">종료</option>
+										<option value="in">진행중</option>
+										<option value="expect">예정</option>
+									</select>
+					                </th>
 					            </tr>
 							</thead>
 							<tbody>
@@ -62,7 +73,15 @@
 									<td>${event.memberNo}</td>
 									<td>${event.eventTicket}</td>
 									<!-- eventThumbnail에 종료여부 담음 -->
-									<td>${event.eventThumbnail}</td>
+									<c:if test="${event.eventThumbnail == 'end'}">
+										<td style="color:red;">종료</td>
+									</c:if>
+									<c:if test="${event.eventThumbnail == 'in'}">
+										<td style="color:green;">진행중</td>
+									</c:if>
+									<c:if test="${event.eventThumbnail == 'expect'}">
+										<td style="color:grey;">예정</td>
+									</c:if>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -94,6 +113,9 @@
 									value="${param.searchValue}"
 									</c:if>
 									>
+								<c:if test="${!empty param.eventStatus }">
+									<input type="text" name="eventStatus" value="${param.eventStatus}" style="display:none;">
+		        				</c:if>
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-2">
@@ -119,6 +141,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.eventStatus }">
+						        		<c:param name="eventStatus" value="${param.eventStatus}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>
 	                    	">
@@ -135,6 +161,10 @@
 						        	
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.eventStatus }">
+						        		<c:param name="eventStatus" value="${param.eventStatus}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
@@ -163,6 +193,10 @@
 							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
+							        	<c:if test="${!empty param.eventStatus }">
+							        		<c:param name="eventStatus" value="${param.eventStatus}"/>
+							        	</c:if>
+							        	
 			                    		<c:param name="currentPage" value="${p}"/>
 			                    	</c:url>
 		                    	">
@@ -183,6 +217,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.eventStatus }">
+						        		<c:param name="eventStatus" value="${param.eventStatus}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 		                    	</c:url>
 	                    	">
@@ -197,6 +235,10 @@
 						        	</c:if>
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.eventStatus }">
+						        		<c:param name="eventStatus" value="${param.eventStatus}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
@@ -236,6 +278,35 @@
 				}
 			});
 		});
+		
+		// 상태 검색 기능
+		$(function () {
+		      $("#eventStatus").on("change", function () {
+		    	  var eventStatus = $("#eventStatus").val();
+		    	  <c:url var="event" value="event">
+        			<c:if test="${!empty param.searchKey }">
+	        			<c:param name="searchKey" value="${param.searchKey}"/>
+		        	</c:if>
+		        	<c:if test="${!empty param.searchValue }">
+		        		<c:param name="searchValue" value="${param.searchValue}"/>
+		        	</c:if>
+	               	<c:param name="currentPage" value="${param.currentPage}"/>
+	             </c:url>
+				//console.log(reportC);
+				location.href="${event}&eventStatus=" + eventStatus;
+		      })
+	      });
+		// select 유지
+        $(function(){
+			var eventStatus = $("#eventStatus").children();
+			for(var i=0; i<eventStatus.length; i++){
+				//console.log(select[i].innerHTML + "${param.reportC}");
+				if(eventStatus[i].value == "${param.eventStatus}"){
+					eventStatus[i].setAttribute("selected", "true");
+				}
+			}
+			//console.log($("#reportC").children().eq(0).val());
+		})
 		
 		
 		$("#admin-table td").not("#lastTd").on("click",	function() {

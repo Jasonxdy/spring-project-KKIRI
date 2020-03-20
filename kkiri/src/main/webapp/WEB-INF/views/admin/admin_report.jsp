@@ -7,18 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 - 신고</title>
-	<style>
-		#reportC{
-		border: none;
-		font-weight: bold;
-		/* vertical-align: middle; */
-		text-align-last: center;
-		border-radius:0; /* 아이폰 사파리 보더 없애기 */
-		-webkit-appearance:none; /* 화살표 없애기 for chrome*/
-		-moz-appearance:none; /* 화살표 없애기 for firefox*/
-		}
-
-	</style>
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -53,7 +42,7 @@
 									<select id="reportC" 
 										<c:if test="${!empty param.reportC}">
 											<c:if test="${param.reportC != 'no'}">
-												style="background-color: #00a185; color: white"
+												style="background-color: rgba(0,161,133,.6);"
 											</c:if>
 										</c:if>
 									>

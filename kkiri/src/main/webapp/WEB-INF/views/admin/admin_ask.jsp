@@ -7,9 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 - 문의</title>
-	<style>
-		td{line-height: 31px;}
-	</style>
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -43,7 +41,7 @@
 									<th scope="col">일자</th>
 									<th scope="col"
 										<c:if test="${!empty param.ansSort}">
-										style="background-color: #00a185; color: white"
+										style="background-color: rgba(0,161,133,.6);"
 										</c:if>
 									>답장여부▽</th>
 								</tr>

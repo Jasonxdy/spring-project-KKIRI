@@ -284,6 +284,7 @@ public class AdminController {
 						@RequestParam(value="currentPage", required=false) Integer currentPage,
 						@RequestParam(value="searchKey", required=false) String searchKey,
 						@RequestParam(value="searchValue", required=false) String searchValue,
+						@RequestParam(value="eventStatus", required=false) String eventStatus,
 						HttpSession session, RedirectAttributes rdAttr
 						) {
 		Enumeration<String> names = session.getAttributeNames();
@@ -305,10 +306,13 @@ public class AdminController {
 		}
 		try {
 			Map<String, String> map = null;
+			map = new HashMap<String, String>();
 			if(searchKey != null && searchValue != null) {
-				map = new HashMap<String, String>();
 				map.put("searchKey",searchKey);
 				map.put("searchValue",searchValue);
+			}
+			if(eventStatus != null) {
+				map.put("eventStatus",eventStatus);
 			}
 			int eventCount = eventService.adminEventCount(map);
 			//System.out.println("회원 수: " + memberCount);

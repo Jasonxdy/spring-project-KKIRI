@@ -70,6 +70,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				<button id="addPartyList" class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList();'>더보기</button>
 			</div>
 			<!-- 하단 좌측 div end -->
 			<div class="col-md-5 ">
@@ -170,6 +171,54 @@
 	</div>
 
 	<script>
+	
+	/* 무한 스크롤 */
+	//Javascript
+	var count = 0; // 스크롤 갱신 횟수
+	var limit = 3; // 3명씩 보여줌
+	var eventNo = '${event.eventNo}';
+	
+	function executeAjax () {
+		$.ajax({
+    		url : "addPartyList",
+	    	type : "GET",
+			data : {count : count, limit : limit, eventNo : eventNo},
+			dataType : "json",
+			success : function (partyList){
+				$.each(partyList, function(i){
+				$("#addPartyList").remove();
+				$attendList = $("#attendList");
+				var memberCard = 
+					"<div class='media border p-3 profile-card'>" +
+				"<img src='${contextPath}/resources/img/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
+				"<div class='media-body ml-3 mt-1'>" +
+					"<h4>" + partyList[i].memberNickname + "</h4>" +
+					"<p class='text-muted'>${memberSignupDate}가입</p>" +
+					"</div>" +
+				"</div>" +
+				"<button id='addPartyList' class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList()'>더보기</button>";
+				$attendList.append(memberCard);
+				});
+			},
+			error : function(){
+				console.log("참가회원 목록 조회 ajax 호출 실패");
+			}
+    	});
+	}
+	
+	function morePartyList() {
+		console.log((count+1)*limit+5);
+		console.log("event.partyCount : " + ${event.partyCount});
+		if((count)*limit+5 <= ${event.partyCount}){
+	    	executeAjax();
+	    	count++;
+	    	if((count)*limit+5 >= ${event.partyCount}){
+	    		$("#addPartyList").remove();
+	    	}
+    	}
+	}
+	
+	
 	$(function() {
 		// 신고 토글 버튼
 		$("#navbardrop").click(function(e) {
@@ -178,38 +227,29 @@
 		});
 		
 		
-		/* 무한 스크롤 */
-		//Javascript
-		var count = 0; // 스크롤 갱신 횟수
-		var limit = 3; // 3명씩 보여줌
-		var eventNo = '${event.eventNo}';
+		
+		
+		
+		
 		//스크롤 바닥 감지
-		window.onscroll = function(e) {
+		/* window.onscroll = function(e) {
 		    //추가되는 임시 콘텐츠
 		    //window height + window scrollY 값이 document height보다 클 경우,
 		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 		    	//실행할 로직 (콘텐츠 추가)
 		    	
 		    	// count*limit + 4 <= evetn.partyCount 일때만 ajax 실행 
-		    	if(count*limit+4 <= ${event.partyCount}){
-			    	$.ajax({
-			    		url : "addPartyList";
-				    	type : "GET",
-						data : {count : count, eventNo : eventNo},
-						dataType : "json",
-						success : function (partyList){
-							$.each(partyList, function(i){
-								
-							}
-							count++;
-						}
-			    	});
+		    	if((count)*limit+5 <= ${event.partyCount}){
+			    	executeAjax();
+			    	count++;
 		    	}
-		    	
 		    }
-		};
+		}; */
+		
+		
 		
 	});
+		
 	</script>
 </body>
 

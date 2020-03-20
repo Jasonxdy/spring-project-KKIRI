@@ -36,7 +36,9 @@
 				</choose>
 			</if>
 			<if test="reportC != null">
+				<if test="reportC != 'no'">	
 				AND REPORT_CATEGORY = #{reportC}
+				</if>
 			</if>
 		</where>
 	</select>

@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
@@ -50,16 +53,9 @@ public class EventController {
 			if (event != null) {
 
 				model.addAttribute("event", event);
-				
-				if(partyList != null && !partyList.isEmpty()) {
-					model.addAttribute("partyList", partyList);
-					url = "event/eventDetail";
-					
-				} else {
-					msg = "이벤트 상세 페이지 조회 실패";
-					rdAttr.addFlashAttribute("msg", msg);
-					url = "redirect:/";
-				}
+				model.addAttribute("partyList", partyList);
+				url = "event/eventDetail";
+
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";
@@ -74,12 +70,11 @@ public class EventController {
 		}
 		return url;
 	}
-	
-	
+
 	@RequestMapping("selectParticipant")
 	public String selectParticipant(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
-		
+
 		int eventNo = 0;
 
 //		테스트용으로 삭제 예정
@@ -103,16 +98,11 @@ public class EventController {
 			if (event != null) {
 
 				model.addAttribute("event", event);
-				
-				if(partyList != null && !partyList.isEmpty()) {
-					model.addAttribute("partyList", partyList);
-					url = "event/eventParticipant";
-					
-				} else {
-					msg = "이벤트 상세 페이지 조회 실패";
-					rdAttr.addFlashAttribute("msg", msg);
-					url = "redirect:/";
-				}
+
+				model.addAttribute("event", event);
+				model.addAttribute("partyList", partyList);
+				url = "event/eventParticipant";
+
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";
@@ -127,17 +117,16 @@ public class EventController {
 		}
 		return url;
 	}
-	
-	
-	
-	
-	/*
-	 * // 이벤트 참가회원 조회
-	 * 
-	 * @RequestMapping("selectParty") public String partyList(@RequestParam(value =
-	 * "")) {
-	 * 
-	 * }
-	 */
+
+	// 참가 회원 목록 추가 조회 (ajax)
+	@ResponseBody
+	@RequestMapping(value = "addPartyList",
+    produces = "application/json; charset=utf-8")
+	public String selectPartyList(int count, int limit, int eventNo, Model model, RedirectAttributes rdAttr) {
+		List<Member> partyList = eventService.selectAddPartyList(count, limit, eventNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
+		return gson.toJson(partyList);
+	}
 
 }
