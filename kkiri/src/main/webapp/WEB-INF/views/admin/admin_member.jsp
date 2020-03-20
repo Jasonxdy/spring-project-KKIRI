@@ -4,18 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <meta charset="UTF-8">
-
 <title>관리자페이지 - 회원</title>
-<!-- <style>
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    }
-     </style> -->
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -376,6 +368,7 @@
 				$("#thisMemberNo").val($(this).parent().parent().children().eq(0).text());
 			}
 		});
+		
 		$(".close-popup, .popup-shadow").on({
 			click : function() {
 				$(".popup-shadow, #popup").hide(0);

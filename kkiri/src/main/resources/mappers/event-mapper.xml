@@ -80,7 +80,13 @@
 					</otherwise>
 				</choose>
 			</if>
+			<if test="eventStatus != null">
+				<if test ="eventStatus != 'no'">
+					AND EVENT_THUMBNAIL = #{eventStatus}
+				</if>
+			</if>
 		</where>
+		
 	</select>
 	
 	<select id="adminSelectEvent" parameterType="map" resultMap="eventResultSet">
@@ -96,6 +102,11 @@
 						AND EVENT_TITLE LIKE #{sv}
 					</otherwise>
 				</choose>
+			</if>
+			<if test="eventStatus != null">
+				<if test ="eventStatus != 'no'">
+					AND EVENT_THUMBNAIL = #{eventStatus}
+				</if>
 			</if>
 		</where>
 	</select>

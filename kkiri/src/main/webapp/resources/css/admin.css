@@ -1,0 +1,23 @@
+html{font-size:15px;}
+
+td{height: 38px;}
+
+#eventStatus{
+		border: none;
+		font-weight: bold;
+		/* vertical-align: middle; */
+		text-align-last: center;
+		border-radius:0; /* 아이폰 사파리 보더 없애기 */
+		-webkit-appearance:none; /* 화살표 없애기 for chrome*/
+		-moz-appearance:none; /* 화살표 없애기 for firefox*/
+		}
+		
+#reportC{
+		border: none;
+		font-weight: bold;
+		/* vertical-align: middle; */
+		text-align-last: center;
+		border-radius:0; /* 아이폰 사파리 보더 없애기 */
+		-webkit-appearance:none; /* 화살표 없애기 for chrome*/
+		-moz-appearance:none; /* 화살표 없애기 for firefox*/
+		}
