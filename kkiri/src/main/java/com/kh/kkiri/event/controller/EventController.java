@@ -1,5 +1,6 @@
 package com.kh.kkiri.event.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class EventController {
 	@RequestMapping("detail")
 	public String eventDetail(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
-
+		
 		int eventNo = 0;
 
 //		테스트용으로 삭제 예정
@@ -71,6 +72,8 @@ public class EventController {
 		return url;
 	}
 
+	
+	// 회원 목록 이동
 	@RequestMapping("selectParticipant")
 	public String selectParticipant(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
