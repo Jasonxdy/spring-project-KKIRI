@@ -10,7 +10,7 @@ public class Member {
 	private String memberEmail;
 	private String memberGender;
 	private String memberPhone;
-	private String memberBirth;
+	private Date memberBirth;
 	private String memberIntroduce;
 	private String memberPlace;
 	private String memberCategory;
@@ -22,14 +22,13 @@ public class Member {
 	private String memberIdSort;
 	private String memberStatus;
 	private double memberRating;
-	
-	public Member() { }
 
-	
-	
-	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Member(int memberNo, String memberId, String memberNickname, String memberPwd, String memberEmail,
-			String memberGender, String memberPhone, String memberBirth, String memberIntroduce, String memberPlace,
+			String memberGender, String memberPhone, Date memberBirth, String memberIntroduce, String memberPlace,
 			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,
 			String memberAccount, String memberIdSort, String memberStatus, double memberRating) {
 		super();
@@ -53,30 +52,6 @@ public class Member {
 		this.memberStatus = memberStatus;
 		this.memberRating = memberRating;
 	}
-
-	
-
-
-
-	public Member(String memberId, String memberNickname, String memberPwd, String memberEmail, String memberGender,
-			String memberPhone, String memberBirth, String memberIntroduce, String memberPlace, String memberCategory,
-			String memberAccount) {
-		super();
-		this.memberId = memberId;
-		this.memberNickname = memberNickname;
-		this.memberPwd = memberPwd;
-		this.memberEmail = memberEmail;
-		this.memberGender = memberGender;
-		this.memberPhone = memberPhone;
-		this.memberBirth = memberBirth;
-		this.memberIntroduce = memberIntroduce;
-		this.memberPlace = memberPlace;
-		this.memberCategory = memberCategory;
-		this.memberAccount = memberAccount;
-	}
-
-
-
 
 	public int getMemberNo() {
 		return memberNo;
@@ -134,11 +109,11 @@ public class Member {
 		this.memberPhone = memberPhone;
 	}
 
-	public String getMemberBirth() {
+	public Date getMemberBirth() {
 		return memberBirth;
 	}
 
-	public void setMemberBirth(String memberBirth) {
+	public void setMemberBirth(Date memberBirth) {
 		this.memberBirth = memberBirth;
 	}
 
@@ -243,4 +218,3 @@ public class Member {
 	}
 	
 }
- 

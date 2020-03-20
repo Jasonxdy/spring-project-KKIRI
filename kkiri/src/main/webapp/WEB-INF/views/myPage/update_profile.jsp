@@ -26,6 +26,7 @@
             <a class="btn" href="#">티켓</a>
             <a class="btn" href="#">로그아웃</a>
           </div>
+          
 
           <div class="col-10">
             
@@ -68,9 +69,16 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">전화번호 : </h5>
                     <div>
-                      <input type="number" class="update-input memberPhone" name="memberPhone1" value="${phones[0]}" maxlength="3" oninput="maxLengthCheck(this)">&nbsp; - &nbsp;
-                      <input type="number" class="update-input memberPhone" name="memberPhone2" value="${phones[1]}" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
-                      <input type="number" class="update-input memberPhone" name="memberPhone3" value="${phones[2]}" maxlength="4" oninput="maxLengthCheck(this)">
+                    	<select class="update-input memberPhone" name="memberPhone1" id="phone1" >
+							<option <c:if test="${phones[0] == '010'}"> selected </c:if>>010</option>
+							<option <c:if test="${phones[0] == '011'}"> selected </c:if>>011</option>
+							<option <c:if test="${phones[0] == '016'}"> selected </c:if>>016</option>
+							<option <c:if test="${phones[0] == '017'}"> selected </c:if>>017</option>
+							<option <c:if test="${phones[0] == '019'}"> selected </c:if>>019</option>
+						</select>&nbsp; - &nbsp;
+                      <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
+                      <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" maxlength="4" oninput="maxLengthCheck(this)">
+                      <input type="text" class="update-input memberPhone"  id="memberPhone" name="memberPhone" value="${loginMember.memberPhone }" style="display: hidden;">
                   </div>
                   </div>
                   
@@ -81,36 +89,51 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">관심 지역 : </h5>
                     <img src="../resources/img/map-example.png" alt="예시이미지">
+                    <input type="text" name="memberPlace" value="123456">
                   </div>
-                  <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
-	                  <c:forEach var="i" items="${category}" >
 	                  
 	                  <div class="row my-profile-section-element">
 	                    <h5 class="col-4">관심 카테고리 : </h5>
 	                    <div class="interest-wrap col-8">
-							<input type="checkbox"    <c:if test="${ i== '여행'}"> checked</c:if> name="interest" value="여행" id="travel" ><label for="travel">여행</label>
-						    <input type="checkbox"    <c:if test="${ i== '운동'}"> checked</c:if> name="interest" value="운동" id="exercise" ><label for="exercise">운동</label>
-						    <input type="checkbox"    <c:if test="${ i== '독서'}"> checked</c:if> name="interest" value="독서" id="book" ><label for="book">독서</label>
-						    <input type="checkbox"    <c:if test="${ i== '비즈니스'}"> checked</c:if> name="interest" value="비즈니스" id="business"><label for="business">비즈니스</label>
-						    <input type="checkbox"    <c:if test="${ i== '언어'}"> checked</c:if> name="interest" value="언어" id="language"><label for="language">언어</label>
-						    <input type="checkbox"    <c:if test="${ i== '음악'}"> checked</c:if> name="interest" value="음악" id="music"><label for="music">음악</label>
-						    <input type="checkbox"    <c:if test="${ i== '영화/공연'}"> checked</c:if> name="interest" value="영화/공연" id="movie"><label for="movie">영화/공연</label>
-						    <input type="checkbox"    <c:if test="${ i== '댄스'}"> checked</c:if> name="interest" value="댄스" id="dance"><label for="dance">댄스</label>
-						    <input type="checkbox"    <c:if test="${ i== '봉사활동'}"> checked</c:if> name="interest" value="봉사활동" id="volunteer"><label for="volunteer">봉사활동</label>
-						    <input type="checkbox"    <c:if test="${ i== '사교'}"> checked</c:if> name="interest" value="사교" id="meeting"><label for="meeting">사교</label>
-						    <input type="checkbox"    <c:if test="${ i== '차/오토바이'}"> checked</c:if> name="interest" value="차/오토바이" id="car"><label for="car">차/오토바이</label>
-						    <input type="checkbox"    <c:if test="${ i== '사진/영상'}"> checked</c:if> name="interest" value="사진/영상" id="picture"><label for="picture">사진/영상</label>
-						    <input type="checkbox"    <c:if test="${ i== '스포츠관람'}"> checked</c:if> name="interest" value="스포츠관람" id="watchingSports"><label for="watchingSports">스포츠관람</label>
-						    <input type="checkbox"    <c:if test="${ i== '게임'}"> checked</c:if> name="interest" value="게임" id="game"><label for="game">게임</label>
-						    <input type="checkbox"    <c:if test="${ i== '요리'}"> checked</c:if> name="interest" value="요리" id="cook"><label for="cook">요리</label>
-						    <input type="checkbox"    <c:if test="${ i== '반려동물'}"> checked</c:if> name="interest" value="반려동물" id="pet"><label for="pet">반려동물</label>
-						    <input type="checkbox"    <c:if test="${ i== '사회운동'}"> checked</c:if> name="interest" value="사회운동" id="socialMovement"><label for="socialMovement">사회운동</label>
-						    <input type="checkbox"    <c:if test="${ i== '뷰티'}"> checked</c:if> name="interest" value="뷰티" id="beauty"><label for="beauty">뷰티</label>
-						    <input type="checkbox"    <c:if test="${ i== '패션'}"> checked</c:if> name="interest" value="패션" id="fashion"><label for="fashion">패션</label>
-						    <input type="checkbox"    <c:if test="${ i== '기타'}"> checked</c:if> name="interest" value="기타" id="etc"><label for="etc">기타</label>
+							<input type="checkbox"  class="interest"  <c:if test="${ i== '여행'}"> checked</c:if> name="interest" value="여행" id="travel" ><label for="travel">여행</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '운동'}"> checked</c:if> name="interest" value="운동" id="exercise" ><label for="exercise">운동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '독서'}"> checked</c:if> name="interest" value="독서" id="book" ><label for="book">독서</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '비즈니스'}"> checked</c:if> name="interest" value="비즈니스" id="business"><label for="business">비즈니스</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '언어'}"> checked</c:if> name="interest" value="언어" id="language"><label for="language">언어</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '음악'}"> checked</c:if> name="interest" value="음악" id="music"><label for="music">음악</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '영화/공연'}"> checked</c:if> name="interest" value="영화/공연" id="movie"><label for="movie">영화/공연</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '댄스'}"> checked</c:if> name="interest" value="댄스" id="dance"><label for="dance">댄스</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '봉사활동'}"> checked</c:if> name="interest" value="봉사활동" id="volunteer"><label for="volunteer">봉사활동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사교'}"> checked</c:if> name="interest" value="사교" id="meeting"><label for="meeting">사교</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '차/오토바이'}"> checked</c:if> name="interest" value="차/오토바이" id="car"><label for="car">차/오토바이</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사진/영상'}"> checked</c:if> name="interest" value="사진/영상" id="picture"><label for="picture">사진/영상</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '스포츠관람'}"> checked</c:if> name="interest" value="스포츠관람" id="watchingSports"><label for="watchingSports">스포츠관람</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '게임'}"> checked</c:if> name="interest" value="게임" id="game"><label for="game">게임</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '요리'}"> checked</c:if> name="interest" value="요리" id="cook"><label for="cook">요리</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '반려동물'}"> checked</c:if> name="interest" value="반려동물" id="pet"><label for="pet">반려동물</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사회운동'}"> checked</c:if> name="interest" value="사회운동" id="socialMovement"><label for="socialMovement">사회운동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '뷰티'}"> checked</c:if> name="interest" value="뷰티" id="beauty"><label for="beauty">뷰티</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '패션'}"> checked</c:if> name="interest" value="패션" id="fashion"><label for="fashion">패션</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ i== '기타'}"> checked</c:if> name="interest" value="기타" id="etc"><label for="etc">기타</label>
 		                 </div>
 	                  </div>
-	                  </c:forEach>
+	                  
+		  <script type="text/javascript">
+		  console.log({category});
+	      <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
+			var category = '${category}'
+		  console.log(category)
+		  $(function(){
+			  for(var i in category){
+				  if($(".interest").val()==i){
+					  $(this).prop("checked","true")
+				  }
+			  }
+		  })
+		  
+			
+		  </script>
+	                  
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">보유한 티켓 수 :</h5>
                     <div class="col-8">${loginMember.memberTicket }개</div>
@@ -146,6 +169,9 @@
       }
 	var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
     var flag = false;
+	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
+	var phone = ${loginMember.memberPhone};
+	console.log(phone1);
       function validate(){
     	  console.log("입장");
     	  if($("#nickName").val()!=""){
@@ -156,6 +182,9 @@
    					  return false;
    				  }
    				if($(".memberPhone").val()!=""){
+   					if(!phone1.test(phone)){
+   						console.log("4456");
+   					}
    				  if($(".memberEmail").val()!=""){
    					if($(".interest-wrap>input").val()!=""){
    						   console.log("123");
@@ -185,6 +214,17 @@
             $(".uploadInput").click();
           }
         });
+        
+        $(".memberPhone").change(function(){
+        	phone = $("#phone1").val();
+        	phone += '-';
+        	phone += $("#phone2").val();
+        	phone += '-';
+        	phone += $("#phone3").val();
+        	console.log(phone+"phone");
+        	$("#memberPhone").val(phone);
+        })
+        
       });
       function loadImg(value){
           if(value.files && value.files[0]){

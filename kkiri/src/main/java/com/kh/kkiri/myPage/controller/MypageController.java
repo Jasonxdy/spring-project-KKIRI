@@ -137,11 +137,12 @@ public class MypageController {
 		String memberInterest = null;
 		for(int i =0 ; i<interest.length; i++) {
 			memberInterest+=interest[i];
+			memberInterest += ",";
 		}
 		member.setMemberCategory(memberInterest);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "upProfileImage";
+		String savePath = root + "/upProfileImage";
 		
 		File folder = new File(savePath);
 		
@@ -161,6 +162,8 @@ public class MypageController {
 			
 			System.out.println(to);
 			member.setMemberBirth(to);
+			
+			System.out.println(member);
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 			
 			if(result >0) {

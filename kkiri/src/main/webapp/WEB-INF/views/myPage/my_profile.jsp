@@ -93,10 +93,9 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4">관심 카테고리 : </h5>
                     <div class="col-8">
-                    	<c:forEach var="i" varStatus="vs"  items="${loginMember.memberCategory}">
-                    	
+                    <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
+                    	<c:forEach var="i" varStatus="vs"  items="${category}">
                       <p class="member-interest">${vs.current}</p>  
-
                     	</c:forEach>
                     </div>
                   </div>
