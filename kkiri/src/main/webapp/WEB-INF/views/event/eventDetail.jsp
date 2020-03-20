@@ -56,7 +56,7 @@
 							${startDate} ~ ${fn:substring(endDate,20,25)}
 						</c:when>
 							<c:otherwise>
-							${startDate} ~ ${endDate}
+							${startDate} ~ <br> ${endDate}
 						</c:otherwise>
 						</c:choose>
 					</p>
@@ -140,7 +140,7 @@
 
 					<h4>
 						참석자 (<span>${event.partyCount}</span>명) <span id="see-all">
-							<a href="#"> 모두 보기 </a>
+							<a href="selectParticipant?no=${event.eventNo}"> 모두 보기 </a>
 						</span>
 					</h4>
 				</div>

@@ -41,7 +41,7 @@
 	<div class="container">
 		<div class="row mt-5 event-detail-container">
 			<!-- 하단 좌측 div start -->
-			<div class="col-md-7 event-detail" id="attendList">
+			<div class="col-md-7 event-detail">
 				<h3 class="mb-5">
 					현재 <span class="participant-count">${event.partyCount}</span>명의 회원이
 					참가 중입니다.
@@ -49,28 +49,31 @@
 
 				<fmt:formatDate var="memberSignupDate"
 					value="${event.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-
-				<div class="media border p-3 profile-card">
-					<img src="${contextPath}/resources/img/${event.memberProfile}"
-						alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
-					<div class="media-body ml-3 mt-1">
-						<h4>${event.memberNickname}</h4>
-						<p class="text-muted">${memberSignupDate}가입</p>
-					</div>
-				</div>
-				<c:forEach var="party" items="${partyList}">
-					<fmt:formatDate var="memberSignupDate"
-						value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
+				<div id="attendList"> 
 					<div class="media border p-3 profile-card">
-						<img src="${contextPath}/resources/img/${party.memberProfile}"
-							alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
+						<img src="${contextPath}/resources/img/${event.memberProfile}"
+							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 						<div class="media-body ml-3 mt-1">
-							<h4>${party.memberNickname}</h4>
+							<h4>${event.memberNickname}</h4>
 							<p class="text-muted">${memberSignupDate}가입</p>
 						</div>
 					</div>
-				</c:forEach>
-				<button id="addPartyList" class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList();'>더보기</button>
+					<c:forEach var="party" items="${partyList}">
+						<fmt:formatDate var="memberSignupDate"
+							value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
+						<div class="media border p-3 profile-card">
+							<img src="${contextPath}/resources/img/${party.memberProfile}"
+								alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
+							<div class="media-body ml-3 mt-1">
+								<h4>${party.memberNickname}</h4>
+								<p class="text-muted">${memberSignupDate}가입</p>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<c:if test="${fn:length(partyList) != 0}">
+					<div class='row' id='addPartyList'><div class='col-md-12 text-center mt-3'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList()'>더보기</button></div></div></div>
+				</c:if>
 			</div>
 			<!-- 하단 좌측 div end -->
 			<div class="col-md-5 ">
@@ -84,7 +87,7 @@
 							${startDate} ~ ${fn:substring(endDate,20,25)}
 						</c:when>
 							<c:otherwise>
-							${startDate} ~ ${endDate}
+							${startDate} ~ <br> ${endDate}
 						</c:otherwise>
 						</c:choose>
 					</p>
@@ -166,16 +169,12 @@
 
 	<jsp:include page="../common/footer.jsp" />
 
-	<div id="button-top">
-		<button type="button" class="top-btn">TOP</button>
-	</div>
-
 	<script>
 	
 	/* 무한 스크롤 */
 	//Javascript
 	var count = 0; // 스크롤 갱신 횟수
-	var limit = 3; // 3명씩 보여줌
+	var limit = 5; // 5명씩 보여줌
 	var eventNo = '${event.eventNo}';
 	
 	function executeAjax () {
@@ -186,17 +185,15 @@
 			dataType : "json",
 			success : function (partyList){
 				$.each(partyList, function(i){
-				$("#addPartyList").remove();
 				$attendList = $("#attendList");
 				var memberCard = 
 					"<div class='media border p-3 profile-card'>" +
 				"<img src='${contextPath}/resources/img/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
 				"<div class='media-body ml-3 mt-1'>" +
 					"<h4>" + partyList[i].memberNickname + "</h4>" +
-					"<p class='text-muted'>${memberSignupDate}가입</p>" +
+					"<p class='text-muted'>" + partyList[i].memberSignupDate + "가입</p>" +
 					"</div>" +
-				"</div>" +
-				"<button id='addPartyList' class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList()'>더보기</button>";
+				"</div>";
 				$attendList.append(memberCard);
 				});
 			},
@@ -207,14 +204,15 @@
 	}
 	
 	function morePartyList() {
-		console.log((count+1)*limit+5);
-		console.log("event.partyCount : " + ${event.partyCount});
-		if((count)*limit+5 <= ${event.partyCount}){
+		if(count+2 <= Math.ceil(${event.partyCount}/limit)){
+			console.log("count++ 실행 전 count : " + count);
 	    	executeAjax();
-	    	count++;
-	    	if((count)*limit+5 >= ${event.partyCount}){
+	    	if(count+2 == Math.ceil(${event.partyCount}/limit)){
+	    		console.log("remove 실행 및 count : " + count);
 	    		$("#addPartyList").remove();
 	    	}
+	    	count++;
+			console.log("count++ 실행 후 count : " + count);
     	}
 	}
 	
@@ -225,28 +223,6 @@
 			e.preventDefault();
 			$(this).next(".declare-wrap").toggleClass("active");
 		});
-		
-		
-		
-		
-		
-		
-		//스크롤 바닥 감지
-		/* window.onscroll = function(e) {
-		    //추가되는 임시 콘텐츠
-		    //window height + window scrollY 값이 document height보다 클 경우,
-		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-		    	//실행할 로직 (콘텐츠 추가)
-		    	
-		    	// count*limit + 4 <= evetn.partyCount 일때만 ajax 실행 
-		    	if((count)*limit+5 <= ${event.partyCount}){
-			    	executeAjax();
-			    	count++;
-		    	}
-		    }
-		}; */
-		
-		
 		
 	});
 		
