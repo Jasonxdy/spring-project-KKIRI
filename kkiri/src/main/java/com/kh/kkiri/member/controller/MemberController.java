@@ -1,9 +1,10 @@
 package com.kh.kkiri.member.controller;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.google.connect.GoogleOAuth2Template;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.kkiri.member.model.service.MemberService;
+import com.kh.kkiri.member.model.vo.AuthInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
 
@@ -28,7 +30,15 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Inject
+	private AuthInfo authInfo;
 	
+	@Autowired
+	private GoogleOAuth2Template googleOAuth2Template;
+//	 
+//	@Autowired
+//    private GoogleOAuth2Parameters googleOAuth2Parameters;
+	 
 	
 	
 	// 6번 @세션 어트리뷰트 사용하기
@@ -144,8 +154,25 @@ public class MemberController {
 		
 	}
 	
-	
-	
+	/*
+	 * @RequestMapping("googleLogin") public String googleLogin(Model model,
+	 * HttpSession session) {
+	 * 
+	 * OAuth2Operations oauthOperations =
+	 * googleConnectionFactory.getOAuthOperations();
+	 * 
+	 * String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE,
+	 * googleOAuth2Parameters);
+	 * 
+	 * model.addAttribute("google_url", url); return "member/googleLogin"; }
+	 * 
+	 * @RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET,
+	 * RequestMethod.POST }) public String googleCallback(Model model, @RequestParam
+	 * String code) { System.out.println("여기는 googleCallback");
+	 * 
+	 * return "home"; }
+	 */
+
 	
 	
 	
