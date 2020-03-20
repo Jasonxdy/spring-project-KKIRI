@@ -127,6 +127,7 @@
   margin-top: 10px;
   resize: none;
   width: 75%;
+  padding: 10px;
   max-width: 445px;
 }
 .insert-event-info .eventIntroduceTitle{
