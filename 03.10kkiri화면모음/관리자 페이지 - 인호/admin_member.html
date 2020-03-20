@@ -320,6 +320,18 @@
           $(this).text("삭제");
         }
     })
+
+    $(function(){
+			var select = $("#inputGroupSelect04").children();
+      //console.log(select[1].innerHTML);
+      
+			for(var i=0; i<select.length; i++){
+        console.log(select[i].value);
+				if(select[i].innerHTML == '아이디'){
+					select[i].setAttribute("selected", "true");
+				}
+			}
+		})
   </script>
 </body>
 

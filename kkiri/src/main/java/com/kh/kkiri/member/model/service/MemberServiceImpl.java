@@ -1,7 +1,9 @@
 package com.kh.kkiri.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
@@ -13,6 +15,10 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired 
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	// 암호화 준비
 	
 	
 	/** 로그인 Service
@@ -29,6 +35,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	
+	/** 회원가입(ID 만들기) Service
+	 * @param createMember
+	 * @return return
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int createId(Member createMember) throws Exception {
+		
+		System.out.println("2. 가입 회원정보:" + createMember);
+		
+		int result = memberDAO.createId(createMember);
+		
+		System.out.println("4. 가입 결과 result:" + result);
+		return result;
+	}
 	
 	
 	
