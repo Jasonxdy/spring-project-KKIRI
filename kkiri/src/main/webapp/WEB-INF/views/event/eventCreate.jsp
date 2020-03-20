@@ -1,86 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js" crossorigin="anonymous"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/commonEvent.css">
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <title>KKIRI(끼리)</title>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="../resources/css/commonEvent.css">
+	<title>KKIRI(끼리)</title>
 </head>
 
 <body>
   <div id="wrapper">
-    <div id="header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="logo"><a href="#"><img src="img/logo.png" alt="로고"></a></h1>
-            <div class="nav-section">
-              <a href="#" class="login-btn">로그인</a>
-              <a href="signUp.html">회원가입</a>
-              <span class="separation"> | </span>
-              <a href="#">고객센터</a>
-              <!-- <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                  </div> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 로그인 팝업 start-->
-    <div id="login-popup" class="popup">
-      <p class="popup-title">
-        로그인
-        <img src="img/close-btn.png" alt="닫기버튼" class="close-popup">
-      </p>
-      <div class="popup-content">
-        <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
-        <form class="login-form-wrap custom-checkbox" action="#" method="post">
-          <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
-          <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
-
-          <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
-          <label class="custom-control-label" for="rememberId">아이디 저장</label>
-          <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
-
-          <button class="popup-confirm-btn login-conform-btn">로그인</button>
-          <button class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-          <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
-        </form>
-      </div>
-    </div>
-    <div class="popup-shadow"></div>
-    <!-- 로그인 팝업 end-->
-
-    <script>
-      // 로그인 팝업 이벤트
-      $(".login-btn").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").show(0);
-        }
-      });
-      $(".close-popup, .popup-shadow").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").hide(0); 
-        }
-      });
-    </script>
+    <jsp:include page="../common/header.jsp"/>
     <div id="container">
       <div class="eventCreate">
         <div class="container">
@@ -90,17 +21,19 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="eventCreateForm" action="#" method="post">
+              <form class="eventCreateForm" action="#" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
                 <div class="step1 select-location step">
-                  <h3 class="eventCreateTitle">1단계. 이벤트를 진행할 지역을 지정해 주세요.</h3>
-                  <img src="img/map-example.png" alt="지도" class="map-example">
+                  <h3 class="eventCreateTitle step-1-title">1단계. 이벤트를 진행할 지역을 지정해 주세요.</h3>
+                  <!-- 다음 지도창 -->
+                  <div id="map"></div>
+                  <br>
+                   <!-- 다음 지도창 끝-->
                   <div class="input-location-wrap">
-                    <img src="img/search-icon.png" alt="찾기" class="search-icon">
-                    <input type="text" name="memberLocation" placeholder="주소 검색">
+                  	<img src="${contextPath}/resources/img/search-icon.png" alt="찾기" class="search-icon" onclick="map_api()" >
+                    <input type="text" name="memberLocation" placeholder="주소 검색" id="memberLocation" onclick="map_api()" readonly>
                   </div>
-                  <input class="locationResult locationInput" type="text" name="locationResult" value="서울시 동대문구" readonly>
 
-                  <label for="eventLocation">참가자들이 장소를 더 찾기 쉽게 명칭을 적어주세요.(선택사항)</label>
+                  <label for="eventLocation" class="eventLocation-label">참가자들이 장소를 더 찾기 쉽게 명칭을 적어주세요.(선택사항)</label>
                   <input type="text" name="eventLocation" class="locationInput" id="eventLocation" placeholder="모이는 장소 입력">
                   
                   <button type="button" class="go-main green-radius-btn" onclick="history.back();">이전으로</button>
@@ -139,6 +72,9 @@
                 </div>
                 <div class="step3 input-info step">
                     <h3 class="eventCreateTitle">3단계. 이벤트의 상세 정보를 입력해주세요.</h3>
+                      <p class="sub-title">
+                      	상세 정보는 모두 필수 입력사항입니다.
+                 	  </p>
                     <div class="insert-event-info">
                       <label class="event-thumbnail-label">이벤트 썸네일 사진</label>
                       <input type="file" class="uploadInput" name="eventProfile" onchange="loadImg(this)">
@@ -161,7 +97,7 @@
 
                       
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
-                      <button type="button" class="go-step4 green-radius-btn mt-4">이벤트 생성</button>
+                      <button class="go-step4 green-radius-btn mt-4">이벤트 생성</button>
                     </div>
                   </div>
                   <div class="step4 signUp-complete step">
@@ -176,12 +112,35 @@
         </div>
       </div>
     </div>
+	
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
+    	  /* 이벤트 종료 시간이 이벤트 시작 시간보다 무조건 느리게 작성해야하는 스크립트 */
+    	  $("#endDate, #startDate").on({
+    		  change : function(){
+    			  if($("#endDate").val()!="" && $("#startDate").val()!=""){
+    				  var startDate = $("#startDate").val();
+    	   			  startDate = startDate.replace(/\-/g,'');
+    	   			  startDate = startDate.replace(/\T/g,'');
+    	   			  startDate = startDate.replace(/\:/g,'');
+    	   			  
+    	   			  var endDate = $("#endDate").val();
+    		   		  endDate = endDate.replace(/\-/g,'');
+    		   	      endDate = endDate.replace(/\T/g,'');
+    		   		  endDate = endDate.replace(/\:/g,'');
+    		   		  
+    		   		  if(startDate > endDate){
+    		   			alert("이벤트 종료 시간은 시작 시간보다 이후이어야 합니다!");
+    		   			$("#endDate").val("");
+    		   		  }
+    			  }
+    		  }
+    	  });
+    	  
+    	  
         $(".go-step1").on({
           click: function() {
-            if("")
             $(".progress-bar-percent").css({
               "width": "25%"
             });
@@ -191,28 +150,75 @@
         });
         $(".go-step2").on({
           click: function() {
-            $(".progress-bar-percent").css({
-              "width": "50%"
-            });
-            $(".step").stop().fadeOut(300);
-            $(".step2").delay(300).fadeIn(300);
+            if($("#memberLocation").val().trim()==""){
+            	alert("이벤트를 진행할 지역을 지정해주세요!");
+            	$("#memberLocation").focus();
+            	return false;
+            }else{
+	            $(".progress-bar-percent").css({
+	              "width": "50%"
+	            });
+	            $(".step").stop().fadeOut(300);
+	            $(".step2").delay(300).fadeIn(300);
+            }
           }
         });
         $(".go-step3").on({
+            click : function(){
+              if($(".category-wrap>input[name=memberInterest]:checked").length == 0){
+                alert("카테고리를 선택해주세요!");
+                return false;
+              }else{
+                $(".progress-bar-percent").css({"width" : "75%"});
+                $(".step").stop().fadeOut(300);
+                $(".step3").delay(300).fadeIn(300);
+              }
+            }
+          });
+        
+        
+      /*   $(".go-step4").on({
           click : function(){
-            $(".progress-bar-percent").css({"width" : "75%"});
-            $(".step").stop().fadeOut(300);
-            $(".step3").delay(300).fadeIn(300);
-          }
-        });
-        $(".go-step4").on({
-          click : function(){
+        	
             $(".progress-bar-percent").css({"width" : "100%"});
             $(".step").stop().fadeOut(300);
             $(".step4").delay(300).fadeIn(300);
           }
-        });
+        }); */
       });
+      
+      function validate(){
+    	  if($(".uploadInput").val()==""){
+    		  alert("이벤트 썸네일 사진을 등록해주세요!");
+    		  return false;
+    	  }else if($("#eventTitle").val().trim()==""){
+    		  alert("이벤트 제목을 작성해주세요!");
+    		  return false;
+    	  }else if($("#eventIntroduce").val().trim()==""){
+    		  alert("이벤트 내용을 작성해주세요!");
+    		  return false;
+    	  }else if($("#startDate").val()==""){
+    		  alert("이벤트 시작시간을 입력해주세요!");
+    		  return false;
+    	  }else if($("#endDate").val()==""){
+    		  alert("이벤트 종료시간을 입력해주세요!");
+    		  return false;
+    	  }else if($("#ticket").val().trim()==""){
+    		  alert("참가 티켓 수를 입력해주세요!");
+    		  return false;
+    	  }else if($("#boundary").val().trim()==""){
+    		  alert("이벤트 정원 수를 입력해주세요!");
+    		  return false;
+    	  }else{
+    		  var 
+    		  $.ajax({
+    			 "url" : "createEvent",
+    			 "type" : "post",
+    			 "data" : 
+    		  });
+    	  }
+    	  
+      }
       // 전화번호 자릿수 제한
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
@@ -238,52 +244,62 @@
           reader.readAsDataURL(value.files[0]);
       }
     </script>
-
-    <div id="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4 footer-logo-wrap">
-                <img class="footer-logo" src="img/logo2-white.png" alt="푸터로고">
-              </div>
-              <div class="col-md-8">
-                <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div id="button-top">
-      <button type="button" class="top-btn">TOP</button>
-    </div>
-
-
-    <script>
-      function scrollFunction() {
-        if ($(window).scrollTop() >= 200) {
-          $('#button-top').show(0);
-        } else {
-          $('#button-top').hide(0);
-        }
-      }
-      $(function() {
-        scrollFunction();
-        $(window).scroll(function() {
-          scrollFunction();
-        });
-        $('#button-top').on({
-          click: function() {
-            $('html,body').stop().animate({
-              scrollTop: 0
-            }, 600);
-          }
-        });
-      });
-    </script>
-
+    
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services"></script>
+	
+	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	        mapOption = {
+	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	            level: 5 // 지도의 확대 레벨
+	        };
+	
+	    //지도를 미리 생성
+	    var map = new daum.maps.Map(mapContainer, mapOption);
+	    //주소-좌표 변환 객체를 생성
+	    var geocoder = new daum.maps.services.Geocoder();
+	    //마커를 미리 생성
+	    var marker = new daum.maps.Marker({
+	        position: new daum.maps.LatLng(37.537187, 127.005476),
+	        map: map
+	    });
+	
+	
+	    function map_api() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                var addr = data.address; // 최종 주소 변수
+	
+	                // 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById("memberLocation").value = addr;
+	                // 주소로 상세 정보를 검색
+	                geocoder.addressSearch(data.address, function(results, status) {
+	                    // 정상적으로 검색이 완료됐으면
+	                    if (status === daum.maps.services.Status.OK) {
+	
+	                        var result = results[0]; //첫번째 결과의 값을 활용
+	
+	                        // 해당 주소에 대한 좌표를 받아서
+	                        var coords = new daum.maps.LatLng(result.y, result.x);
+	                        // 지도를 보여준다.
+	                        mapContainer.style.display = "block";
+	                        map.relayout();
+	                        // 지도 중심을 변경한다.
+	                        map.setCenter(coords);
+	                        // 마커를 결과값으로 받은 위치로 옮긴다.
+	                        marker.setPosition(coords)
+	                    }
+	                });
+	            }
+	        }).open();
+	    }
+	</script>
+	<!-- 다음 지도 API  스크립트 끝~~~ -->
+	
+	<jsp:include page="../common/footer.jsp"/>
+	
 </body>
 
 </html>
+
