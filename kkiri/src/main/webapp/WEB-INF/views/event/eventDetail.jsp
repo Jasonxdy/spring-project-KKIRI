@@ -17,6 +17,9 @@
 
 		<!-- Header -->
 		<jsp:include page="../common/header.jsp" />
+		
+		<!-- 현재시간 구하기 -->
+		<jsp:useBean id="currTime" class="java.util.Date" />
 
 		<!-- date format 변경 -->
 		<fmt:formatDate var="startDate" value="${event.eventStart}"
@@ -25,10 +28,7 @@
 			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 
 		<!-- 이벤트 상세 상단 정보 start -->
-		<jsp:include page="eventHeader.jsp">
-			<jsp:param value="${startDate}" name="startDate"/>
-			<jsp:param value="${endDate}" name="endDate"/>
-		</jsp:include>
+		<jsp:include page="eventHeader.jsp"/>
 		<!-- 이벤트 상세 상단 정보 end -->
 	</div>
 
@@ -56,7 +56,7 @@
 							${startDate} ~ ${fn:substring(endDate,20,25)}
 						</c:when>
 							<c:otherwise>
-							${startDate} ~ ${endDate}
+							${startDate} ~ <br> ${endDate}
 						</c:otherwise>
 						</c:choose>
 					</p>
@@ -125,6 +125,13 @@
 						/* 지도 도구 end */
 						
 						
+						if(${currTime < event.eventEnd}){
+							console.log("이벤트 발생 전");
+						} else {
+							console.log("이벤트 발생 후");
+						}
+						
+						
 						
 					</script>
 					<!-- 지도 부분 end -->
@@ -140,7 +147,7 @@
 
 					<h4>
 						참석자 (<span>${event.partyCount}</span>명) <span id="see-all">
-							<a href="#"> 모두 보기 </a>
+							<a href="selectParticipant?no=${event.eventNo}"> 모두 보기 </a>
 						</span>
 					</h4>
 				</div>
@@ -169,16 +176,6 @@
 	<jsp:include page="../common/footer.jsp" />
 
 
-	<script>
-		$(function() {
-			// 신고 토글 버튼
-			$("#navbardrop").click(function(e) {
-				e.preventDefault();
-				$(this).next(".declare-wrap").toggleClass("active");
-			});
-
-		});
-	</script>
 
 </body>
 </html>

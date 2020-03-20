@@ -86,34 +86,34 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <h2 class="section-title">이벤트 생성</h2>
+              <h2 class="section-title">이벤트 수정</h2>
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
               <form class="eventCreateForm" action="#" method="post">
                 <div class="step1 select-location step">
-                  <h3 class="eventCreateTitle">1단계. 이벤트를 진행할 지역을 지정해 주세요.</h3>
+                  <h3 class="eventCreateTitle">1단계. 이벤트를 진행할 지역을 수정해 주세요.</h3>
                   <img src="img/map-example.png" alt="지도" class="map-example">
                   <div class="input-location-wrap">
                     <img src="img/search-icon.png" alt="찾기" class="search-icon">
-                    <input type="text" name="memberLocation" placeholder="주소 검색">
+                    <input type="text" name="memberLocation" placeholder="주소 검색" value="서울시 동대문구">
                   </div>
                   <input class="locationResult locationInput" type="text" name="locationResult" value="서울시 동대문구" readonly>
 
                   <label for="eventLocation">참가자들이 장소를 더 찾기 쉽게 명칭을 적어주세요.(선택사항)</label>
-                  <input type="text" name="eventLocation" class="locationInput" id="eventLocation" placeholder="모이는 장소 입력">
+                  <input type="text" name="eventLocation" class="locationInput" id="eventLocation" placeholder="모이는 장소 입력" value="스타벅스 동대문점">
                   
                   <button type="button" class="go-main green-radius-btn" onclick="history.back();">이전으로</button>
                   <button type="button" class="go-step2 green-radius-btn">2단계로</button>
                 </div>
                 <div class="step2 select-category step">
-                  <h3 class="eventCreateTitle">2단계. 이벤트의 연관 카테고리를 선택해주세요.</h3>
+                  <h3 class="eventCreateTitle">2단계. 이벤트의 연관 카테고리를 수정해주세요.</h3>
                   <p class="sub-title">
-                    회원님께서 주최하실 이벤트의 연관 카테고리를 선택해주세요. 더 활발한 모임이 되는데에 도움이 될거에요.<br>
+                    회원님께서 주최하실 이벤트의 연관 카테고리를 수정해주세요. <br>
                     (카테고리는 한개만 선택 가능합니다.)
                   </p>
                   <div class="category-wrap">
-                    <input type="radio" name="memberInterest" value="travel" id="travel"><label for="travel">여행</label>
+                    <input type="radio" name="memberInterest" value="travel" id="travel" checked><label for="travel">여행</label>
                     <input type="radio" name="memberInterest" value="exercise" id="exercise"><label for="exercise">운동</label>
                     <input type="radio" name="memberInterest" value="book" id="book"><label for="book">독서</label>
                     <input type="radio" name="memberInterest" value="business" id="business"><label for="business">비즈니스</label>
@@ -138,35 +138,39 @@
                   <button type="button" class="go-step3 green-radius-btn">3단계로</button>
                 </div>
                 <div class="step3 input-info step">
-                    <h3 class="eventCreateTitle">3단계. 이벤트의 상세 정보를 입력해주세요.</h3>
+                    <h3 class="eventCreateTitle">
+                      3단계. 이벤트의 상세 정보를 수정해주세요.
+                    </h3>
+                    <p class="sub-title">
+                      (이벤트 시작 시간, 종료 시간은 수정 불가능합니다.)
+                    </p>
                     <div class="insert-event-info">
                       <label class="event-thumbnail-label">이벤트 썸네일 사진</label>
                       <input type="file" class="uploadInput" name="eventProfile" onchange="loadImg(this)">
                       <div class="uploadImgWrap">
-                        <img class="uploadImg">
+                        <img class="uploadImg" src="img/banner-alter-img.png">
                         <button type="button" class="uploadBtn">사진 업로드</button>
                       </div><br>
                       <label for="eventTitle">이벤트 제목</label>
-                      <input type="text" name="eventTitle" id="eventTitle"><br>
+                      <input type="text" name="eventTitle" id="eventTitle" value="크로스 핏 모여서 즐겨요"><br>
                       <label for="eventIntroduce" class="eventIntroduceTitle">이벤트 소개내용</label>
-                      <textarea name="eventIntroduce" id="eventIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요."></textarea><br>
+                      <textarea name="eventIntroduce" id="eventIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요.">크로스핏 모여서 즐겨요</textarea><br>
                       <label for="startDate">이벤트 시작 시간</label>
-                      <input type="datetime-local" name="startDate" id="startDate"><br>
+                      <input type="text" name="startDate" id="startDate" value="2020년 3월 9일 월요일 15:00" disabled><br>
                       <label for="endDate">이벤트 종료 시간</label>
-                      <input type="datetime-local" name="endDate" id="endDate"><br>
+                      <input type="text" name="endDate" id="endDate" value="2020년 3월 9일 월요일 18:00" disabled><br>
                       <label for="ticket">참가 티켓 수</label>
-                      <input type="number" name="eventTicket" id="ticket"><br>
+                      <input type="number" name="eventTicket" id="ticket" value="5"><br>
                       <label for="boundary">이벤트 정원</label>
-                      <input type="number" name="boundary" id="boundary" min="2"><br>
+                      <input type="number" name="boundary" id="boundary" min="2" value="50"><br>
 
                       
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
-                      <button type="button" class="go-step4 green-radius-btn mt-4">이벤트 생성</button>
+                      <button type="button" class="go-step4 green-radius-btn mt-4">이벤트 수정 완료</button>
                     </div>
                   </div>
                   <div class="step4 signUp-complete step">
-                    <h3 class="eventCreateTitle">이벤트 생성이 완료되었습니다!</h3>
-                    <p class="sub-title">이제 참가자들을 모아 이벤트를 함께 즐기세요.</p>
+                    <h3 class="eventCreateTitle">이벤트 수정이 완료되었습니다!</h3>
 
                     <button type="button" class="green-radius-btn mt-4">이벤트 상세 페이지로</button>
                   </div>
