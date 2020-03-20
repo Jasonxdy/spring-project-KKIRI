@@ -76,5 +76,19 @@ public class EventDAO {
 	}
 
 
+	/**
+	 * 참가회원 목록 추가 조회 DAO
+	 * @param count
+	 * @param eventNo
+	 * @param limit 
+	 * @return partyList
+	 */
+	public List<Member> selectAddPartyList(int count, int limit, int eventNo) {
+		int offset = count*limit + 4;
+		RowBounds rbound = new RowBounds(offset, limit);
+		return sqlSession.selectList("eventMapper.selectPartyList", eventNo, rbound);
+	}
+
+
 
 }

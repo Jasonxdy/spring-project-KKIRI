@@ -80,8 +80,72 @@
   font-size: 17px;
   min-width: 80px;
 }
+
+/* 환급 */
+.refund-wrap .notify-wrap{
+  margin-bottom: 50px;
+}
+.refund-wrap .notify-wrap .notify-title{
+  color: rgb(200, 35, 51);
+  font-size: 20px;
+  font-weight: bold;
+}
+.refund-wrap .notify-wrap .notify-content{
+  font-size: 17px;
+  line-height: 28px;
+}
+.refund-wrap .refund-con-wrap{
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 250px;
+}
+.refund-wrap .title{
+  font-size: 20px;
+  font-weight: bold;
+}
+.refund-wrap .refund-con-wrap > .con{
+  width: 80%;
+  display: block;
+  text-align: center;
+  background-color: #00a185;
+  line-height: 100px;
+  color: #ffffff;
+  border-radius: .25rem;
+  font-size: 30px;
+}
+.refund-wrap .refund-form{
+  vertical-align: middle;
+  height: 250px;
+  display: inline-block;
+  width: 45%;
+}
+.refund-wrap .refund-form .refund-status{
+  margin-top:10px;
+}
+.refund-wrap .refund-form:after{
+  content:"";
+  display: block;
+  clear:both;
+}
+.refund-wrap .refund-form .account-info{
+  font-size: 18px;
+}
+.refund-wrap .refund-form .refundTicket{
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+}
+.refund-wrap .refund-form .refund-submit-btn{
+  margin:0;
+  padding: 7px 15px;
+  float: right;
+}
 @media (max-width:767px){
   .recharge-wrap label{
     font-size:15px;
+  }
+  .refund-wrap .refund-con-wrap, .refund-wrap .refund-form{
+    width: 100%;
   }
 }

@@ -72,5 +72,18 @@ public class EventServiceImpl implements EventService {
 	public List<Member> selectInitPartyList(int eventNo) throws Exception {
 		return eventDAO.selectInitPartyList(eventNo);
 	}
+	
+	
+	
+	/**
+	 * 참가회원 목록 추가 조회 Service
+	 * @param count
+	 * @param eventNo
+	 * @return partyList
+	 */
+	@Override
+	public List<Member> selectAddPartyList(int count, int limit, int eventNo) {
+		return eventDAO.selectAddPartyList(count, limit, eventNo);
+	}
 
 }

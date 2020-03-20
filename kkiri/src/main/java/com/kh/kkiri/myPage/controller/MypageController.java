@@ -2,7 +2,6 @@ package com.kh.kkiri.myPage.controller;
 
 import java.io.File;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -131,10 +130,15 @@ public class MypageController {
 		return "myPage/update_profile";
 	}
 	@RequestMapping("updateMember")
-	public String updateMember (Member member, Model model, RedirectAttributes rdAttr, MultipartFile profile, HttpServletRequest request , String birthDay) {
+	public String updateMember (Member member,String [] interest ,  Model model, RedirectAttributes rdAttr, MultipartFile profile, HttpServletRequest request , String birthDay) {
 		System.out.println("updateController 입장");
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
+		String memberInterest = null;
+		for(int i =0 ; i<interest.length; i++) {
+			memberInterest+=interest[i];
+		}
+		member.setMemberCategory(memberInterest);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "upProfileImage";
@@ -149,12 +153,10 @@ public class MypageController {
 		
 		try {
 			String from = birthDay;
-			System.out.println(birthDay);
 			from = from.replace("년", "-");
 			from = from.replace("월", "-"); 
+			from = from.replace("일", ""); 
 			System.out.println(from);
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-
 			Date to = Date.valueOf(from);
 			
 			System.out.println(to);
@@ -164,7 +166,7 @@ public class MypageController {
 			if(result >0) {
 				// 업데이트 성공
 				msg="회원정보 수정에 성공했습니다.";
-				
+				rdAttr.addFlashAttribute("msg", msg);
 			}else if(result ==0) {
 				// 업데이트 실패
 				msg = "회원정보 수정에 실패했습니다.";
@@ -178,7 +180,7 @@ public class MypageController {
 			return "common/errorPage";
 		}
 		
-		return "redirect:/in";
+		return "redirect:/mypage/in";
 	}
 	
 }

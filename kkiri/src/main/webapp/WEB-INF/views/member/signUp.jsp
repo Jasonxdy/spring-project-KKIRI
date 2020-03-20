@@ -96,7 +96,7 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="signUpForm" action="createAccount" method="post">
+              <form class="signUpForm" action="createId" method="post">
                 <div class="step1 select-location step">
                   <h3 class="signUpTitle">1단계. 회원님의 관심 지역을 선택해주세요</h3>
                   <p class="sub-title">선택하신 관심 지역을 기반으로 이벤트를 추천해드리고, 다른 회원님과 연결해드립니다.</p>
@@ -134,26 +134,26 @@
                   <h3 class="signUpTitle">2단계. 회원님의 관심사를 선택해주세요</h3>
                   <p class="sub-title">선택하신 관심사를 기반으로 이벤트를 추천해드리고, 관심사가 비슷한 회원님들과 더욱 편하게 만날 수 있습니다.</p>
                   <div class="interest-wrap">
-                    <input type="checkbox" name="memberInterest" value="travel" id="travel"><label for="travel">여행</label>
-                    <input type="checkbox" name="memberInterest" value="exercise" id="exercise"><label for="exercise">운동</label>
-                    <input type="checkbox" name="memberInterest" value="book" id="book"><label for="book">독서</label>
-                    <input type="checkbox" name="memberInterest" value="business" id="business"><label for="business">비즈니스</label>
-                    <input type="checkbox" name="memberInterest" value="language" id="language"><label for="language">언어</label>
-                    <input type="checkbox" name="memberInterest" value="music" id="music"><label for="music">음악</label>
-                    <input type="checkbox" name="memberInterest" value="movie" id="movie"><label for="movie">영화/공연</label>
-                    <input type="checkbox" name="memberInterest" value="dance" id="dance"><label for="dance">댄스</label>
-                    <input type="checkbox" name="memberInterest" value="volunteer" id="volunteer"><label for="volunteer">봉사활동</label>
-                    <input type="checkbox" name="memberInterest" value="meeting" id="meeting"><label for="meeting">사교</label>
-                    <input type="checkbox" name="memberInterest" value="car" id="car"><label for="car">차/오토바이</label>
-                    <input type="checkbox" name="memberInterest" value="picture" id="picture"><label for="picture">사진/영상</label>
-                    <input type="checkbox" name="memberInterest" value="watchingSports" id="watchingSports"><label for="watchingSports">스포츠관람</label>
-                    <input type="checkbox" name="memberInterest" value="game" id="game"><label for="game">게임</label>
-                    <input type="checkbox" name="memberInterest" value="cook" id="cook"><label for="cook">요리</label>
-                    <input type="checkbox" name="memberInterest" value="pet" id="pet"><label for="pet">반려동물</label>
-                    <input type="checkbox" name="memberInterest" value="socialMovement" id="socialMovement"><label for="socialMovement">사회운동</label>
-                    <input type="checkbox" name="memberInterest" value="beauty" id="beauty"><label for="beauty">뷰티</label>
-                    <input type="checkbox" name="memberInterest" value="fashion" id="fashion"><label for="fashion">패션</label>
-                    <input type="checkbox" name="memberInterest" value="etc" id="etc"><label for="etc">기타</label>
+                    <input type="checkbox" name="memberInterest" value="여행" id="travel"><label for="travel">여행</label>
+                    <input type="checkbox" name="memberInterest" value="운동" id="exercise"><label for="exercise">운동</label>
+                    <input type="checkbox" name="memberInterest" value="독서" id="book"><label for="book">독서</label>
+                    <input type="checkbox" name="memberInterest" value="비즈니스" id="business"><label for="business">비즈니스</label>
+                    <input type="checkbox" name="memberInterest" value="언어" id="language"><label for="language">언어</label>
+                    <input type="checkbox" name="memberInterest" value="음악" id="music"><label for="music">음악</label>
+                    <input type="checkbox" name="memberInterest" value="영화/공연" id="movie"><label for="movie">영화/공연</label>
+                    <input type="checkbox" name="memberInterest" value="댄스" id="dance"><label for="dance">댄스</label>
+                    <input type="checkbox" name="memberInterest" value="봉사활동" id="volunteer"><label for="volunteer">봉사활동</label>
+                    <input type="checkbox" name="memberInterest" value="사교" id="meeting"><label for="meeting">사교</label>
+                    <input type="checkbox" name="memberInterest" value="차/오토바이" id="car"><label for="car">차/오토바이</label>
+                    <input type="checkbox" name="memberInterest" value="사진/영상" id="picture"><label for="picture">사진/영상</label>
+                    <input type="checkbox" name="memberInterest" value="스포츠관람" id="watchingSports"><label for="watchingSports">스포츠관람</label>
+                    <input type="checkbox" name="memberInterest" value="게임" id="game"><label for="game">게임</label>
+                    <input type="checkbox" name="memberInterest" value="요리" id="cook"><label for="cook">요리</label>
+                    <input type="checkbox" name="memberInterest" value="반려동물" id="pet"><label for="pet">반려동물</label>
+                    <input type="checkbox" name="memberInterest" value="사회운동" id="socialMovement"><label for="socialMovement">사회운동</label>
+                    <input type="checkbox" name="memberInterest" value="뷰티" id="beauty"><label for="beauty">뷰티</label>
+                    <input type="checkbox" name="memberInterest" value="패션" id="fashion"><label for="fashion">패션</label>
+                    <input type="checkbox" name="memberInterest" value="기타" id="etc"><label for="etc">기타</label>
                   </div>
                   <button type="button" class="go-step1 green-radius-btn">1단계로</button>
                   <button type="button" class="go-step3 green-radius-btn">3단계로</button>
@@ -185,28 +185,29 @@
                       <label for="memberBirth"><strong class='require'>필수</strong>&nbsp;생년월일</label>
                       <input type="date" name="memberBirth" id="memberBirth"><br>
                       <p><strong class='require'>필수</strong>&nbsp;성별</p>
-                      <label for="male" class="gender-label"><input type="radio" name="memberGender" value="male" id="male">남자</label>
-                      <label for="female" class="gender-label"><input type="radio" name="memberGender" value="female" id="female">여자</label><br>
+                      <label for="male" class="gender-label"><input type="radio" name="memberGender" value="M" id="male">남자</label>
+                      <label for="female" class="gender-label"><input type="radio" name="memberGender" value="F" id="female">여자</label><br>
                       <p>본인 계좌번호</p>
                       <select name="memberBankName">
                         <option value="none">은행선택</option>
-                        <option value="sinhan">신한은행</option>
-                        <option value="kookmin">국민은행</option>
-                        <option value="woori">우리은행</option>
-                        <option value="hana">하나은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="하나은행">하나은행</option>
                       </select>
-                      <input type="number" class="memberBankNumber" name="memberBankNumber" placeholder="계좌번호입력('-' 없이 입력해주세요.)"><br>
+                      <input type="text" class="memberBankNumber" name="memberBankNumber" placeholder="계좌번호입력('-' 없이 입력해주세요.)"><br>
+                      <input type="text" class="memberAccountName" name="memberAccountName" placeholder="예금주명"><br>
                       <label for="memberIntroduce" class="memberIntroduceTitle">자기소개</label>
                       <textarea name="memberIntroduce" id="memberIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요."></textarea><br>
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
-                      <button type="button" class="go-step4 green-radius-btn mt-4">회원가입</button>
+                      <button class="go-step4 green-radius-btn mt-4">회원가입</button>
                     </div>
                   </div>
                   <div class="step4 signUp-complete step">
                     <h3 class="signUpTitle">회원가입 성공!</h3>
                     <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
 
-                    <button type="button" class="green-radius-btn mt-4" onclick="location.href='index.html'">메인으로</button>
+                    <button type="button" class="green-radius-btn mt-4" onclick="${contextPath}">메인으로</button>
                   </div>
               </form>
             </div>

@@ -78,16 +78,17 @@ public class MypageServiceimpl implements MypageService{
 		if(result>0) {
 			// 파일 넣기
 			profile.transferTo(new File(savepath+"/"+changeFileName));
-			if(profile.getOriginalFilename().equals("default.png")) {
+			if(!profile.getOriginalFilename().equals("default.png")||!profile.getOriginalFilename().equals("profile-ex.png")) {
 				// 중복 파일 제거
+				
+				// 기존 파일 이름과 변경 파일 이름이 다를 경우 
+				if(loginMember.getMemberProfile().equals(changeFileName)) {
+					
 				File deleteFile = new File(savepath+"/"+profile.getOriginalFilename());
 				deleteFile.delete();
-				
+				}
 			}
 		}
-		
-			
-		
 		return result;
 	}
 	
