@@ -124,6 +124,14 @@ html body .green-radius-btn{
   font-size: 1.1rem;
   margin: 0 10px;
 }
+html body .blue-radius-btn{
+  background: #227fbb;
+  color: #ffffff;
+  border-radius: 0.25rem;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  margin: 0 10px;
+}
 
 /* 필수('*') 표시 */
 .require	{
