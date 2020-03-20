@@ -118,9 +118,10 @@
 	MEMBER_PHONE = #{memberPhone},
 	MEMBER_BIRTH = #{memberBirth},
 	MEMBER_INTRODUCE = #{memberIntroduce},
-	MEMBER_PLACE = #{#memberPlace},
+	MEMBER_PLACE = #{memberPlace},
 	MEMBER_CATEGORY = #{memberCategory}
 	WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
 	
 </mapper>
