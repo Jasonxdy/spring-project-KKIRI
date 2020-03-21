@@ -132,7 +132,9 @@
                     <h5 class="profile-name col-4">프로필 사진 : </h5>
                     <div class="col-8">
                       <img class="profile-img" src="../resources/upProfileImage/${loginMember.memberProfile}" alt="프로필 사진">
-                      <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)">
+                      <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)" 
+                      value="../resources/upProfileImage/${loginMember.memberProfile}"
+                      >
                       <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
                     </div>
                   </div>

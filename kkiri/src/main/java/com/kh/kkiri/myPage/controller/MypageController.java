@@ -140,7 +140,7 @@ public class MypageController {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		String memberInterest = "";
-		for(int i =1 ; i<interest.length; i++) {
+		for(int i =0 ; i<interest.length; i++) {
 			memberInterest+=interest[i];
 			if(i!=interest.length-1) {
 				
@@ -171,16 +171,25 @@ public class MypageController {
 			
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 			
-			loginMember = memberService.loginMember(loginMember);
+			
+			System.out.println(member);
 			if(result >0) {
 				// 업데이트 성공
 				msg="회원정보 수정에 성공했습니다.";
 				rdAttr.addFlashAttribute("msg", msg);
+				member.setMemberId(loginMember.getMemberId());
+				if(member.getMemberProfile()==null) {
+					member.setMemberProfile(loginMember.getMemberProfile());
+				}
+				loginMember = member;
+				model.addAttribute("loginMember", loginMember);
+				
+				
 			}else if(result ==0) {
 				// 업데이트 실패
 				msg = "회원정보 수정에 실패했습니다.";
 				rdAttr.addFlashAttribute("msg", msg);
-			
+			member.setMemberId(loginMember.getMemberId());
 			}
 			
 		}catch (Exception e) {

@@ -79,7 +79,7 @@ public class MypageServiceimpl implements MypageService{
 		}else changeFileName = loginMember.getMemberProfile();
 		
 		member.setMemberIntroduce(member.getMemberIntroduce().replace("\r\n", "<br>"));
-		
+		System.out.println(member);
 		result = memberDAO.updateMember(member);
 		
 		
