@@ -482,6 +482,7 @@
 		    				if(num < limit){
 		    					console.log("select 함수 끝날 때 num 값 : " + num + " limitTemp값 : " + limitTemp);
 		    					flag = 1;
+		    					limitTemp = limit - num;
 		    					moreSlist();
 		    				}
 		    			}
@@ -507,7 +508,7 @@
 		    			var content = "";
 		    			var startDate ="";
 		    			currentPage += 1;
-		    			numTemp = num;
+		    			//numTemp = num;
 		    			
 		    			if(sList == ""){
 		    				$("#addBtn").remove();
@@ -524,6 +525,7 @@
 		    					
 		    					if(dist<radius){
 		    						num += 1;
+		    						numTemp = num;
 			    					
 			    					startDate = sList[i].eventStart.substring(0,4) +
 			    								 "년 " + 
@@ -701,6 +703,8 @@
 		    				});
 		    				
 		    				//numTemp = numTemp2;
+		    				
+		    				//numTemp = num;
 		    				
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
