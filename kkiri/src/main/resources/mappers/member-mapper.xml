@@ -141,5 +141,25 @@
 	WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	<!-- google 계정 가입 여부 체크  -->
+	<select id="checkGoogleId" parameterType="string" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_EMAIL, 
+			   MEMBER_GENDER, MEMBER_PHONE, MEMBER_BIRTH, MEMBER_INTRODUCE, MEMBER_PLACE,
+			   MEMBER_CATEGORY, MEMBER_PROFILE, MEMBER_SIGNUP_DATE, MEMBER_GRADE,
+			   MEMBER_TICKET, MEMBER_ACCOUNT, MEMBER_ID_SORT, MEMBER_STATUS
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<insert id="googleSignUp" parameterType="Member">
+		INSERT INTO MEMBER
+			VALUES(MEM_SEQ.NEXTVAL, #{memberId}, #{memberNickname} || NICK_SEQ.NEXTVAL, #{memberPwd}, 
+				#{memberEmail}, #{memberGender}, #{memberPhone}, SYSDATE,
+				DEFAULT, #{memberPlace}, #{memberCategory},
+				DEFAULT, SYSDATE, DEFAULT,
+				DEFAULT, DEFAULT, 'G', DEFAULT)
+	</insert>
+	
 	
 </mapper>

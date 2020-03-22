@@ -23,7 +23,10 @@
 
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	<h1>구글 로그인</h1>
+	<a href="${google_url}"><button id="btnJoinGoogle" class="btn btn-primary btn-round"
+                                style="width: 100%">
+                                <i class="fa fa-google" aria-hidden="true"></i>Google Login
+                            </button></a> 
 	<jsp:include page="../common/footer.jsp" />   
 
 </body>
