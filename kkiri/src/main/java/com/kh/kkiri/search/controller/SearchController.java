@@ -101,9 +101,6 @@ public class SearchController {
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
 		
-		System.out.println("limitTemp : " + limit);
-		System.out.println("currentPage:" + currentPage);
-		
 		System.out.println(sList);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
