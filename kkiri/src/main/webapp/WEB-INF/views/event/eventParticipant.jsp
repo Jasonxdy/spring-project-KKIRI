@@ -22,6 +22,8 @@
 			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 		<fmt:formatDate var="endDate" value="${event.eventEnd}"
 			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+		<!-- 현재시간 구하기 -->
+		<jsp:useBean id="currTime" class="java.util.Date" />
 
 		<!-- 이벤트 상세 상단 정보 start -->
 		<jsp:include page="eventHeader.jsp">
@@ -43,8 +45,14 @@
 			<!-- 하단 좌측 div start -->
 			<div class="col-md-7 event-detail">
 				<h3 class="mb-5">
-					현재 <span class="participant-count">${event.partyCount}</span>명의 회원이
-					참가 중입니다.
+					<c:if test="${currTime >= event.eventEnd}">
+						<span class="participant-count">${event.partyCount}</span>명의 회원이
+						참가했던 이벤트입니다.
+					</c:if>
+					<c:if test="${currTime < event.eventEnd}">
+						<span class="participant-count">현재 ${event.partyCount}</span>명의 회원이
+						참가 중입니다.
+					</c:if>
 				</h3>
 
 				<fmt:formatDate var="memberSignupDate"
@@ -71,7 +79,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${fn:length(partyList) != 0}">
+				<c:if test="${event.partyCount > 5}">
 					<div class='row' id='addPartyList'><div class='col-md-12 text-center mt-3'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList()'>더보기</button></div></div></div>
 				</c:if>
 			</div>
