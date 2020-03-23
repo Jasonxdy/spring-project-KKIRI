@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service
@@ -84,6 +85,18 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Member> selectAddPartyList(int count, int limit, int eventNo) {
 		return eventDAO.selectAddPartyList(count, limit, eventNo);
+	}
+	
+	
+	/**
+	 * 로그인된 회원이 참석한 이벤트 목록 조회
+	 * @param memberNo
+	 * @return myEventList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Party> selectMyEventList(int memberNo) throws Exception {
+		return eventDAO.selectMyEventList(memberNo);
 	}
 
 }

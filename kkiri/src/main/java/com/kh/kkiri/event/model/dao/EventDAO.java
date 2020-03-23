@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Repository
@@ -87,6 +88,11 @@ public class EventDAO {
 		int offset = count*limit + 4;
 		RowBounds rbound = new RowBounds(offset, limit);
 		return sqlSession.selectList("eventMapper.selectPartyList", eventNo, rbound);
+	}
+
+
+	public List<Party> selectMyEventList(int memberNo) throws Exception{
+		return sqlSession.selectList("eventMapper.selectMyEventList", memberNo);
 	}
 
 
