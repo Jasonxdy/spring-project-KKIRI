@@ -6,7 +6,7 @@
 
 <head>
   <meta charset="UTF-8">
-
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/signUp.css">
   <title>KKIRI(끼리)</title>
 </head>
 
@@ -38,43 +38,6 @@
       </div>
     </div> -->
     
-    <!-- 로그인 팝업 start-->
-    <div id="login-popup" class="popup">
-      <p class="popup-title">
-        로그인
-        <img src="img/close-btn.png" alt="닫기버튼" class="close-popup">
-      </p>
-      <div class="popup-content">
-        <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
-        <form class="login-form-wrap custom-checkbox" action="#" method="post">
-          <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
-          <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
-
-          <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
-          <label class="custom-control-label" for="rememberId">아이디 저장</label>
-          <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
-
-          <button class="popup-confirm-btn login-conform-btn">로그인</button>
-          <button class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-          <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
-        </form>
-      </div>
-    </div>
-    <div class="popup-shadow"></div>
-    <!-- 로그인 팝업 end-->
-	
-    <script>
-      // 로그인 팝업 이벤트
-      $(".login-btn").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").show(0);
-        }
-      });
-      $(".close-popup, .popup-shadow").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").hide(0);
-        }
-      });
     </script>
     <div id="container">
       <div class="signUp">
