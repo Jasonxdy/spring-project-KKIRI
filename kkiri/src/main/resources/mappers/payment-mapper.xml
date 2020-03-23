@@ -28,8 +28,7 @@
 	
 	SELECT * FROM PAYMENT
 	WHERE MEMBER_NO = #{memberNo}
-	
-	
+	ORDER BY PAYMENT_DATE
 	</select>
 	
 	

@@ -212,20 +212,15 @@ public class MypageController {
 	}
 	@RequestMapping("ticketLog")
 	public String ticketLog(Model model) {
-		
 		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
 		try {
-			
 		List<Payment> ticketList = mypageService.ticketLog(memberNo);
+		model.addAttribute("ticketList", ticketList);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "회원정보 수정 과정에서 오류가 발생했습니다.");
 			return "common/errorPage";
 		}
-		
-		
-		
-		
 		return "myPage/ticket_history";
 	}
 	
