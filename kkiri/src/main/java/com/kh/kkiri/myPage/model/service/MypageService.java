@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.myPage.model.vo.Ticket;
 import com.kh.kkiri.payment.model.vo.Payment;
 
 public interface MypageService {
@@ -45,7 +46,7 @@ public interface MypageService {
 	 * @return ticketList
 	 * @throws Exception
 	 */
-	List<Payment> ticketLog(int memberNo)throws Exception;
+	List<Ticket> ticketLog(int memberNo)throws Exception;
 
 	
 }

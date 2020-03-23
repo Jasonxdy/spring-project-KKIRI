@@ -9,7 +9,15 @@
 		<result property="paymentTicket" column="PAYMENT_TICKET"/>
 		<result property="paymentDate" column="PAYMENT_DATE"/>
 	</resultMap>
+	<resultMap type="Ticket" id="ticketResultSet">
+		<id property="paymentNo" column="PAYMENT_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="eventName" column="EVENT_TITLE"/>
+		<result property="paymentType" column="PAYMENT_TYPE"/>
+		<result property="paymentTicket" column="PAYMENT_TICKET"/>
+		<result property="paymentDate" column="PAYMENT_DATE"/>
 	
+	</resultMap>
 	<insert id="insertPayment" parameterType="map">
 		INSERT INTO PAYMENT
 		VALUES(PAY_SEQ.NEXTVAL, #{memberNo}, 
@@ -24,10 +32,11 @@
 		
 	</insert>
 	
-	<select id="ticketLog" parameterType="_int" resultMap="paymentResultSet">
+	<select id="ticketLog" parameterType="_int" resultMap="ticketResultSet">
 	
-	SELECT * FROM PAYMENT
-	WHERE MEMBER_NO = #{memberNo}
+	SELECT PAYMENT_NO,MEMBER_NO, EVENT_TITLE,PAYMENT_TYPE,PAYMENT_TICKET, PAYMENT_DATE FROM PAYMENT
+	JOIN EVENT USING (EVENT_NO)
+    WHERE MEMBER_NO = #{memberNo}
 	ORDER BY PAYMENT_DATE
 	</select>
 	

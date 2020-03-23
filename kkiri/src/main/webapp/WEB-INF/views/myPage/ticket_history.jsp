@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -41,7 +43,7 @@
 
             <div class="ticket-wrap my-profile-section">
               <h4>티켓 사용 내역</h4>
-              <p class="have-ticket">보유한 티켓 수 : <span>5장</span></p>
+              <p class="have-ticket">보유한 티켓 수 : <span>${loginMember.memberTicket }</span></p>
 
               <select name="ticket-sort" id="ticket-sort">
                 <option value="all">전체</option>
@@ -51,7 +53,7 @@
                 <option value="R">환급</option>
                 <option value="B">환불</option>
               </select>
-
+		
               <table class="ticket-table table table-hover table-striped">
                 <thead>
                   <tr>
@@ -63,86 +65,61 @@
                   </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="tl" items="${ticketList}">
                   <tr>
-                    <td class="ticket-sort">사용</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-1</td>
-                    <td class="ticket-name">크로스핏 모임</td>
-                    <td class="ticket-money"></td>
+                    <td class="ticket-sort">
+                    <c:if test="${tl.paymentType =='U'}">
+                    					사용
+                    </c:if>
+                    <c:if test="${tl.paymentType =='P'}">
+                                       	수익
+                    </c:if>
+                    <c:if test="${tl.paymentType =='C'}">
+                         			   	   충전       
+                    </c:if>
+                    <c:if test="${tl.paymentType =='R'}">
+        								환급           
+        	 		</c:if>
+                    <c:if test="${tl.paymentType =='B'}">
+      									환불            
+      				</c:if>
+                    
+                    </td>
+                    <td class="ticket-date">
+                    ${tl.paymentDate}
+                    </td>
+                    <td class="ticket-amount">
+                    ${tl.paymentTicket }
+                    </td>
+                    <td class="ticket-name">
+                    ${tl.eventName }
+                    </td>
+                    <td class="ticket-money">
+                    <c:if test="${tl.paymentType =='C'}">
+                         			   	  ${tl.paymentTicket*-900 }원
+                    </c:if>
+                    <c:if test="${tl.paymentType =='R'}">
+        								 ${tl.paymentTicket*-900 }원       
+        	 		</c:if>
+                    <c:if test="${tl.paymentType =='B'}">
+      									 ${tl.paymentTicket*-900 }원
+      				</c:if>
+                    </td>
                   </tr>
-                  <tr>
-                    <td class="ticket-sort">충전</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">+5</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">5,000원</td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">환급</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-10</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">9,000원</td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">수익</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">+10</td>
-                    <td class="ticket-name">개발자 모임</td>
-                    <td class="ticket-money"></td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">환불</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-10</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">10,000원</td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">사용</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-1</td>
-                    <td class="ticket-name">크로스핏 모임</td>
-                    <td class="ticket-money"></td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">충전</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">+5</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">5,000원</td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">환급</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-10</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">9,000원</td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">수익</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">+10</td>
-                    <td class="ticket-name">개발자 모임</td>
-                    <td class="ticket-money"></td>
-                  </tr>
-                  <tr>
-                    <td class="ticket-sort">환불</td>
-                    <td class="ticket-date">2019-02-19</td>
-                    <td class="ticket-amount">-10</td>
-                    <td class="ticket-name"></td>
-                    <td class="ticket-money">10,000원</td>
-                  </tr>
-                </tbody>
+		
+				</c:forEach>
+				</tbody>
+                 
+                
               </table>
 
               <script>
                 $(function(){
                   // 종류별로 색깔구분하기
                   $(".ticket-amount").each(function(index){
-                    if($(".ticket-amount").eq(index).text().substring(0,1)=="-"){
+                    if($(".ticket-amount").eq(index).text()<0){
                       $(this).css({"color":"#c82333"});
-                    }else if($(".ticket-amount").eq(index).text().substring(0,1)=="+"){
+                    }else if($(".ticket-amount").eq(index).text()>0){
                       $(this).css({"color":"#0069d9"});
                     }
                   });
@@ -207,7 +184,7 @@
     </div>  
   
 	<jsp:include page="../common/footer.jsp"/>
-
+	</div>
 </body>
 
 </html>

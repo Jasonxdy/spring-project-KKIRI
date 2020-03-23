@@ -1,6 +1,5 @@
 package com.kh.kkiri.myPage.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.kkiri.member.model.vo.Member;
-import com.kh.kkiri.payment.model.vo.Payment;
+import com.kh.kkiri.myPage.model.vo.Ticket;
 
 @Repository
 public class MypageDAO {
@@ -31,7 +30,7 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.deleteMember", loginMember);
 	}
 
-	public List<Payment> ticketLog(int memberNo)throws Exception {
+	public List<Ticket> ticketLog(int memberNo)throws Exception {
 		
 		return sqlSession.selectList("paymentMapper.ticketLog", memberNo);
 	}

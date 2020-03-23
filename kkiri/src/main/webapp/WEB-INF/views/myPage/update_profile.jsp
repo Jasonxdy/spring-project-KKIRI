@@ -25,7 +25,7 @@
           <div class="col-2 nav-wrap">
             <a class="btn active" href="../mypage/in">프로필</a>
             <a class="btn" href="#">이벤트</a>
-            <a class="btn" href="#">티켓</a>
+            <a class="btn" href="../mypage/ticketLog">티켓</a>
             <a class="btn" href="../member/logout">로그아웃</a>
           </div>
           
@@ -289,12 +289,9 @@
    				  if($(".memberEmail").val()!=""){
    					if($(".interest-wrap>input").val()!=""){
    						   console.log("123");
-   					 if($(".memberIntroduce").val()!=""){
-   						   console.log("456");
    					   if($(".profile-img").src()!=""){
    						   flag = true;
    					   }
-   					 }
    					}
    				  }
    				}

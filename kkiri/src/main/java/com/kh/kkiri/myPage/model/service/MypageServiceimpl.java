@@ -12,6 +12,7 @@ import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
+import com.kh.kkiri.myPage.model.vo.Ticket;
 import com.kh.kkiri.payment.model.vo.Payment;
 
 @Service
@@ -100,9 +101,9 @@ public class MypageServiceimpl implements MypageService{
 	}
 
 	@Override
-	public List<Payment> ticketLog(int memberNo) throws Exception {
+	public List<Ticket> ticketLog(int memberNo) throws Exception {
 
-		List<Payment> ticketLog = mypageDAO.ticketLog(memberNo);
+		List<Ticket> ticketLog = mypageDAO.ticketLog(memberNo);
 		
 		return ticketLog;
 	}
