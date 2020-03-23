@@ -25,6 +25,69 @@
     .oinfo .olink {color: #5085BB;}
     .ocontent {width: 100%;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
     #searchListArea h2{width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+    
+    /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00a185;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 </style>
 </head>
 <body>
@@ -136,10 +199,19 @@
 									<div class="dropdown mr-1" style="display: inline-block;">
 										<div>
 											<span class="h4 event-section-title">지역</span> 
-											<a
-												class="h4 event-section-title"
-												style="color: white; text-decoration: underline;"
-												data-toggle="dropdown" href="#" id="place">KH정보교육원</a>
+											<a class="h4 event-section-title" style="color: white; text-decoration: underline;" data-toggle="dropdown" href="#" id="place">
+											
+											<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
+												<c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
+												${mPlace[0]} ${mPlace[1]}
+												</a>
+											</c:if>
+											
+											<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
+												KH정보교육원
+												</a>
+											</c:if>
+											
 
 											<div class="dropdown-menu find-city-wrap">
 												<!-- <label for="city">도시: </label> -->
@@ -165,7 +237,10 @@
 						<div class="col-md-12">
 							<div class="float-right">
 								<label>종료 이벤트</label>
-								<input type="checkbox" id="checkEventStatus">
+								<label class="switch">
+									<input type="checkbox" id="checkEventStatus">
+									<span class="slider round"></span>
+								</label>
 							</div>
 						</div>
 				</div>
@@ -176,16 +251,36 @@
 			<!-- 이벤트 목록 -->
 			<div class="container my-5" id="searchListArea">
 			</div>
+			<div class="container text-center" id="loading">
+				<img src="${contextPath}/resources/img/loading.gif">
+			</div>
 		</div>
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 
 		<script>
+			console.log("bbb");
+			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
+				geocoder.addressSearch($("#place").text(), function(result, status) {
+					console.log("aaa");
+				
+			    if (status === kakao.maps.services.Status.OK) {
+			        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        console.log(coords);
+			        //map.setCenter(coords);
+			    	} 
+				});
+			</c:if>
+			<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
+				coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
+			</c:if>
+		
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
+		        //center: coords,
 		        level: 3 // 지도의 확대 레벨
 		    };  
-	
+			
 			// 지도를 생성합니다    
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
 			// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
@@ -200,7 +295,7 @@
 			var geocoder = new kakao.maps.services.Geocoder();
 			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 			var markers = [];
-			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
+			var coords;
 			
 			 $(function() {
 		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
@@ -212,7 +307,7 @@
 		               		// 주소로 좌표를 검색합니다
 							geocoder.addressSearch(ui.item.value, function(result, status) {
 								
-						     if (status === kakao.maps.services.Status.OK) {
+						    if (status === kakao.maps.services.Status.OK) {
 						        //var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 						        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 						        map.setCenter(coords);
@@ -267,9 +362,12 @@
 		    var checkEventStatus = 0;
 		    
 		    function searchSlist(){
+		    	$("#loading").show();
+    			$("#searchListArea").hide();
+		    	
 		    	searchKey = $("#searchKey").val();
 		    	searchValue =  $("#searchValue").val();
-		    	//checkEventStatus = $("#searchValue").val();
+		    	
 		    	num = 0;
 		    	overlayNum = 0;
 		    	limitTemp = 5;
@@ -293,6 +391,7 @@
 		    				"checkEventStatus" : checkEventStatus},
 		    		dataType : "json",
 		    		success : function(sList){
+		    			
 		    			var content = "";
 		    			var startDate = "";
 		    			
@@ -309,6 +408,8 @@
 		    				$("#searchListArea").empty();
 		    				content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>";
 		    				$(content).appendTo("#searchListArea");	
+		    				$("#loading").hide();
+			    			$("#searchListArea").show();
 		    			} else{
 		    				$("#searchListArea").empty();
 		    				$.each(sList, function(i){
@@ -534,6 +635,9 @@
 		    				if(num < limit){
 		    					limitTemp = limit - num;
 		    					moreSlist();
+		    				} else{
+			    				$("#loading").hide();
+				    			$("#searchListArea").show();
 		    				}
 		    			}
 		    		} ,
@@ -544,6 +648,8 @@
 		    };
 		    
 		    function moreSlist(){
+		    	$("#loading").show();
+    			$("#searchListArea").hide();
 		    	$.ajax({
 		    		url : "searchEvents",
 		    		type : "POST",
@@ -560,6 +666,8 @@
 		    			
 		    			if(sList == ""){
 		    				$("#addBtn").remove();
+		    				$("#searchListArea").show();
+		    		    	$("#loading").hide();
 		    			} else{
 		    				$("#addBtn").remove();
 		    				$.each(sList, function(i){
@@ -778,6 +886,8 @@
 		    				if(num >= (webPage*limit)){
 		    					limitTemp = limit;
 		    					webPage += 1;
+		    					$("#searchListArea").show();
+			    		    	$("#loading").hide();
 		    				} else{
 		    					limitTemp = (limit*webPage) - numTemp;
 		    					moreSlist();
@@ -791,7 +901,7 @@
 		    };
 		    
 		    $(function(){ 
-		    	searchSlist();
+				searchSlist();
 		    });
 		</script>
 </body>

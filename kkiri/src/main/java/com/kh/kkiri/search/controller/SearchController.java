@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,14 +14,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.kkiri.common.Pagination;
-import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.search.model.service.SearchService;
 import com.kh.kkiri.search.model.vo.Search;
 
 @Controller
 @RequestMapping("/search/*")
-@SessionAttributes({"msg"})
+@SessionAttributes({"msg", "loginMember"})
 public class SearchController {
 	
 	@Autowired
@@ -96,15 +93,12 @@ public class SearchController {
 			}
 		}
 		
-		System.out.println(map);
-		
 		if(currentPage == null) currentPage = 1;
 		//int listCount = searchService.getSearchCount(map);
 		
 		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit, checkEventStatus);
-		System.out.println(sList);
 		
 		/*
 		System.out.println("크기 : " + sList.size());
