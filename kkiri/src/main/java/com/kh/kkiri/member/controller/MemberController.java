@@ -24,6 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
@@ -170,16 +171,17 @@ public class MemberController {
 	}
 	
 	// 회원 가입 페이지
-    @RequestMapping(value = "googleSignUp", method = { RequestMethod.GET, RequestMethod.POST })
-    public String join(HttpServletResponse response, Model model) {
- 
-        //URL을 생성한다.
-        String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-        System.out.println("/googleLogin, url : " + url);
-        model.addAttribute("google_url", url);
- 
-        return "member/googleLogin";
-    }
+//    @RequestMapping(value = "googleUrl", method = { RequestMethod.GET, RequestMethod.POST })
+//    public String googleLogin(HttpServletResponse response, Model model) {
+// 
+//        //URL을 생성한다.
+//        String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+//        model.addAttribute("google_url", url);
+//        System.out.println("/googleLogin, url : " + url);
+//        model.addAttribute("googleUrl", "true");
+//        
+//        return "redirect:/";
+//    }
 	
     @RequestMapping(value = "/googleLogin")
     public String doSessionAssignActionPage(HttpServletRequest request, Model model) throws Exception {
