@@ -80,7 +80,7 @@
 						</select>&nbsp; - &nbsp;
                       <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
                       <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" maxlength="4" oninput="maxLengthCheck(this)">
-                      <input type="text" class="update-input memberPhone"  id="memberPhone" name="memberPhone" value="${loginMember.memberPhone }" style="display: hidden;">
+                      <input type="text" class="update-input memberPhone"  id="memberPhone" name="memberPhone" value="${loginMember.memberPhone}" style="display: none;">
                   </div>
                   </div>
                   
@@ -97,7 +97,7 @@
                   <div class="row my-profile-section-element">
                   <h5 class = "col-4"> </h5>
                     <input class="col-3" id="memberPlaceChange" type="text" name="memberPlace" value="${loginMember.memberPlace }">
-                    <div class="my-profile-btn col-4 btn" id="memberPlaceChangebtn" style="float:right">검색</div>
+                    <div class="col-4 btn my-profile-btn2 " id="memberPlaceChangebtn" >검색</div>
                   </div>
                   
 
@@ -221,9 +221,7 @@
     var flag = false;
 	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
 	var phone = ${loginMember.memberPhone};
-	console.log(phone1);
       function validate(){
-    	  console.log("입장");
     	  if($("#nickName").val()!=""){
     		if($(".memberGender").val()!=""){
    			  if($(".memberBirth").val()!=""){
@@ -253,7 +251,6 @@
     	  if(!flag){
     		  alert("페이지를 전부 입력해주시기 바랍니다.")
     	  }
-    	  console.log(flag);
       return flag;
       
       }

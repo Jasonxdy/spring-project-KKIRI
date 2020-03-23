@@ -126,8 +126,10 @@
           }
         });
         
+        
+        
         $("#googleLogin").on("click", function(){
-        	location.href = "member/googleSignUp";
+        	location.href = "${google_url}";
         })
       </script>
     
