@@ -6,18 +6,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js" crossorigin="anonymous"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/signUp.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/header.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/footer.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/signUp.css">
   <title>KKIRI(끼리)</title>
 </head>
 
@@ -49,43 +38,6 @@
       </div>
     </div> -->
     
-    <!-- 로그인 팝업 start-->
-    <div id="login-popup" class="popup">
-      <p class="popup-title">
-        로그인
-        <img src="img/close-btn.png" alt="닫기버튼" class="close-popup">
-      </p>
-      <div class="popup-content">
-        <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
-        <form class="login-form-wrap custom-checkbox" action="#" method="post">
-          <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
-          <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
-
-          <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
-          <label class="custom-control-label" for="rememberId">아이디 저장</label>
-          <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
-
-          <button class="popup-confirm-btn login-conform-btn">로그인</button>
-          <button class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-          <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
-        </form>
-      </div>
-    </div>
-    <div class="popup-shadow"></div>
-    <!-- 로그인 팝업 end-->
-
-    <script>
-      // 로그인 팝업 이벤트
-      $(".login-btn").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").show(0);
-        }
-      });
-      $(".close-popup, .popup-shadow").on({
-        click: function() {
-          $(".popup-shadow, #login-popup").hide(0);
-        }
-      });
     </script>
     <div id="container">
       <div class="signUp">

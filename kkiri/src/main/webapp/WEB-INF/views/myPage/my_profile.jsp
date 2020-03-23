@@ -222,7 +222,7 @@
     </div>  
     <script>
     
-    // 로그인이 되어 있지 않으면 메인을 ㅗ보냄
+    // 로그인이 되어 있지 않으면 메인으로 보냄
     
     $(function(){
     	if(${loginMember == null}){

@@ -1,5 +1,8 @@
 package com.kh.kkiri.member.model.service;
 
+import java.util.List;
+
+import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface MemberService {
@@ -16,10 +19,11 @@ public interface MemberService {
 	
 	/** 회원가입(ID 만들기) Service
 	 * @param createMember
+	 * @param files 
 	 * @return return
 	 * @throws Exception
 	 */
-	int createId(Member createMember)throws Exception;
+	int createId(Member createMember, List<Attachment> files)throws Exception;
 
 
 

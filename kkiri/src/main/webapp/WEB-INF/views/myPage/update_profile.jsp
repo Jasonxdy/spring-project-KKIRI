@@ -90,65 +90,100 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">관심 지역 : </h5>
-                    <div id="map" style="width: 100% ; height:500px;">
+                    <div id="map" style="width:100%;height:300px;margin:auto"></div>
+                    
                     
                     </div>
-                  </div>
                   <div class="row my-profile-section-element">
-                  <h5 class = "col-4"> </h5>
-                    <input class="col-3" id="memberPlaceChange" type="text" name="memberPlace" value="${loginMember.memberPlace }">
-                    <div class="col-4 btn my-profile-btn2 " id="memberPlaceChangebtn" >검색</div>
+                    <h5 class="col-4 "></h5>
+                    <input type="text" name="memberPlace" placeholder="주소 검색" class="interest-location-input col-5"
+                    	id="sample5_address" onkeypress="sample5_execDaumPostcode()" value="${loginMember.memberPlace }" readonly>
+                  <img src="<%=request.getContextPath() %>/resources/img/search-icon.png" alt="찾기" class="search-icon col-3"
+                 		onclick="sample5_execDaumPostcode()" style="width:10%; height:100%;">
                   </div>
-                  
-
-					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dcce2b5305d00b58698d39b35c628542&libraries=services"></script>
+                  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+					<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services"></script>
 					<script>
-					var searchPlace = '${loginMember.memberPlace}';
-					$(function(){
-						$("#memberPlaceChangebtn").click(function(){
-						searchPlace = $("#memberPlaceChange").val();
-						
-							
-						})
-					})
+				    // 로그인이 되어 있지 않으면 메인으로 보냄
+				    
+				    $(function(){
+				    	if(${loginMember == null}){
+				    		location.href="../mypage/main";	
+				    	}
+				    })
 					
-					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					    mapOption = {
-					        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-					        level: 3 // 지도의 확대 레벨
-					    };  
+					    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+					        mapOption = {
+					            center: new daum.maps.LatLng(37.569285398240084, 126.98739006297323), // 지도의 중심좌표
+					            level: 3 // 지도의 확대 레벨
+					        };
 					
-					// 지도를 생성합니다    
-					var map = new kakao.maps.Map(mapContainer, mapOption); 
+					    //지도를 미리 생성
+					    var map = new daum.maps.Map(mapContainer, mapOption);
+					    //주소-좌표 변환 객체를 생성
+					    var geocoder = new daum.maps.services.Geocoder();
+					    //마커를 미리 생성
+					    var marker = new daum.maps.Marker({
+					        position: new daum.maps.LatLng(37.537187, 127.005476),
+					        map: map
+					    });
+					    
+					 // 주소로 좌표를 검색합니다
+					    geocoder.addressSearch('${loginMember.memberPlace}', function(result, status) {
+					    	// 정상적으로 검색이 완료됐으면 
+					        if (status === kakao.maps.services.Status.OK) {
+
+					           var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+					           // 결과값으로 받은 위치를 마커로 표시합니다
+					           var marker = new kakao.maps.Marker({
+					               map: map,
+					               position: coords
+					           });
+
+					           // 인포윈도우로 장소에 대한 설명을 표시합니다
+					           var infowindow = new kakao.maps.InfoWindow({
+					               content: '<div style="width:150px;text-align:center;padding:6px 0;">관심장소</div>'
+					           });
+					           infowindow.open(map, marker);
+
+					           // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					           map.setCenter(coords);
+					       } 
+					   });        	
+				    
+
 					
-					// 주소-좌표 변환 객체를 생성합니다
-					var geocoder = new kakao.maps.services.Geocoder();
+					    function sample5_execDaumPostcode() {
+					        new daum.Postcode({
+					            oncomplete: function(data) {
+					                var addr = data.address; // 최종 주소 변수
 					
-					// 주소로 좌표를 검색합니다
-					geocoder.addressSearch(searchPlace, function(result, status) {
+					                // 주소 정보를 해당 필드에 넣는다.
+					                document.getElementById("sample5_address").value = addr;
+					                // 주소로 상세 정보를 검색
+					                geocoder.addressSearch(data.address, function(results, status) {
+					                    // 정상적으로 검색이 완료됐으면
+					                    if (status === daum.maps.services.Status.OK) {
 					
-					    // 정상적으로 검색이 완료됐으면 
-					     if (status === kakao.maps.services.Status.OK) {
+					                        var result = results[0]; //첫번째 결과의 값을 활용
 					
-					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-					
-					        // 결과값으로 받은 위치를 마커로 표시합니다
-					        var marker = new kakao.maps.Marker({
-					            map: map,
-					            position: coords
-					        });
-					
-					        // 인포윈도우로 장소에 대한 설명을 표시합니다
-					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">관심지역</div>'
-					        });
-					        infowindow.open(map, marker);
-					
-					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-					        map.setCenter(coords);
-					    } 
-					});    
+					                        // 해당 주소에 대한 좌표를 받아서
+					                        var coords = new daum.maps.LatLng(result.y, result.x);
+					                        // 지도를 보여준다.
+					                        mapContainer.style.display = "block";
+					                        map.relayout();
+					                        // 지도 중심을 변경한다.
+					                        map.setCenter(coords);
+					                        // 마커를 결과값으로 받은 위치로 옮긴다.
+					                        marker.setPosition(coords)
+					                    }
+					                });
+					            }
+					        }).open();
+					    }
 					</script>
+
                   
                   <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
                   	<c:set var = "i" value="0"/>
