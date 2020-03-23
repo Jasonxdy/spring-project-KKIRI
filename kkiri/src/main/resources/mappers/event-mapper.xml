@@ -123,6 +123,8 @@
 	<!-- 참석한 이벤트 목록 조회 -->
 	
 	<select id="selectMyEventList" parameterType="_int" resultMap="partyResultSet">
+	SELECT * FROM PARTY
+	WHERE MEMBER_NO = #{memberNo}
 	</select>
 
 

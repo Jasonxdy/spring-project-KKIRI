@@ -20,7 +20,7 @@ import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember", "msg" })
+@SessionAttributes({ "loginMember", "msg", "myEventList" })
 @RequestMapping("/event/*")
 public class EventController {
 
@@ -55,7 +55,9 @@ public class EventController {
 			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
 			if(model.getAttribute("loginMember") != null) {
 				List<Party> myEventList = eventService.selectMyEventList(((Member)model.getAttribute("loginMember")).getMemberNo());
-				
+				if(myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
 			}
 			
 			if (event != null) {
