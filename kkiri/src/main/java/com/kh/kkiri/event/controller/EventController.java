@@ -106,6 +106,14 @@ public class EventController {
 
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectInitPartyList(eventNo);
+			
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			if(model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService.selectMyEventList(((Member)model.getAttribute("loginMember")).getMemberNo());
+				if(myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
+			}
 
 			if (event != null) {
 
@@ -139,6 +147,22 @@ public class EventController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
 		return gson.toJson(partyList);
+	}
+	
+	
+	
+	
+	// 이벤트 참가 신청
+	@RequestMapping("joinEvent")
+	public String joinEvent (int eventNo, int eventTicket, Model model) {
+		// 1. party에 등록 (insert)
+		
+		// 2. 해당 회원 티켓 감소 (update)
+		
+		// 3. 결제 내역 추가 (insert)
+		
+		return "";
+		
 	}
 
 }

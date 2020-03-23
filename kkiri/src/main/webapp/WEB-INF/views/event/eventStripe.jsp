@@ -63,6 +63,7 @@
 								${event.eventQuota - event.partyCount}자리 남음 </b></li>
 					</c:otherwise>
 					</c:choose>
+					
 				<li class=""><a class="nav-link event-participate-btn"
 					id="event-participate"> 이벤트 참가 </a> <a
 					class="nav-link event-participate-btn"
@@ -83,7 +84,12 @@
 			</ul>
 		</div>
 	</nav>
-
+	
+	
+	
+	
+	
+	<!-- 이벤트 신고 모달 -->
 	<div class="popup declare-event-popup">
 		<p class="popup-title">
 			이벤트 신고 <img src="${contextPath}/resources/img/close-btn.png"
@@ -109,6 +115,8 @@
 	</div>
 
 
+
+	<!-- 이벤트 참가 모달 -->
 	<div class="popup join-event-popup">
 		<p class="popup-title">
 			이벤트 참가 신청 <img src="${contextPath}/resources/img/close-btn.png"
@@ -162,9 +170,44 @@
 				e.preventDefault();
 				$(this).next(".declare-wrap").toggleClass("active");
 			});
-
+			
+			
+			
+			var myEventCheck = false; // 로그인한 회원이 해당 이벤트의 주최자 혹은 참여자인지 여부 체크
+			if(${currTime < event.eventEnd}){ // 이벤트가 종료되지 않았을때만 실행
+				if(${loginMember != null}){ // 로그인된 경우
+					
+					<c:forEach var="party" items="${myEventList}">
+						if(${party.eventNo == event.eventNo}){
+							myEventCheck = true;
+						}
+					</c:forEach>
+					
+					if(myEventCheck) { // 로그인한 회원이 해당 이벤트의 주최자 혹은 참여자인 경우
+						if(${loginMember.memberNo == event.memberNo}) { // 로그인한 회원이 주최자인 경우
+							// 이벤트 참여 버튼 -> 이벤트 수정 버튼
+						} else { // 로그인된 회원이 참여자인 경우
+							// 이벤트 참가 취소 버튼 보이기
+							$(".join-event-popup, .popup-shadow").hide(0);
+							$("#event-participate").hide(0);
+							$("#cancel-event-participate").css({
+								"display" : "block"
+							});
+						}
+					} else { // 로그인한 회원이 해당 이벤트에 참여하지 않은 경우 
+						$("#cancel-event-participate").css("disply", "none");
+					}
+				}
+				// 로그인된 경우 end
+			}
+			// 이벤트가 종료되지 않은 경우 end
 		});
+		
 	</script>
+	
+	
+	
+	
 
 	<script>
 		// 이벤트 참가 버튼 클릭시 팝업
@@ -173,8 +216,7 @@
 				if(${ empty sessionScope.loginMember  }) {
 					$(".popup-shadow, #login-popup").show(0);
 				} else {
-					console.log("로그인 후 실행됨..");
-					if(${(event.eventQuota - event.partyCount-1) <= 0}){
+					if(${(event.eventQuota - event.partyCount) <= 0}){
 						alert("해당 이벤트는 모집 완료되었습니다");
 						return false;
 					} else {
@@ -185,8 +227,9 @@
 				
 			}
 		});
-
-		$(".join-event-btn").on({
+		
+		// 모달 내 이벤트 참가 버튼 클릭 시 css 변경
+		/* $(".join-event-btn").on({
 			click : function() {
 				$(".join-event-popup, .popup-shadow").hide(0);
 				$("#event-participate").hide(0);
@@ -194,8 +237,10 @@
 					"display" : "block"
 				});
 			}
-		});
+		}); */
 
+		
+		// 이벤트 참가 취소
 		$("#cancel-event-participate").on({
 			click : function() {
 				if (confirm("정말로 이벤트 참가를 취소하시겠습니까?")) {
@@ -244,7 +289,7 @@
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
 					location.href = '';
 				} else {
-					
+					location.href = 'joinEvent?eventNo=' + ${event.eventNo} +'eventTicket=' + ${event.eventTicket};
 				}
 			}
 		}
