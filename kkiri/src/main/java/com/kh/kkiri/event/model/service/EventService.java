@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface EventService {
@@ -58,6 +59,15 @@ public interface EventService {
 	 * @return partyList
 	 */
 	List<Member> selectAddPartyList(int count, int limit, int eventNo);
+
+	
+	/**
+	 * 로그인된 회원이 참석한 이벤트 목록 조회
+	 * @param memberNo
+	 * @return myEventList
+	 * @throws Exception
+	 */
+	List<Party> selectMyEventList(int memberNo) throws Exception;
 
 
 	

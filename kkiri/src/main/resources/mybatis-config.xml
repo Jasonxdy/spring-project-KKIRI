@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.kkiri.report.model.vo.Report_A" alias="Report_A"/>
 		<typeAlias type="com.kh.kkiri.ask.model.vo.Ask" alias="Ask"/>
 		<typeAlias type="com.kh.kkiri.ask.model.vo.Ask_A" alias="Ask_A"/>
+		<typeAlias type="com.kh.kkiri.event.model.vo.Party" alias="Party"/>
 	</typeAliases>
 	
 	<!-- 3. mapper 파일 등록 부분 -->

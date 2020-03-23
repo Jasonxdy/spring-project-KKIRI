@@ -1,13 +1,13 @@
 package com.kh.kkiri.home.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleOAuth2Template;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +23,26 @@ public class HomeController {
 	@Autowired
 	private HomeService homeService;
 	
+	@Autowired
+	private GoogleOAuth2Template googleOAuth2Template;
+	
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
+	
 	/**
 	 * 메인 화면 로딩용 Controller
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, HttpServletResponse response) {
 		
 		try {
 			
-			// 이벤트 추천
+			// google_url 가져오는 로직
+			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		    model.addAttribute("google_url", url);
+			
+		    // 이벤트 추천
 			
 			
 			

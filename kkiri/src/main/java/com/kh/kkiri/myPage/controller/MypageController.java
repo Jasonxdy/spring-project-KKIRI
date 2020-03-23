@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,14 @@ public class MypageController {
 	private MemberService memberService;
 	
 	@RequestMapping("in")
-	public String mypageIn(Model model ) {
+	public String mypageIn(Model model, HttpSession session, 
+			RedirectAttributes rdAttr) {
+		Member loginMember  = (Member)session.getAttribute("loginMember");
+		if(loginMember.getMemberCategory().equals("설정해주세요") || 
+				loginMember.getMemberPlace().equals("설정해주세요")) {
+				String msg = "관심 지역과 관심 카테고리를 수정해주세요";
+				session.setAttribute("msg", msg);
+		}
 		
 		return "myPage/my_profile";
 	}

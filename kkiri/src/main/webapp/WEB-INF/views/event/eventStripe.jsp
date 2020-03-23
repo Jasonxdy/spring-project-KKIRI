@@ -54,13 +54,13 @@
 				<!-- 이벤트 종료 전 -->
 				<c:if test="${currTime < event.eventEnd}">
 					<c:choose>
-					<c:when test="${(event.eventQuota - event.partyCount-1) <= 0}">
+					<c:when test="${(event.eventQuota - event.partyCount) <= 0}">
 						<li class="nav-item mt-2 text-muted"><b class="text-danger">
 								모집 완료 </b></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item mt-2 text-muted"><b>
-								${event.eventQuota - event.partyCount-1}자리 남음 </b></li>
+								${event.eventQuota - event.partyCount}자리 남음 </b></li>
 					</c:otherwise>
 					</c:choose>
 				<li class=""><a class="nav-link event-participate-btn"
@@ -71,8 +71,7 @@
 				
 				<!-- 이벤트 종료 후 -->
 				<c:if test="${currTime >= event.eventEnd}">
-				<li class=""><a class="nav-link aleady-finish-event"
-					id="end-event"> 종료된 이벤트 </a></li>
+				<li class=""><p class='already-finish-event float-right'>종료된 이벤트</p></li>
 				</c:if>
 				
 				<li class="nav-item dropdown" id="report-button"><a
@@ -80,7 +79,7 @@
 					data-toggle="dropdown"> ··· </a>
 					<div class="declare-wrap">
 						<a class="declare-btn" href="#">이벤트 신고하기</a>
-					</div></li>
+					</div></li>	
 			</ul>
 		</div>
 	</nav>
@@ -243,10 +242,11 @@
 		function joinEvent(){
 			if(${loginMember.memberTicket < event.eventTicket}){
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
+					location.href = '';
+				} else {
 					
 				}
 			}
-			
 		}
 		
 		$(".event-participate-btn").mouseenter(function(){

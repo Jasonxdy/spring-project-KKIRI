@@ -16,10 +16,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember", "msg" })
+@SessionAttributes({ "loginMember", "msg", "myEventList" })
 @RequestMapping("/event/*")
 public class EventController {
 
@@ -50,7 +51,15 @@ public class EventController {
 
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectPartyList(eventNo);
-
+			
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			if(model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService.selectMyEventList(((Member)model.getAttribute("loginMember")).getMemberNo());
+				if(myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
+			}
+			
 			if (event != null) {
 
 				model.addAttribute("event", event);

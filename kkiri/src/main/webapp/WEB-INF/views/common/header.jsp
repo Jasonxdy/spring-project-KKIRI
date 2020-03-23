@@ -105,9 +105,9 @@
               <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
 
               <button class="popup-confirm-btn login-conform-btn">로그인</button>
+              <button id="googleLogin" type="button" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
+              <button type="button" class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
             </form>
-              <button id="googleLogin" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-              <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
           </div>
         </div>
         <div class="popup-shadow"></div>
@@ -126,8 +126,10 @@
           }
         });
         
+        
+        
         $("#googleLogin").on("click", function(){
-        	location.href = "member/googleSignUp";
+        	location.href = "${google_url}";
         })
       </script>
     
