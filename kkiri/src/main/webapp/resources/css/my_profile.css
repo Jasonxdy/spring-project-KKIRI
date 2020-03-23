@@ -47,6 +47,14 @@ html .nav-tabs .nav-link.active,
     bottom: 30px;
     font-size: 17px !important;
 }
+.my-profile-btn2,
+.my-profile-btn2:hover{
+	background: #227fbb !important;
+    color: #ffffff !important;
+    right: 50px;
+    bottom: 30px;
+    font-size: 17px !important;
+}
 #container .secession-btn{
     position: relative;
     right: 0;
