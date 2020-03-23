@@ -107,6 +107,11 @@ public class EventDAO {
 	}
 
 
+	public int cancelWaitEvent(Party party) throws Exception{
+		return sqlSession.delete("eventMapper.cancelWaitEvent", party);
+	}
+
+
 
 
 }

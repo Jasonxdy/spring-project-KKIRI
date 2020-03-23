@@ -58,7 +58,17 @@ html body .event-participate-btn{
     color: white !important;
     min-width: 95px;
     text-align: center;
+    display:none;
 }
+
+#wait-event-participate {
+	background-color: #dc3545;
+    border-radius: .25rem;
+    color: white !important;
+    min-width: 95px;
+    text-align: center;
+}
+
 /* 이벤트 상세 페이지 상단 공통 css end */
 .event-thumbnail{
     width: 100%;

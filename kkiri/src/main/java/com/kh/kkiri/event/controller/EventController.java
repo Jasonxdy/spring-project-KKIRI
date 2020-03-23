@@ -157,11 +157,11 @@ public class EventController {
 	public String joinEvent (Party party, Model model, RedirectAttributes rdAttr) {
 		String msg = null;
 		String url = null;
-		
 		try {
 			int result = eventService.joinEvent(party);
 			if(result > 0) {
-				url = "redirect:/detail?no=" + party.getEventNo();
+				msg = "이벤트 참가 완료";
+				url = "redirect:detail?no=" + party.getEventNo();
 			} else {
 				msg = "이벤트 참가 실패";
 				url = "redirect:detail?no=" + party.getEventNo();
@@ -175,6 +175,24 @@ public class EventController {
 			model.addAttribute("msg", msg);
 			return "common/errorPage";
 		}
+	}
+	
+	
+	// 이벤트 승인 대기 취소
+	@RequestMapping("cancelWaitEvent")
+	@ResponseBody
+	public int cancelWaitEvent(Party party) {
+		
+		int result =0;
+		
+		try {
+			result = eventService.cancelWaitEvent(party);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
 	}
 
 }

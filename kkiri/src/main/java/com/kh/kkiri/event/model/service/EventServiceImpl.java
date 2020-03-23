@@ -111,5 +111,17 @@ public class EventServiceImpl implements EventService {
 	public int joinEvent(Party party) throws Exception {
 		return eventDAO.joinEvent(party);
 	}
+	
+	
+	/**
+	 * 승인 대기중 취소
+	 * @param party
+	 * @return result
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int cancelWaitEvent(Party party) throws Exception {
+		return eventDAO.cancelWaitEvent(party);
+	}
 
 }

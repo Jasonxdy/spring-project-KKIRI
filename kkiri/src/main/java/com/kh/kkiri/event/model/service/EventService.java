@@ -77,6 +77,13 @@ public interface EventService {
 	 */
 	int joinEvent(Party party) throws Exception;
 
+	/**
+	 * 승인 대기중 취소
+	 * @param party
+	 * @return result
+	 */
+	int cancelWaitEvent(Party party) throws Exception;
+
 
 	
 	
