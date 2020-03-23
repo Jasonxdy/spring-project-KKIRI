@@ -289,7 +289,7 @@
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
 					location.href = '';
 				} else {
-					location.href = 'joinEvent?eventNo=' + ${event.eventNo} +'eventTicket=' + ${event.eventTicket};
+					location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&memberNo=' + ${loginMember.memberNo};
 				}
 			}
 		}

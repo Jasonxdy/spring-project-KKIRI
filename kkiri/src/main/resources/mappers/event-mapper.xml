@@ -121,11 +121,19 @@
 	
 	
 	<!-- 참석한 이벤트 목록 조회 -->
-	
 	<select id="selectMyEventList" parameterType="_int" resultMap="partyResultSet">
 	SELECT * FROM PARTY
 	WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
+	
+	<!-- 이벤트 참여 -->
+	<insert id="joinEvent" parameterMap="Party">
+		INSERT INTO PARTY
+		VALUES(#{eventNo}, #{memberNo}, 'P', DEFAULT)
+	</insert>
+	
+	
 
 
 

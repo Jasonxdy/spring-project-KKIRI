@@ -69,6 +69,14 @@ public interface EventService {
 	 */
 	List<Party> selectMyEventList(int memberNo) throws Exception;
 
+	/**
+	 * 이벤트 참가 service
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	int joinEvent(Party party) throws Exception;
+
 
 	
 	

@@ -154,15 +154,27 @@ public class EventController {
 	
 	// 이벤트 참가 신청
 	@RequestMapping("joinEvent")
-	public String joinEvent (int eventNo, int eventTicket, Model model) {
-		// 1. party에 등록 (insert)
+	public String joinEvent (Party party, Model model, RedirectAttributes rdAttr) {
+		String msg = null;
+		String url = null;
 		
-		// 2. 해당 회원 티켓 감소 (update)
-		
-		// 3. 결제 내역 추가 (insert)
-		
-		return "";
-		
+		try {
+			int result = eventService.joinEvent(party);
+			if(result > 0) {
+				url = "redirect:/detail?no=" + party.getEventNo();
+			} else {
+				msg = "이벤트 참가 실패";
+				url = "redirect:detail?no=" + party.getEventNo();
+			}
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			return url;
+			
+		} catch (Exception e) {
+			msg = "이벤트 참가 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
 	}
 
 }

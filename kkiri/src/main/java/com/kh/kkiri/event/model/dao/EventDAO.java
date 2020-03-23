@@ -96,5 +96,17 @@ public class EventDAO {
 	}
 
 
+	/**
+	 * 이벤트 참가 DAO
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	public int joinEvent(Party party) throws Exception{
+		return sqlSession.insert("eventMapper.joinEvent", party);
+	}
+
+
+
 
 }

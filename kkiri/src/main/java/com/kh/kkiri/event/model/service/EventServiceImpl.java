@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
@@ -97,6 +98,18 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Party> selectMyEventList(int memberNo) throws Exception {
 		return eventDAO.selectMyEventList(memberNo);
+	}
+	
+	/**
+	 * 이벤트 참가 service
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int joinEvent(Party party) throws Exception {
+		return eventDAO.joinEvent(party);
 	}
 
 }
