@@ -2,6 +2,7 @@ package com.kh.kkiri.myPage.controller;
 
 import java.io.File;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
+import com.kh.kkiri.payment.model.vo.Payment;
 
 @RequestMapping("/mypage/*")
 @Controller
@@ -207,6 +209,19 @@ public class MypageController {
 		}
 		
 		return "redirect:/mypage/in";
+	}
+	@RequestMapping("ticketLog")
+	public String ticketLog(Model model) {
+		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
+		try {
+		List<Payment> ticketList = mypageService.ticketLog(memberNo);
+		model.addAttribute("ticketList", ticketList);
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "회원정보 수정 과정에서 오류가 발생했습니다.");
+			return "common/errorPage";
+		}
+		return "myPage/ticket_history";
 	}
 	
 }

@@ -24,6 +24,12 @@
 		
 	</insert>
 	
+	<select id="ticketLog" parameterType="_int" resultMap="paymentResultSet">
+	
+	SELECT * FROM PAYMENT
+	WHERE MEMBER_NO = #{memberNo}
+	ORDER BY PAYMENT_DATE
+	</select>
 	
 	
 </mapper>

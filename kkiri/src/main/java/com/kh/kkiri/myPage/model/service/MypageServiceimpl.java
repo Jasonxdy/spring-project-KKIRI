@@ -1,6 +1,7 @@
 package com.kh.kkiri.myPage.model.service;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
+import com.kh.kkiri.payment.model.vo.Payment;
 
 @Service
 public class MypageServiceimpl implements MypageService{
@@ -96,6 +98,15 @@ public class MypageServiceimpl implements MypageService{
 		}
 		return result;
 	}
+
+	@Override
+	public List<Payment> ticketLog(int memberNo) throws Exception {
+
+		List<Payment> ticketLog = mypageDAO.ticketLog(memberNo);
+		
+		return ticketLog;
+	}
+	
 	
 	
 }

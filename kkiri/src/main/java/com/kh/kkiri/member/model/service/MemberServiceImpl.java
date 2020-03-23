@@ -65,7 +65,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = memberDAO.createId(createMember);
 		
-		int result = result+ memberDAO.insertAttachment(files);
+		 result = result+ memberDAO.insertAttachment(files);
 		
 		System.out.println("4. 가입 결과 result:" + result);
 		return result;

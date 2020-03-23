@@ -23,8 +23,8 @@ public class SearchServiceImpl implements SearchService {
 	 * @return search
 	 */
 	@Override
-	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit) {
-		return searchDAO.selectSearchList(map, currentPage, limit);
+	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit, int checkEventStatus) {
+		return searchDAO.selectSearchList(map, currentPage, limit, checkEventStatus);
 	}
 
 	

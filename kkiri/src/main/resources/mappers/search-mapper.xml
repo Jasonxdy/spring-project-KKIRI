@@ -40,13 +40,30 @@
 		SELECT * FROM V_SEARCH
 		<where>
 			<if test="searchKey != null">
-				AND EVENT_CATEGORY LIKE #{searchKey}
+				AND EVENT_CATEGORY = #{searchKey}
 			</if>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				AND EVENT_TITLE LIKE #{sv}
 			</if>
 			AND EVENT_STATUS ='Y'
+		</where>
+		ORDER BY EVENT_NO
+	</select>
+	
+	<!-- 탐색페이지 이벤트 조회 -->
+	<select id="selectListCheck" parameterType="map" resultMap="searchResultSet">
+		SELECT * FROM V_SEARCH
+		<where>
+			<if test="searchKey != null">
+				AND EVENT_CATEGORY = #{searchKey}
+			</if>
+			<if test="searchValue != null">
+				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
+				AND EVENT_TITLE LIKE #{sv}
+			</if>
+			AND EVENT_STATUS ='Y'
+			AND EVENT_END > SYSDATE
 		</where>
 		ORDER BY EVENT_NO
 	</select>

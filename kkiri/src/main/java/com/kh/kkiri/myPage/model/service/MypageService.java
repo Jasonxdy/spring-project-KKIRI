@@ -1,8 +1,11 @@
 package com.kh.kkiri.myPage.model.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.payment.model.vo.Payment;
 
 public interface MypageService {
 
@@ -36,6 +39,13 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	int updateMember(Member loginMember, Member member, MultipartFile profile, String savepath)throws Exception;
+
+	/**
+	 * @param memberNo
+	 * @return ticketList
+	 * @throws Exception
+	 */
+	List<Payment> ticketLog(int memberNo)throws Exception;
 
 	
 }
