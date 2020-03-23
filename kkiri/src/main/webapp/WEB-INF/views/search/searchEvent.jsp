@@ -37,12 +37,10 @@
 			<!-- 지도 end -->
 
 			<!-- 검색창 start -->
-			<div id="searchBar" class="container"
-				style="color: white; display: flex; justify-content: center;">
+			<div id="searchBar" class="container" style="color: white; display: flex; justify-content: center;">
 				<div class="row my-3 card shadow"
 					style="background-color: #272e37; width: 100%;">
 					<div class="col-md-12">
-
 						<!-- <form> -->
 							<div class="row p-2">
 								<div class="col-md-3">
@@ -157,11 +155,21 @@
 									<a class="btn btn-primary" style="background-color: #00a185; border: none;" onclick="searchSlist()">검색</a>
 								</div>
 							</div>
-						<!-- </form> -->
 					</div>
 				</div>
 			</div>
 			<!-- 검색창 end -->
+			
+			<div class="container">
+				<div class="row">
+						<div class="col-md-12">
+							<div class="float-right">
+								<label>종료 이벤트</label>
+								<input type="checkbox" id="checkEventStatus">
+							</div>
+						</div>
+				</div>
+			</div>
 			
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyyMMddHHmm" var="nowDate" />
@@ -192,6 +200,7 @@
 			var geocoder = new kakao.maps.services.Geocoder();
 			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 			var markers = [];
+			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			
 			 $(function() {
 		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
@@ -204,7 +213,8 @@
 							geocoder.addressSearch(ui.item.value, function(result, status) {
 								
 						     if (status === kakao.maps.services.Status.OK) {
-						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						        //var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 						        map.setCenter(coords);
 						    	} 
 							});  
@@ -227,6 +237,18 @@
 		          searchSlist();
 		        });
 		        
+		        $("#checkEventStatus").on('change',function(){
+		        	
+		        	if($("#checkEventStatus").is(":checked") == true){
+		        		// 종료 이벤트 체크박스가 체크된 경우
+		        		checkEventStatus = 1;
+		        	} else{
+		        		// 종료 이벤트 체크박스가 체크 해제된 경우
+		        		checkEventStatus = 0;
+		        	}
+		        	searchSlist();
+		        });
+		        
 		        $("#place").on('input',function(){
 		        });
 		        
@@ -238,42 +260,47 @@
 		    var numTemp = 0;
 		    var numTemp2 = 0;
 		    var radius = 0;
-		    var limit = 10;
-		    var limitTemp = 10;
+		    var limit = 5;
+		    var limitTemp = 5;
 		    var webPage = 1;
+		    var checkEventStatus = 0;
 		    
 		    function searchSlist(){
 		    	searchKey = $("#searchKey").val();
 		    	searchValue =  $("#searchValue").val();
+		    	//checkEventStatus = $("#searchValue").val();
 		    	num = 0;
 		    	overlayNum = 0;
+		    	limitTemp = 5;
+		    	webPage = 1;
 		    	
-		    	function setMarkers(map) {
-		    	    for (var i = 0; i < markers.length; i++) {
-		    	        markers[i].setMap(map);
-		    	    }            
-		    	}
-		    	setMarkers(null); 
 		    	
+		    	$("#searchListArea").empty();
+		    	
+		    	markers.forEach(function(marker){
+		    		marker.setMap(null); 
+		    	});
+    			markers.length = 0;
+    			
 		    	$.ajax({
 		    		url : "searchEvents",
 		    		type : "POST",
 		    		data : {"searchKey" : searchKey,
 		    				"searchValue" : searchValue,
-		    				"limit" : limitTemp},
+		    				"limit" : limitTemp,
+		    				"checkEventStatus" : checkEventStatus},
 		    		dataType : "json",
 		    		success : function(sList){
 		    			var content = "";
 		    			var startDate = "";
 		    			
 		    			switch($("#round").text()){
-		    				case '5 km': radius= 5000; break;
-		    				case '10 km': radius= 10000; break;
-		    				case '25 km': radius= 25000; break;
-		    				case '50 km': radius= 50000; break;
+		    				case '5 km': radius= 100; break;
+		    				case '10 km': radius= 200; break;
+		    				case '25 km': radius= 300; break;
+		    				case '50 km': radius= 400; break;
 		    				case '100 km': radius= 100000; break;
 		    			}
-		    			console.log(radius);
 		    			//radius=400;
 		    			
 		    			if(sList == ""){
@@ -284,7 +311,8 @@
 		    				$("#searchListArea").empty();
 		    				$.each(sList, function(i){
 		    					
-		    					var c1 = map.getCenter();
+		    					var c1 = coords;
+		    					//var c1 = map.getCenter();
 		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
 		    					var poly = new kakao.maps.Polyline({
 		    						path:[c1,c2]
@@ -355,7 +383,7 @@
 											        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
 											    });
 												markers.push(marker);
-
+												
 											    kakao.maps.event.addListener(marker, 'click', function() {
 											    	var overlay = new kakao.maps.CustomOverlay({
 												        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
@@ -389,6 +417,8 @@
 												 	// 잠깐대기
 												    var overlayAddress = document.createElement('div');
 												    overlayAddress.setAttribute('class','oaddress');
+												    console.log(markers);
+												    
 												    for(var m=0; m<markers.length; m++){
 												    	var checkMarker =new kakao.maps.Marker({
 													    	position : new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
@@ -443,13 +473,12 @@
 												    
 											        overlay.setMap(map);
 											    });
-		    					} else{
-		    						
 		    					}
 		    				});
 		    				
 		    				$.each(sList, function(i){
-		    					var c1 = map.getCenter();
+		    					//var c1 = map.getCenter();
+		    					var c1 = coords;
 		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
 		    					var poly = new kakao.maps.Polyline({
 		    						path:[c1,c2]
@@ -461,12 +490,22 @@
 			    					var callback = function(result, status) {
 				    					if (status === kakao.maps.services.Status.OK) {
 				    						for(var m=0; m<markers.length; m++){
-										    	var checkMarker =new kakao.maps.Marker({
+										    	var checkMarker = new kakao.maps.Marker({
 											    	position : coord
 											   	});
 										    	
 										    	if(markers[m].getPosition().toString()===checkMarker.getPosition().toString()){
 										    		if(result[0].road_address != null){
+										    			
+										    			console.log("search : " + m);
+										    			console.log(markers[0]);
+										    			console.log(markers[1]);
+										    			console.log(markers[2]);
+										    			
+										    			console.log(result[0].road_address.address_name);
+										    			
+										    			console.log(document.getElementById('eventAddress'+(m+1)));
+										    			
 						    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].road_address.address_name;
 						    						} else{
 						    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].address.address_name;
@@ -478,6 +517,12 @@
 			    					geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 		    					}
 		    				});
+		    				
+		    				function setMarkers(map) {
+		    		    	    for (var i = 0; i < markers.length; i++) {
+		    		    	        markers[i].setMap(map);
+		    		    	    }            
+		    		    	}
 		    				
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
@@ -503,7 +548,8 @@
 		    		data : {"searchKey" : searchKey,
 		    				"searchValue" : searchValue,
 		    				"currentPage" : currentPage,
-		    				"limit" : limitTemp},
+		    				"limit" : limitTemp,
+		    				"checkEventStatus" : checkEventStatus},
 		    		dataType : "json",
 		    		success : function(sList){
 		    			var content = "";
@@ -516,7 +562,8 @@
 		    				$("#addBtn").remove();
 		    				$.each(sList, function(i){
 		    					
-		    					var c1 = map.getCenter();
+		    					//var c1 = map.getCenter();
+		    					var c1 = coords;
 		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
 		    					var poly = new kakao.maps.Polyline({
 		    						path:[c1,c2]
@@ -537,6 +584,7 @@
 			    								 ":" +
 			    								 sList[i].eventStart.substring(10,12)
 			    								 ;
+			    					console.log(num);
 			    					content +=
 			    								"<div class='row card shadow my-4' id='searchList'>" +
 			    									"<div class='col-md-12 h-100'>" +
@@ -681,7 +729,8 @@
 		    				
 		    				$.each(sList, function(i){
 		    					
-		    					var c1 = map.getCenter();
+		    					//var c1 = map.getCenter();
+		    					var c1 = coords;
 		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
 		    					var poly = new kakao.maps.Polyline({
 		    						path:[c1,c2]
@@ -713,8 +762,16 @@
 		    					}
 		    				});
 		    				
+		    				function setMarkers(map) {
+		    		    	    for (var i = 0; i < markers.length; i++) {
+		    		    	        markers[i].setMap(map);
+		    		    	    }            
+		    		    	}
+		    				
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
+		    				
+		    				console.log(document.getElementById('eventAddress'+ num));
 		    				
 		    				if(num >= (webPage*limit)){
 		    					limitTemp = limit;
