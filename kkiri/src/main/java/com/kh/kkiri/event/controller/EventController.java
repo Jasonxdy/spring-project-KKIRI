@@ -3,6 +3,8 @@ package com.kh.kkiri.event.controller;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,11 @@ import com.google.gson.GsonBuilder;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember", "msg", "myEventList" })
+@SessionAttributes({ "loginMember", "msg", "myEventList", "detailUrl" })
 @RequestMapping("/event/*")
 public class EventController {
 
@@ -118,8 +121,6 @@ public class EventController {
 			if (event != null) {
 
 				model.addAttribute("event", event);
-
-				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
 				url = "event/eventParticipant";
 
@@ -154,23 +155,26 @@ public class EventController {
 	
 	// 이벤트 참가 신청
 	@RequestMapping("joinEvent")
-	public String joinEvent (Party party, Model model, RedirectAttributes rdAttr) {
+	public String joinEvent (Party party, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg = null;
 		String url = null;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
 		try {
 			int result = eventService.joinEvent(party);
 			if(result > 0) {
-				msg = "이벤트 참가 완료";
-				url = "redirect:detail?no=" + party.getEventNo();
+				msg = "이벤트에 참가 신청되었습니다.";
+//				url = "redirect:detail?no=" + party.getEventNo();
 			} else {
 				msg = "이벤트 참가 실패";
-				url = "redirect:detail?no=" + party.getEventNo();
 			}
 			
 			rdAttr.addFlashAttribute("msg", msg);
-			return url;
+			return "redirect:" + detailUrl;
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			msg = "이벤트 참가 과정 중 오류 발생";
 			model.addAttribute("msg", msg);
 			return "common/errorPage";
@@ -193,6 +197,38 @@ public class EventController {
 			result = -1;
 		}
 		return result;
+	}
+	
+	
+	
+	// 신고 등록
+	@RequestMapping("insertReport")
+	public String insertReport(Report report, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String msg;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
+		if(report.getReportContent().equals("")) {
+			report.setReportContent(" ");
+		}
+		try {
+			int result = eventService.insertReport(report);
+			
+			if(result > 0) {
+				msg = "이벤트가 신고되었습니다";
+			} else {
+				msg = "이벤트 신고 등록 실패";
+			}
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + detailUrl;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "이벤트 신고 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
 	}
 
 }

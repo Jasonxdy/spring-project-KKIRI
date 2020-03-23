@@ -141,6 +141,13 @@
 	</delete>
 	
 	
+	<!-- 신고 등록 -->
+	<insert id="insertReport" parameterType="Report_E">
+		INSERT INTO REPORT
+		VALUES (REP_SEQ.NEXTVAL, #{eventNo}, #{memberNo}, #{reportCategory}, #{reportContent}, SYSDATE)
+	</insert>
+	
+	
 
 
 

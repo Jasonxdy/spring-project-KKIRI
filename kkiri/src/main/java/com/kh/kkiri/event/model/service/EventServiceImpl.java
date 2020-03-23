@@ -11,6 +11,7 @@ import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service
@@ -122,6 +123,18 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int cancelWaitEvent(Party party) throws Exception {
 		return eventDAO.cancelWaitEvent(party);
+	}
+	
+	
+	/**
+	 * 신고 등록
+	 * @param report
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int insertReport(Report report) throws Exception {
+		return eventDAO.insertReport(report);
 	}
 
 }

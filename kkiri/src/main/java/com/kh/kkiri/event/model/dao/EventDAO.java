@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Repository
@@ -109,6 +110,17 @@ public class EventDAO {
 
 	public int cancelWaitEvent(Party party) throws Exception{
 		return sqlSession.delete("eventMapper.cancelWaitEvent", party);
+	}
+
+
+	/**
+	 * 신고 등록용 DAO
+	 * @param report
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertReport(Report report) throws Exception{
+		return sqlSession.insert("eventMapper.insertReport", report);
 	}
 
 

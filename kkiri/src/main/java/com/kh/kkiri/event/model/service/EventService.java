@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface EventService {
@@ -83,6 +84,14 @@ public interface EventService {
 	 * @return result
 	 */
 	int cancelWaitEvent(Party party) throws Exception;
+
+	/**
+	 * 신고 등록
+	 * @param report
+	 * @return result
+	 * @throws Exception
+	 */
+	int insertReport(Report report) throws Exception;
 
 
 	

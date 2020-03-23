@@ -99,7 +99,7 @@
 				alt="닫기버튼" class="close-popup">
 		</p>
 		<div class="popup-content">
-			<form action="#" method="post" onsubmit="return declareCondition();">
+			<form action="insertReport?eventNo=${event.eventNo}&memberNo=${loginMember.memberNo}" method="post" onsubmit="return declareCondition();">
 				<label for="declare-reason">신고사유를 선택해주세요.</label> <select
 					name="reportCategory" id="declare-reason">
 					<option value="none">신고 사유 선택</option>
@@ -297,6 +297,7 @@
 				$("#declare-reason").focus();
 				return false;
 			}
+			
 		}
 		
 		// 이벤트 참가 확인 버튼 클릭 시
