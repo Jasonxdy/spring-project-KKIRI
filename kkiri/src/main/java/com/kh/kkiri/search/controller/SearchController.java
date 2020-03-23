@@ -90,10 +90,13 @@ public class SearchController {
 			map = new HashMap<String, Object>();
 			if(searchKey != "") {
 				map.put("searchKey", searchKey);
-			} else if(searchValue != "") {
+			} 
+			if(searchValue != "") {
 				map.put("searchValue", searchValue);
 			}
 		}
+		
+		System.out.println(map);
 		
 		if(currentPage == null) currentPage = 1;
 		//int listCount = searchService.getSearchCount(map);
@@ -101,12 +104,15 @@ public class SearchController {
 		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit, checkEventStatus);
+		System.out.println(sList);
 		
+		/*
 		System.out.println("크기 : " + sList.size());
 		for(int i = 0 ; i<sList.size() ; i++) {
 			System.out.print(sList.get(i).getEventNo() + " ");
 		}
 		System.out.println();
+		*/
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		//Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();

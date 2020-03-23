@@ -40,7 +40,7 @@
 		SELECT * FROM V_SEARCH
 		<where>
 			<if test="searchKey != null">
-				AND EVENT_CATEGORY LIKE #{searchKey}
+				AND EVENT_CATEGORY = #{searchKey}
 			</if>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
@@ -56,7 +56,7 @@
 		SELECT * FROM V_SEARCH
 		<where>
 			<if test="searchKey != null">
-				AND EVENT_CATEGORY LIKE #{searchKey}
+				AND EVENT_CATEGORY = #{searchKey}
 			</if>
 			<if test="searchValue != null">
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>

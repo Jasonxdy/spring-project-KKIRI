@@ -217,7 +217,8 @@
 						        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 						        map.setCenter(coords);
 						    	} 
-							});  
+							});
+							searchSlist();
 		              },
 		              focus: function(event, ui) {
 		                  return false;
@@ -273,7 +274,8 @@
 		    	overlayNum = 0;
 		    	limitTemp = 5;
 		    	webPage = 1;
-		    	
+		    	currentPage = 2;
+		    	numTemp = 0;
 		    	
 		    	$("#searchListArea").empty();
 		    	
