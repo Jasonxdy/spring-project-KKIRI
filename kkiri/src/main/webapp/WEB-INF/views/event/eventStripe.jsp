@@ -71,7 +71,7 @@
 				
 				<!-- 이벤트 종료 후 -->
 				<c:if test="${currTime >= event.eventEnd}">
-				<li class=""><a class="nav-link aleady-finish-event"
+				<li class=""><a class="nav-link badge-secondary"
 					id="end-event"> 종료된 이벤트 </a></li>
 				</c:if>
 				
