@@ -151,8 +151,14 @@
             <button class="green-radius-btn search-btn" type="button">검색</button>
           </div>
         </div>
-      </div>
-
+        <div>
+        <%-- 로그인된 계정이 관리자 등급인 경우 --%>
+	        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
+	        	<button type="button" class="btn btn-success float-right" id="insertBtn" 
+	        		onclick="location.href = 'insertForm';">글쓰기</button>
+	        </c:if>
+        </div>
+		
       <!-- 페이징 바 -->
       <div class="row justify-content-center pagination-wrap">
         <div>
@@ -195,27 +201,13 @@
 
 
   <!-- content 끝 -->
-  <div id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-4 footer-logo-wrap">
-              <img class="footer-logo" src="img/logo2-white.png" alt="푸터로고">
-            </div>
-            <div class="col-md-8">
-              <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
+  <jsp:include page="../common/footer.jsp"/>
   <div id="button-top">
     <button type="button" class="top-btn">TOP</button>
   </div>
 
-	<jsp:include page="../common/footer.jsp"/>
+	
 
   <script>
     function scrollFunction() {
