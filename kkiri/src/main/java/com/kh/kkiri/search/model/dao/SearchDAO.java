@@ -25,14 +25,18 @@ public class SearchDAO {
 	 * @param limit
 	 * @return search
 	 */
-	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit) {
+	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit, int checkEventStatus) {
 		if(currentPage == 1) {
 			offset = 0;
 		}
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		offset += limit;
 		
-		return sqlSession.selectList("searchMapper.selectList", map, rowBounds);
+		if(checkEventStatus == 1) {
+			return sqlSession.selectList("searchMapper.selectList", map, rowBounds);
+		} else {
+			return sqlSession.selectList("searchMapper.selectListCheck", map, rowBounds);
+		}
 	}
 
 	/** 탐색페이지 이벤트 수 조회용 DAO

@@ -24,6 +24,6 @@ public interface SearchService {
 	 * @param limit
 	 * @return search
 	 */
-	public abstract List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit);
+	public abstract List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit, int checkEventStatus);
 
 }

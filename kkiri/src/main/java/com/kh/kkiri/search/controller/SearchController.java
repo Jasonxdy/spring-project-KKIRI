@@ -100,7 +100,7 @@ public class SearchController {
 		
 		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
 
-		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
+		List<Search> sList = searchService.selectSearchList(map, currentPage, limit, checkEventStatus);
 		
 		System.out.println("크기 : " + sList.size());
 		for(int i = 0 ; i<sList.size() ; i++) {
