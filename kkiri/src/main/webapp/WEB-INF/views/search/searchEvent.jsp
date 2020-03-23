@@ -258,7 +258,8 @@ input:checked + .slider:before {
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 
 		<script>
-			console.log("bbb");
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
 				geocoder.addressSearch($("#place").text(), function(result, status) {
 					console.log("aaa");
@@ -291,8 +292,6 @@ input:checked + .slider:before {
 			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 			var zoomControl = new kakao.maps.ZoomControl();
 			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
 			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 			var markers = [];
 			var coords;
