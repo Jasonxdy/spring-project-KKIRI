@@ -24,6 +24,13 @@
 		
 	</insert>
 	
+	<select id="ticketLog" parameterType="_int" resultMap="paymentResultSet">
+	
+	SELECT * FROM PAYMENT
+	WHERE MEMBER_NO = #{memberNo}
+	
+	
+	</select>
 	
 	
 </mapper>

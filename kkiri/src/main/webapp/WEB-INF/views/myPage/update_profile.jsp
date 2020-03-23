@@ -23,10 +23,10 @@
         <!-- content 시작 -->
         <div class="row">
           <div class="col-2 nav-wrap">
-            <a class="btn active" href="#">프로필</a>
+            <a class="btn active" href="../mypage/in">프로필</a>
             <a class="btn" href="#">이벤트</a>
             <a class="btn" href="#">티켓</a>
-            <a class="btn" href="#">로그아웃</a>
+            <a class="btn" href="../member/logout">로그아웃</a>
           </div>
           
 
@@ -40,6 +40,7 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">닉네임 : </h5>
                     <input id="nickName" type="text" class="update-input memberNickname" name="memberNickname" value="${loginMember.memberNickname}">
+                    
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">성별 : </h5>
@@ -64,8 +65,26 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <input type="text" class="update-input memberBirth" name="birthDay" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월${fn:substring(loginMember.memberBirth,8,10) }일">
+                    <input type="text" id="birthDay" class="update-input memberBirth" name="birthDay" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월${fn:substring(loginMember.memberBirth,8,10) }일">
+                  	<div id="birthDayChecker" style="display : block; backgroundColor:white;"></div>
                   </div>
+                  <script type="text/javascript">
+                  var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
+                  
+                  $(function(){
+                	  $("#birthDay").on("input",function(){
+                		  console.log(123);
+                		  if(!distinguisher.test($("#birthDay").val())){
+                			  $("#birthDayChecker").text("xxxx년xx월xx일 형식으로 적어주세요").css("color","red").css("display","block");
+                		  }else{
+                			  $("#birthDayChecker").text("유효한 형식입니다.").css("color","green").css("display","block");
+                		  }
+                	  })
+                  })
+                  
+                  
+                  </script>
+                  
                   <c:set var ="phones" value="${fn:split(loginMember.memberPhone,'-')}"/>
                   
                   <div class="row my-profile-section-element">
@@ -252,7 +271,6 @@
       }
       
       
-	var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
     var flag = false;
 	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
 	var phone = ${loginMember.memberPhone};
