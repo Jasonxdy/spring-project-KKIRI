@@ -152,6 +152,7 @@
 		AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- google 회원 가입 -->
 	<insert id="googleSignUp" parameterType="Member">
 		INSERT INTO MEMBER
 			VALUES(MEM_SEQ.NEXTVAL, #{memberId}, #{memberNickname} || NICK_SEQ.NEXTVAL, #{memberPwd}, 

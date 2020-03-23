@@ -38,9 +38,11 @@ public class HomeController {
 		
 		try {
 			
+			// google_url 가져오는 로직
 			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		    model.addAttribute("google_url", url);
-			// 이벤트 추천
+			
+		    // 이벤트 추천
 			
 			
 			
