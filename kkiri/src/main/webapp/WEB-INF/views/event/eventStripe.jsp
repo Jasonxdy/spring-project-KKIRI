@@ -171,6 +171,11 @@
 				$(this).next(".declare-wrap").toggleClass("active");
 			});
 			
+			// cursor 변경
+			$(".event-participate-btn").mouseenter(function(){
+				$(this).parent().css("cursor", "pointer");
+			});
+			
 			
 			
 			var myEventCheck = false; // 로그인한 회원이 해당 이벤트의 주최자 혹은 참여자인지 여부 체크
@@ -229,7 +234,7 @@
 		});
 		
 		// 모달 내 이벤트 참가 버튼 클릭 시 css 변경
-		/* $(".join-event-btn").on({
+		$(".join-event-btn").on({
 			click : function() {
 				$(".join-event-popup, .popup-shadow").hide(0);
 				$("#event-participate").hide(0);
@@ -237,7 +242,7 @@
 					"display" : "block"
 				});
 			}
-		}); */
+		});
 
 		
 		// 이벤트 참가 취소
@@ -294,9 +299,6 @@
 			}
 		}
 		
-		$(".event-participate-btn").mouseenter(function(){
-			$(this).parent().css("cursor", "pointer");
-		});
 		
 	</script>
 
