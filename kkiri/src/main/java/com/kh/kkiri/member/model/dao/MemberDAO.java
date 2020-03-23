@@ -1,9 +1,12 @@
 package com.kh.kkiri.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Repository("memberDAO")
@@ -30,6 +33,7 @@ public class MemberDAO {
 	
 	/** 회원 가입 DAO
 	 * @param createMember
+	 * @param files 
 	 * @return result
 	 * @throws Exception
 	 */
@@ -39,6 +43,18 @@ public class MemberDAO {
 		
 	}
 
+	
+	/** 가입 프로필 사진
+	 * @param files
+	 * @return
+	 */
+	public int insertAttachment(List<Attachment> files) {
+		
+		return sqlSession.insert("memberMapper.insertAttachment", files);
+	}
+
+	
+	
 	
 	
 
@@ -68,6 +84,9 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.googleSignUp", googleMember);
 	}
 
+
+
+	
 
 
 

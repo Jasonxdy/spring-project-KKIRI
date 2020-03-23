@@ -1,6 +1,9 @@
 package com.kh.kkiri.member.controller;
 
+import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -27,9 +30,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.service.MemberService;
+import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.AuthInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -116,8 +123,21 @@ public class MemberController {
 							String memberPhone1, String memberPhone2, String memberPhone3,
 							@RequestParam(value="memberInterest")
 							String[] interest,
-							String memberBankName, String memberBankNumber, String memberAccountName
-											) {
+							String memberBankName, String memberBankNumber, String memberAccountName,
+							HttpServletRequest request,
+							RedirectAttributes rdAttr,
+							@RequestParam(value="memberProfile") MultipartFile memberProfile
+						) {
+		
+		String root = request.getSession().
+				getServletContext().getRealPath("resources");
+		
+		String savePath = root + "/upProfileImage";
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) folder.mkdir();
+		
+		
 		System.out.println("0. 확인");
 		String memberPhone = memberPhone1 + "-"+  memberPhone2 + "-" + memberPhone3;
 		
@@ -125,6 +145,8 @@ public class MemberController {
 		String memberAcount = memberBankName + "," + memberBankNumber + "," + memberAccountName;
 		if(interest != null) {
 			memberCategory = String.join(",",interest);	
+			
+			
 		}
 		
 		
@@ -144,17 +166,56 @@ public class MemberController {
 										memberAcount
 										
 				);
+		
+
 		System.out.println("1. 로그인:" + createMember);
+		
+
+		
 		try {
 			
-			int result = memberService.createId(createMember);
+			List<Attachment> files = new ArrayList<Attachment>();
+			Attachment at= null;
+			if(!memberProfile.getOriginalFilename().contentEquals("")) {
+				// thumbnail이 등록된 경우
+				
+				// 파일명 rename
+				String changeFileName = FileRename.rename(memberProfile.getOriginalFilename());
+				
+				// Attachment 객체 생성, (vo 값 불러오기)
+				at = new Attachment(memberProfile.getOriginalFilename(), changeFileName, savePath);
+				
+				
+				// files List에 추가
+				files.add(at);
+				
+			}
+			
+			
+			
+			
+			
+			int result = memberService.createId(createMember,files);
 			
 			String msg = null;
-			if(result > 0) msg = "가입 성공";
-			else           msg = "가입 실패";
 			
-			model.addAttribute("msg", msg);
+			// if(result > 0) msg = "가입 성공";
+			// else           msg = "가입 실패";
+			// model.addAttribute("msg", msg);
 			
+			if(result >0) {
+				for(Attachment file : files ) {
+					memberProfile.transferTo(new File(file.getFilePath() + "/" + file.getFileChangeName()));
+				}
+				
+				msg = "가입 성공";
+				
+			}else {
+				msg = "가입 실패";
+			}
+
+			
+			rdAttr.addFlashAttribute("msg",msg);
 			return "redirect:/";
 			
 		}catch(Exception e) {

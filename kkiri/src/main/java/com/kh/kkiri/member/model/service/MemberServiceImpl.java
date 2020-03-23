@@ -1,11 +1,14 @@
 package com.kh.kkiri.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.member.model.dao.MemberDAO;
+import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service
@@ -31,6 +34,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		Member loginMember = memberDAO.signInMember(member);
 		
+		if( !bCryptPasswordEncoder.matches(member.getMemberPwd(), 
+				loginMember.getMemberPwd())) {
+			// 비번이 일치하지 않는다면?? 
+			
+			loginMember = null;
+			
+		} else { // 입력받은 비밀번호와 db비번이 일치한다면
+			loginMember.setMemberPwd("");
+			// session에 올라갈 loginMember객체의 비밀번호 값을 공백으로 변경
+		}
+		
+		
+		
 		return loginMember;
 	}
 	
@@ -43,11 +59,13 @@ public class MemberServiceImpl implements MemberService{
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int createId(Member createMember) throws Exception {
+	public int createId(Member createMember,List<Attachment> files) throws Exception {
 		
 		System.out.println("2. 가입 회원정보:" + createMember);
 		
 		int result = memberDAO.createId(createMember);
+		
+		int result = result+ memberDAO.insertAttachment(files);
 		
 		System.out.println("4. 가입 결과 result:" + result);
 		return result;
