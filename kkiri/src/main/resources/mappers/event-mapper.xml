@@ -128,7 +128,7 @@
 	
 	
 	<!-- 이벤트 참여 -->
-	<insert id="joinEvent" parameterMap="Party">
+	<insert id="joinEvent" parameterType="Party">
 		INSERT INTO PARTY
 		VALUES(#{eventNo}, #{memberNo}, 'P', DEFAULT)
 	</insert>
