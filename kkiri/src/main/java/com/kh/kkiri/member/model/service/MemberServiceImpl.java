@@ -53,6 +53,25 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
+	/** google 계정 가입 여부 체크 Service
+	 * @param memberId
+	 * @return signUpCheck
+	 * @throws Exception
+	 */
+	@Override
+	public Member checkGoogleId(String memberId) throws Exception {
+		return memberDAO.checkGoogleId(memberId);
+	}
 	
+	/** google 계정으로 가입 Service
+	 * @param googleMember
+	 * @return signUpResult
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int googleSignUp(Member googleMember) throws Exception {
+		return memberDAO.googleSignUp(googleMember);
+	}
 	
 }

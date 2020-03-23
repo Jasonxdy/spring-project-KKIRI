@@ -16,7 +16,9 @@ public class SearchDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
+	private int offset = 0;
+	
 	/** 탐색 목록 조회용 DAO
 	 * @param map
 	 * @param currentPage
@@ -24,8 +26,11 @@ public class SearchDAO {
 	 * @return search
 	 */
 	public List<Search> selectSearchList(Map<String, Object> map, int currentPage, int limit) {
-		int offset = (currentPage-1) * limit;
+		if(currentPage == 1) {
+			offset = 0;
+		}
 		RowBounds rowBounds = new RowBounds(offset, limit);
+		offset += limit;
 		
 		return sqlSession.selectList("searchMapper.selectList", map, rowBounds);
 	}

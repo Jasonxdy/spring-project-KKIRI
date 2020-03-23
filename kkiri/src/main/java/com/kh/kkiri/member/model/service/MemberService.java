@@ -21,6 +21,24 @@ public interface MemberService {
 	 */
 	int createId(Member createMember)throws Exception;
 
+
+
+	/** google 계정 가입 여부 체크 Service
+	 * @param memberId
+	 * @return signUpCheck
+	 * @throws Exception
+	 */
+	Member checkGoogleId(String memberId) throws Exception;
+
+
+
+	/** google 계정으로 가입 Service
+	 * @param googleMember
+	 * @return signUpResult
+	 * @throws Exception
+	 */
+	int googleSignUp(Member googleMember) throws Exception;
+
 	
 
 

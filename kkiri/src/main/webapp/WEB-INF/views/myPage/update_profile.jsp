@@ -10,6 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="../resources/css/my_profile.css">
   <link rel="stylesheet" href="../resources/css/update_profile.css">
+  <!-- services 라이브러리 불러오기 -->
+  
   <title>KKIRI(끼리)</title>
 </head>
 
@@ -88,51 +90,93 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">관심 지역 : </h5>
-                    <img src="../resources/img/map-example.png" alt="예시이미지">
-                    <input type="text" name="memberPlace" value="123456">
+                    <div id="map" style="width: 100% ; height:500px;">
+                    
+                    </div>
                   </div>
-	                  
+                  <div class="row my-profile-section-element">
+                  <h5 class = "col-4"> </h5>
+                    <input class="col-3" id="memberPlaceChange" type="text" name="memberPlace" value="${loginMember.memberPlace }">
+                    <div class="my-profile-btn col-4 btn" id="memberPlaceChangebtn" style="float:right">검색</div>
+                  </div>
+                  
+
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dcce2b5305d00b58698d39b35c628542&libraries=services"></script>
+					<script>
+					var searchPlace = '${loginMember.memberPlace}';
+					$(function(){
+						$("#memberPlaceChangebtn").click(function(){
+						searchPlace = $("#memberPlaceChange").val();
+						
+							
+						})
+					})
+					
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+					    mapOption = {
+					        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					        level: 3 // 지도의 확대 레벨
+					    };  
+					
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+					
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+					
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch(searchPlace, function(result, status) {
+					
+					    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+					
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: coords
+					        });
+					
+					        // 인포윈도우로 장소에 대한 설명을 표시합니다
+					        var infowindow = new kakao.maps.InfoWindow({
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">관심지역</div>'
+					        });
+					        infowindow.open(map, marker);
+					
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.setCenter(coords);
+					    } 
+					});    
+					</script>
+                  
+                  <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
+                  	<c:set var = "i" value="0"/>
 	                  <div class="row my-profile-section-element">
 	                    <h5 class="col-4">관심 카테고리 : </h5>
 	                    <div class="interest-wrap col-8">
-							<input type="checkbox"  class="interest"  <c:if test="${ i== '여행'}"> checked</c:if> name="interest" value="여행" id="travel" ><label for="travel">여행</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '운동'}"> checked</c:if> name="interest" value="운동" id="exercise" ><label for="exercise">운동</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '독서'}"> checked</c:if> name="interest" value="독서" id="book" ><label for="book">독서</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '비즈니스'}"> checked</c:if> name="interest" value="비즈니스" id="business"><label for="business">비즈니스</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '언어'}"> checked</c:if> name="interest" value="언어" id="language"><label for="language">언어</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '음악'}"> checked</c:if> name="interest" value="음악" id="music"><label for="music">음악</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '영화/공연'}"> checked</c:if> name="interest" value="영화/공연" id="movie"><label for="movie">영화/공연</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '댄스'}"> checked</c:if> name="interest" value="댄스" id="dance"><label for="dance">댄스</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '봉사활동'}"> checked</c:if> name="interest" value="봉사활동" id="volunteer"><label for="volunteer">봉사활동</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사교'}"> checked</c:if> name="interest" value="사교" id="meeting"><label for="meeting">사교</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '차/오토바이'}"> checked</c:if> name="interest" value="차/오토바이" id="car"><label for="car">차/오토바이</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사진/영상'}"> checked</c:if> name="interest" value="사진/영상" id="picture"><label for="picture">사진/영상</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '스포츠관람'}"> checked</c:if> name="interest" value="스포츠관람" id="watchingSports"><label for="watchingSports">스포츠관람</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '게임'}"> checked</c:if> name="interest" value="게임" id="game"><label for="game">게임</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '요리'}"> checked</c:if> name="interest" value="요리" id="cook"><label for="cook">요리</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '반려동물'}"> checked</c:if> name="interest" value="반려동물" id="pet"><label for="pet">반려동물</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '사회운동'}"> checked</c:if> name="interest" value="사회운동" id="socialMovement"><label for="socialMovement">사회운동</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '뷰티'}"> checked</c:if> name="interest" value="뷰티" id="beauty"><label for="beauty">뷰티</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '패션'}"> checked</c:if> name="interest" value="패션" id="fashion"><label for="fashion">패션</label>
-						    <input type="checkbox"  class="interest"  <c:if test="${ i== '기타'}"> checked</c:if> name="interest" value="기타" id="etc"><label for="etc">기타</label>
+							<input type="checkbox"  class="interest"  <c:if test="${ category[i]== '여행'}"> checked <c:set var="i" value="${i+1}"/></c:if> name="interest" value="여행" id="travel" ><label for="travel">여행</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '운동'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="운동" id="exercise" ><label for="exercise">운동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '독서'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="독서" id="book" ><label for="book">독서</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '비즈니스'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="비즈니스" id="business"><label for="business">비즈니스</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '언어'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="언어" id="language"><label for="language">언어</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '음악'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="음악" id="music"><label for="music">음악</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '영화/공연'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="영화/공연" id="movie"><label for="movie">영화/공연</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '댄스'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="댄스" id="dance"><label for="dance">댄스</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '봉사활동'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="봉사활동" id="volunteer"><label for="volunteer">봉사활동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '사교'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="사교" id="meeting"><label for="meeting">사교</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '차/오토바이'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="차/오토바이" id="car"><label for="car">차/오토바이</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '사진/영상'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="사진/영상" id="picture"><label for="picture">사진/영상</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '스포츠관람'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="스포츠관람" id="watchingSports"><label for="watchingSports">스포츠관람</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '게임'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="게임" id="game"><label for="game">게임</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '요리'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="요리" id="cook"><label for="cook">요리</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '반려동물'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="반려동물" id="pet"><label for="pet">반려동물</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '사회운동'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="사회운동" id="socialMovement"><label for="socialMovement">사회운동</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '뷰티'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="뷰티" id="beauty"><label for="beauty">뷰티</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '패션'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="패션" id="fashion"><label for="fashion">패션</label>
+						    <input type="checkbox"  class="interest"  <c:if test="${ category[i]== '기타'}"> checked <c:set var="i" value="${i+1}"/> </c:if> name="interest" value="기타" id="etc"><label for="etc">기타</label>
 		                 </div>
 	                  </div>
-	                  
-		  <script type="text/javascript">
-		  console.log({category});
-	      <c:set var="category" value="${fn:split(loginMember.memberCategory,',') }" />
-			var category = '${category}'
-		  console.log(category)
-		  $(function(){
-			  for(var i in category){
-				  if($(".interest").val()==i){
-					  $(this).prop("checked","true")
-				  }
-			  }
-		  })
-		  
-			
-		  </script>
 	                  
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">보유한 티켓 수 :</h5>
@@ -146,8 +190,10 @@
                   <div class="row my-profile-section-element">
                     <h5 class="profile-name col-4">프로필 사진 : </h5>
                     <div class="col-8">
-                      <img class="profile-img" src="../resources/img/${loginMember.memberProfile}" alt="프로필 사진">
-                      <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)">
+                      <img class="profile-img" src="../resources/upProfileImage/${loginMember.memberProfile}" alt="프로필 사진">
+                      <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)" 
+                      value="../resources/upProfileImage/${loginMember.memberProfile}"
+                      >
                       <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
                     </div>
                   </div>
@@ -162,11 +208,15 @@
       </div>
     </div>  
     <script>
+    
+    
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
           object.value = object.value.slice(0, object.maxLength);
         }
       }
+      
+      
 	var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
     var flag = false;
 	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
@@ -235,6 +285,16 @@
           }
           reader.readAsDataURL(value.files[0]);
       }
+      
+      $(function(){
+    				console.log($(".uploadInput").val());
+    	  
+    	$(".uploadInput").change(
+    			function(){
+    				console.log($(".uploadInput").val());
+    			})
+      })
+      
     </script>
   <!-- content 끝 -->
   

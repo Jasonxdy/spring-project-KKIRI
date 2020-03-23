@@ -47,8 +47,11 @@
 											<c:if test="${param.eventStatus != 'no'}">
 												style="background-color: rgba(0,161,133,.6)"
 											</c:if>
-										</c:if>
+										</c:if> 
 									>
+									
+									
+									
 										<option value="no">상태▽</option>
 										<option value="end">종료</option>
 										<option value="in">진행중</option>

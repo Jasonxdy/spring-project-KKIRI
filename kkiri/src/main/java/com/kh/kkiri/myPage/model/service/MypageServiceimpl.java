@@ -70,14 +70,24 @@ public class MypageServiceimpl implements MypageService{
 		int result = 0;
 		
 		member.setMemberNo(loginMember.getMemberNo());
-		String changeFileName = FileRename.rename(profile.getOriginalFilename());
+		String changeFileName ;
+		if(!profile.getOriginalFilename().equals("")) {
+			
+			
+		changeFileName = FileRename.rename(profile.getOriginalFilename());
 		member.setMemberProfile(changeFileName);
+		}else changeFileName = loginMember.getMemberProfile();
+		
+		member.setMemberIntroduce(member.getMemberIntroduce().replace("\r\n", "<br>"));
 		result = memberDAO.updateMember(member);
 		
 		
 		if(result>0) {
+			System.out.println(123);
+			System.out.println(profile);
 			// 파일 넣기
 			profile.transferTo(new File(savepath+"/"+changeFileName));
+			System.out.println(changeFileName);
 			if(!profile.getOriginalFilename().equals("default.png")||!profile.getOriginalFilename().equals("profile-ex.png")) {
 				// 중복 파일 제거
 				

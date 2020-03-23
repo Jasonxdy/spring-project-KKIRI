@@ -1,3 +1,9 @@
+/* 지도 */
+html #map{
+    width: 60%;
+    height: 400px;
+    margin: auto;
+}
 #container{
   margin-top : 100px;
 }
@@ -18,9 +24,12 @@
   transition: all 0.3s;
 }
 .eventCreate .eventCreateForm .eventCreateTitle{
-  text-align: center;
-  margin-top: 30px;
-  font-size: 30px;
+    text-align: center;
+    margin: 30px 0 20px 0;
+    font-size: 30px;
+}
+.eventCreate .eventCreateForm .step-1-title{
+	margin: 50px 0;	
 }
 .eventCreate .eventCreateForm .sub-title{
   text-align: center;
@@ -31,12 +40,12 @@
   margin: 0 auto;
 }
 .eventCreate .input-location-wrap{
-  text-align: center;
-  position: relative;
-  display: block;
-  width: 50%;
-  margin: 0 auto;
-  min-width: 400px;
+    text-align: center;
+    position: relative;
+    display: block;
+    width: 50%;
+    margin: 20px auto;
+    min-width: 400px;
 }
 .eventCreate .input-location-wrap .search-icon{
   width: 30px;
@@ -46,6 +55,9 @@
   right: 7px;
   cursor:pointer;
 }
+.eventCreate .eventLocation-label{
+    margin-top: 20px;
+} 
 .eventCreate .input-location-wrap>input{
   padding: 10px;
   width: 100%;
@@ -121,12 +133,13 @@
 .insert-event-info .uploadImg{
   float: left;
   width: 100%;
-  min-height: 250px;
+  height: 250px;
 }
 .insert-event-info #eventIntroduce{
   margin-top: 10px;
   resize: none;
   width: 75%;
+  padding: 10px;
   max-width: 445px;
 }
 .insert-event-info .eventIntroduceTitle{

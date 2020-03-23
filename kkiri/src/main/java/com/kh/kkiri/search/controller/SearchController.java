@@ -28,7 +28,7 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	
-	private int limit=2;
+	//private int limit=2;
 	private int pagingBarSize=10;
 	
 	/*
@@ -80,7 +80,8 @@ public class SearchController {
 	@RequestMapping(value = "searchEvents", produces= "application/json; charset=utf-8")
 	public String searchEvent(@RequestParam(value="searchKey", required=false) String searchKey,
 								@RequestParam(value="searchValue", required=false) String searchValue,
-								@RequestParam(value="currentPage", required=false) Integer currentPage
+								@RequestParam(value="currentPage", required=false) Integer currentPage,
+								@RequestParam(value="limit", required=false) Integer limit
 								) {
 		
 		Map<String, Object> map = null;
@@ -99,6 +100,11 @@ public class SearchController {
 		//PageInfo pInf = Pagination.getPageInfo(limit, pagingBarSize, currentPage, listCount);
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit);
+		
+		System.out.println("limitTemp : " + limit);
+		System.out.println("currentPage:" + currentPage);
+		
+		System.out.println(sList);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		//Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();

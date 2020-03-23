@@ -48,6 +48,28 @@ public class MemberDAO {
 
 
 
+	/** google 계정 가입 여부 체크 DAO
+	 * @param memberId
+	 * @return signUpCheck
+	 * @throws Exception
+	 */
+	public Member checkGoogleId(String memberId) throws Exception {
+		return sqlSession.selectOne("memberMapper.checkGoogleId", memberId);
+	}
+
+
+
+	/** google 계정으로 가입 Service
+	 * @param googleMember
+	 * @return signUpResult
+	 * @throws Exception
+	 */
+	public int googleSignUp(Member googleMember) throws Exception {
+		return sqlSession.insert("memberMapper.googleSignUp", googleMember);
+	}
+
+
+
 
 	
 	

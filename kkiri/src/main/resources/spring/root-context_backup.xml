@@ -2,17 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-    xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -61,23 +52,23 @@
     <bean id="googleOAuth2Template"
         class="org.springframework.social.google.connect.GoogleOAuth2Template">
         <constructor-arg
-            value="192503345396-ec1f48apba23d1h7jvtfq77qfir8sqlg.apps.googleusercontent.com" />
-        <constructor-arg value="VIHjwkyohjsz_OMa_ArFjn5S" />
+            value="192503345396-3ljh8n1f39gqo43tn6oafjdf331lgf4o.apps.googleusercontent.com" />
+        <constructor-arg value="E_QuNdkpmGEa2b0_TKe60qh0" />
     </bean>
  
  
     <bean id="googleOAuth2Parameters"
         class="org.springframework.social.oauth2.OAuth2Parameters">
         <property name="scope"
-            value="email"></property>
+            value="profile"></property>
         <property name="redirectUri"
             value="http://localhost:8080/kkiri/member/googleLogin" />
     </bean>
  
     <bean id="authInfo" class="com.kh.kkiri.member.model.vo.AuthInfo">
         <constructor-arg
-            value="192503345396-ec1f48apba23d1h7jvtfq77qfir8sqlg.apps.googleusercontent.com" />
-        <constructor-arg value="VIHjwkyohjsz_OMa_ArFjn5S" />
+            value="192503345396-3ljh8n1f39gqo43tn6oafjdf331lgf4o.apps.googleusercontent.com" />
+        <constructor-arg value="E_QuNdkpmGEa2b0_TKe60qh0" />
     </bean>
 	
 	
