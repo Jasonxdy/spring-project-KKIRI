@@ -12,13 +12,13 @@
 
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/commonEvent.css">
+  <link rel="stylesheet" href="css/signUp.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
   <style>
-        html .eventCreate .progress-bar-wrap>p{
+    html .signUp .progress-bar-wrap>p{
           width:75%;
-        }
+    }
   </style>
   <title>KKIRI(끼리)</title>
 </head>
@@ -82,12 +82,12 @@
       });
       $(".close-popup, .popup-shadow").on({
         click: function() {
-          $(".popup-shadow, #login-popup").hide(0); 
+          $(".popup-shadow, #login-popup").hide(0);
         }
       });
     </script>
     <div id="container">
-      <div class="eventCreate">
+      <div class="signUp">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -95,12 +95,11 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="eventCreateForm" action="#" method="post">
+              <form class="signUpForm" action="#" method="post">
                   <div class="step4 signUp-complete step">
-                    <h3 class="eventCreateTitle">이벤트 생성이 완료되었습니다!</h3>
-                    <p class="sub-title">이제 참가자들을 모아 이벤트를 함께 즐기세요.</p>
-
-                    <button type="button" class="green-radius-btn mt-4">이벤트 상세 페이지로</button>
+                    <h3 class="signUpTitle">회원가입 성공!</h3>
+                    <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
+                    <button type="button" class="green-radius-btn mt-4">메인으로</button>
                   </div>
               </form>
             </div>
@@ -108,7 +107,7 @@
         </div>
       </div>
     </div>
-    <!-- 이벤트생성 관련 스크립트 -->
+    <!-- 회원가입 관련 스크립트 -->
     <script>
       $(function() {
         $(".progress-bar-wrap").delay(300).fadeIn(300);
@@ -137,6 +136,30 @@
     <div id="button-top">
       <button type="button" class="top-btn">TOP</button>
     </div>
+
+
+    <script>
+      function scrollFunction() {
+        if ($(window).scrollTop() >= 200) {
+          $('#button-top').show(0);
+        } else {
+          $('#button-top').hide(0);
+        }
+      }
+      $(function() {
+        scrollFunction();
+        $(window).scroll(function() {
+          scrollFunction();
+        });
+        $('#button-top').on({
+          click: function() {
+            $('html,body').stop().animate({
+              scrollTop: 0
+            }, 600);
+          }
+        });
+      });
+    </script>
 
 </body>
 
