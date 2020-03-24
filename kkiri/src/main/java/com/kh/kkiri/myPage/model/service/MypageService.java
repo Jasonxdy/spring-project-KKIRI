@@ -42,11 +42,18 @@ public interface MypageService {
 	int updateMember(Member loginMember, Member member, MultipartFile profile, String savepath)throws Exception;
 
 	/**
-	 * @param memberNo
+	 * @param ticket
 	 * @return ticketList
 	 * @throws Exception
 	 */
-	List<Ticket> ticketLog(int memberNo)throws Exception;
+	List<Ticket> ticketLog(Ticket ticket)throws Exception;
+
+	/** pagination maxnum을 찾기 위한 서비스
+	 * @param ticket
+	 * @return
+	 * @throws Exception
+	 */
+	int getListCount(Ticket ticket)throws Exception;
 
 	
 }

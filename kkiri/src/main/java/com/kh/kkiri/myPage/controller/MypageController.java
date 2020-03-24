@@ -17,6 +17,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.kkiri.common.Pagination;
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
@@ -211,11 +213,27 @@ public class MypageController {
 		return "redirect:/mypage/in";
 	}
 	@RequestMapping("ticketLog")
-	public String ticketLog(Model model) {
+	public String ticketLog(Model model, 
+			@RequestParam(value="currentPage" , required = false) Integer currentPage,
+			@RequestParam(value="ticket-sort" ,required=false)String ticketSort) {
+		
+		Ticket ticket = null;
+		
 		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
+		
+		ticket.setMemberNo(memberNo);
+		ticket.setPaymentType(ticketSort);
+		// 페이징 처리
+		if(currentPage == null) {
+			currentPage = 1;
+		}
+		
 		try {
-		List<Ticket> ticketList = mypageService.ticketLog(memberNo);
+		List<Ticket> ticketList = mypageService.ticketLog(ticket);
 		model.addAttribute("ticketList", ticketList);
+		int listCount = mypageService.getListCount(ticket);
+		PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+		model.addAttribute("pInf", Pinf);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓페이지 이동중 에러가 발생했습니다.");

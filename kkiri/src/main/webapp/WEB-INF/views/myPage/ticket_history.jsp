@@ -96,8 +96,12 @@
                     ${tl.eventName }
                     </td>
                     <td class="ticket-money">
-                    <c:if test="${tl.paymentType =='C'||tl.paymentType =='R'||tl.paymentType =='B'}">
+                    <c:if test="${tl.paymentType =='R'||tl.paymentType =='B'}">
                     <c:set var="t2" value="${(tl.paymentTicket*-900)}"/>
+                    <fmt:formatNumber value="${t2}" groupingUsed="true" pattern="#,000"/>
+                    </c:if>
+                    <c:if test="${tl.paymentType =='C'}">
+                    <c:set var="t2" value="${(tl.paymentTicket*-1000)}"/>
                     <fmt:formatNumber value="${t2}" groupingUsed="true" pattern="#,000"/>
                     </c:if>
                     
@@ -112,6 +116,10 @@
               </table>
 
               <script>
+              
+              // 클릭할때 마다 ticketLog를 호출해라
+              
+              
                 $(function(){
                   // 종류별로 색깔구분하기
                   $(".ticket-amount").each(function(index){
@@ -121,13 +129,13 @@
                       $(this).css({"color":"#0069d9"});
                     }
                   });
-
+	
                   $(".ticket-table tbody .ticket-sort").each(function(i){
                     $("#ticket-sort").on({
                       change : function(){
                         if($(this).find("option:checked").text()=="전체"){
                           $(".ticket-table tbody tr").show(0);
-                        }else if($(this).find("option:checked").text()==$(".ticket-table tbody .ticket-sort").eq(i).text()){
+                        }else if($(this).find("option:checked").text()==$(".ticket-table tbody .ticket-sort").eq(i).text().trim()){
                           $(".ticket-table tbody tr").eq(i).show(0);
                         }else{
                           $(".ticket-table tbody tr").eq(i).hide(0);
@@ -143,34 +151,65 @@
               <div class="row justify-content-center pagination-wrap">
                 <div>
                   <ul class="pagination">
+                  <c:if test="${pInf.currentPage >1 }">
+                  
                     <li>
-                      <a class="page-link " href="#">&lt;&lt;</a>
+                      <a class="page-link " href="
+                  <c:url value="ticketLog">
+                    <c:param name="ticket-sort" value="${ticketSort}"/>  
+                  </c:url>
+                      "
+                      >&lt;&lt;</a>
                     </li>
+                    
+                    
+                    
                     <li>
-                      <a class="page-link " href="#">&lt;</a>
+                      <a class="page-link " href="
+                    
+                    <c:url value="ticketLog">
+                    <c:param name="ticket-sort" value="${ticketSort}"/>  
+                  	</c:url>
+                  ">&lt;</a>
                     </li>
+                  </c:if>
+                  <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
+                  <c:if test="${pg ==pInf.currentPage}">
                     <li>
-                      <a class="page-link" href="#">1</a>
+                      <a class="page-link">${pg }</a>
                     </li>
+                  </c:if>
+                  <c:if test="${pg!=pInf.currentPage }">
                     <li>
-                      <a class="page-link " href="#">2</a>
+                      <a class="page-link" href="
+                      <c:url value="ticketLog">
+                      <c:param name="ticket-sort" value="${ticketSort}" />
+                      </c:url>
+                      ">${pg }</a>
                     </li>
-                    <li>
-                      <a class="page-link " href="#">3</a>
-                    </li>
-                    <li>
-                      <a class="page-link " href="#">4</a>
-                    </li>
-                    <li>
-                      <a class="page-link " href="#">5</a>
-                    </li>
+                  </c:if>
+                  </c:forEach>
+                    
                     <!-- 다음 페이지로(>) -->
+                    <c:if test="${pInf.currentPage<pInf.maxPage }">
                     <li>
-                      <a class="page-link " href="#">&gt;</a>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="ticket-sort" value="${ticketSort}" />
+                      <c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                      </c:url>
+                      ">&gt;</a>
                     </li>
+                    </c:if>
+                    
                     <!-- 맨 끝으로(>>) -->
                     <li>
-                      <a class="page-link " href="#">&gt;&gt;</a>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="ticket-sort" value="${ticketSort}" />
+                      <c:param name="currentPage" value="${pInf.maxPage}"/>
+                      </c:url>
+                      ">&gt;&gt;</a>
                     </li>
                   </ul>
                 </div>
