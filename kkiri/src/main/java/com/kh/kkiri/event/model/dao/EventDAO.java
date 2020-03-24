@@ -13,6 +13,7 @@ import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.event.model.vo.Image;
 
 @Repository
 public class EventDAO {
@@ -123,7 +124,41 @@ public class EventDAO {
 		return sqlSession.insert("eventMapper.insertReport", report);
 	}
 
+	/** 다음 이벤트글 번호 조회용 DAO
+	 * @return eventNo
+	 * @throws Exception
+	 */
+	public int selectNextNo() throws Exception{
+		return sqlSession.selectOne("eventMapper.selectNextNo");
+	}
 
+	/** 이벤트 게시글을 DB에 등록용 DAO
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int createEvent(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.createEvent",event);
+	}
+
+
+	/** 이벤트 썸네일 사진 삽입용 DAO
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertImage(Image image) throws Exception{
+		return sqlSession.insert("eventMapper.insertImage",image);
+	}
+
+	/** PARTY 테이블에 데이터 추가용
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertParty(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.insertParty",event); 
+	}
 
 
 }

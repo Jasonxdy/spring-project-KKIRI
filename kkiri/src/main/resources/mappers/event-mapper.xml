@@ -47,6 +47,15 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
+	<resultMap type="Image" id="imageResultSet">
+		<id property="imgNo" column="IMG_NO"/>
+		<result property="eventNo" column="EVENT_NO"/>
+		<result property="imgOriginalName" column="IMG_ORIGINAL_NAME"/>
+		<result property="imgChangeName" column="IMG_CHANGE_NAME"/>
+		<result property="imgEnrollDate" column="IMG_ENROLL_DT"/>
+		<result property="imgStatus" column="IMG_STATUS"/>
+		<result property="imgType" column="IMG_TYPE"/>
+	</resultMap>
 	
 	<resultMap type="Party" id="partyResultSet">
 	<id property="eventNo" column="EVENT_NO"/>
@@ -148,7 +157,28 @@
 	</insert>
 	
 	
+	<!-- 다음 이벤트글 번호 조회용  -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT EVE_SEQ.NEXTVAL FROM DUAL
+	</select>
 
+	<!-- 이벤트 게시글 등록용 -->
+	<insert id="createEvent" parameterType="Event">
+		INSERT INTO EVENT VALUES(#{eventNo},#{eventTitle},#{eventContent},
+		#{eventCategory},#{eventLocation},#{latitude},#{longtitude},#{eventStart},#{eventEnd},
+		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y')
+	</insert>
+	
+	<!-- 이벤트 생성 성공시 party테이블에 데이터 추가용  --> 
+	<insert id="insertParty" parameterType="Party">
+		INSERT INTO PARTY VALUES(#{eventNo},#{memberNo},'S','Y')
+	</insert>
+	
+	<!-- 이벤트 썸네일 이미지 삽입용 -->
+	<insert id="insertImage" parameterType="Image">
+		INSERT INTO IMAGE VALUES(IMG_SEQ.NEXTVAL,#{eventNo},#{imgOriginalName},#{imgChangeName},
+		SYSDATE,'Y','T')
+	</insert>
 
 
 </mapper>

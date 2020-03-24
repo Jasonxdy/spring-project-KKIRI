@@ -48,7 +48,7 @@
 	                  <a href="${contextPath}/admin/member" class="createEvent-btn">관리자 페이지</a>
 	                  </c:if>
 	                  <c:if test="${loginMember.memberGrade != 'A' }">
-	                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+	                  <a href="${contextPath}/event/goEventCreate" class="createEvent-btn">이벤트 생성하기</a>
 	                  </c:if>
 	                  <span class="separation"> | </span>
 	                  <a href="#">고객센터</a>

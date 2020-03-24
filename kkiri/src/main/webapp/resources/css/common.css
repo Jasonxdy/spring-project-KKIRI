@@ -13,9 +13,9 @@ a:link,
 a:visited,
 a:hover,
 a:active,
-a:focus							{text-decoration:none;}
+a:focus							{text-decoration:none; color:unset;}
 table							{border-collapse:collapse;}
-input,select,textarea             {border:1px solid #cdd2d8; border-radius: 5px;}
+input,select,textarea             {border:1px solid #cdd2d8; border-radius: 5px; transition:all .3s;}
 
 /* 부트스트랩 마진, 패딩 없애기 */
 .col-md-12{
@@ -124,6 +124,14 @@ html body .green-radius-btn{
   font-size: 1.1rem;
   margin: 0 10px;
 }
+html body .blue-radius-btn{
+  background: #227fbb;
+  color: #ffffff;
+  border-radius: 0.25rem;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  margin: 0 10px;
+}
 
 /* 필수('*') 표시 */
 .require	{
@@ -173,8 +181,11 @@ input::-webkit-inner-spin-button{
 }
 
 /* 폼 포커스 색상통일 */
-.custom-select:focus,
+input:focus,
+select:focus,
+textarea:focus,
 .form-control:focus{
   border-color: #00a185;
   box-shadow: 0 0 0 0.2rem rgba(0,161,133,.25);
+  outline:0;
 }

@@ -1,5 +1,6 @@
 package com.kh.kkiri.event.controller;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
@@ -230,5 +234,75 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	// 이벤트 생성페이지로 이동(서진웅)
+	@RequestMapping("goEventCreate")
+	public String goEventCreate() {
+		return "event/eventCreate";
+	}
+	
+	// 이벤트 생성(서진웅)
+	@RequestMapping("createEvent")
+	public String createEvent(String startTime, String endTime,
+			Event event, Model model, HttpServletRequest request,
+			@RequestParam(value="thumbnailImg", required=false) MultipartFile thumbnailImg,
+			RedirectAttributes rdAttr) {
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int eventCreator = loginMember.getMemberNo();
+		
+		startTime += ":00.00";
+		endTime += ":00.00";
+		
+		Timestamp eventStart = (Timestamp.valueOf(startTime.replace("T"," ")));
+		Timestamp eventEnd = (Timestamp.valueOf(endTime.replace("T"," ")));
+		
+		event.setEventStart(eventStart);
+		event.setEventEnd(eventEnd);
+		event.setMemberNo(eventCreator);
+		event.setEventThumbnail(thumbnailImg.getOriginalFilename());
+		
+		String root = request.getSession().getServletContext().getRealPath("resources"); 
+		String savePath = root + "/upEventThumbnail";
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+
+		try {
+			Image image = null;
+			String changeFileName = null;
+			if(!thumbnailImg.getOriginalFilename().equals("")) {
+				
+				changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
+				
+				image = new Image(thumbnailImg.getOriginalFilename(), changeFileName);
+			}
+			
+			int result = eventService.createEvent(event,image);
+			
+			String url = null;
+			if(result>0) { // DB에 게시글 삽입 성공시
+				if(image!=null) {
+					thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
+				}
+				model.addAttribute("eventNo",result);
+				url = "event/insertEventComplete";
+			}else {
+				String msg = "이벤트 등록 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				url = "redirect:/";
+			}
+			return url;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이벤트 생성 과정 중 오류발생");
+			return "common/errorPage";
+		}
+		
+	}
+
 
 }
