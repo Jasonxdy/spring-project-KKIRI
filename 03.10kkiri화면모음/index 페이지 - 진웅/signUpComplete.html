@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js" crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/signUp.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    html .signUp .progress-bar-wrap>p{
+          width:75%;
+    }
+  </style>
+  <title>KKIRI(끼리)</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="logo"><a href="#"><img src="img/logo.png" alt="로고"></a></h1>
+            <div class="nav-section">
+              <a href="#" class="login-btn">로그인</a>
+              <a href="signUp.html">회원가입</a>
+              <span class="separation"> | </span>
+              <a href="#">고객센터</a>
+              <!-- <div class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                  </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 팝업 start-->
+    <div id="login-popup" class="popup">
+      <p class="popup-title">
+        로그인
+        <img src="img/close-btn.png" alt="닫기버튼" class="close-popup">
+      </p>
+      <div class="popup-content">
+        <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
+        <form class="login-form-wrap custom-checkbox" action="#" method="post">
+          <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
+          <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
+
+          <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
+          <label class="custom-control-label" for="rememberId">아이디 저장</label>
+          <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
+
+          <button class="popup-confirm-btn login-conform-btn">로그인</button>
+          <button class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
+          <button class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup-shadow"></div>
+    <!-- 로그인 팝업 end-->
+
+    <script>
+      // 로그인 팝업 이벤트
+      $(".login-btn").on({
+        click: function() {
+          $(".popup-shadow, #login-popup").show(0);
+        }
+      });
+      $(".close-popup, .popup-shadow").on({
+        click: function() {
+          $(".popup-shadow, #login-popup").hide(0);
+        }
+      });
+    </script>
+    <div id="container">
+      <div class="signUp">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="section-title">회원가입</h2>
+              <div class="progress-bar-wrap">
+                <p class="progress-bar-percent"></p>
+              </div>
+              <form class="signUpForm" action="#" method="post">
+                  <div class="step4 signUp-complete step">
+                    <h3 class="signUpTitle">회원가입 성공!</h3>
+                    <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
+                    <button type="button" class="green-radius-btn mt-4">메인으로</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 회원가입 관련 스크립트 -->
+    <script>
+      $(function() {
+        $(".progress-bar-wrap").delay(300).fadeIn(300);
+        $(".progress-bar-percent").delay(200).animate({"width":"100%"},300);
+        $(".step4").delay(300).fadeIn(300);
+      });
+    </script>
+
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 footer-logo-wrap">
+                <img class="footer-logo" src="img/logo2-white.png" alt="푸터로고">
+              </div>
+              <div class="col-md-8">
+                <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="button-top">
+      <button type="button" class="top-btn">TOP</button>
+    </div>
+
+
+    <script>
+      function scrollFunction() {
+        if ($(window).scrollTop() >= 200) {
+          $('#button-top').show(0);
+        } else {
+          $('#button-top').hide(0);
+        }
+      }
+      $(function() {
+        scrollFunction();
+        $(window).scroll(function() {
+          scrollFunction();
+        });
+        $('#button-top').on({
+          click: function() {
+            $('html,body').stop().animate({
+              scrollTop: 0
+            }, 600);
+          }
+        });
+      });
+    </script>
+
+</body>
+
+</html>

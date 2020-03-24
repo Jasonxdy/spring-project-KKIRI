@@ -48,7 +48,7 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="signUpForm" action="createId" method="post">
+              <form class="signUpForm" action="createId" method="post" enctype="multipart/form-data">
                 <div class="step1 select-location step">
                   <h3 class="signUpTitle">1단계. 회원님의 관심 지역을 선택해주세요</h3>
                   <p class="sub-title">선택하신 관심 지역을 기반으로 이벤트를 추천해드리고, 다른 회원님과 연결해드립니다.</p>
@@ -115,7 +115,7 @@
                     <p class="sub-title"><strong class='require'>필수</strong>표시는 필수적으로 입력하셔야 합니다.</p>
                     <div class="insert-member-info">
                       <label><strong class='require'>필수</strong>&nbsp;프로필 사진</label>
-                      <input type="file" class="uploadInput" name="memberProfile" onchange="loadImg(this)">
+                      <input type="file" class="uploadInput" name="uploadProfile" onchange="loadImg(this)">
                       <div class="uploadImgWrap">
                         <img class="uploadImg">
                         <button type="button" class="uploadBtn">사진 업로드</button>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -95,15 +96,12 @@
                     ${tl.eventName }
                     </td>
                     <td class="ticket-money">
-                    <c:if test="${tl.paymentType =='C'}">
-                         			   	  ${tl.paymentTicket*-900 }원
+                    <c:if test="${tl.paymentType =='C'||tl.paymentType =='R'||tl.paymentType =='B'}">
+                    <c:set var="t2" value="${(tl.paymentTicket*-900)}"/>
+                    <fmt:formatNumber value="${t2}" groupingUsed="true" pattern="#,000"/>
                     </c:if>
-                    <c:if test="${tl.paymentType =='R'}">
-        								 ${tl.paymentTicket*-900 }원       
-        	 		</c:if>
-                    <c:if test="${tl.paymentType =='B'}">
-      									 ${tl.paymentTicket*-900 }원
-      				</c:if>
+                    
+      				원
                     </td>
                   </tr>
 		

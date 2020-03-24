@@ -105,7 +105,7 @@
                       <label for="eventEnd">이벤트 종료 시간</label>
                       <input type="datetime-local" name="endTime" id="eventEnd"><br>
                       <label for="ticket">참가 티켓 수</label>
-                      <input type="number" name="eventTicket" id="ticket"><br>
+                      <input type="number" name="eventTicket" id="ticket" min="0"><br>
                       <label for="eventQuota">이벤트 정원</label>
                       <input type="number" name="eventQuota" id="eventQuota" min="2"><br>
 

@@ -111,14 +111,21 @@ public class MemberController {
 	}
 
 	// 회원 가입
-	@RequestMapping("createId") // 바뀔 쑤 있음 ㅎㅎ
-	public String createId(Member member, Model model, String memberLocation, String memberPhone1, String memberPhone2,
-			String memberPhone3, @RequestParam(value = "memberInterest") String[] interest, String memberBankName,
-			String memberBankNumber, String memberAccountName, HttpServletRequest request, RedirectAttributes rdAttr,
-			@RequestParam(value = "memberProfile") MultipartFile memberProfile) {
-
-		String root = request.getSession().getServletContext().getRealPath("resources");
-
+	@RequestMapping("createId")  //바뀔 쑤 있음 ㅎㅎ 
+	public String createId(Member member, Model model,
+							String memberLocation,
+							String memberPhone1, String memberPhone2, String memberPhone3,
+							@RequestParam(value="memberInterest")
+							String[] interest,
+							String memberBankName, String memberBankNumber, String memberAccountName,
+							HttpServletRequest request,
+							RedirectAttributes rdAttr,
+							@RequestParam(value="uploadProfile",required=true) MultipartFile uploadProfile
+						) {
+		
+		String root = request.getSession().
+				getServletContext().getRealPath("resources");
+		
 		String savePath = root + "/upProfileImage";
 		File folder = new File(savePath);
 
@@ -134,46 +141,53 @@ public class MemberController {
 			memberCategory = String.join(",", interest);
 
 		}
+		
 
-		Member createMember = new Member(member.getMemberId(), member.getMemberNickname(), member.getMemberPwd(),
-				member.getMemberEmail(), member.getMemberGender(), memberPhone, member.getMemberBirth(),
-				member.getMemberIntroduce(), memberLocation, memberCategory, memberAcount
-
-		);
+		Member createMember = new Member(
+										member.getMemberId(),
+										member.getMemberNickname(),
+										member.getMemberPwd(),
+										member.getMemberEmail(),
+										member.getMemberGender(),
+										memberPhone,
+										member.getMemberBirth(),
+										member.getMemberIntroduce(),
+										memberLocation,
+										memberCategory,
+										memberAcount
+										
+				);
+		
 
 		System.out.println("1. 로그인:" + createMember);
 
 		try {
-
-			List<Attachment> files = new ArrayList<Attachment>();
-			Attachment at = null;
-			if (!memberProfile.getOriginalFilename().contentEquals("")) {
+			String changeFileName = null;
+		
+			if(!uploadProfile.getOriginalFilename().equals("")) {
 				// thumbnail이 등록된 경우
 
 				// 파일명 rename
-				String changeFileName = FileRename.rename(memberProfile.getOriginalFilename());
-
-				// Attachment 객체 생성, (vo 값 불러오기)
-				at = new Attachment(memberProfile.getOriginalFilename(), changeFileName, savePath);
-
-				// files List에 추가
-				files.add(at);
-
+				changeFileName = FileRename.rename(uploadProfile.getOriginalFilename());
+				
+				createMember.setMemberProfile(changeFileName);
 			}
+			
+			
 
-			int result = memberService.createId(createMember, files);
-
+			
+			int result = memberService.createId(createMember);
+			
 			String msg = null;
 
 			// if(result > 0) msg = "가입 성공";
 			// else msg = "가입 실패";
 			// model.addAttribute("msg", msg);
-
-			if (result > 0) {
-				for (Attachment file : files) {
-					memberProfile.transferTo(new File(file.getFilePath() + "/" + file.getFileChangeName()));
+			
+			if(result >0) {
+				if(createMember.getMemberProfile() != null) {
+					uploadProfile.transferTo(new File(savePath + "/" + changeFileName));
 				}
-
 				msg = "가입 성공";
 
 			} else {

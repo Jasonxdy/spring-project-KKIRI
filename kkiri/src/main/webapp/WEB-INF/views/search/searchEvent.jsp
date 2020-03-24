@@ -258,8 +258,7 @@ input:checked + .slider:before {
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 
 		<script>
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
+		/*  
 			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
 				geocoder.addressSearch($("#place").text(), function(result, status) {
 					console.log("aaa");
@@ -274,7 +273,8 @@ input:checked + .slider:before {
 			<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
 				coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			</c:if>
-		
+			*/
+			
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
@@ -292,9 +292,12 @@ input:checked + .slider:before {
 			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 			var zoomControl = new kakao.maps.ZoomControl();
 			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
 			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 			var markers = [];
-			var coords;
+			
+			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			
 			 $(function() {
 		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];

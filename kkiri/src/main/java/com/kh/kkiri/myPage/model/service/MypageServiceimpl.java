@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,8 @@ import com.kh.kkiri.payment.model.vo.Payment;
 @Service
 public class MypageServiceimpl implements MypageService{
 
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@Autowired
 	private MypageDAO mypageDAO;
@@ -42,9 +45,15 @@ public class MypageServiceimpl implements MypageService{
 		
 		int result = 0; //아이디와 비밀번호가 일치하지 않음
 		Member checkMember = null;
+		
+		// 비밀번호 암호화 작업 시작
 		checkMember = memberDAO.signInMember(loginMember);
-		if(checkMember != null) {
-			loginMember.setMemberPwd(changePassword);
+		
+		
+		// checkMember가 null이 아니고 비밀번호가 일치하다면
+		if(checkMember != null && bcryptPasswordEncoder.matches(loginMember.getMemberPwd(), checkMember.getMemberPwd())) {
+			
+			loginMember.setMemberPwd(bcryptPasswordEncoder.encode(changePassword));
 		result = mypageDAO.updatePassword(loginMember);
 		if(result == 0) result=-1; // 변경 실패
 		}

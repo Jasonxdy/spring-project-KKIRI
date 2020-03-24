@@ -54,76 +54,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-center">
-                <th scope="row">1</th>
-                <td><p class="board-title-td">공지사항 1</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">2</th>
-                <td><p class="board-title-td">공지사항 2</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">3</th>
-                <td><p class="board-title-td">공지사항 3</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">4</th>
-                <td><p class="board-title-td">공지사항 4</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">5</th>
-                <td><p class="board-title-td">공지사항 5</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">6</th>
-                <td><p class="board-title-td">공지사항 6</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">7</th>
-                <td><p class="board-title-td">공지사항 7</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">8</th>
-                <td><p class="board-title-td">공지사항 8</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">9</th>
-                <td><p class="board-title-td">공지사항 9</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
-              <tr class="text-center">
-                <th scope="row">10</th>
-                <td><p class="board-title-td">공지사항 10</p></td>
-                <td>관리자</td>
-                <td>2020-01-01</td>
-                <td>10</td>
-              </tr>
+            	<c:if test="${empty list }">
+					<tr>
+						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${!empty list }">
+					<c:forEach var="notice" items="${list}" varStatus="vs">
+						<tr class="text-center">
+							<th scope="row">${notice.noticeNo}</th>
+							<td><p class="board-title-td">${notice.noticeTitle}</p></td>
+							<td>${loginMember}</td>
+							<td>${notice.noticeModifyDate}</td>
+							<td>${notice.noticeCount}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
             </tbody>
           </table>
         </div>
