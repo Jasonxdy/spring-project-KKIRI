@@ -30,9 +30,13 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.deleteMember", loginMember);
 	}
 
-	public List<Ticket> ticketLog(int memberNo)throws Exception {
+	public List<Ticket> ticketLog(Ticket ticket)throws Exception {
 		
-		return sqlSession.selectList("paymentMapper.ticketLog", memberNo);
+		return sqlSession.selectList("paymentMapper.ticketLog", ticket);
+	}
+
+	public int getListCount(Ticket ticket) throws Exception{
+		return sqlSession.selectOne("paymentMapper.getListCount", ticket);
 	}
 	
 }

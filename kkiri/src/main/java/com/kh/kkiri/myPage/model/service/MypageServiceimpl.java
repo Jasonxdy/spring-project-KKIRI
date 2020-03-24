@@ -62,6 +62,16 @@ public class MypageServiceimpl implements MypageService{
 	}
 
 	@Override
+	public int getListCount(Ticket ticket) throws Exception {
+
+		if(ticket.getPaymentType().equals("ALL")) {
+			ticket.setPaymentType("*");
+		}
+		
+		return mypageDAO.getListCount(ticket);
+	}
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteMember(Member loginMember) throws Exception {
 
@@ -110,9 +120,13 @@ public class MypageServiceimpl implements MypageService{
 	}
 
 	@Override
-	public List<Ticket> ticketLog(int memberNo) throws Exception {
+	public List<Ticket> ticketLog(Ticket ticket) throws Exception {
 
-		List<Ticket> ticketLog = mypageDAO.ticketLog(memberNo);
+		if(ticket.getPaymentType().equals("ALL")||ticket.getPaymentType()==null) {
+			ticket.setPaymentType("*");
+		}
+		
+		List<Ticket> ticketLog = mypageDAO.ticketLog(ticket);
 		
 		return ticketLog;
 	}
