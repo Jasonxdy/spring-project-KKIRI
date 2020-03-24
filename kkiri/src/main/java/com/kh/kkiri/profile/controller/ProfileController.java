@@ -41,7 +41,7 @@ public class ProfileController {
 		String beforeUrl = request.getHeader("referer");
 		
 		try {
-			int memberNo = 76;
+			int memberNo = 100;
 			
 			Member member = profileService.selectMember(memberNo);
 			
@@ -55,20 +55,16 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
 				// 생성한 이벤트 수 
-				int listCount = profileService.cListCount(memberNo);
-				System.out.println(listCount);
+				int cListCount = profileService.cListCount(memberNo);
 				// 참여한 이벤트 수
 				int jListCount = profileService.jListCount(memberNo);
-				//PageInfo pInf = Pagination.
 				
-				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, listCount);
+				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
+				model.addAttribute("cpInf", cpInf);
 				PageInfo jpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
-				
-				System.out.println(cpInf);
+				model.addAttribute("jpInf", jpInf);
 				
 				model.addAttribute("member", member);
-				model.addAttribute("cpInf", cpInf);
-				model.addAttribute("jpInf", jpInf);
 				
 				return "member/userProfile";
 			} else {
@@ -88,10 +84,10 @@ public class ProfileController {
 								@RequestParam(value="currentPage", required=false) Integer currentPage){
 		
 		List<Search> cList = profileService.selectCreateEvent(memberNo, currentPage, limit);
+		System.out.println(memberNo);
 		System.out.println(cList);
 		
-		
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		
 		return gson.toJson(cList);
 	}

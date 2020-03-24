@@ -185,17 +185,75 @@
 		$.ajax({
 			url : "createEvent",
 			type : "POST",
-			date : {"memberNo" : memberNo,
+			data : {"memberNo" : memberNo,
 					"currentPage" : currentPage},
 			dataType : "json",
 			success : function(cList){
+				console.log(cList)
 				var content = "";
-				
-				console.log(cList);
 				
 				if(cList == ""){
 					$("#eventArea").empty();
 					content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>";
+					$(content).appendTo("#eventArea");
+				} else{
+					$("#eventArea").empty();
+					
+					$.each(cList, function(i){
+						
+						// 시작 시간 포맷 변경
+    					startDate = cList[i].eventStart.substring(0,4) +
+    								 "년 " + 
+    								 cList[i].eventStart.substring(4,6) +
+    								 "월 "+
+    								 cList[i].eventStart.substring(6,8) +
+    								 "일 " +
+    								 cList[i].eventStart.substring(8,10) +
+    								 ":" +
+    								 cList[i].eventStart.substring(10,12)
+    								 ;
+    								 
+    					content += 	
+    								"<div class='card shadow mb-4'>" +
+    									"<div class='col-md-12'>" +
+    										"<div class='row'>" +
+    											"<div class='col-md-3'>" +
+    												"<img src='${contextPath}/resources/upEventThumbnail/" + cList[i].eventThumbnail + "' alt='이벤트 썸네일이미지'>" +
+    											"</div>" +
+    											"<div class='col-md-6 p-3'>" +
+	    											"<p class='mb-1' style='color: #00a185;''>" + startDate + "</p>" +
+	    											"<h2 class='mb-3 event-title'>[" + cList[i].eventTitle + "]</h2>" +
+	    											"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" +
+	    											"<span>" + cList[i].eventAddress + "</span>" +
+	    											"<p>"+cList[i].eventLocation+"</p>" +
+	    											"<p class='mb-0'>" + cList[i].eventContent + "</p>" +
+	    										"</div>" +
+	    										"<div class='col-md-3'>" +
+	    											"<div class='p-3'>" +
+	    												"<div>" +
+	    												"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ cList[i].memberProfile +"' alt=''>" +
+	    												"<div style='display: inline-block;'>" +
+														"<p class='mb-1'>" + cList[i].memberId + "</p>" +
+														"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
+														"<span>x" + cList[i].eventScore + "</span>" +
+													"</div>" +
+												"</div>";
+    					if(${nowDate} < cList[i].eventEnd){
+									content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ cList[i].eventTicket + "장</p>" +
+											"</div>" +
+										"</div>" +
+									"</div>" +
+								"</div>" +
+							"</div>";
+						} else{
+									content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
+									"</div>" +
+								"</div>" +
+							"</div>" +
+						"</div>" +
+					"</div>";
+						}
+					});
 					$(content).appendTo("#eventArea");
 				}
 			}
