@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,49 +13,36 @@
 		<jsp:include page="../../../WEB-INF/views/common/header.jsp" />
 		<link rel="stylesheet"
 			href="<%=request.getContextPath()%>/resources/css/userProfile.css">
-
 		<div class="container my-4 card bg-light">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row p-1">
 						<div class="col-md-3 p-4">
-							<img class="w-100" style="border-radius: 50%;"
-								src="img/profile-ex.png" alt="">
+							<img class="w-100" style="border-radius: 50%;" src="${contextPath }/resources/upProfileImage/${member.memberProfile }" alt="">
 						</div>
 						<div class="col-md-9 p-4">
-							<h1>정환조</h1>
+							<h1>${member.memberNickname }</h1>
 							<hr>
 							<div class="row">
 								<div class="col-md-5">
 									<p class="h4">관심지역</p>
-									<p>서울특별시 서대문구 북아현동</p>
-									<p>나이 : 35세</p>
+									<p>${member.memberPlace }</p>
+									<jsp:useBean id="now" class="java.util.Date"/>
+									<fmt:formatDate value="${now}" pattern="yyyy" var="nowDate" />
+									<fmt:formatDate value="${member.memberBirth}" pattern="yyyy" var="birthDate" />
+									<p>성별 : ${member.memberGender}</p>
+									<p>나이 : ${nowDate - birthDate +1 } 살</p>
 								</div>
 								<div id="category" class="col-md-7">
+									<c:set var="mCategory" value="${fn:split(member.memberCategory,',')}"/>
+									
 									<p class="h4">관심 카테고리</p>
-									<div class="text-center">여행</div>
-									<div class="text-center">운동</div>
-									<div class="text-center">독서</div>
-									<div class="text-center">비즈니스</div>
-									<div class="text-center">언어</div>
-									<div class="text-center">음악</div>
-									<div class="text-center">영화/공연</div>
-									<div class="text-center">댄스</div>
-									<div class="text-center">봉사활동</div>
-									<div class="text-center">사교</div>
-									<div class="text-center">차/오토바이</div>
-									<div class="text-center">사진/영상</div>
-									<div class="text-center">스포츠관람</div>
-									<div class="text-center">게임</div>
-									<div class="text-center">요리</div>
-									<div class="text-center">반려동물</div>
-									<div class="text-center">사회운동</div>
-									<div class="text-center">뷰티</div>
-									<div class="text-center">패션</div>
-									<div class="text-center">기타</div>
+									<c:forEach var="cate" items="${mCategory }" varStatus="vs">
+										<div class="text-center">${cate }</div>
+									</c:forEach>
 								</div>
 							</div>
-							<p class="mt-3 introduce-text">반가워요 여러분!! 우리 친해져요.</p>
+							<p class="mt-3 introduce-text">${member.memberIntroduce }</p>
 						</div>
 					</div>
 				</div>
