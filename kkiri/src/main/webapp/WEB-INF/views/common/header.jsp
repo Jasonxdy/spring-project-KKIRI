@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board.css">
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
@@ -106,7 +107,7 @@
 
               <button class="popup-confirm-btn login-conform-btn">로그인</button>
               <button id="googleLogin" type="button" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-              <button type="button" class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
+              <button id="kakaoLogin" type="button" class="popup-confirm-btn another-btn">카카오 아이디로 로그인</button>
             </form>
           </div>
         </div>
@@ -126,10 +127,12 @@
           }
         });
         
-        
-        
         $("#googleLogin").on("click", function(){
         	location.href = "${google_url}";
+        })
+        
+         $("#kakaoLogin").on("click", function(){
+        	location.href = "${kakao_url}";
         })
       </script>
     

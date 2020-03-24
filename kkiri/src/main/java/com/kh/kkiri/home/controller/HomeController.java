@@ -3,6 +3,7 @@ package com.kh.kkiri.home.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.google.connect.GoogleOAuth2Template;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.kkiri.home.model.service.HomeService;
+import com.kh.kkiri.member.controller.KakaoController;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
@@ -22,6 +24,9 @@ public class HomeController {
 	
 	@Autowired
 	private HomeService homeService;
+	
+	@Autowired
+	private KakaoController kakaoLogin;
 	
 	@Autowired
 	private GoogleOAuth2Template googleOAuth2Template;
@@ -34,7 +39,8 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, HttpServletResponse response) {
+	public String home(Model model, HttpServletResponse response,
+			HttpSession session) {
 		
 		try {
 			
@@ -42,6 +48,12 @@ public class HomeController {
 			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		    model.addAttribute("google_url", url);
 			
+		    // kakaoUrl
+		    String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
+
+		    /* 생성한 인증 URL을 View로 전달 */
+		    model.addAttribute("kakao_url", kakaoUrl);
+		    
 		    // 이벤트 추천
 			
 			
