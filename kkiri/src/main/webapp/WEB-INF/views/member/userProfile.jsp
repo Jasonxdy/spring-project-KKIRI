@@ -51,11 +51,11 @@
 			<div class="row p-3">
 				<div class="col-md-2">
 					<button class="event-btn-tab btn btn-primary m-1"
-						style="background-color: #00a185; border: none;">생성한 이벤트</button>
+						style="background-color: #00a185; border: none;" onclick="cEventList()">생성한 이벤트</button>
 					<button class="event-btn-tab btn btn-primary m-1"
 						style="background-color: #00a185; border: none;">참여한 이벤트</button>
 				</div>
-				<div class="col-md-10">
+				<div class="col-md-10" id="eventArea">
 
 					<div class="card shadow mb-4">
 						<div class="col-md-12 ">
@@ -175,5 +175,32 @@
 
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 		
+<script>
+	//임시
+	var memberNo = 76;
+	
+	var currentPage = 1;
+
+	function cEventList(){
+		$.ajax({
+			url : "createEvent",
+			type : "POST",
+			date : {"memberNo" : memberNo,
+					"currentPage" : currentPage},
+			dataType : "json",
+			success : function(cList){
+				var content = "";
+				
+				console.log(cList);
+				
+				if(cList == ""){
+					$("#eventArea").empty();
+					content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>";
+					$(content).appendTo("#eventArea");
+				}
+			}
+		});
+	}
+</script>
 </body>
 </html>

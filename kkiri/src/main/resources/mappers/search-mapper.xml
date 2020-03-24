@@ -7,6 +7,7 @@
 		<result property="eventTitle" column="EVENT_TITLE"/>
 		<result property="eventContent" column="EVENT_CONTENT"/>
 		<result property="eventCategory" column="EVENT_CATEGORY"/>
+		<result property="eventAddress" column="EVENT_ADDRESS"/>
 		<result property="eventLocation" column="EVENT_LOCATION"/>
 		<result property="latitude" column="LATITUDE"/>
 		<result property="longitude" column="LONGITUDE"/>
@@ -81,11 +82,14 @@
 		AND MEMBER_TYPE = 'P'
 		AND EVENT_STATUS = 'Y'
 	</select>
-	
-	<select id="selectCreateEvent" parameterType="_int" resultType="searchResultSet">
-		SELECT * FROM V_EVENT
+	  
+	<select id="selectCreateEvent" parameterType="_int" resultMap="searchResultSet">
+		SELECT EVENT_NO, EVENT_TITLE, EVENT_CONTENT, EVENT_CATEGORY, EVENT_ADDRESS, EVENT_LOCATION, LATITUDE, LONGITUDE,
+				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_PROFILE, SCORE
+		FROM V_EVENT
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
 		AND EVENT_STATUS = 'Y'
 	</select>
+	
 </mapper>

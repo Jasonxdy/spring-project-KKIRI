@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
@@ -54,12 +55,16 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
 				// 생성한 이벤트 수 
-				int cListCount = profileService.cListCount(memberNo);
+				int listCount = profileService.cListCount(memberNo);
+				System.out.println(listCount);
 				// 참여한 이벤트 수
 				int jListCount = profileService.jListCount(memberNo);
+				//PageInfo pInf = Pagination.
 				
-				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
+				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, listCount);
 				PageInfo jpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
+				
+				System.out.println(cpInf);
 				
 				model.addAttribute("member", member);
 				model.addAttribute("cpInf", cpInf);
@@ -78,13 +83,17 @@ public class ProfileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "joinEvent", produces= "application/json; charset=utf-8")
+	@RequestMapping(value = "createEvent", produces= "application/json; charset=utf-8")
 	public String createEvent(@RequestParam(value="memberNo", required=false) Integer memberNo,
 								@RequestParam(value="currentPage", required=false) Integer currentPage){
 		
 		List<Search> cList = profileService.selectCreateEvent(memberNo, currentPage, limit);
+		System.out.println(cList);
 		
-		return null;//Gson.toJson(cList);
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(cList);
 	}
 	
 }
