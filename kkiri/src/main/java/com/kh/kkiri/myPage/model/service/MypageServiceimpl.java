@@ -122,7 +122,7 @@ public class MypageServiceimpl implements MypageService{
 	@Override
 	public List<Ticket> ticketLog(Ticket ticket) throws Exception {
 
-		if(ticket.getPaymentType().equals("ALL")||ticket.getPaymentType()==null) {
+		if(ticket.getPaymentType().equals("all")||ticket.getPaymentType()==null) {
 			ticket.setPaymentType("*");
 		}
 		

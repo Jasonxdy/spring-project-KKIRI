@@ -27,6 +27,9 @@
             <a class="btn active" href="#">티켓</a>
             <a class="btn" href="#">로그아웃</a>
           </div>
+			<c:if test="${ticketSort==null }">
+			<c:set var="ticketSort" value="all"/>
+			</c:if>
 
           <div class="col-10">
 
