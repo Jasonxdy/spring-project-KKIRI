@@ -174,5 +174,13 @@
 				DEFAULT, DEFAULT, 'G', DEFAULT)
 	</insert>
 	
+	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_GENDER, MEMBER_INTRODUCE, MEMBER_PLACE,
+				MEMBER_CATEGORY, MEMBER_PROFILE
+		FROM MEMBER
+		WHERE MEMBER_ID = #{no}
+		AND MEMBER_STATUS = 'Y'
+	</select>
+	
 	
 </mapper>

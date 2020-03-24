@@ -274,6 +274,7 @@ input:checked + .slider:before {
 				coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			</c:if>
 			*/
+			
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
