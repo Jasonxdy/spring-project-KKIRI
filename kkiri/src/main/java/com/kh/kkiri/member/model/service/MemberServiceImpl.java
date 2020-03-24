@@ -62,6 +62,9 @@ public class MemberServiceImpl implements MemberService{
 		
 		System.out.println("2. 가입 회원정보:" + createMember);
 		
+		String encPwd = bCryptPasswordEncoder.encode(createMember.getMemberPwd());
+		createMember.setMemberPwd(encPwd);
+		
 		int result = memberDAO.createId(createMember);
 		
 		

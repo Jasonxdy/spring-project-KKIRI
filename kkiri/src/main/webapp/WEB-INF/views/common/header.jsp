@@ -57,7 +57,7 @@
 	                  <div class="profile-wrap">
 	                    <!--  <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">-->
 	                    
-	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/default.png"/>
+	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/${loginMember.memberProfile }"/>
 	                    <img src="${src}" alt="프로필" class="profile-icon" >
 	                    <ul class="profile-menu">
 	                      <li><a href="${contextPath }/mypage/in">프로필</a></li>
