@@ -24,6 +24,25 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
+	<resultMap type="Event" id="eventResultSet">
+		<id property="eventNo" column="EVENT_NO"/>
+		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="eventContent" column="EVENT_CONTENT"/>
+		<result property="eventCategory" column="EVENT_CATEGORY"/>
+		<result property="eventLocation" column="EVENT_LOCATION"/>
+		<result property="latitude" column="LATITUDE"/>
+		<result property="longtitude" column="LONGITUDE"/>
+		<result property="eventStart" column="EVENT_START"/>
+		<result property="eventEnd" column="EVENT_END"/>
+		<result property="eventTicket" column="EVENT_TICKET"/>
+		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
+		<result property="eventQuota" column="EVENT_QUOTA"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberRating" column="SCORE"/>
+		<result property="partyCount" column="PARTY_COUNT"/>
+	</resultMap>
 	
 	<!-- 전체 회원 수 조회 -->
 	<select id="selectMemberCount" resultType="_int">
@@ -49,5 +68,12 @@
 	</select>
 	
 	
+	<!-- 추천 이벤트 5개 뽑아오기 -->
+	<select id="recommandEvent" resultMap="eventResultSet">
+		SELECT * FROM
+		(SELECT * FROM V_EVENT
+		ORDER BY DBMS_RANDOM.VALUE)
+		WHERE ROWNUM &lt;=5
+	</select>
 	
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.kh.kkiri.event.model.vo.Event;
 
 import com.kh.kkiri.home.model.service.HomeService;
 import com.kh.kkiri.member.controller.KakaoController;
@@ -55,7 +56,12 @@ public class HomeController {
 		    model.addAttribute("kakao_url", kakaoUrl);
 		    
 		    // 이벤트 추천
-			
+		    List<Event> eventList = null;
+			eventList = homeService.recommandEvent();
+			int i = 0;
+			for(Event ex : eventList) {
+				System.out.println("eventList" + i++ + " : " + ex);
+			}
 			
 			
 			// 1주간 높은 평점을 받은 회원 목록
@@ -68,6 +74,7 @@ public class HomeController {
 			List<Member> mlist = homeService.selectMemberList(memberCount);
 			
 			model.addAttribute("mlist", mlist);
+			model.addAttribute("eventList",eventList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

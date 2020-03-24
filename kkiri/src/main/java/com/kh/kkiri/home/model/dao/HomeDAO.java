@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Repository
@@ -32,6 +33,15 @@ public class HomeDAO {
 	 */
 	public List<Member> selectMemberList(int memberCount) throws Exception{
 		return sqlSession.selectList("homeMapper.selectMemberList", memberCount);
+	}
+
+
+	/** 추천 이벤트 5개 뽑아오기
+	 * @return eventList
+	 * @throws Exception
+	 */
+	public List<Event> recommandEvent() throws Exception{
+		return sqlSession.selectList("homeMapper.recommandEvent");
 	}
 
 
