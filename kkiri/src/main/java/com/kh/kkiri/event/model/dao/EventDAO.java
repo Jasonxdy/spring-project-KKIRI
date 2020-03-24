@@ -138,6 +138,7 @@ public class EventDAO {
 	 * @throws Exception
 	 */
 	public int createEvent(Event event) throws Exception{
+		System.out.println("Event 객체 검사 : " + event);
 		return sqlSession.insert("eventMapper.createEvent",event);
 	}
 

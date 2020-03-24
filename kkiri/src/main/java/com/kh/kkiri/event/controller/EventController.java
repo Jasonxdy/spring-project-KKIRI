@@ -280,6 +280,7 @@ public class EventController {
 				image = new Image(thumbnailImg.getOriginalFilename(), changeFileName);
 			}
 			
+			event.setEventThumbnail(changeFileName);
 			int result = eventService.createEvent(event,image);
 			
 			String url = null;
