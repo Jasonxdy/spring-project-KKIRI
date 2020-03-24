@@ -22,5 +22,19 @@ public interface ProfileService {
 	 * @return cList
 	 */
 	public abstract List<Search> selectCreateEvent(Integer memberNo, int currentPage, int limit);
+
+	/** 생성한 이벤트 개수 조회용 Service
+	 * @param memberNo
+	 * @return cListCount
+	 * @throws Exception
+	 */
+	public abstract int cListCount(int memberNo) throws Exception;
+
+	/** 참여한 이벤트 개수 조회용 Service
+	 * @param memberNo
+	 * @return jListCount
+	 * @throws Exception
+	 */
+	public abstract int jListCount(int memberNo) throws Exception;
 	
 }

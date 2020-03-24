@@ -67,4 +67,25 @@
 		</where>
 		ORDER BY EVENT_NO
 	</select>
+	 
+	<select id="cListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_EVENT
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_TYPE = 'S'
+		AND EVENT_STATUS = 'Y'
+	</select>
+	
+	<select id="jListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_EVENT
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_TYPE = 'P'
+		AND EVENT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectCreateEvent" parameterType="_int" resultType="searchResultSet">
+		SELECT * FROM V_EVENT
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_TYPE = 'S'
+		AND EVENT_STATUS = 'Y'
+	</select>
 </mapper>

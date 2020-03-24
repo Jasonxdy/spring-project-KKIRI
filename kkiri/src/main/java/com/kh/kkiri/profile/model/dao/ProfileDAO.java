@@ -30,9 +30,27 @@ public class ProfileDAO {
 	 * @return cList
 	 */
 	public List<Search> selectCreateEvent(Integer memberNo, int currentPage, int limit) {
-		//int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
-		//RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("searchMapper.selectCreateEvent");
+		return sqlSession.selectList("searchMapper.selectCreateEvent", memberNo, rowBounds);
+	}
+
+	/** 생성한 이벤트 수 조회용 DAO
+	 * @param memberNo
+	 * @return cListCount
+	 * @throws Exception
+	 */
+	public int cListCount(int memberNo) throws Exception {
+		return sqlSession.selectOne("searchMapper.cListCount",memberNo);
+	}
+
+	/** 참여한 이벤트 수 조회용 DAO
+	 * @param memberNo
+	 * @return jListCount
+	 * @throws Exception
+	 */
+	public int jListCount(int memberNo) throws Exception {
+		return sqlSession.selectOne("searchMapper.jListCount",memberNo);
 	}
 }

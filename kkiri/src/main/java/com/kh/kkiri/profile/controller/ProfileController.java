@@ -29,6 +29,7 @@ public class ProfileController {
 	private ProfileService profileService;
 	
 	private int limit = 3;
+	private int pagingBarSize = 5;
 	
 	@RequestMapping("user")
 	public String userProfile(//Integer no,
@@ -52,9 +53,17 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("M", "남자"));
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
-				int cListCount = profileService.cListCount(no);
+				// 생성한 이벤트 수 
+				int cListCount = profileService.cListCount(memberNo);
+				// 참여한 이벤트 수
+				int jListCount = profileService.jListCount(memberNo);
+				
+				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
+				PageInfo jpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
 				
 				model.addAttribute("member", member);
+				model.addAttribute("cpInf", cpInf);
+				model.addAttribute("jpInf", jpInf);
 				
 				return "member/userProfile";
 			} else {
@@ -72,10 +81,6 @@ public class ProfileController {
 	@RequestMapping(value = "joinEvent", produces= "application/json; charset=utf-8")
 	public String createEvent(@RequestParam(value="memberNo", required=false) Integer memberNo,
 								@RequestParam(value="currentPage", required=false) Integer currentPage){
-		
-		
-		
-		PageInfo pInf = Pagination.getPageInfo(5, 10, currentPage, listCount);
 		
 		List<Search> cList = profileService.selectCreateEvent(memberNo, currentPage, limit);
 		
