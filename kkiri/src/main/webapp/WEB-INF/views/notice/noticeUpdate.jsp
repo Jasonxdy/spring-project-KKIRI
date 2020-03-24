@@ -56,6 +56,7 @@
 
               <button class="green-radius-btn">수정</button>&nbsp;
               <button type="reset" class="green-radius-btn">취소</button>
+              <button type="button" class="green-radius-btn">삭제</button>
            </form>
         </div>
       </div>

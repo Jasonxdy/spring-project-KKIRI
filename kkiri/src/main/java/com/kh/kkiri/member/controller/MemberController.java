@@ -123,7 +123,7 @@ public class MemberController {
 							String memberBankName, String memberBankNumber, String memberAccountName,
 							HttpServletRequest request,
 							RedirectAttributes rdAttr,
-							@RequestParam(value="memberProfile") MultipartFile memberProfile
+							@RequestParam(value="uploadProfile",required=true) MultipartFile uploadProfile
 						) {
 		
 		String root = request.getSession().
@@ -146,9 +146,7 @@ public class MemberController {
 			
 		}
 		
-		
-		
-		
+
 		Member createMember = new Member(
 										member.getMemberId(),
 										member.getMemberNickname(),
@@ -170,29 +168,21 @@ public class MemberController {
 
 		
 		try {
-			
-			List<Attachment> files = new ArrayList<Attachment>();
-			Attachment at= null;
-			if(!memberProfile.getOriginalFilename().contentEquals("")) {
+			String changeFileName = null;
+		
+			if(!uploadProfile.getOriginalFilename().equals("")) {
 				// thumbnail이 등록된 경우
 				
 				// 파일명 rename
-				String changeFileName = FileRename.rename(memberProfile.getOriginalFilename());
+				changeFileName = FileRename.rename(uploadProfile.getOriginalFilename());
 				
-				// Attachment 객체 생성, (vo 값 불러오기)
-				at = new Attachment(memberProfile.getOriginalFilename(), changeFileName, savePath);
-				
-				
-				// files List에 추가
-				files.add(at);
-				
+				createMember.setMemberProfile(changeFileName);
 			}
 			
 			
+
 			
-			
-			
-			int result = memberService.createId(createMember,files);
+			int result = memberService.createId(createMember);
 			
 			String msg = null;
 			
@@ -201,10 +191,9 @@ public class MemberController {
 			// model.addAttribute("msg", msg);
 			
 			if(result >0) {
-				for(Attachment file : files ) {
-					memberProfile.transferTo(new File(file.getFilePath() + "/" + file.getFileChangeName()));
+				if(createMember.getMemberProfile() != null) {
+					uploadProfile.transferTo(new File(savePath + "/" + changeFileName));
 				}
-				
 				msg = "가입 성공";
 				
 			}else {
