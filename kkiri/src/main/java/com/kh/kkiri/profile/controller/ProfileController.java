@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.service.ProfileService;
 import com.kh.kkiri.search.model.vo.Search;
@@ -93,7 +94,9 @@ public class ProfileController {
 	@RequestMapping(value = "theLove", produces = "application/json; charset=utf-8")
 	public String theLove(@RequestParam(value="memberNo", required=false) Integer memberNo,
 							@RequestParam(value="favoriteNo", required=false) Integer favoriteNo) {
-		int result = profileService.theLove(memberNo, favoriteNo);
+		Favorite favorite = new Favorite(memberNo, favoriteNo);
+		
+		int result = profileService.theLove(favorite);
 		
 		return null;
 	}

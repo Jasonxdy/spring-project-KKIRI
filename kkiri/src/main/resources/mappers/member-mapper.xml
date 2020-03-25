@@ -181,5 +181,10 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
+	<select id="checkFavorite" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+		AND FAVORITE_NO = #{favoriteNo}
+	</select>
 	
 </mapper>

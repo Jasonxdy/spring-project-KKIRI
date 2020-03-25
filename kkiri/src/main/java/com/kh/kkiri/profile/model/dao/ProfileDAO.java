@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
 
@@ -72,7 +73,7 @@ public class ProfileDAO {
 	 * @param favoriteNo
 	 * @return result
 	 */
-	public int checkFavorite(int memberNo, int favoriteNo) {
-		return sqlSession.selectOne("memberMapper.checkFavorite", memberNo, favoriteNo);
+	public int checkFavorite(Favorite favorite) {
+		return sqlSession.selectOne("memberMapper.checkFavorite", favorite);
 	}
 }

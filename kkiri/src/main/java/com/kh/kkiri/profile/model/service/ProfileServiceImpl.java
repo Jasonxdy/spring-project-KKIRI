@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.dao.ProfileDAO;
 import com.kh.kkiri.search.model.vo.Search;
@@ -53,8 +54,8 @@ public class ProfileServiceImpl implements ProfileService {
 	 * @return result
 	 */
 	@Override
-	public int theLove(int memberNo, int favoriteNo) {
-		int result = profileDAO.checkFavorite(memberNo,favoriteNo);
+	public int theLove(Favorite favorite) {
+		int result = profileDAO.checkFavorite(favorite);
 		
 		return 0;
 	}

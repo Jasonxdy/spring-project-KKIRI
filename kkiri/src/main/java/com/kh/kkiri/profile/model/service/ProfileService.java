@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
 
@@ -38,6 +39,6 @@ public interface ProfileService {
 	 * @param favoriteNo
 	 * @return result
 	 */
-	public abstract int theLove(int memberNo, int favoriteNo);
+	public abstract int theLove(Favorite favorite);
 	
 }
