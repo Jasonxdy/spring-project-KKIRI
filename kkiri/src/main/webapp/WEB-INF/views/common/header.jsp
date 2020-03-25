@@ -61,9 +61,9 @@
 	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/${loginMember.memberProfile }"/>
 	                    <img src="${src}" alt="프로필" class="profile-icon" >
 	                    <ul class="profile-menu">
-	                      <li><a href="${contextPath }/mypage/in">프로필</a></li>
-	                      <li><a href="../mypage/moveEvent">이벤트</a></li>
-	                      <li><a href="../mypage/ticketLog">티켓</a></li>
+	                      <li><a href="${contextPath}/mypage/in">프로필</a></li>
+	                      <li><a href="${contextPath}/mypage/moveEvent">이벤트</a></li>
+	                      <li><a href="${contextPath}/mypage/ticketLog">티켓</a></li>
 	                      <li><a href="${contextPath}/member/logout">로그아웃</a></li>
 	                    </ul>
 	                  </div>

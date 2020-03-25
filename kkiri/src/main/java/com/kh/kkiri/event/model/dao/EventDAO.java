@@ -100,12 +100,12 @@ public class EventDAO {
 
 	/**
 	 * 이벤트 참가 DAO
-	 * @param party
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
-	public int joinEvent(Party party) throws Exception{
-		return sqlSession.insert("eventMapper.joinEvent", party);
+	public int joinEvent(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.joinEvent", event);
 	}
 
 
@@ -148,14 +148,14 @@ public class EventDAO {
 
 
 	/**
-	 * 
+	 * 이벤트 취소에 따른 티켓 회수
 	 * @param eventTicket 
-	 * @param memberNo 
-	 * @return
+	 * @param ticket 
+	 * @return result
 	 * @throws Exception
 	 */
-	public int increaseTicket(int memberNo, int eventTicket) throws Exception{
-		return sqlSession.update("eventMapper.increaseTicket", parameter);
+	public int increaseTicket(Map<String, String> ticket) throws Exception{
+		return sqlSession.update("eventMapper.increaseTicket", ticket);
 	}
 
 
@@ -177,6 +177,17 @@ public class EventDAO {
 	 */
 	public int insertParty(Event event) throws Exception{
 		return sqlSession.insert("eventMapper.insertParty",event); 
+	}
+
+
+	/**
+	 * 티켓 차감
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int decreaseTicket(Event event) throws Exception{
+		return sqlSession.update("eventMapper.decreaseTicket", event);
 	}
 
 
