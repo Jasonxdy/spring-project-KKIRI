@@ -256,7 +256,7 @@ input:checked + .slider:before {
 			</div>
 		</div>
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
-
+	
 		<script>
 		/*  
 			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
@@ -902,7 +902,8 @@ input:checked + .slider:before {
 		    	});
 		    };
 		    
-		    $(function(){ 
+		    $(function(){
+		    	
 				searchSlist();
 		    });
 		</script>

@@ -13,6 +13,7 @@ import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Rating;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -249,6 +250,30 @@ public class EventServiceImpl implements EventService {
 			result = eventNo;
 		}
 		return result;
+	}
+	
+	
+	
+	/**
+	 * 전체 후기 수 조회용 service
+	 * @param eventNo
+	 * @return listCount
+	 * @throws Exception
+	 */
+	@Override
+	public int getListCount(int eventNo) throws Exception {
+		return eventDAO.getListCount(eventNo);
+	}
+
+	/**
+	 * 후기 목록 조회용 service
+	 * @param eventNo
+	 * @return ratingList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Rating> selectRatingList(int eventNo, PageInfo pInf) throws Exception {
+		return eventDAO.selectRatingList(eventNo, pInf);
 	}
 
 }

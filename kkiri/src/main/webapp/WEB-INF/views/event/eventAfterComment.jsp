@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<
 <!-- 이벤트 후기 페이지 CSS 적용 -->
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/eventDetail.css">
@@ -47,7 +46,7 @@
                             <p class="content">정말 재미있었어요!!!!!</p>
                             <p class="star-rating">
                                 별점
-                                <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">
+                                <img src="${contextPath}/resources/img/star-on.png" alt="별점">
                                 <span class="rating-num">4.7777</span>
                             </p>
                         </div>
@@ -61,35 +60,35 @@
 					<li>
 						<p class="comment-content">후기내용1</p>
 						<p class="star-rating">
-							별점 <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"> <span
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
 								class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용2</p>
 						<p class="star-rating">
-							별점 <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"> <span
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
 								class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용3</p>
 						<p class="star-rating">
-							별점 <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"> <span
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
 								class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용4</p>
 						<p class="star-rating">
-							별점 <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"> <span
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
 								class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용5</p>
 						<p class="star-rating">
-							별점 <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점"> <span
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
 								class="rating-num">4.5</span>
 						</p>
 					</li>
@@ -117,7 +116,7 @@
 
 			<div id="popup" class="popup create-comment-popup">
 				<p class="popup-title">
-					후기 남기기 <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼"
+					후기 남기기 <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼"
 						class="close-popup">
 				</p>
 				<div class="popup-content">
@@ -144,7 +143,7 @@
 
 			<div class="popup update-comment-popup">
 				<p class="popup-title">
-					후기 수정하기 <img src="../index 페이지 - 진웅/img/close-btn.png" alt="닫기버튼"
+					후기 수정하기 <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼"
 						class="close-popup">
 				</p>
 				<div class="popup-content">
@@ -436,6 +435,11 @@
                             }
                         }
                     });
+                    
+                    
+                    
+                    console.log("${ratingList}");
+                    
                 </script>
 
 	<jsp:include page="../common/footer.jsp" />

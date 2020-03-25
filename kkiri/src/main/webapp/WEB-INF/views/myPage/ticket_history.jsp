@@ -41,7 +41,7 @@
                 <a class="nav-link move-btn" href="javascript:" tabindex="-1">충전</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="javascript:" tabindex="-1">환급</a>
+                <a class="nav-link move-btn" href="moveRefund" tabindex="-1">환급</a>
               </li>
             </ul>
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.vo.Ticket;
 import com.kh.kkiri.payment.model.vo.Payment;
@@ -56,6 +57,15 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	int getListCount(Ticket ticket)throws Exception;
+
+	/** 마이페이지 이벤트 내역을 보는 Service
+	 * @param memberNo
+	 * @return eList
+	 * @throws Exception
+	 */
+	List<Event> moveEvent(int memberNo)throws Exception;
+
+	int costTicket(Ticket ticket)throws Exception;
 
 	
 }

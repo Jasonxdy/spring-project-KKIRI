@@ -33,7 +33,7 @@ public class HomeServiceImpl implements HomeService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<Member> selectMemberList(int memberCount) throws Exception {
+	public List<Event> selectMemberList(int memberCount) throws Exception {
 		return homeDAO.selectMemberList(memberCount);
 	}
 

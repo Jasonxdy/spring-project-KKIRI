@@ -90,10 +90,11 @@ public class HomeController {
 				memberCount = 5;
 			}
 			
-			List<Member> mlist = homeService.selectMemberList(memberCount);
+			List<Event> mlist = homeService.selectMemberList(memberCount);
 			
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("eventList",eventList);
+			model.addAttribute("rankSize", mlist.size());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
