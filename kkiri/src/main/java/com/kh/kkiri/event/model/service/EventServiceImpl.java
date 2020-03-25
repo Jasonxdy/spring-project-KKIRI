@@ -116,14 +116,36 @@ public class EventServiceImpl implements EventService {
 	
 	
 	/**
-	 * 승인 대기중 취소
+	 * 이벤트 참가 취소
 	 * @param party
 	 * @return result
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int cancelWaitEvent(Party party) throws Exception {
-		return eventDAO.cancelWaitEvent(party);
+	public int cancelEvent(Party party) throws Exception {
+		return eventDAO.cancelEvent(party);
+	}
+	
+	/**
+	 * 이벤트 참가 취소 서비스
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int cancelJoinEvent(Party party, int eventTicket) throws Exception {
+		
+		// party 테이블에서 삭제
+		int result = eventDAO.cancelEvent(party);
+		if(result > 0) {
+			// 티켓 회수
+			int memberNo = party.getMemberNo();
+			result = eventDAO.increaseTicket(memberNo, eventTicket);
+			// 결제 내역
+		}
+		
+		return result;
 	}
 	
 	

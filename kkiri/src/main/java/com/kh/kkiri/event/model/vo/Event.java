@@ -21,6 +21,7 @@ public class Event {
 	private double memberRating;
 	private Timestamp memberSignupDate;
 	private int partyCount;
+	private String eventAddress;
 	
 	
 	public Event() {
@@ -31,7 +32,7 @@ public class Event {
 	public Event(int eventNo, String eventTitle, String eventContent, String eventCategory, String eventLocation,
 			double latitude, double longtitude, Timestamp eventStart, Timestamp eventEnd, int eventTicket,
 			String eventThumbnail, int eventQuota, int memberNo, String memberNickname, String memberProfile,
-			double memberRating, Timestamp memberSignupDate, int partyCount) {
+			double memberRating, Timestamp memberSignupDate, int partyCount, String eventAddress) {
 		super();
 		this.eventNo = eventNo;
 		this.eventTitle = eventTitle;
@@ -51,6 +52,7 @@ public class Event {
 		this.memberRating = memberRating;
 		this.memberSignupDate = memberSignupDate;
 		this.partyCount = partyCount;
+		this.eventAddress = eventAddress;
 	}
 
 
@@ -234,6 +236,16 @@ public class Event {
 	}
 
 
+	public String getEventAddress() {
+		return eventAddress;
+	}
+
+
+	public void setEventAddress(String eventAddress) {
+		this.eventAddress = eventAddress;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Event [eventNo=" + eventNo + ", eventTitle=" + eventTitle + ", eventContent=" + eventContent
@@ -242,8 +254,9 @@ public class Event {
 				+ ", eventTicket=" + eventTicket + ", eventThumbnail=" + eventThumbnail + ", eventQuota=" + eventQuota
 				+ ", memberNo=" + memberNo + ", memberNickname=" + memberNickname + ", memberProfile=" + memberProfile
 				+ ", memberRating=" + memberRating + ", memberSignupDate=" + memberSignupDate + ", partyCount="
-				+ partyCount + "]";
+				+ partyCount + ", eventAddress=" + eventAddress + "]";
 	}
+
 	
 	
 	

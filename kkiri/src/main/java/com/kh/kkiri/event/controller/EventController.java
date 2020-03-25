@@ -194,8 +194,25 @@ public class EventController {
 		int result =0;
 		
 		try {
-			result = eventService.cancelWaitEvent(party);
+			result = eventService.cancelEvent(party);
 			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+	
+	
+	// 이벤트 신청 취소
+	@RequestMapping("cancelJoinEvent")
+	@ResponseBody
+	public int cancelJoinEvent(Party party, int eventTicket) {
+
+		int result =0;
+		
+		try {
+			result = eventService.cancelJoinEvent(party, eventTicket);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = -1;

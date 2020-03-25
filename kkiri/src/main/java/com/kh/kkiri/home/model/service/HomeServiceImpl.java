@@ -46,4 +46,14 @@ public class HomeServiceImpl implements HomeService {
 		return homeDAO.recommandEvent();
 	}
 
+	/** 추천 이벤트 5개 뽑아오기(회원)
+	 * @param memberPlace
+	 * @return eventList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Event> recommandEventLogin(String memberPlace) throws Exception {
+		return homeDAO.recommandEventLogin(memberPlace);
+	}
+
 }

@@ -119,6 +119,10 @@
               </table>
 
               <script>
+              // 변수 선언
+              var currentPage = ${pInf.currentPage};
+              
+              var ticketsort = $("#ticket-sort").val();
               
               // 클릭할때 마다 ticketLog를 호출해라
               
@@ -137,11 +141,12 @@
                     $("#ticket-sort").on({
                       change : function(){
                         if($(this).find("option:checked").text()=="전체"){
-                          $(".ticket-table tbody tr").show(0);
-                        }else if($(this).find("option:checked").text()==$(".ticket-table tbody .ticket-sort").eq(i).text().trim()){
-                          $(".ticket-table tbody tr").eq(i).show(0);
-                        }else{
-                          $(".ticket-table tbody tr").eq(i).hide(0);
+                        	ticketsort = $(this).val();
+                          	location.href="ticketLog?ticketsort="+ticketsort+"currentPage"=currentPage;
+                        	
+                        	$(".ticket-table tbody tr").show(0);
+                        }else($(this).find("option:checked").text()==$(".ticket-table tbody .ticket-sort").eq(i).text().trim()){
+                        	ticketsort = $(this).val();
                         }
                       }
                     });

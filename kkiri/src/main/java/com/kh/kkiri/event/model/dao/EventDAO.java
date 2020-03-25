@@ -109,11 +109,16 @@ public class EventDAO {
 	}
 
 
-	public int cancelWaitEvent(Party party) throws Exception{
-		return sqlSession.delete("eventMapper.cancelWaitEvent", party);
+	/**
+	 * 이벤트 승인 대기 취소 DAO
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	public int cancelEvent(Party party) throws Exception {
+		return sqlSession.delete("eventMapper.cancelEvent", party);
 	}
-
-
+	
 	/**
 	 * 신고 등록용 DAO
 	 * @param report
@@ -138,10 +143,23 @@ public class EventDAO {
 	 * @throws Exception
 	 */
 	public int createEvent(Event event) throws Exception{
-		System.out.println("Event 객체 검사 : " + event);
 		return sqlSession.insert("eventMapper.createEvent",event);
 	}
 
+
+	/**
+	 * 
+	 * @param eventTicket 
+	 * @param memberNo 
+	 * @return
+	 * @throws Exception
+	 */
+	public int increaseTicket(int memberNo, int eventTicket) throws Exception{
+		return sqlSession.update("eventMapper.increaseTicket", parameter);
+	}
+
+
+	
 
 	/** 이벤트 썸네일 사진 삽입용 DAO
 	 * @param image

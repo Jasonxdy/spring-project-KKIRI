@@ -63,11 +63,6 @@ public class MypageServiceimpl implements MypageService{
 
 	@Override
 	public int getListCount(Ticket ticket) throws Exception {
-
-		if(ticket.getPaymentType().equals("ALL")) {
-			ticket.setPaymentType("*");
-		}
-		
 		return mypageDAO.getListCount(ticket);
 	}
 
@@ -121,11 +116,6 @@ public class MypageServiceimpl implements MypageService{
 
 	@Override
 	public List<Ticket> ticketLog(Ticket ticket) throws Exception {
-
-		if(ticket.getPaymentType().equals("all")||ticket.getPaymentType()==null) {
-			ticket.setPaymentType("*");
-		}
-		
 		List<Ticket> ticketLog = mypageDAO.ticketLog(ticket);
 		
 		return ticketLog;

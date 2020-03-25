@@ -36,12 +36,21 @@ public class HomeDAO {
 	}
 
 
-	/** 추천 이벤트 5개 뽑아오기
+	/** 추천 이벤트 5개 뽑아오기(비회원)
 	 * @return eventList
 	 * @throws Exception
 	 */
 	public List<Event> recommandEvent() throws Exception{
 		return sqlSession.selectList("homeMapper.recommandEvent");
+	}
+
+	/** 추천 이벤트 5개 뽑아오기(회원) 
+	 * @param memberPlace
+	 * @return eventList
+	 * @throws Exception
+	 */
+	public List<Event> recommandEventLogin(String memberPlace) throws Exception{
+		return sqlSession.selectList("homeMapper.recommandEventLogin",memberPlace);
 	}
 
 

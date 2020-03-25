@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.kh.kkiri.event.model.vo.Event;
 
 import com.kh.kkiri.home.model.service.HomeService;
@@ -20,7 +22,9 @@ import com.kh.kkiri.member.controller.KakaoController;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({ "loginMember"})
 public class HomeController {
+	
 	
 	
 	@Autowired
@@ -57,12 +61,16 @@ public class HomeController {
 		    
 		    // 이벤트 추천
 		    List<Event> eventList = null;
-			eventList = homeService.recommandEvent();
-			int i = 0;
-			for(Event ex : eventList) {
-				System.out.println("eventList" + i++ + " : " + ex);
-			}
-			
+		    Member loginMember = (Member)model.getAttribute("loginMember");
+		    if(loginMember==null) {
+		    	eventList = homeService.recommandEvent();
+		    }else {
+		    	String memberLocation = (String)loginMember.getMemberPlace();
+		    	String[] array = memberLocation.split("\\s");
+		    	String memberPlace = array[0] + " " + array[1];
+		    	System.out.println("memberPlace 출력 : " + memberPlace);
+		    	eventList = homeService.recommandEventLogin(memberPlace);
+		    }
 			
 			// 1주간 높은 평점을 받은 회원 목록
 			int memberCount = homeService.selectMemberCount();

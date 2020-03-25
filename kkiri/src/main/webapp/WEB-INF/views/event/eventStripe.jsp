@@ -201,9 +201,6 @@
 						} else { // 로그인된 회원이 참여자인 경우
 							
 							if(permissionCheck){ // 참여자이면서 승인이 된 경우
-								// 이벤트 승인 대기중 버튼 보이기
-								/* $("#event-participate").hide(0);
-								$("#cancel-event-participate").hide(0); */
 								$("#cancel-event-participate").css({
 									"display" : "block"
 								});
@@ -260,9 +257,42 @@
 		$("#cancel-event-participate").on({
 			click : function() {
 				if (confirm("정말로 이벤트 참가를 취소하시겠습니까?")) {
-					alert("이벤트 참가 취소 백단 실행");
-					$("#cancel-event-participate").hide(0);
-					$("#event-participate").show(0);
+					
+					// 이벤트 승인 대기 취소 ajax
+					$.ajax({
+						url: "cancelJoinEvent",
+						type: "POST",
+						data: {
+							"eventNo": ${event.eventNo},
+							"memberNo" : '${loginMember.memberNo}',
+							"eventTicket" : ${event.eventTicket}
+						},
+						success : function(result){
+							var msg = null;
+							switch(result) {
+							case 1 : 
+								$("#cancel-event-participate").css({
+									"display" : "none"
+								});
+								$("#event-participate").css({
+									"display" : "block"
+								});
+								break;
+							case 0 : 
+								msg = "이벤트 참가 취소 실패";
+								break;
+							case -1 : 
+								msg = "이벤트 참가 취소 중 오류 발생";
+								break;
+							}
+							if(msg != null) {
+								alert(msg);
+							}
+						},
+						error : function(){
+							console.log("ajax 통신 실패");
+						}
+					});
 				}
 			}
 		});
@@ -327,7 +357,7 @@
 							"memberNo" : '${loginMember.memberNo}'
 						},
 						success : function(result){
-							var msg;
+							var msg = null;
 							switch(result) {
 							case 1 : 
 								$("#wait-event-participate").css({
@@ -343,6 +373,10 @@
 							case -1 : 
 								msg = "이벤트 승인 대기 취소 오류 발생";
 								break;
+							}
+							
+							if(msg != null) {
+								alert(msg);
 							}
 							
 						},
