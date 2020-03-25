@@ -32,5 +32,12 @@ public interface ProfileService {
 	 * @return eList
 	 */
 	public abstract List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag);
+
+	/** 좋아요 기능 Service
+	 * @param memberNo
+	 * @param favoriteNo
+	 * @return result
+	 */
+	public abstract int theLove(int memberNo, int favoriteNo);
 	
 }

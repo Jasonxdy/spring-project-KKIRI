@@ -33,7 +33,7 @@
 									<p>성별 : ${member.memberGender}</p>
 									<p>나이 : ${nowDate - birthDate +1 } 살</p>
 								</div>
-								<div id="category" class="col-md-7">
+								<div id="category" class="col-md-6">
 									<c:set var="mCategory" value="${fn:split(member.memberCategory,',')}"/>
 									
 									<p class="h4">관심 카테고리</p>
@@ -41,6 +41,11 @@
 										<div class="text-center">${cate }</div>
 									</c:forEach>
 								</div>
+								<c:if test='${loginMember.memberNo != member.memberNo }'>
+									<div class="col-md-1">
+										<a class="btn btn-primary mt-5">좋아요</a>
+									</div>
+								</c:if>
 							</div>
 							<p class="mt-3 introduce-text">${member.memberIntroduce }</p>
 						</div>

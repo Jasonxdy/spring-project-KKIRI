@@ -49,7 +49,6 @@ public class ProfileDAO {
 		}
 	}
 
-
 	/** 이벤트 조회용 DAO
 	 * @param memberNo
 	 * @param currentPage
@@ -66,5 +65,14 @@ public class ProfileDAO {
 		} else {
 			return sqlSession.selectList("searchMapper.selectJoinEvent", memberNo, rowBounds);
 		}
+	}
+
+	/** 좋아요 여부 체크용 DAO
+	 * @param memberNo
+	 * @param favoriteNo
+	 * @return result
+	 */
+	public int checkFavorite(int memberNo, int favoriteNo) {
+		return sqlSession.selectOne("memberMapper.checkFavorite", memberNo, favoriteNo);
 	}
 }

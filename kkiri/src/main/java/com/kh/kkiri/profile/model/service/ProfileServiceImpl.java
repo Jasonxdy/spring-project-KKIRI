@@ -46,4 +46,16 @@ public class ProfileServiceImpl implements ProfileService {
 	public List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag) {
 		return profileDAO.selectEventList(memberNo, currentPage, limit, flag);
 	}
+	
+	/** 좋아요 기능 Service
+	 * @param memberNo
+	 * @param favoriteNo
+	 * @return result
+	 */
+	@Override
+	public int theLove(int memberNo, int favoriteNo) {
+		int result = profileDAO.checkFavorite(memberNo,favoriteNo);
+		
+		return 0;
+	}
 }
