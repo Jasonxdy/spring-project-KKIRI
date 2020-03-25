@@ -136,6 +136,9 @@
         	location.href = "${kakao_url}";
         })
         
+        
+        
+        
          $("#naverLogin").on("click", function(){
         	location.href = "${naverUrl}";
         })
