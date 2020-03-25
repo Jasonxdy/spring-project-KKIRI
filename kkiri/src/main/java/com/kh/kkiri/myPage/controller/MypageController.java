@@ -215,13 +215,14 @@ public class MypageController {
 	@RequestMapping("ticketLog")
 	public String ticketLog(Model model, 
 			@RequestParam(value="currentPage" , required = false) Integer currentPage,
-			@RequestParam(value="ticket-sort" ,required=false)String ticketSort) {
+			@RequestParam(value="ticketsort" ,required=false)String ticketSort) {
 		
-		Ticket ticket = null;
-		
+		Ticket ticket = new Ticket();
 		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
-		
 		ticket.setMemberNo(memberNo);
+		if(ticketSort ==null) {
+			ticketSort = "all";
+		}
 		ticket.setPaymentType(ticketSort);
 		// 페이징 처리
 		if(currentPage == null) {
@@ -229,11 +230,17 @@ public class MypageController {
 		}
 		
 		try {
+			System.out.println(ticket);
 		List<Ticket> ticketList = mypageService.ticketLog(ticket);
-		model.addAttribute("ticketList", ticketList);
 		int listCount = mypageService.getListCount(ticket);
 		PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+		System.out.println("listCount: " + listCount);
+		System.out.println("Pinf: " + Pinf);
+		
+		
+		model.addAttribute("ticketList", ticketList);
 		model.addAttribute("pInf", Pinf);
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓페이지 이동중 에러가 발생했습니다.");
