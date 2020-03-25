@@ -31,7 +31,7 @@ public class HomeDAO {
 	 * @return list
 	 * @throws Exception
 	 */
-	public List<Member> selectMemberList(int memberCount) throws Exception{
+	public List<Event> selectMemberList(int memberCount) throws Exception{
 		return sqlSession.selectList("homeMapper.selectMemberList", memberCount);
 	}
 
