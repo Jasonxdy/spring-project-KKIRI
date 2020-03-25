@@ -148,6 +148,10 @@
                       <input type="number" class="memberPhone" name="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">-
                       <input type="number" class="memberPhone" name="memberPhone2" maxlength="4" oninput="maxLengthCheck(this)">-
                       <input type="number" class="memberPhone" name="memberPhone3" maxlength="4" oninput="maxLengthCheck(this)"><br>
+                      <div>
+                            <span id="checkPhone">&nbsp;</span>
+                        </div>
+                      
                       <label for="memberEmail"><strong class='require'>필수</strong>&nbsp;이메일</label>
                       <input type="email" name="memberEmail" id="memberEmail"><br>
                       <label for="memberBirth"><strong class='require'>필수</strong>&nbsp;생년월일</label>
@@ -228,29 +232,34 @@
       
       //function validate(){
     	 
-    	  var creatIdCheck={
+    	  var createIdCheck={
     		  "memberId":false, // 입력확인, 아이디 유효성, 중복 검사
-    		//  "memberIdUnique":false,
+    		  "memberIdUnique":false,
     		  "memberPwd":false, // 입력 확인, 비번 유효성
     		  "memberPwd2":false, // 중복검사
-    		//  "memberNickname":false, //중복 검사, 입력확인
-    		//  "memberPhone1":false, // 입력 확인
-    		//  "memberPhone2":false,
-    		//  "memberPhone3":false,
-    		//  "memberEmail":false, //중복 검사, 입력확인
-    		//  "memberBirth":false, //입력 확인
-    		//  "memberGender":false //입력 확인 
+    		  "memberNickname":false, //중복 검사, 입력확인
+    		  
+    		  "memberPhone1":false, // 입력 확인
+    		  "memberPhone2":false,
+    		  "memberPhone3":false,
+    		  "memberEmail":false, //중복 검사, 입력확인
+    		  "memberBirth":false, //입력 확인
+    		  "memberGender":false //입력 확인 
     	  };
     	  
     		$(document).ready(function(){
     			
     			var $memberId = $("#memberId");
+    			var $memberIdUnique = $("memberIdUnique");
     			var $memberPwd = $("#memberPwd");
     			var $memberPwd2 = $("#memberPwd2");
     			var $memberNickname = $("#memberNickname");
+    			
     			var $memberPhone1 = $("#memberPhone1");
     			var $memberPhone2 = $("#memberPhone2");
     			var $memberPhone3 = $("#memberPhone3");
+    		
+    			
     			var $memberEmail = $("#memberEmail");
     			var $memberBirth = $("#memberBirth");
     			var $memberGender = $("#memberGender");
@@ -263,6 +272,7 @@
 						
 						createIdCheck.memberId=false;
 					}else{
+						
 						createIdCheck.memberId=true;
 						$.ajax({
 							url: "idUniqueCheck",
@@ -296,10 +306,10 @@
 					var regExp = /^[a-zA-Z0-9~!@#$%^&*()_+]{6,15}$/;
 					if(!regExp.test($memberPwd.val())){
 						$("#checkPwd").text("비밀번호 형식을 확인해주세요.").css({"color": "#c82333"});
-						creatIdCheck.memberPwd = false;
+						createIdCheck.memberPwd = false;
 					}else{
 						$("#checkPwd").text("사용 가능한 비밀번호입니다.").css({"color": "#0069d9"});
-						creatIdCheck.memberPwd = true;
+						createIdCheck.memberPwd = true;
 					}
 					
 				});
@@ -308,14 +318,20 @@
 				$memberPwd2.on("input", function(){
 					if($memberPwd.val().trim() != $memberPwd2.val().trim()){
 						$("#checkPwd2").text("비밀번호 불일치").css("color", "#c82333" );
-						creatIdCheck.memberPwd2 = false;
+						createIdCheck.memberPwd2 = false;
 					}else{
 						$("#checkPwd2").text("비밀번호 일치").css("color", "#0069d9" );
-						creatIdCheck.memberPwd2 = true;
+						createIdCheck.memberPwd2 = true;
 					}
 					
 				});
     			
+				// 전화번호 입력 체크 ( 배열 길이로 체크)
+				
+			
+				
+				// 이메일 , 닉네임 ajax, ㄴ
+				
 				
 				
 				

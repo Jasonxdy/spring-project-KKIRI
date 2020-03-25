@@ -44,6 +44,20 @@ public class MemberDAO {
 	}
 
 	
+	/** 회원 아이디 중복체크 DAO
+	 * @param memberId
+	 * @return result
+	 * @throws Exception
+	 */
+	public int idUniqueCheck(String memberId) throws Exception {
+		
+		return sqlSession.selectOne("memberMapper.idUniqueCheck", memberId);
+	}
+
+	
+	
+	
+	
 
 	public int updateMember(Member member) throws Exception{
 		return sqlSession.update("memberMapper.updateMember", member);
@@ -77,6 +91,9 @@ public class MemberDAO {
 	public Member checkSocialEmail(String memberEmail) throws Exception {
 		return sqlSession.selectOne("memberMapper.checkSocialEmail", memberEmail);
 	}
+
+
+
 
 
 

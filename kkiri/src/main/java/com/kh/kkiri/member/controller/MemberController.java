@@ -23,6 +23,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
@@ -184,6 +185,29 @@ public class MemberController {
 
 	}
 
+	// 아이디 중복 검사
+	 @ResponseBody
+	 @RequestMapping("idUniqueCheck")
+	 public String idUniqueCheck(String memberId,Model model ) {
+		  
+		  try {
+			  return memberService.idUniqueCheck(memberId) == 0 ? true+"" : false+"";
+			  						// 서비스 인터페이스 -> 임플 -> 
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  model.addAttribute("errorMsg","아이디 중복 체크 중 오류 발생");
+			  return "common/errorPage";
+		  }
+	  }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 회원 가입 페이지
 //    @RequestMapping(value = "googleUrl", method = { RequestMethod.GET, RequestMethod.POST })
 //    public String googleLogin(HttpServletResponse response, Model model) {

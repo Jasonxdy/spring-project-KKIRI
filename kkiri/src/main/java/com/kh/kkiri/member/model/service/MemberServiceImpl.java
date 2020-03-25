@@ -73,6 +73,21 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
+	/** 아이디 중복 체크 Service
+	 * @param memberId
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int idUniqueCheck(String memberId) throws Exception {
+		// TODO Auto-generated method stub
+		return memberDAO.idUniqueCheck(memberId);
+	}
+	
+	
+	
+	
+	
 	/** social 계정 가입 여부 체크 Service
 	 * @param memberId
 	 * @return signUpCheck

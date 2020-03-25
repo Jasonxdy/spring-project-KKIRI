@@ -25,6 +25,15 @@ public interface MemberService {
 	int createId(Member createMember)throws Exception;
 
 
+	
+	/** 아이디 중복 체크 Service
+	 * @param memberId
+	 * @return result
+	 * @throws Exception
+	 */
+	int idUniqueCheck(String memberId)throws Exception;
+	
+	
 
 	/** social 계정 가입 여부 체크 Service
 	 * @param memberId
@@ -50,6 +59,10 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	Member checkSocialEmail(String memberEmail) throws Exception;
+
+
+
+	
 
 	
 

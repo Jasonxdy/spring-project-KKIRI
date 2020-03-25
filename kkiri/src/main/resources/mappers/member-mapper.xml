@@ -49,6 +49,13 @@
 				
 	</insert>
 	
+	<!-- 회원 아이디 조회 -->
+  	<select id="idUniqueCheck" parameterType="Member" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER 
+  		WHERE MEMBER_ID = #{memberId}
+  	</select>
+	
+	
 	
 	
 	
