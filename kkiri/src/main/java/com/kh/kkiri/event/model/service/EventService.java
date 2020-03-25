@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Rating;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.event.model.vo.Image;
@@ -114,4 +115,22 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int confirmEventComplete(Event event) throws Exception;
+
+	
+	/**
+	 * 후기 목록 조회용 service
+	 * @param eventNo
+	 * @param pInf 
+	 * @return ratingList
+	 * @throws Exception
+	 */
+	List<Rating> selectRatingList(int eventNo, PageInfo pInf) throws Exception;
+
+	/**
+	 * 전체 후기 수 조회용 service
+	 * @param eventNo
+	 * @return listCount
+	 * @throws Exception
+	 */
+	int getListCount(int eventNo) throws Exception;
 }

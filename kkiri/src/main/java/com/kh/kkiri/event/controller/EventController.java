@@ -19,10 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.FileRename;
+import com.kh.kkiri.common.Pagination;
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Rating;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -38,7 +41,7 @@ public class EventController {
 	@RequestMapping("detail")
 	public String eventDetail(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
-		
+
 		int eventNo = 0;
 
 //		테스트용으로 삭제 예정
@@ -58,21 +61,21 @@ public class EventController {
 
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectPartyList(eventNo);
-			
+
 			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
-			if(model.getAttribute("loginMember") != null) {
-				List<Party> myEventList = eventService.selectMyEventList(((Member)model.getAttribute("loginMember")).getMemberNo());
-				if(myEventList != null) {
+			if (model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService
+						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
+				if (myEventList != null) {
 					model.addAttribute("myEventList", myEventList);
 				}
 			}
-			
+
 			if (event != null) {
 
 				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
 				url = "event/eventDetail";
-
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";
@@ -88,7 +91,6 @@ public class EventController {
 		return url;
 	}
 
-	
 	// 회원 목록 이동
 	@RequestMapping("selectParticipant")
 	public String selectParticipant(@RequestParam(value = "no", required = false) Integer no, Model model,
@@ -113,11 +115,12 @@ public class EventController {
 
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectInitPartyList(eventNo);
-			
+
 			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
-			if(model.getAttribute("loginMember") != null) {
-				List<Party> myEventList = eventService.selectMyEventList(((Member)model.getAttribute("loginMember")).getMemberNo());
-				if(myEventList != null) {
+			if (model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService
+						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
+				if (myEventList != null) {
 					model.addAttribute("myEventList", myEventList);
 				}
 			}
@@ -127,7 +130,6 @@ public class EventController {
 				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
 				url = "event/eventParticipant";
-
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";
@@ -145,38 +147,34 @@ public class EventController {
 
 	// 참가 회원 목록 추가 조회 (ajax)
 	@ResponseBody
-	@RequestMapping(value = "addPartyList",
-    produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "addPartyList", produces = "application/json; charset=utf-8")
 	public String selectPartyList(int count, int limit, int eventNo, Model model, RedirectAttributes rdAttr) {
 		List<Member> partyList = eventService.selectAddPartyList(count, limit, eventNo);
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
 		return gson.toJson(partyList);
 	}
-	
-	
-	
-	
+
 	// 이벤트 참가 신청
 	@RequestMapping("joinEvent")
-	public String joinEvent (Event event, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+	public String joinEvent(Event event, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg = null;
 		String url = null;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
+
 		try {
 			int result = eventService.joinEvent(event);
-			if(result > 0) {
+			if (result > 0) {
 				msg = "이벤트에 참가 신청되었습니다.";
 //				url = "redirect:detail?no=" + party.getEventNo();
 			} else {
 				msg = "이벤트 참가 실패";
 			}
-			
+
 			rdAttr.addFlashAttribute("msg", msg);
 			return "redirect:" + detailUrl;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "이벤트 참가 과정 중 오류 발생";
@@ -184,15 +182,14 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
+
 	// 이벤트 승인 대기 취소
 	@RequestMapping("cancelWaitEvent")
 	@ResponseBody
 	public int cancelWaitEvent(Event event) {
-		
-		int result =0;
-		
+
+		int result = 0;
+
 		try {
 			result = eventService.cancelEvent(event);
 		} catch (Exception e) {
@@ -201,7 +198,7 @@ public class EventController {
 		}
 		return result;
 	}
-	
+
 	// 이벤트 참가 취소
 	@RequestMapping("cancelJoinEvent")
 	public String cancelJoinEvent(Event event, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
@@ -209,36 +206,34 @@ public class EventController {
 		String url = null;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
+
 		try {
 			int result = eventService.cancelEvent(event);
-			if(result > 0) {
+			if (result > 0) {
 				msg = "이벤트 참가가 취소되었습니다";
 			} else {
 				msg = "이벤트 참가 취소 실패";
 			}
-			
+
 			rdAttr.addFlashAttribute("msg", msg);
 			return "redirect:" + detailUrl;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "이벤트 참가 취소 과정 중 오류 발생";
 			model.addAttribute("msg", msg);
 			return "common/errorPage";
 		}
-		
+
 	}
-	
-	
-	
+
 	// 이벤트 완료 확인
 	@RequestMapping("confirmEventComplete")
 	@ResponseBody
 	public int confirmEventComplete(Event event) {
 
-		int result =0;
-		
+		int result = 0;
+
 		try {
 			result = eventService.confirmEventComplete(event);
 		} catch (Exception e) {
@@ -247,35 +242,31 @@ public class EventController {
 		}
 		System.out.println("화면으로 넘어가기 전 result : " + result);
 		return result;
-		
+
 	}
-	
-	
-	
-	
-	
+
 	// 신고 등록
 	@RequestMapping("insertReport")
 	public String insertReport(Report report, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
-		if(report.getReportContent().equals("")) {
+
+		if (report.getReportContent().equals("")) {
 			report.setReportContent(" ");
 		}
 		try {
 			int result = eventService.insertReport(report);
-			
-			if(result > 0) {
+
+			if (result > 0) {
 				msg = "이벤트가 신고되었습니다";
 			} else {
 				msg = "이벤트 신고 등록 실패";
 			}
-			
+
 			rdAttr.addFlashAttribute("msg", msg);
 			return "redirect:" + detailUrl;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "이벤트 신고 과정 중 오류 발생";
@@ -283,76 +274,144 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
+
 	// 이벤트 생성페이지로 이동(서진웅)
 	@RequestMapping("goEventCreate")
 	public String goEventCreate() {
 		return "event/eventCreate";
 	}
-	
+
 	// 이벤트 생성(서진웅)
 	@RequestMapping("createEvent")
-	public String createEvent(String startTime, String endTime,
-			Event event, Model model, HttpServletRequest request,
-			@RequestParam(value="thumbnailImg", required=false) MultipartFile thumbnailImg,
+	public String createEvent(String startTime, String endTime, Event event, Model model, HttpServletRequest request,
+			@RequestParam(value = "thumbnailImg", required = false) MultipartFile thumbnailImg,
 			RedirectAttributes rdAttr) {
-		Member loginMember = (Member)model.getAttribute("loginMember");
+		Member loginMember = (Member) model.getAttribute("loginMember");
 		int eventCreator = loginMember.getMemberNo();
-		
+
 		startTime += ":00.00";
 		endTime += ":00.00";
-		
-		Timestamp eventStart = (Timestamp.valueOf(startTime.replace("T"," ")));
-		Timestamp eventEnd = (Timestamp.valueOf(endTime.replace("T"," ")));
-		
+
+		Timestamp eventStart = (Timestamp.valueOf(startTime.replace("T", " ")));
+		Timestamp eventEnd = (Timestamp.valueOf(endTime.replace("T", " ")));
+
 		event.setEventStart(eventStart);
 		event.setEventEnd(eventEnd);
 		event.setMemberNo(eventCreator);
 		event.setEventThumbnail(thumbnailImg.getOriginalFilename());
-		
-		String root = request.getSession().getServletContext().getRealPath("resources"); 
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/upEventThumbnail";
 		File folder = new File(savePath);
-		
-		if(!folder.exists()) {
+
+		if (!folder.exists()) {
 			folder.mkdir();
 		}
 
 		try {
 			Image image = null;
 			String changeFileName = null;
-			if(!thumbnailImg.getOriginalFilename().equals("")) {
-				
+			if (!thumbnailImg.getOriginalFilename().equals("")) {
+
 				changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
-				
+
 				image = new Image(thumbnailImg.getOriginalFilename(), changeFileName);
 			}
-			
+
 			event.setEventThumbnail(changeFileName);
-			int result = eventService.createEvent(event,image);
-			
+			int result = eventService.createEvent(event, image);
+
 			String url = null;
-			if(result>0) { // DB에 게시글 삽입 성공시
-				if(image!=null) {
+			if (result > 0) { // DB에 게시글 삽입 성공시
+				if (image != null) {
 					thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
 				}
-				model.addAttribute("eventNo",result);
+				model.addAttribute("eventNo", result);
 				url = "event/insertEventComplete";
-			}else {
+			} else {
 				String msg = "이벤트 등록 실패";
 				rdAttr.addFlashAttribute("msg", msg);
 				url = "redirect:/";
 			}
 			return url;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "이벤트 생성 과정 중 오류발생");
 			return "common/errorPage";
 		}
-		
+
 	}
 
+	// 이벤트 후기 페이지 이동
+	@RequestMapping("comment")
+	public String comment(@RequestParam(value = "no", required = false) Integer no, Model model,
+			RedirectAttributes rdAttr, @RequestParam(value = "currentPage", required = false) Integer currentPage) {
+		int eventNo = 0;
+
+//		테스트용으로 삭제 예정
+		if (no != null) {
+			eventNo = no;
+		} else {
+			eventNo = 99;
+		}
+
+		String msg = null;
+		String url = null;
+
+		
+
+		try {
+
+			// 이벤트 + 주최자 정보 얻어오기
+			Event event = eventService.selectEvent(eventNo);
+
+			// 이벤트 참석자 정보 얻어오기
+			List<Member> partyList = eventService.selectPartyList(eventNo);
+
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			if (model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService
+						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
+				if (myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
+			}
+			
+
+			// 해당 이벤트 후기 얻어오기
+			// 전체 후기 수 조회
+			int listCount = eventService.getListCount(eventNo);
+			
+			// 현재 페이지 확인
+			if (currentPage == null)
+				currentPage = 1;
+
+			// 페이지 정보 저장
+			PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
+
+			// 후기 목록 조회
+			List<Rating> ratingList = eventService.selectRatingList(eventNo, pInf);
+
+			if (event != null) {
+
+				model.addAttribute("event", event);
+				model.addAttribute("partyList", partyList);
+				model.addAttribute("ratingList", ratingList);
+				url = "event/eventAfterComment";
+
+			} else {
+				msg = "이벤트 상세 페이지 조회 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				url = "redirect:/";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이벤트 상세 페이지 조회 과정 중 오류 발생");
+			return "common/errorPage.jsp";
+		}
+		return url;
+	}
 
 }

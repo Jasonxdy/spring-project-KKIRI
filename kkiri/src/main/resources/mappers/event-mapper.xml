@@ -220,12 +220,21 @@
 		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'U', ${eventTicket}, SYSDATE)
 	</insert>
 	
-	
+	<!-- 주최자 이벤트 완료 확인 -->	
 	<update id="updateEventConfirm" parameterType="_int">
 		UPDATE EVENT SET
 		EVENT_CONFIRM = 'Y'
 		WHERE EVENT_NO = #{eventNo}
 	</update>
+	
+	
+	<!-- 전체 후기 수 조회 -->
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM RATING
+		WHERE EVENT_NO = #{eventNo}
+		AND RATING_STATUS = 'Y'
+	</select>
 	
 
 

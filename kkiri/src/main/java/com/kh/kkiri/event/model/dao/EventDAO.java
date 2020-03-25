@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
+import com.kh.kkiri.event.model.vo.Rating;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.event.model.vo.Image;
@@ -231,6 +232,29 @@ public class EventDAO {
 	 */
 	public int updateEventConfirm(int eventNo) throws Exception{
 		return sqlSession.update("eventMapper.updateEventConfirm", eventNo);
+	}
+
+
+	/**
+	 * 전체 후기 수 조회 DAO
+	 * @param eventNo
+	 * @return listCount
+	 * @throws Exception
+	 */
+	public int getListCount(int eventNo) throws Exception{
+		return sqlSession.selectOne("eventMapper.getListCount", eventNo);
+	}
+
+
+	/**
+	 * 후기 목록 조회 DAO
+	 * @param eventNo
+	 * @return ratingList
+	 * @throws Exception
+	 */
+	public List<Rating> selectRatingList(int eventNo, PageInfo pInf) throws Exception{
+		RowBounds rbounds = new RowBounds((pInf.getCurrentPage()-1)*pInf.getLimit(), pInf.getLimit());
+		return sqlSession.selectList("eventMapper.getListCount", eventNo, rbounds);
 	}
 
 

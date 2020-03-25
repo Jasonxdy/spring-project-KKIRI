@@ -44,7 +44,7 @@
 							id="selectParticipant"
 							href="selectParticipant?no=${event.eventNo}">참가회원</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">사진</a></li>
-						<li class="nav-item"><a class="nav-link active" href="comment">후기</a>
+						<li class="nav-item"><a class="nav-link" id="comment" href="comment?no=${event.eventNo}">후기</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -174,6 +174,11 @@
 		case "selectParticipant":
 			$("#event-navi li a").removeClass("active");
 			$("#selectParticipant").addClass("active");
+			break;
+			
+		case "comment":
+			$("#event-navi li a").removeClass("active");
+			$("#comment").addClass("active");
 			break;
 		}
 
