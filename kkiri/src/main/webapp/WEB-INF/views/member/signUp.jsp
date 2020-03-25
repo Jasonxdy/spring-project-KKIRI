@@ -122,24 +122,28 @@
                       </div><br>
                       <label for="memberId"><strong class='require'>필수</strong>&nbsp;아이디</label>
                       <input type="text" name="memberId" id="memberId"><br>
-                      <div class="col-md-6 offset-md-3">
+                      <div >
                             <span id="checkId">&nbsp;</span>
                         </div>
                       
                       <label for="memberPwd"><strong class='require'>필수</strong>&nbsp;비밀번호</label>
                       <input type="password" name="memberPwd" id="memberPwd"><br>
-                      <div class="col-md-6 offset-md-3">
+                      <div >
                             <span id="checkPwd">&nbsp;</span>
                         </div>
                         
                       <label for="memberPwd2"><strong class='require'>필수</strong>&nbsp;비밀번호 확인</label>
                       <input type="password" name="memberPwd2" id="memberPwd2"><br>
-                      <div class="col-md-6 offset-md-3">
+                      <div>
                             <span id="checkPwd2">&nbsp;</span>
                         </div>
                       
                       <label for="memberNickname"><strong class='require'>필수</strong>&nbsp;닉네임</label>
                       <input type="text" name="memberNickname" id="memberNickname"><br>
+                      <div>
+                            <span id="checkNickName">&nbsp;</span>
+                        </div>
+                      
                       <p><strong class='require'>필수</strong>&nbsp;전화번호</p>
                       <input type="number" class="memberPhone" name="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">-
                       <input type="number" class="memberPhone" name="memberPhone2" maxlength="4" oninput="maxLengthCheck(this)">-
@@ -255,8 +259,8 @@
 					
 					var regExp = /^[a-z][a-zA-z\d]{5,11}$/;
 					if(!regExp.test($memberId.val())){
-						$("#checkId").text("아이디 형식을 확인해주세요.")
-						.css("color", "#c82333" );
+						$("#checkId").text("아이디 형식을 확인해주세요.").css("color", "#c82333" );
+						
 						createIdCheck.memberId=false;
 					}else{
 						createIdCheck.memberId=true;
@@ -267,11 +271,11 @@
 							success : function(result){
 								
 								if(result == "true"){
-									$("#checkId").text("아이디 사용가능")
-									.css("color", "#c82333" );
+									$("#checkId").text("아이디 사용가능").css("color", "#c82333" );
+									
 								}else{
-									$("#checkId").text("이미 등록된 아이디")
-									.css("color", "#0069d9" );
+									$("#checkId").text("이미 등록된 아이디").css("color", "#0069d9" );
+									
 								}
 							},
 							error: function(e){
@@ -291,31 +295,30 @@
 					
 					var regExp = /^[a-zA-Z0-9]{6,15}$/;
 					if(!regExp.test($memberPwd.val())){
-						$("#checkPwd").text("비밀번호 형식을 확인해주세요.");
-						//.css({"color": "#c82333"});
+						$("#checkPwd").text("비밀번호 형식을 확인해주세요.").css({"color": "#c82333"});
 						creatIdCheck.memberPwd = false;
 					}else{
-						$("#checkPwd").text("사용 가능한 비밀번호입니다.");
-						//.css({"color": "#0069d9"});
+						$("#checkPwd").text("사용 가능한 비밀번호입니다.").css({"color": "#0069d9"});
 						creatIdCheck.memberPwd = true;
 					}
 					
 				});
     			
 				$memberPwd2.on("input", function(){
-					
 					if($memberPwd.val().trim() != $memberPwd2.val().trim()){
-						$("#checkPwd2").text("비밀번호 불일치");
-						//.css("color", "#c82333" );
+						$("#checkPwd2").text("비밀번호 불일치").css("color", "#c82333" );
 						creatIdCheck.memberPwd2 = false;
 					}else{
-						$("#checkPwd2").text("비밀번호 일치");
-						//.css("color", "#0069d9" );
+						$("#checkPwd2").text("비밀번호 일치").css("color", "#0069d9" );
 						creatIdCheck.memberPwd2 = true;
 					}
 					
 				});
     			
+				
+				
+				
+				
 
     			
     		}); // ready 함수 끝
