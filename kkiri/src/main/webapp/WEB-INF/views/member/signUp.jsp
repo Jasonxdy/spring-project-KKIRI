@@ -293,7 +293,7 @@
 				// 비번
 				$memberPwd.on("input", function(){
 					
-					var regExp = /^[a-zA-Z0-9]{6,15}$/;
+					var regExp = /^[a-zA-Z0-9~!@#$%^&*()_+]{6,15}$/;
 					if(!regExp.test($memberPwd.val())){
 						$("#checkPwd").text("비밀번호 형식을 확인해주세요.").css({"color": "#c82333"});
 						creatIdCheck.memberPwd = false;
@@ -304,6 +304,7 @@
 					
 				});
     			
+				// 비번 체크
 				$memberPwd2.on("input", function(){
 					if($memberPwd.val().trim() != $memberPwd2.val().trim()){
 						$("#checkPwd2").text("비밀번호 불일치").css("color", "#c82333" );

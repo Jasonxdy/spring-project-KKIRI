@@ -49,12 +49,8 @@
 				
 	</insert>
 	
-	<!-- 회원 이미지 등록 -->
-	<insert id="insertAttachment" parameterType="Attachment">
-		INSERT INTO ATTACHMENT VALUES (
-			#{fileOriginName}, #{fileChangeName}, #{filePath}
-		)
-	</insert>
+	
+	
 	
 	
 	
