@@ -134,6 +134,10 @@
          $("#kakaoLogin").on("click", function(){
         	location.href = "${kakao_url}";
         })
+        
+        
+        
+        
       </script>
     
 	

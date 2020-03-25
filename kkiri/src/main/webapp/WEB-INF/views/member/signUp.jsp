@@ -48,7 +48,7 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="signUpForm" action="createId" method="post" enctype="multipart/form-data">
+              <form class="signUpForm" action="createId" method="post" enctype="multipart/form-data" onsubmit="return validate();">
                 <div class="step1 select-location step">
                   <h3 class="signUpTitle">1단계. 회원님의 관심 지역을 선택해주세요</h3>
                   <p class="sub-title">선택하신 관심 지역을 기반으로 이벤트를 추천해드리고, 다른 회원님과 연결해드립니다.</p>
@@ -63,7 +63,7 @@
                  		onclick="sample5_execDaumPostcode()" >
                     
                     <input type="text" name="memberLocation" placeholder="주소 검색" class="interest-location-input"
-                    	id="sample5_address" onkeypress="sample5_execDaumPostcode()" readonly>
+                    	id="sample5_address" onclick="sample5_execDaumPostcode()" readonly>
                   </div>
                   <input class="locationResult" type="text" name="locationResult" value="서울시 동대문구" readonly class="interest-location-input-result"
                   	style="display:none">
@@ -122,10 +122,22 @@
                       </div><br>
                       <label for="memberId"><strong class='require'>필수</strong>&nbsp;아이디</label>
                       <input type="text" name="memberId" id="memberId"><br>
+                      <div class="col-md-6 offset-md-3">
+                            <span id="checkId">&nbsp;</span>
+                        </div>
+                      
                       <label for="memberPwd"><strong class='require'>필수</strong>&nbsp;비밀번호</label>
                       <input type="password" name="memberPwd" id="memberPwd"><br>
+                      <div class="col-md-6 offset-md-3">
+                            <span id="checkPwd">&nbsp;</span>
+                        </div>
+                        
                       <label for="memberPwd2"><strong class='require'>필수</strong>&nbsp;비밀번호 확인</label>
                       <input type="password" name="memberPwd2" id="memberPwd2"><br>
+                      <div class="col-md-6 offset-md-3">
+                            <span id="checkPwd2">&nbsp;</span>
+                        </div>
+                      
                       <label for="memberNickname"><strong class='require'>필수</strong>&nbsp;닉네임</label>
                       <input type="text" name="memberNickname" id="memberNickname"><br>
                       <p><strong class='require'>필수</strong>&nbsp;전화번호</p>
@@ -203,14 +215,114 @@
             }
           }
         });
-        $(".go-step4").on({
-          click : function(){
-            $(".progress-bar-percent").css({"width" : "100%"});
-            $(".step").stop().fadeOut(300);
-            $(".step4").delay(300).fadeIn(300);
-          }
-        });
+       
+        
       });
+      
+      
+      // 유효성 검사 
+      
+      function validate(){
+    	 
+    	  var creatIdCheck={
+    		  "memberId":false, // 입력확인, 아이디 유효성, 중복 검사
+    		//  "memberIdUnique":false,
+    		  "memberPwd":false, // 입력 확인, 비번 유효성
+    		  "memberPwd2":false, // 중복검사
+    		//  "memberNickname":false, //중복 검사, 입력확인
+    		//  "memberPhone1":false, // 입력 확인
+    		//  "memberPhone2":false,
+    		//  "memberPhone3":false,
+    		//  "memberEmail":false, //중복 검사, 입력확인
+    		//  "memberBirth":false, //입력 확인
+    		//  "memberGender":false //입력 확인 
+    	  };
+    	  
+    		$(document).ready(function(){
+    			
+    			var $memberId = $("#memberId");
+    			var $memberPwd = $("#memberPwd");
+    			var $memberPwd2 = $("#memberPwd2");
+    			var $memberNickname = $("#memberNickname");
+    			var $memberPhone1 = $("#memberPhone1");
+    			var $memberPhone2 = $("#memberPhone2");
+    			var $memberPhone3 = $("#memberPhone3");
+    			var $memberEmail = $("#memberEmail");
+    			var $memberBirth = $("#memberBirth");
+    			var $memberGender = $("#memberGender");
+    			
+				$memberId.on("input" , function(){
+					
+					var regExp = /^[a-z][a-zA-z\d]{5,11}$/;
+					if(!regExp.test($memberId.val())){
+						$("#checkId").text("아이디 형식을 확인해주세요.")
+						.css("color", "#c82333" );
+						createIdCheck.memberId=false;
+					}else{
+						createIdCheck.memberId=true;
+						$.ajax({
+							url: "idUniqueCheck",
+							data: {memberId: $memberId.val() },
+							type : "post",
+							success : function(result){
+								
+								if(result == "true"){
+									$("#checkId").text("아이디 사용가능")
+									.css("color", "#c82333" );
+								}else{
+									$("#checkId").text("이미 등록된 아이디")
+									.css("color", "#0069d9" );
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+	                			console.log(e);
+							}
+							
+						}); // ajax 끝
+						createIdCheck.idUnique = true;
+						
+					}
+					
+				});
+    			
+				// 비번
+				$memberPwd.on("input", function(){
+					
+					var regExp = /^[a-zA-Z0-9]{6,15}$/;
+					if(!regExp.test($memberPwd.val())){
+						$("#checkPwd").text("비밀번호 형식을 확인해주세요.");
+						//.css({"color": "#c82333"});
+						creatIdCheck.memberPwd = false;
+					}else{
+						$("#checkPwd").text("사용 가능한 비밀번호입니다.");
+						//.css({"color": "#0069d9"});
+						creatIdCheck.memberPwd = true;
+					}
+					
+				});
+    			
+				$memberPwd2.on("input", function(){
+					
+					if($memberPwd.val().trim() != $memberPwd2.val().trim()){
+						$("$checkPwd2").text("비밀번호 불일치");
+						//.css("color", "#c82333" );
+						creatIdCheck.memberPwd2 = false;
+					}else{
+						$("$checkPwd2").text("비밀번호 일치");
+						//.css("color", "#0069d9" );
+						creatIdCheck.memberPwd2 = true;
+					}
+					
+				});
+    			
+
+    			
+    		}); // ready 함수 끝
+    		
+      }  // validate 끝 
+      
+      
       // 전화번호 자릿수 제한
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
@@ -237,23 +349,6 @@
       }
     </script>
 
-  <!--   <div id="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4 footer-logo-wrap">
-                <img class="footer-logo" src="img/logo2-white.png" alt="푸터로고">
-              </div>
-              <div class="col-md-8">
-                <p class="copyright">&copy; 2020 KKIRI COMPANY. ALL RIGHTS RESERVED.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    
     
     <div id="button-top">
       <button type="button" class="top-btn">TOP</button>
