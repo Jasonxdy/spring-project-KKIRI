@@ -76,4 +76,22 @@ public class ProfileDAO {
 	public int checkFavorite(Favorite favorite) {
 		return sqlSession.selectOne("memberMapper.checkFavorite", favorite);
 	}
+
+
+	/** 좋아요 등록
+	 * @param favorite
+	 * @return result
+	 */
+	public int doFavorite(Favorite favorite) {
+		return sqlSession.insert("memberMapper.doFavorite", favorite);
+	}
+
+
+	/** 좋아요 삭제
+	 * @param favorite
+	 * @return result
+	 */
+	public int undoFavorite(Favorite favorite) {
+		return sqlSession.delete("memberMapper.undoFavorite", favorite);
+	}
 }

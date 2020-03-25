@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
@@ -53,10 +54,17 @@ public class ProfileServiceImpl implements ProfileService {
 	 * @param favoriteNo
 	 * @return result
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int theLove(Favorite favorite) {
 		int result = profileDAO.checkFavorite(favorite);
 		
-		return 0;
+		if(result >0) {
+			result = profileDAO.undoFavorite(favorite);
+		} else {
+			result = profileDAO.doFavorite(favorite);
+		}
+		
+		return result;
 	}
 }
