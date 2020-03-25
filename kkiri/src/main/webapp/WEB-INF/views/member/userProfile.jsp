@@ -112,7 +112,7 @@
 					$(content).appendTo("#eventArea");
 				} else{
 					$("#eventArea").empty();
-					endPage = data.pInf.endPage;
+					maxPage = data.pInf.maxPage;
 					
 					$.each(data.eList, function(i){
 					
@@ -227,16 +227,21 @@
 	
 	function pageClick(test){
 		var temp = $(test).text();
+		
 		currentPage *= 1;
 		switch(temp){
 		case '<<': currentPage = 1; break;
 		case '<': currentPage -= 1; break;
 		case '>': currentPage += 1; break;
-		case '>>': currentPage = endPage; break;
+		case '>>': currentPage = maxPage; break;
 		default: currentPage = temp; break;
 		}
 		eventList();
 	};
+	
+	$(function(){
+		eventList();
+	});
 	
 </script>
 </body>
