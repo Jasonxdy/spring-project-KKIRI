@@ -99,6 +99,8 @@ public class ProfileController {
 		// 좋아요 등록 1, 삭제 2
 		int result = profileService.theLove(favorite);
 		
-		return null;
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(result);
 	}
 }
