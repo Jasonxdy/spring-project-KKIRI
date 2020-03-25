@@ -8,9 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.vo.Ticket;
 
+/**
+ * @author user1
+ *
+ */
 @Repository
 public class MypageDAO {
 
@@ -43,6 +48,17 @@ public class MypageDAO {
 
 	public int getListCount(Ticket ticket) throws Exception{
 		return sqlSession.selectOne("paymentMapper.getListCount", ticket);
+	}
+
+	/** 환조씨가 작업중
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Event> moveEvent(int memberNo) throws Exception{
+		
+		
+		return sqlSession.selectList("eventMapper.get", memberNo);
 	}
 	
 }

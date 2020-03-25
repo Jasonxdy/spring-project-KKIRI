@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
@@ -120,6 +121,15 @@ public class MypageServiceimpl implements MypageService{
 		List<Ticket> ticketLog = mypageDAO.ticketLog(ticket,Pinf);
 		
 		return ticketLog;
+	}
+
+	/** 환조씨가 작업중
+	 *
+	 */
+	@Override
+	public List<Event> moveEvent(int memberNo) throws Exception {
+		
+		return mypageDAO.moveEvent(memberNo);
 	}
 	
 	

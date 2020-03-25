@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
@@ -231,7 +232,7 @@ public class MypageController {
 		}
 		
 		try {
-			System.out.println(ticket);
+		System.out.println(ticket);
 		int listCount = mypageService.getListCount(ticket);
 		PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 		List<Ticket> ticketList = mypageService.ticketLog(ticket,Pinf);
@@ -247,13 +248,21 @@ public class MypageController {
 		return "myPage/ticket_history";
 	}
 	@RequestMapping("moveEvent")
-	public String moveEvent(Model model) {
+	public String moveEvent(Model model,
+			@RequestParam(value="currentPage" , required = false) Integer currentPage
+			
+			) {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
-		
+		int memberNo = loginMember.getMemberNo();
 		
 		
 		try {
+			
+			List<Event> eList = mypageService.moveEvent(memberNo);
+			
+			
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -263,6 +272,11 @@ public class MypageController {
 		
 		return "my_event";
 		
+	}
+	@RequestMapping("moveRefund")
+	public String moveRefund(Model model) {
+		
+		return "myPage/ticket_refund";
 	}
 	
 }
