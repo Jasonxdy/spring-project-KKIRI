@@ -56,19 +56,26 @@ public class MemberDAO {
 	 * @return signUpCheck
 	 * @throws Exception
 	 */
-	public Member checkGoogleId(String memberId) throws Exception {
-		return sqlSession.selectOne("memberMapper.checkGoogleId", memberId);
+	public Member checkSocialId(String memberId) throws Exception {
+		return sqlSession.selectOne("memberMapper.checkSocialId", memberId);
 	}
-
-
 
 	/** google 계정으로 가입 Service
 	 * @param googleMember
 	 * @return signUpResult
 	 * @throws Exception
 	 */
-	public int googleSignUp(Member googleMember) throws Exception {
-		return sqlSession.insert("memberMapper.googleSignUp", googleMember);
+	public int socialSignUp(Member socialMember) throws Exception {
+		return sqlSession.insert("memberMapper.socialSignUp", socialMember);
+	}
+	
+	/** social Email 중복 확인 Service
+	 * @param memberEmail
+	 * @return checkSocialEmail
+	 * @throws Exception
+	 */
+	public Member checkSocialEmail(String memberEmail) throws Exception {
+		return sqlSession.selectOne("memberMapper.checkSocialEmail", memberEmail);
 	}
 
 

@@ -26,21 +26,30 @@ public interface MemberService {
 
 
 
-	/** google 계정 가입 여부 체크 Service
+	/** social 계정 가입 여부 체크 Service
 	 * @param memberId
 	 * @return signUpCheck
 	 * @throws Exception
 	 */
-	Member checkGoogleId(String memberId) throws Exception;
+	Member checkSocialId(String memberId) throws Exception;
 
 
 
-	/** google 계정으로 가입 Service
+	/** social 계정으로 가입 Service
 	 * @param googleMember
 	 * @return signUpResult
 	 * @throws Exception
 	 */
-	int googleSignUp(Member googleMember) throws Exception;
+	int socialSignUp(Member socialMember) throws Exception;
+
+
+
+	/** social Email 중복 확인 Service
+	 * @param memberEmail
+	 * @return checkSocialEmail
+	 * @throws Exception
+	 */
+	Member checkSocialEmail(String memberEmail) throws Exception;
 
 	
 
