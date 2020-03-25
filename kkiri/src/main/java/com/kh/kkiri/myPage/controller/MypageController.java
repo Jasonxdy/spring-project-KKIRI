@@ -246,5 +246,23 @@ public class MypageController {
 		}
 		return "myPage/ticket_history";
 	}
+	@RequestMapping("moveEvent")
+	public String moveEvent(Model model) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		
+		
+		
+		try {
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "마이 이벤트 페이지 이동중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		return "my_event";
+		
+	}
 	
 }
