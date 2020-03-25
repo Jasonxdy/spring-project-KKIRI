@@ -137,7 +137,7 @@
 	
 	
 	<!-- 이벤트 참여 -->
-	<insert id="joinEvent" parameterType="Party">
+	<insert id="joinEvent" parameterType="Event">
 		INSERT INTO PARTY
 		VALUES(#{eventNo}, #{memberNo}, 'P', DEFAULT)
 	</insert>
@@ -179,6 +179,21 @@
 		INSERT INTO IMAGE VALUES(IMG_SEQ.NEXTVAL,#{eventNo},#{imgOriginalName},#{imgChangeName},
 		SYSDATE,'Y','T')
 	</insert>
+	
+	
+	<!-- 이벤트 취소에 따른 티켓 회수 -->
+	<update id="increaseTicket" parameterType="hashmap">
+		UPDATE MEMBER SET
+		MEMBER_TICKET = MEMBER_TICKET - ${0,a}
+		WHERE MEMBER_NO = ${1,b}
+	</update>
+	
+	<!-- 참가자 티켓 차감 -->
+	<update id="decreaseTicket" parameterType="Event">
+		UPDATE MEMBER SET
+		MEMBER_TICKET = MEMBER_TICKET - ${eventTicket}
+		WHERE MEMBER_NO = ${memberNo}
+	</update>
 
 
 </mapper>

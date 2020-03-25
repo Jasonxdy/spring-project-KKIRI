@@ -338,7 +338,7 @@
 					location.href = '';
 				}
 			} else {
-				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&memberNo=' + '${loginMember.memberNo}';
+				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}';
 			}
 		}
 		
@@ -354,7 +354,8 @@
 						type: "POST",
 						data: {
 							"eventNo": ${event.eventNo},
-							"memberNo" : '${loginMember.memberNo}'
+							"memberNo" : '${loginMember.memberNo}',
+							"eventTicket" : ${event.eventTicket}
 						},
 						success : function(result){
 							var msg = null;

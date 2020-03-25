@@ -73,11 +73,11 @@ public interface EventService {
 
 	/**
 	 * 이벤트 참가 service
-	 * @param party
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
-	int joinEvent(Party party) throws Exception;
+	int joinEvent(Event event) throws Exception;
 
 	/**
 	 * 이벤트 승인 대기중 취소

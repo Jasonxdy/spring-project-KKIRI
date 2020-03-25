@@ -1,5 +1,6 @@
 package com.kh.kkiri.event.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,14 +105,20 @@ public class EventServiceImpl implements EventService {
 	
 	/**
 	 * 이벤트 참가 service
-	 * @param party
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int joinEvent(Party party) throws Exception {
-		return eventDAO.joinEvent(party);
+	public int joinEvent(Event event) throws Exception {
+		// party에 추가
+		int result = eventDAO.joinEvent(event);
+		if(result > 0) {
+			// 티켓 차감
+			result = eventDAO.decreaseTicket(event);
+		}
+		return result;
 	}
 	
 	
@@ -140,8 +147,10 @@ public class EventServiceImpl implements EventService {
 		int result = eventDAO.cancelEvent(party);
 		if(result > 0) {
 			// 티켓 회수
-			int memberNo = party.getMemberNo();
-			result = eventDAO.increaseTicket(memberNo, eventTicket);
+			Map<String, String> ticket = new HashMap<String, String>();
+			ticket.put("memberNo", party.getMemberNo() + "");
+			ticket.put("eventTicket", eventTicket + "");
+			result = eventDAO.increaseTicket(ticket);
 			// 결제 내역
 		}
 		

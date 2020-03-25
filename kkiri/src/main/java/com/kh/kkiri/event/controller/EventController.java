@@ -159,14 +159,14 @@ public class EventController {
 	
 	// 이벤트 참가 신청
 	@RequestMapping("joinEvent")
-	public String joinEvent (Party party, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+	public String joinEvent (Event event, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg = null;
 		String url = null;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
 		
 		try {
-			int result = eventService.joinEvent(party);
+			int result = eventService.joinEvent(event);
 			if(result > 0) {
 				msg = "이벤트에 참가 신청되었습니다.";
 //				url = "redirect:detail?no=" + party.getEventNo();
@@ -195,7 +195,6 @@ public class EventController {
 		
 		try {
 			result = eventService.cancelEvent(party);
-			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = -1;
