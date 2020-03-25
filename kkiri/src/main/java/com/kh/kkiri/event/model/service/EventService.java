@@ -79,12 +79,22 @@ public interface EventService {
 	int joinEvent(Party party) throws Exception;
 
 	/**
-	 * 승인 대기중 취소
+	 * 이벤트 승인 대기중 취소
 	 * @param party
 	 * @return result
 	 */
-	int cancelWaitEvent(Party party) throws Exception;
+	int cancelEvent(Party party) throws Exception;
 
+	/**
+	 * 이벤트 참가 취소 서비스
+	 * @param party
+	 * @param eventTicket 
+	 * @return result
+	 * @throws Exception
+	 */
+	int cancelJoinEvent(Party party, int eventTicket) throws Exception;
+	
+	
 	/**
 	 * 신고 등록
 	 * @param report
@@ -92,6 +102,7 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int insertReport(Report report) throws Exception;
+
 
 
 	

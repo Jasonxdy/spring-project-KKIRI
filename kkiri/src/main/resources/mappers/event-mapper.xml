@@ -134,7 +134,7 @@
 	</insert>
 	
 	<!-- 이벤트 승인 대기 취소 -->
-	<delete id="cancelWaitEvent" parameterType="Party">
+	<delete id="cancelEvent" parameterType="Party">
 		DELETE FROM PARTY
 		WHERE EVENT_NO = #{eventNo}
 		AND MEMBER_NO = #{memberNo}
