@@ -2,10 +2,12 @@ package com.kh.kkiri.myPage.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.vo.Ticket;
 
@@ -30,9 +32,13 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.deleteMember", loginMember);
 	}
 
-	public List<Ticket> ticketLog(Ticket ticket)throws Exception {
+	public List<Ticket> ticketLog(Ticket ticket, PageInfo pinf)throws Exception {
 		
-		return sqlSession.selectList("paymentMapper.ticketLog", ticket);
+		int OffSet  = (pinf.getCurrentPage()-1)*pinf.getLimit();
+		RowBounds rowbound = new RowBounds(OffSet,pinf.getLimit());
+		
+		
+		return sqlSession.selectList("paymentMapper.ticketLog", ticket,rowbound);
 	}
 
 	public int getListCount(Ticket ticket) throws Exception{

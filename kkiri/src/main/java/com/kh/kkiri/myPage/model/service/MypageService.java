@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.vo.Ticket;
 import com.kh.kkiri.payment.model.vo.Payment;
@@ -43,10 +44,11 @@ public interface MypageService {
 
 	/**
 	 * @param ticket
+	 * @param pinf 
 	 * @return ticketList
 	 * @throws Exception
 	 */
-	List<Ticket> ticketLog(Ticket ticket)throws Exception;
+	List<Ticket> ticketLog(Ticket ticket, PageInfo pinf)throws Exception;
 
 	/** pagination maxnum을 찾기 위한 서비스
 	 * @param ticket
