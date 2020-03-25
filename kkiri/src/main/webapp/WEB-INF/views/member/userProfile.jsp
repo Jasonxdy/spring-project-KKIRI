@@ -33,7 +33,7 @@
 									<p>성별 : ${member.memberGender}</p>
 									<p>나이 : ${nowDate - birthDate +1 } 살</p>
 								</div>
-								<div id="category" class="col-md-7">
+								<div id="category" class="col-md-6">
 									<c:set var="mCategory" value="${fn:split(member.memberCategory,',')}"/>
 									
 									<p class="h4">관심 카테고리</p>
@@ -41,6 +41,11 @@
 										<div class="text-center">${cate }</div>
 									</c:forEach>
 								</div>
+								<c:if test='${loginMember.memberNo != member.memberNo }'>
+									<div class="col-md-1">
+										<a class="btn btn-primary mt-5" onclick="theLove()">좋아요</a>
+									</div>
+								</c:if>
 							</div>
 							<p class="mt-3 introduce-text">${member.memberIntroduce }</p>
 						</div>
@@ -75,26 +80,6 @@
 	var endPage=1;
 	var maxPage=1;
 	
-	function selectListCount(){
-		$.ajax({
-			url : "selectListCount",
-			type : "POST",
-			data : {"memberNo" : memberNo,
-					"flag" : flag,
-					"currentPage" : currentPage},
-			dataType : "json",
-			success : function(pInf){
-				startPage = pInf.startPage;
-				endPage = pInf.endPage;
-				maxPage = pInf.maxPage;
-				console.log("리스트");
-			},
-			error : function(){
-				alert("이벤트 수 조회중 오류 발생");
-			}
-		});
-	}
-
 	function eventList(){
 		$.ajax({
 			url : "eventList",
@@ -209,6 +194,19 @@
 
 					$(content).appendTo("#eventArea");
 				}
+			}
+		});
+	}
+	
+	function theLove(){
+		$.ajax({
+			url : "theLove",
+			type : "POST",
+			data : { "memberNo" : ${loginMember.memberNo},
+						"favoriteNo" : ${member.memberNo}},
+			dataType : "json",
+			success : function(result){
+				console.log(result);
 			}
 		});
 	}

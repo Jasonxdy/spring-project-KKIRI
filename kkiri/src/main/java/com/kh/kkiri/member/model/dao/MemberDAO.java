@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.kkiri.member.model.vo.Attachment;
+
 import com.kh.kkiri.member.model.vo.Member;
 
 @Repository("memberDAO")

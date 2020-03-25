@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.service.ProfileService;
 import com.kh.kkiri.search.model.vo.Search;
@@ -55,23 +56,6 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("M", "남자"));
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
-				/*
-				// 생성한 이벤트 수 
-				int cListCount = profileService.cListCount(memberNo);
-				// 참여한 이벤트 수
-				int jListCount = profileService.jListCount(memberNo);
-				
-				Pagination pagination = new Pagination();
-				
-				PageInfo cpInf = pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
-				PageInfo jpInf = pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
-				
-				System.out.println(cpInf);
-				
-				model.addAttribute("cpInf", cpInf);
-				model.addAttribute("jpInf", jpInf);
-				*/
-				
 				model.addAttribute("member", member);
 				
 				return "member/userProfile";
@@ -87,33 +71,10 @@ public class ProfileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "selectListCount", produces= "application/json; charset=utf-8")
-	public String selectListCount(@RequestParam(value="memberNo", required=false) Integer memberNo,
-									@RequestParam(value="flag", required=false) Integer flag,
-									@RequestParam(value="currentPage", required=false) Integer currentPage
-									) {
-		int listCount = profileService.listCount(memberNo, flag);
-		
-		PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
-		
-		Gson gson = new GsonBuilder().create();
-		
-		return gson.toJson(pInf);
-	}
-		
-	
-	@ResponseBody
 	@RequestMapping(value = "eventList", produces= "application/json; charset=utf-8")
 	public String eventList(@RequestParam(value="memberNo", required=false) Integer memberNo,
 								@RequestParam(value="currentPage", required=false) Integer currentPage,
 								@RequestParam(value="flag", required=false) Integer flag){
-		/*
-		List<Search> eList = profileService.selectEventList(memberNo, currentPage, limit, flag);
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
-		
-		return gson.toJson(eList);
-		*/
 		
 		List<Search> eList = profileService.selectEventList(memberNo, currentPage, limit, flag);
 		
@@ -129,4 +90,17 @@ public class ProfileController {
 	    return gson.toJson(map);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "theLove", produces = "application/json; charset=utf-8")
+	public String theLove(@RequestParam(value="memberNo", required=false) Integer memberNo,
+							@RequestParam(value="favoriteNo", required=false) Integer favoriteNo) {
+		Favorite favorite = new Favorite(memberNo, favoriteNo);
+		
+		// 좋아요 등록 1, 삭제 2
+		int result = profileService.theLove(favorite);
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(result);
+	}
 }

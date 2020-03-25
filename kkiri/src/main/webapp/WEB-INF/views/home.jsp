@@ -14,7 +14,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-		<script src="<%=request.getContextPath() %>/resources/js/index.js"></script>
+		<script src="${contextPath}/resources/js/index.js"></script>
 		<div id="container">
           <!-- 배너 start -->
           <div id="banner">
@@ -33,7 +33,7 @@
               	</c:choose>
             </div>
     				<video class='video' autoplay loop muted>
-    					<source src='<%=request.getContextPath() %>/resources/movie/banner-movie.mp4' type='video/mp4'>
+    					<source src='${contextPath}/resources/movie/banner-movie.mp4' type='video/mp4'>
     				</video>
             <div class="video-shadow"> </div>
       		</div>
@@ -83,10 +83,9 @@
                     <c:if test="${empty eventList}">
                     	<p class="no-data-content">이벤트가 존재하지 않습니다!</p>
                     </c:if>
-                    
                     <c:if test="${!empty eventList}">
-                    	<c:forEach var="event" items="${eventList}" varStatus="vs">
-	                      <div class="blog-slider__item swiper-slide on">
+                    	<c:forEach var="event" items="${eventList}">
+	                      <div class="blog-slider__item swiper-slide">
 	                        <div class="blog-slider__img">
 	                          <img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}" alt="이벤트 썸네일">
 	                        </div>
@@ -135,51 +134,49 @@
               <div class="row">
                 <div class="col-md-12">
                   <h3 class="box-title">
-                    한주간 가장 높은 평점을 받은 5명을 소개합니다.<br>
+                    한주간 가장 높은 평점을 받은 ${rankSize}명을 소개합니다.<br>
                     <span class="box-sub-title">축하드립니다! 앞으로도 멋진 모임들을 많이 만들어주세요.</span>
                   </h3>
                     <div class="ranking-wrap">
                       <ul class="ranker-list">
-                        <li class="ranker on">
-                          <p class="rank first-rank">1 st</p>
-                          <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="회원 썸네일">
-                          <p class="nickname">주최자 닉네임 1</p>
-                          <p class="star-rating"><img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
-                        </li>
-
-                        <li class="ranker">
-                          <p class="rank second-rank">2 nd</p>
-                          <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="회원 썸네일">
-                          <p class="nickname">주최자 닉네임 1</p>
-                          <p class="star-rating"><img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
-                        </li>
-
-                        <li class="ranker">
-                          <p class="rank third-rank">3 rd</p>
-                          <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="회원 썸네일">
-                          <p class="nickname">주최자 닉네임 1</p>
-                          <p class="star-rating"><img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
-                        </li>
-
-                        <li class="ranker">
-                          <p class="rank least-rank">4 th</p>
-                          <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="회원 썸네일">
-                          <p class="nickname">주최자 닉네임 1</p>
-                          <p class="star-rating"><img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
-                        </li>
-
-                        <li class="ranker">
-                          <p class="rank least-rank">5 th</p>
-                          <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="회원 썸네일">
-                          <p class="nickname">주최자 닉네임 1</p>
-                          <p class="star-rating"><img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; 4.9</p>
-                        </li>
+                      
+                      <c:if test="${empty mlist}">
+                      	<p class="no-data-info">데이터가 존재하지 않습니다!</p>
+                      </c:if>
+                      <c:if test="${!empty mlist}">
+                         <c:forEach var="ranking" items="${mlist}" varStatus="vs">
+	                      	 <li class="ranker">
+	                          <p class="rank"></p>
+	                          <img src="${contextPath}/resources/upProfileImage/${ranking.memberProfile}" alt="회원 썸네일">
+	                          <p class="nickname">${ranking.memberNickname}</p>
+	                          <p class="star-rating"><img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; ${ranking.memberRating}</p>
+	                        </li>
+                        </c:forEach>
+                      </c:if>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            
+              <script>
+			  	$(function(){
+		  		    // 첫번째 랭크 on 이벤트 추가시키기
+			  		$(".ranking-wrap .ranker").eq(0).addClass("on");
+			  		
+		  		    // 1위
+			  		$(".ranking-wrap .rank").eq(0).addClass("first-rank").text("1 st");
+		  		    // 2위
+			  		$(".ranking-wrap .rank").eq(1).addClass("second-rank").text("2 nd");
+		  		    // 3위
+			  		$(".ranking-wrap .rank").eq(2).addClass("third-rank").text("3 rd");
+		  		    // 4위
+			  		$(".ranking-wrap .rank").eq(3).addClass("least-rank").text("4 th");
+		  		    // 5위
+			  		$(".ranking-wrap .rank").eq(4).addClass("leasr-rank").text("5 th");
+			  	});
+			  </script>                
           <!-- 주최자 랭킹 end -->
 
           <!-- 카테고리 추천 start -->
@@ -193,130 +190,130 @@
                   </h3>
                   <ul class="category-ul">
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/travel-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=여행">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/travel-icon.png" alt=""></div>
                         <span class="category-name">여행</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/exercise-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=운동">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/exercise-icon.png" alt=""></div>
                         <span class="category-name">운동</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/book-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=독서">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/book-icon.png" alt=""></div>
                         <span class="category-name">독서</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/business-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=비즈니스">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/business-icon.png" alt=""></div>
                         <span class="category-name">비즈니스</span>
                       </a>
                     </li>
                   </ul>
                   <ul class="category-ul">
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/language-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=언어">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/language-icon.png" alt=""></div>
                         <span class="category-name">언어</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/music-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=음악">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/music-icon.png" alt=""></div>
                         <span class="category-name">음악</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/cinema-icon.png" alt=""></div>
+                     <a href="${contextPath}/search/searchEvent?searchKey=영화/공연">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/cinema-icon.png" alt=""></div>
                         <span class="category-name">영화/공연</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/dance-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=댄스">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/dance-icon.png" alt=""></div>
                         <span class="category-name">댄스</span>
                       </a>
                     </li>
                   </ul>
                   <ul class="category-ul">
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/volunteer-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=봉사활동">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/volunteer-icon.png" alt=""></div>
                         <span class="category-name">봉사활동</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/friend-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=사교">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/friend-icon.png" alt=""></div>
                         <span class="category-name">사교</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/car-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=차/오토바이">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/car-icon.png" alt=""></div>
                         <span class="category-name">차/오토바이</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/camera-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=사진/영상">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/camera-icon.png" alt=""></div>
                         <span class="category-name">사진/영상</span>
                       </a>
                     </li>
                   </ul>
                   <ul class="category-ul">
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/stadium-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=스포츠관람">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/stadium-icon.png" alt=""></div>
                         <span class="category-name">스포츠관람</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/game-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=게임">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/game-icon.png" alt=""></div>
                         <span class="category-name">게임</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/cook-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=요리">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/cook-icon.png" alt=""></div>
                         <span class="category-name">요리</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/pet-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=반려동물">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/pet-icon.png" alt=""></div>
                         <span class="category-name">반려동물</span>
                       </a>
                     </li>
                   </ul>
                   <ul class="category-ul">
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/socialMovement-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=사회운동">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/socialMovement-icon.png" alt=""></div>
                         <span class="category-name">사회운동</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/beauty-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=뷰티">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/beauty-icon.png" alt=""></div>
                         <span class="category-name">뷰티</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/fashion-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=패션">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/fashion-icon.png" alt=""></div>
                         <span class="category-name">패션</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <div class="blue-background"><img src="<%=request.getContextPath() %>/resources/img/etc-icon.png" alt=""></div>
+                      <a href="${contextPath}/search/searchEvent?searchKey=기타">
+                        <div class="blue-background"><img src="${contextPath}/resources/img/etc-icon.png" alt=""></div>
                         <span class="category-name">기타</span>
                       </a>
                     </li>

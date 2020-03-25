@@ -2,7 +2,7 @@ package com.kh.kkiri.member.model.service;
 
 import java.util.List;
 
-import com.kh.kkiri.member.model.vo.Attachment;
+
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface MemberService {

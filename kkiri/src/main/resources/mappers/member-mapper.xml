@@ -49,12 +49,8 @@
 				
 	</insert>
 	
-	<!-- 회원 이미지 등록 -->
-	<insert id="insertAttachment" parameterType="Attachment">
-		INSERT INTO ATTACHMENT VALUES (
-			#{fileOriginName}, #{fileChangeName}, #{filePath}
-		)
-	</insert>
+	
+	
 	
 	
 	
@@ -181,5 +177,20 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
+	<select id="checkFavorite" parameterType="Favorite" resultType="_int">
+		SELECT COUNT(*) FROM FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+		AND FAVORITE_NO = #{favoriteNo}
+	</select>
 	
+	<insert id="doFavorite" parameterType="Favorite">
+		INSERT INTO FAVORITE
+		VALUES(#{memberNo}, #{favoriteNo}, '호호')
+	</insert>
+	
+	<delete id="undoFavorite" parameterType="Favorite">
+		DELETE FROM FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+		AND FAVORITE_NO = #{favoriteNo}
+	</delete>
 </mapper>

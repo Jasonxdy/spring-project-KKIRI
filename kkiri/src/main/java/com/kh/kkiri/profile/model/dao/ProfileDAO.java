@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
 
@@ -49,7 +50,6 @@ public class ProfileDAO {
 		}
 	}
 
-
 	/** 이벤트 조회용 DAO
 	 * @param memberNo
 	 * @param currentPage
@@ -66,5 +66,32 @@ public class ProfileDAO {
 		} else {
 			return sqlSession.selectList("searchMapper.selectJoinEvent", memberNo, rowBounds);
 		}
+	}
+
+	/** 좋아요 여부 체크용 DAO
+	 * @param memberNo
+	 * @param favoriteNo
+	 * @return result
+	 */
+	public int checkFavorite(Favorite favorite) {
+		return sqlSession.selectOne("memberMapper.checkFavorite", favorite);
+	}
+
+
+	/** 좋아요 등록
+	 * @param favorite
+	 * @return result
+	 */
+	public int doFavorite(Favorite favorite) {
+		return sqlSession.insert("memberMapper.doFavorite", favorite);
+	}
+
+
+	/** 좋아요 삭제
+	 * @param favorite
+	 * @return result
+	 */
+	public int undoFavorite(Favorite favorite) {
+		return sqlSession.delete("memberMapper.undoFavorite", favorite);
 	}
 }

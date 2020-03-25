@@ -24,7 +24,7 @@ public interface HomeService {
 	 * @return list : List<Member>
 	 * @throws Exception
 	 */
-	List<Member> selectMemberList(int memberCount) throws Exception;
+	List<Event> selectMemberList(int memberCount) throws Exception;
 
 
 
