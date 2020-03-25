@@ -73,19 +73,20 @@ public interface EventService {
 
 	/**
 	 * 이벤트 참가 service
-	 * @param party
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
-	int joinEvent(Party party) throws Exception;
+	int joinEvent(Event event) throws Exception;
 
 	/**
-	 * 승인 대기중 취소
-	 * @param party
+	 * 이벤트 승인 대기중 취소
+	 * @param event
 	 * @return result
 	 */
-	int cancelWaitEvent(Party party) throws Exception;
+	int cancelEvent(Event event) throws Exception;
 
+	
 	/**
 	 * 신고 등록
 	 * @param report
@@ -96,6 +97,8 @@ public interface EventService {
 
 
 
+	
+	
 	/** 이벤트 생성용 Service
 	 * @param event
 	 * @param image
@@ -103,4 +106,12 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int createEvent(Event event, Image image) throws Exception;
+
+	/**
+	 * 이벤트 완료 확인 service
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	int confirmEventComplete(Event event) throws Exception;
 }

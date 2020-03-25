@@ -13,14 +13,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.kh.kkiri.event.model.vo.Event;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.home.model.service.HomeService;
 import com.kh.kkiri.member.controller.KakaoController;
+import com.kh.kkiri.member.controller.NaverController;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({ "loginMember"})
 public class HomeController {
+	
 	
 	
 	@Autowired
@@ -34,6 +38,9 @@ public class HomeController {
 	
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	
+	@Autowired
+	private NaverController naverController;
 	
 	/**
 	 * 메인 화면 로딩용 Controller
@@ -51,18 +58,30 @@ public class HomeController {
 			
 		    // kakaoUrl
 		    String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
-
+		    
 		    /* 생성한 인증 URL을 View로 전달 */
 		    model.addAttribute("kakao_url", kakaoUrl);
 		    
+		    // naverUrl
+		    String naverState = naverController.generateState();
+		    System.out.println("홈컨에서 검증 토큰: "+naverState);
+		    session.setAttribute("naverState", naverState);
+		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://localhost:8080/kkiri/member/naverLogin&state=" + naverState;
+		    model.addAttribute("naverUrl", naverUrl);
+
+		    
 		    // 이벤트 추천
 		    List<Event> eventList = null;
-			eventList = homeService.recommandEvent();
-			int i = 0;
-			for(Event ex : eventList) {
-				System.out.println("eventList" + i++ + " : " + ex);
-			}
-			
+		    Member loginMember = (Member)model.getAttribute("loginMember");
+		    if(loginMember==null) {
+		    	eventList = homeService.recommandEvent();
+		    }else {
+		    	String memberLocation = (String)loginMember.getMemberPlace();
+		    	String[] array = memberLocation.split("\\s");
+		    	String memberPlace = array[0] + " " + array[1];
+		    	System.out.println("memberPlace 출력 : " + memberPlace);
+		    	eventList = homeService.recommandEventLogin(memberPlace);
+		    }
 			
 			// 1주간 높은 평점을 받은 회원 목록
 			int memberCount = homeService.selectMemberCount();

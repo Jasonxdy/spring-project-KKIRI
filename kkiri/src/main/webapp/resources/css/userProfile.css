@@ -26,6 +26,12 @@
     border-radius: 5px;
     border: 1px solid #cdd2d8;
 }
+#eventArea h2{
+	width: 100%;
+	 overflow: hidden;
+	  text-overflow: ellipsis;
+	   white-space: nowrap;
+}
 @media (max-width: 1199px) {
     #category div{
         font-size:15px;

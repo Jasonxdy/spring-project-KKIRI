@@ -1,8 +1,6 @@
 package com.kh.kkiri.member.controller;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -35,7 +33,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.service.MemberService;
-import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.AuthInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -51,6 +48,9 @@ public class MemberController {
 
 	@Autowired
 	private KakaoController kakaoLogin;
+	
+	@Autowired
+	private NaverController naverLogin;
 
 	@Inject
 	private AuthInfo authInfo;
@@ -111,21 +111,14 @@ public class MemberController {
 	}
 
 	// 회원 가입
-	@RequestMapping("createId")  //바뀔 쑤 있음 ㅎㅎ 
-	public String createId(Member member, Model model,
-							String memberLocation,
-							String memberPhone1, String memberPhone2, String memberPhone3,
-							@RequestParam(value="memberInterest")
-							String[] interest,
-							String memberBankName, String memberBankNumber, String memberAccountName,
-							HttpServletRequest request,
-							RedirectAttributes rdAttr,
-							@RequestParam(value="uploadProfile",required=true) MultipartFile uploadProfile
-						) {
-		
-		String root = request.getSession().
-				getServletContext().getRealPath("resources");
-		
+	@RequestMapping("createId") // 바뀔 쑤 있음 ㅎㅎ
+	public String createId(Member member, Model model, String memberLocation, String memberPhone1, String memberPhone2,
+			String memberPhone3, @RequestParam(value = "memberInterest") String[] interest, String memberBankName,
+			String memberBankNumber, String memberAccountName, HttpServletRequest request, RedirectAttributes rdAttr,
+			@RequestParam(value = "uploadProfile", required = true) MultipartFile uploadProfile) {
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+
 		String savePath = root + "/upProfileImage";
 		File folder = new File(savePath);
 
@@ -141,51 +134,37 @@ public class MemberController {
 			memberCategory = String.join(",", interest);
 
 		}
-		
 
-		Member createMember = new Member(
-										member.getMemberId(),
-										member.getMemberNickname(),
-										member.getMemberPwd(),
-										member.getMemberEmail(),
-										member.getMemberGender(),
-										memberPhone,
-										member.getMemberBirth(),
-										member.getMemberIntroduce(),
-										memberLocation,
-										memberCategory,
-										memberAcount
-										
-				);
-		
+		Member createMember = new Member(member.getMemberId(), member.getMemberNickname(), member.getMemberPwd(),
+				member.getMemberEmail(), member.getMemberGender(), memberPhone, member.getMemberBirth(),
+				member.getMemberIntroduce(), memberLocation, memberCategory, memberAcount
+
+		);
 
 		System.out.println("1. 로그인:" + createMember);
 
 		try {
 			String changeFileName = null;
-		
-			if(!uploadProfile.getOriginalFilename().equals("")) {
+
+			if (!uploadProfile.getOriginalFilename().equals("")) {
 				// thumbnail이 등록된 경우
 
 				// 파일명 rename
 				changeFileName = FileRename.rename(uploadProfile.getOriginalFilename());
-				
+
 				createMember.setMemberProfile(changeFileName);
 			}
-			
-			
 
-			
 			int result = memberService.createId(createMember);
-			
+
 			String msg = null;
 
 			// if(result > 0) msg = "가입 성공";
 			// else msg = "가입 실패";
 			// model.addAttribute("msg", msg);
-			
-			if(result >0) {
-				if(createMember.getMemberProfile() != null) {
+
+			if (result > 0) {
+				if (createMember.getMemberProfile() != null) {
 					uploadProfile.transferTo(new File(savePath + "/" + changeFileName));
 				}
 				msg = "가입 성공";
@@ -222,6 +201,7 @@ public class MemberController {
 	public String doSessionAssignActionPage(HttpServletRequest request, Model model, RedirectAttributes rdAttr) {
 		try {
 			String code = request.getParameter("code");
+			String msg = null;
 			// System.out.println(code);
 
 			// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
@@ -274,8 +254,9 @@ public class MemberController {
 			String memberEmail = signUpInform[4].substring(9, signUpInform[4].length() - 1);
 			String memberGender = "M"; // 일단 남성. DB에서 null 가능으로 변경 필요.
 			String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
-			String memberPlace = "설정해주세요";
-			String memberCategory = "설정해주세요";
+			String memberPlace = "설정해 주세요";
+			String memberCategory = "설정해 주세요";
+			String memberIdSort = "G";
 
 //        System.out.println("비밀번호 값: "+memberPwd);
 //        System.out.println("email값: "+memberEmail);
@@ -299,17 +280,42 @@ public class MemberController {
 //    	String memberIdSort;	G
 //    	String memberStatus;	default
 //    	double memberRating;	
-			Member googleMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
-					memberPhone, memberPlace, memberCategory);
+			Member socialMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
+					memberPhone, memberPlace, memberCategory, memberIdSort);
 
-			Member loginMember = memberService.checkGoogleId(memberId); // 이미 가입된 계정인지 체크
-			String msg = null;
+			// email 중복 체크
+			Member checkSocailEmail = memberService.checkSocialEmail(memberEmail);
+			if (checkSocailEmail != null) {
+				if (checkSocailEmail.getMemberStatus().equals("N")) {
+					msg = "탈퇴된 회원의 email과 중복됩니다. 1:1문의를 남겨주세요.";
+					rdAttr.addFlashAttribute("msg", msg);
+					return "redirect:/";
+				} else {
+					switch (checkSocailEmail.getMemberIdSort()) {
+					case "N":
+						msg = "KKIRI ID로 가입되어 있는 email입니다";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					case "K":
+						msg = "kakao로 가입되어 있는 email입니다.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					case "V":
+						msg = "naver로 가입되어 있는 email입니다.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					}
+				}
+			}
+
+			// 아이디 중복 체크 + 로그인 + 회원가입
+			Member loginMember = memberService.checkSocialId(memberId); // 이미 가입된 계정인지 체크
 			if (loginMember != null) {
 				model.addAttribute("loginMember", loginMember);
 			} else {
-				int signUpResult = memberService.googleSignUp(googleMember);
+				int signUpResult = memberService.socialSignUp(socialMember);
 				if (signUpResult > 0) {
-					loginMember = memberService.checkGoogleId(memberId);
+					loginMember = memberService.checkSocialId(memberId);
 					model.addAttribute("loginMember", loginMember);
 				} else {
 					msg = "회원 가입 실패";
@@ -329,27 +335,38 @@ public class MemberController {
 	public String getKakaoSignIn(ModelMap model, @RequestParam("code") String code, HttpSession session,
 			RedirectAttributes rdAttr) {
 		try {
-
 			JsonNode userInfo = kakaoLogin.getKakaoUserInfo(code);
-
+			String msg = null;
 //			System.out.println(userInfo);
-
+			String memberEmail = null;
+			String memberGender = null;
+			if(userInfo.findValue("email") != null) {
+				memberEmail = userInfo.get("kakao_account").get("email").toString().replaceAll("\"", "");
+			}else {
+				System.out.println("email: "+userInfo.findValue("email"));
+				msg = "Email 제공에 동의해야 합니다. https://accounts.kakao.com/ 에서 연결을 끊고 다시 시도해주세요.";
+				rdAttr.addFlashAttribute("msg", msg);
+				return "redirect:/";
+			}
 			String memberId = userInfo.get("id").toString();
 			String memberNickname = userInfo.get("properties").get("nickname").toString().replaceAll("\"", "");
 			String memberPwd = userInfo.get("connected_at").toString();
-			String memberEmail = userInfo.get("kakao_account").get("email").toString().replaceAll("\"", "");
-			String memberGender = userInfo.get("kakao_account").get("gender").toString().replaceAll("\"", "");
+			if(userInfo.findValue("gender") != null) {
+				memberGender = userInfo.get("kakao_account").get("gender").toString().replaceAll("\"", "");
+			}
 			if (memberGender.equals("male"))
 				memberGender = "M";
 			else if (memberGender.equals("female"))
 				memberGender = "Y";
+			else memberGender = "M";
 //			System.out.println("memberId: " + memberId);
 //			System.out.println("memberNickname: " + memberNickname);
 //			System.out.println("memberEmail: " + memberEmail);
 //			System.out.println("memberGender: " + memberGender);
 			String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
-			String memberPlace = "설정해주세요";
-			String memberCategory = "설정해주세요";
+			String memberPlace = "설정해 주세요";
+			String memberCategory = "설정해 주세요";
+			String memberIdSort = "K";
 //      String birth = userInfo.get("kakao_account").get("birthday").toString();
 //      String image = userInfo.get("properties").get("profile_image").toString();
 
@@ -361,24 +378,48 @@ public class MemberController {
 //      String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
 //      String memberPlace = "설정해주세요";
 //      String memberCategory = "설정해주세요";
-			Member googleMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
-					memberPhone, memberPlace, memberCategory);
+			Member socialMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
+					memberPhone, memberPlace, memberCategory, memberIdSort);
 
-			Member loginMember = memberService.checkGoogleId(memberId); // 이미 가입된 계정인지 체크
-			String msg = null;
+			// email 중복 체크
+			Member checkSocailEmail = memberService.checkSocialEmail(memberEmail);
+			if (checkSocailEmail != null) {
+				if (checkSocailEmail.getMemberStatus().equals("N")) {
+					msg = "탈퇴된 회원의 email과 중복됩니다. 1:1문의를 남겨주세요.";
+					rdAttr.addFlashAttribute("msg", msg);
+					return "redirect:/";
+				} else {
+					switch (checkSocailEmail.getMemberIdSort()) {
+					case "N":
+						msg = "KKIRI ID로 가입되어 있는 email입니다";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					case "G":
+						msg = "google로 가입되어 있는 email입니다.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					case "V":
+						msg = "naver로 가입되어 있는 email입니다.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					}
+				}
+			}
+
+			// 아이디 중복 체크 + 로그인 + 회원가입
+			Member loginMember = memberService.checkSocialId(memberId); // 이미 가입된 계정인지 체크
 			if (loginMember != null) {
 				model.addAttribute("loginMember", loginMember);
 			} else {
-				int signUpResult = memberService.googleSignUp(googleMember);
+				int signUpResult = memberService.socialSignUp(socialMember);
 				if (signUpResult > 0) {
-					loginMember = memberService.checkGoogleId(memberId);
+					loginMember = memberService.checkSocialId(memberId);
 					model.addAttribute("loginMember", loginMember);
 				} else {
 					msg = "회원 가입 실패";
 					rdAttr.addFlashAttribute("msg", msg);
 				}
 			}
-
 		}
 
 		catch (Exception e) {
@@ -386,6 +427,85 @@ public class MemberController {
 		}
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping("naverLogin")
+	public String naverLogin(Model model, String state, String code, HttpSession session,
+			RedirectAttributes rdAttr) {
+		String storedState = (String)session.getAttribute("naverState");
+		
+		if(!state.equals(storedState)) {
+			session.setAttribute("msg", "검증 토큰 불일치!");
+			return "redirect:/";
+		} else {
+			try {
+				JsonNode userInfo = naverLogin.getNaverUserInfo(code, session);
+				String msg = null;
+				System.out.println(userInfo);
+					
+				String memberId = userInfo.get("response").get("id").toString();
+				String memberNickname = userInfo.get("response").get("nickname").toString().replaceAll("\"", "");
+				String memberEmail = userInfo.get("response").get("email").toString().replaceAll("\"", "");
+				String memberPwd = userInfo.get("resultcode").toString();
+				String memberGender = userInfo.get("response").get("gender").toString().replaceAll("\"", "");
+				if (memberGender.equals("male"))
+					memberGender = "M";
+				else if (memberGender.equals("female"))
+					memberGender = "Y";
+				else memberGender = "M";
+				String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
+				String memberPlace = "설정해 주세요";
+				String memberCategory = "설정해 주세요";
+				String memberIdSort = "V";
+				
+				Member socialMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
+						memberPhone, memberPlace, memberCategory, memberIdSort);
+
+				// email 중복 체크
+				Member checkSocailEmail = memberService.checkSocialEmail(memberEmail);
+				if (checkSocailEmail != null) {
+					if (checkSocailEmail.getMemberStatus().equals("N")) {
+						msg = "탈퇴된 회원의 email과 중복됩니다. 1:1문의를 남겨주세요.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					} else {
+						switch (checkSocailEmail.getMemberIdSort()) {
+						case "N":
+							msg = "KKIRI ID로 가입되어 있는 email입니다";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						case "G":
+							msg = "google로 가입되어 있는 email입니다.";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						case "K":
+							msg = "kakao로 가입되어 있는 email입니다.";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						}
+					}
+				}
+
+				// 아이디 중복 체크 + 로그인 + 회원가입
+				Member loginMember = memberService.checkSocialId(memberId); // 이미 가입된 계정인지 체크
+				if (loginMember != null) {
+					model.addAttribute("loginMember", loginMember);
+				} else {
+					int signUpResult = memberService.socialSignUp(socialMember);
+					if (signUpResult > 0) {
+						loginMember = memberService.checkSocialId(memberId);
+						model.addAttribute("loginMember", loginMember);
+					} else {
+						msg = "회원 가입 실패";
+						rdAttr.addFlashAttribute("msg", msg);
+					}
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "redirect:/";
+		}
 	}
 
 }

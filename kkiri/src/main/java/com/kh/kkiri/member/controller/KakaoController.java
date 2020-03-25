@@ -34,7 +34,6 @@ public class KakaoController {
     }
 
     public String getAccessToken(String autorize_code) {
-
       final String RequestUrl = "https://kauth.kakao.com/oauth/token";
       final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
       postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -93,8 +92,8 @@ public class KakaoController {
 
         final HttpResponse response = client.execute(post);
         final int responseCode = response.getStatusLine().getStatusCode();
-        System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-        System.out.println("Response Code : " + responseCode);
+//        System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+//        System.out.println("Response Code : " + responseCode);
 
         // JSON 형태 반환값 처리
         ObjectMapper mapper = new ObjectMapper();

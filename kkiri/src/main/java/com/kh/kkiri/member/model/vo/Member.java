@@ -77,7 +77,7 @@ public class Member {
 	
 
 	public Member(String memberId, String memberNickname, String memberPwd, String memberEmail, String memberGender,
-			String memberPhone, String memberPlace, String memberCategory) {
+			String memberPhone, String memberPlace, String memberCategory, String memberIdSort) {
 		super();
 		this.memberId = memberId;
 		this.memberNickname = memberNickname;
@@ -87,6 +87,7 @@ public class Member {
 		this.memberPhone = memberPhone;
 		this.memberPlace = memberPlace;
 		this.memberCategory = memberCategory;
+		this.memberIdSort = memberIdSort;
 	}
 
 	public int getMemberNo() {

@@ -88,7 +88,7 @@
                     	<c:forEach var="event" items="${eventList}" varStatus="vs">
 	                      <div class="blog-slider__item swiper-slide on">
 	                        <div class="blog-slider__img">
-	                          <img src="${contextPath}/resources/img/${event.eventThumbnail}" alt="이벤트 썸네일">
+	                          <img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}" alt="이벤트 썸네일">
 	                        </div>
 	                        <div class="blog-slider__content">
 	                          <span class="blog-slider__code">
@@ -97,12 +97,12 @@
 	                          </span>
 	                          <div class="blog-slider__title">
 	                            <p class="address">[${event.eventTitle}]</p>
-	                            <p class="location"><img src="${contextPath}/resources/img/map-ping.png" alt="위치"> &nbsp;${event.eventLocation}</p>
+	                            <p class="location"><img src="${contextPath}/resources/img/map-ping.png" alt="위치"> &nbsp;${event.eventAddress}</p>
 	                          </div>
 	                          <div class="blog-slider__text">
 	                            <p class="leader">주최자</p>
 	                            <div class="content">
-	                              <img src="${contextPath}/resources/img/profile-ex.png" alt="프로필" class="profile-img">
+	                              <img src="${contextPath}/resources/upProfileImage/${event.memberProfile}" alt="프로필" class="profile-img">
 	                              <p class="leader-info">
 	                                		${event.memberNickname}<br>
 	                                <img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">
@@ -118,7 +118,9 @@
                     </c:if>
                       
                     </div>
-                    <div class="blog-slider__pagination swiper-pagination-bullets"></div>
+                    <c:if test="${!empty eventList}">
+                    	<div class="blog-slider__pagination swiper-pagination-bullets"></div>
+                    </c:if>
                   </div>
                 </div>
               </div>

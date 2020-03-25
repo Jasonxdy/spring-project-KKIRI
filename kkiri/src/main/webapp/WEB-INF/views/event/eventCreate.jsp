@@ -42,7 +42,7 @@
                   <br>
                    <!-- 다음 지도창 끝-->
                   <div class="input-location-wrap">
-                    <input type="text" name="memberLocation" placeholder="주소 검색" id="memberLocation" readonly>
+                    <input type="text" name="eventAddress" placeholder="주소 검색" id="eventAddress" readonly>
                     <input type="hidden" name="latitude" id="latitude">
                     <input type="hidden" name="longtitude" id="longtitude">
                   </div>
@@ -172,9 +172,9 @@
         });
         $(".go-step2").on({
           click: function() {
-            if($("#memberLocation").val().trim()==""){
+            if($("#eventAddress").val().trim()==""){
             	alert("이벤트를 진행할 지역을 지정해주세요!");
-            	$("#memberLocation").focus();
+            	$("#eventAddress").focus();
             	return false;
             }else if($("#eventLocation").val().trim()==""){
             	alert("장소의 명칭을 작성해주세요!");
@@ -296,7 +296,7 @@
 		            infowindow.setContent(content);
 		            infowindow.open(map, marker);
 		        
-		        document.getElementById("memberLocation").value = result[0].address.address_name;
+		        document.getElementById("eventAddress").value = result[0].address.address_name;
 		       
 		        }   
 		    });

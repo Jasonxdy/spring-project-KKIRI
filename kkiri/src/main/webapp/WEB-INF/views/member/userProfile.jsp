@@ -51,123 +51,11 @@
 			<div class="row p-3">
 				<div class="col-md-2">
 					<button class="event-btn-tab btn btn-primary m-1"
-						style="background-color: #00a185; border: none;" onclick="cEventList()">생성한 이벤트</button>
+						style="background-color: #00a185; border: none;" onclick="createBtn()">생성한 이벤트</button>
 					<button class="event-btn-tab btn btn-primary m-1"
-						style="background-color: #00a185; border: none;">참여한 이벤트</button>
+						style="background-color: #00a185; border: none;" onclick="joinBtn()">참여한 이벤트</button>
 				</div>
 				<div class="col-md-10" id="eventArea">
-
-					<div class="card shadow mb-4">
-						<div class="col-md-12 ">
-							<div class="row ">
-								<div class="col-md-3 ">
-									<img src="img/banner-alter-img.png" class="event-thumb"
-										alt="이벤트 썸네일이미지">
-								</div>
-								<div class="col-md-6 p-3">
-									<p class="mb-1" style="color: #00a185;">2020년 02월 21일 19:00</p>
-									<h2 class="mb-3 event-title">[맛집 도장깨기 2기]</h2>
-									<img class="mb-2" src="img/map-ping.png" alt="" style="width: 1rem; height: 1.5rem;">
-									<span>서울 중구시 다산로</span>
-									<p class="mb-0">내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-								</div>
-								<div class="col-md-3">
-									<div class="p-3">
-										<div>
-											<img style="width: 4rem; height: 4rem; border-radius: 50%;" src="img/profile-ex.png" alt="">
-											<div style="display: inline-block;">
-												<p class="mb-1">주최자 닉네임</p>
-												<img style="width: 1rem; height: 1rem;" src="img/star-on.png" alt=""> <span>4.5</span>
-											</div>
-										</div>
-										<p class="already-finish-event">종료된 이벤트</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row card shadow mb-4">
-						<div class="col-md-12 ">
-							<div class="row ">
-								<div class="col-md-3 ">
-									<img src="img/banner-alter-img.png" class="event-thumb" alt="이벤트 썸네일이미지">
-								</div>
-								<div class="col-md-6 p-3">
-									<p class="mb-1" style="color: #00a185;">2020년 02월 21일 19:00</p>
-									<h2 class="mb-3 event-title">[맛집 도장깨기 2기]</h2>
-									<img class="mb-2" src="img/map-ping.png" alt="" style="width: 1rem; height: 1.5rem;">
-										<span>서울 중구시 다산로</span>
-									<p class="mb-0">내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-								</div>
-								<div class="col-md-3">
-									<div class="p-3">
-										<div>
-											<img style="width: 4rem; height: 4rem; border-radius: 50%;"
-												src="img/profile-ex.png" alt="">
-											<div style="display: inline-block;">
-												<p class="mb-1">주최자 닉네임</p>
-												<img style="width: 1rem; height: 1rem;"
-													src="img/star-on.png" alt=""> <span>4.5</span>
-											</div>
-										</div>
-										<p class="already-finish-event">종료된 이벤트</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row card shadow mb-4">
-						<div class="col-md-12 ">
-							<div class="row ">
-								<div class="col-md-3 ">
-									<img src="img/banner-alter-img.png" class="event-thumb"
-										alt="이벤트 썸네일이미지">
-								</div>
-								<div class="col-md-6 p-3">
-									<p class="mb-1" style="color: #00a185;">2020년 02월 21일 19:00</p>
-									<h2 class="mb-3 event-title">[맛집 도장깨기 2기]</h2>
-									<img class="mb-2" src="img/map-ping.png" alt=""
-										style="width: 1rem; height: 1.5rem;"> <span>서울
-										중구시 다산로</span>
-									<p class="mb-0">내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-								</div>
-								<div class="col-md-3">
-									<div class="p-3">
-										<div>
-											<img style="width: 4rem; height: 4rem; border-radius: 50%;"
-												src="img/profile-ex.png" alt="">
-											<div style="display: inline-block;">
-												<p class="mb-1">주최자 닉네임</p>
-												<img style="width: 1rem; height: 1rem;"
-													src="img/star-on.png" alt=""> <span>4.5</span>
-											</div>
-										</div>
-										<p class="already-finish-event">종료된 이벤트</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- 페이징 바 -->
-					<div class="row justify-content-center pagination-wrap">
-						<div>
-							<ul class="pagination">
-								<li><a class="page-link " href="#">&lt;&lt;</a></li>
-								<li><a class="page-link " href="#">&lt;</a></li>
-								<li><a class="page-link" href="#">1</a></li>
-								<li><a class="page-link " href="#">2</a></li>
-								<li><a class="page-link " href="#">3</a></li>
-								<li><a class="page-link " href="#">4</a></li>
-								<li><a class="page-link " href="#">5</a></li>
-								<!-- 다음 페이지로(>) -->
-								<li><a class="page-link " href="#">&gt;</a></li>
-								<!-- 맨 끝으로(>>) -->
-								<li><a class="page-link " href="#">&gt;&gt;</a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- 페이징 바 끝 -->
 
 				</div>
 			</div>
@@ -177,88 +65,184 @@
 		
 <script>
 	//임시
-	var memberNo = 76;
+	var memberNo = 100;
 	
+	// 생성한 이벤트는 0, 참여한 이벤트는 1으로 구분한다
+	var flag = 0;
 	var currentPage = 1;
-
-	function cEventList(){
+	
+	var startPage=1;
+	var endPage=1;
+	var maxPage=1;
+	
+	function selectListCount(){
 		$.ajax({
-			url : "createEvent",
+			url : "selectListCount",
 			type : "POST",
 			data : {"memberNo" : memberNo,
+					"flag" : flag,
 					"currentPage" : currentPage},
 			dataType : "json",
-			success : function(cList){
-				console.log(cList)
-				var content = "";
+			success : function(pInf){
+				startPage = pInf.startPage;
+				endPage = pInf.endPage;
+				maxPage = pInf.maxPage;
+				console.log("리스트");
+			},
+			error : function(){
+				alert("이벤트 수 조회중 오류 발생");
+			}
+		});
+	}
+
+	function eventList(){
+		$.ajax({
+			url : "eventList",
+			type : "POST",
+			data : {"memberNo" : memberNo,
+					"currentPage" : currentPage,
+					"flag" : flag},
+			dataType : "json",
+			success : function(data){
+				var content ="";
 				
-				if(cList == ""){
+				if(data.eList == ""){
 					$("#eventArea").empty();
 					content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>";
 					$(content).appendTo("#eventArea");
 				} else{
 					$("#eventArea").empty();
+					maxPage = data.pInf.maxPage;
 					
-					$.each(cList, function(i){
-						
+					$.each(data.eList, function(i){
+					
 						// 시작 시간 포맷 변경
-    					startDate = cList[i].eventStart.substring(0,4) +
-    								 "년 " + 
-    								 cList[i].eventStart.substring(4,6) +
-    								 "월 "+
-    								 cList[i].eventStart.substring(6,8) +
-    								 "일 " +
-    								 cList[i].eventStart.substring(8,10) +
-    								 ":" +
-    								 cList[i].eventStart.substring(10,12)
-    								 ;
-    								 
-    					content += 	
-    								"<div class='card shadow mb-4'>" +
-    									"<div class='col-md-12'>" +
-    										"<div class='row'>" +
-    											"<div class='col-md-3'>" +
-    												"<img src='${contextPath}/resources/upEventThumbnail/" + cList[i].eventThumbnail + "' alt='이벤트 썸네일이미지'>" +
-    											"</div>" +
-    											"<div class='col-md-6 p-3'>" +
-	    											"<p class='mb-1' style='color: #00a185;''>" + startDate + "</p>" +
-	    											"<h2 class='mb-3 event-title'>[" + cList[i].eventTitle + "]</h2>" +
-	    											"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" +
-	    											"<span>" + cList[i].eventAddress + "</span>" +
-	    											"<p>"+cList[i].eventLocation+"</p>" +
-	    											"<p class='mb-0'>" + cList[i].eventContent + "</p>" +
-	    										"</div>" +
-	    										"<div class='col-md-3'>" +
-	    											"<div class='p-3'>" +
-	    												"<div>" +
-	    												"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ cList[i].memberProfile +"' alt=''>" +
-	    												"<div style='display: inline-block;'>" +
-														"<p class='mb-1'>" + cList[i].memberId + "</p>" +
-														"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-														"<span>x" + cList[i].eventScore + "</span>" +
+						startDate = data.eList[i].eventStart.substring(0,4) +
+									 "년 " + 
+									 data.eList[i].eventStart.substring(4,6) +
+									 "월 "+
+									 data.eList[i].eventStart.substring(6,8) +
+									 "일 " +
+									 data.eList[i].eventStart.substring(8,10) +
+									 ":" +
+									 data.eList[i].eventStart.substring(10,12);
+									 
+						content += 
+									"<div class='card shadow mb-4'>" +
+										"<div class='col-md-12'>" +
+											"<div class='row'>" +
+												"<div class='col-md-3'>" +
+													"<img src='${contextPath}/resources/upEventThumbnail/" + data.eList[i].eventThumbnail + "' class='event-thumb' alt='이벤트 썸네일이미지'>" +
+												"</div>" +
+												"<div class='col-md-6 p-3'>" +
+													"<p class='mb-1' style='color: #00a185;''>" + startDate + "</p>" +
+													"<h2 class='mb-3 event-title'>[" + data.eList[i].eventTitle + "]</h2>" +
+													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" +
+													"<span>" + data.eList[i].eventAddress + "</span>" +
+													"<p>"+ data.eList[i].eventLocation+"</p>" +
+													"<p class='mb-0'>" + data.eList[i].eventContent + "</p>" +
+												"</div>" +
+												"<div class='col-md-3'>" +
+													"<div class='p-3'>" +
+														"<div>" +
+															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ data.eList[i].memberProfile +"' alt=''>" +
+															"<div style='display: inline-block;'>" +
+																"<p class='mb-1'>" + data.eList[i].memberId + "</p>" +
+																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
+																"<span>x" + data.eList[i].eventScore + "</span>" +
+															"</div>" +
+														"</div>";
+										if(${nowDate} < data.eList[i].eventEnd){
+													content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ data.eList[i].eventTicket + "장</p>" +
+															"</div>" +
+														"</div>" +
 													"</div>" +
-												"</div>";
-    					if(${nowDate} < cList[i].eventEnd){
-									content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ cList[i].eventTicket + "장</p>" +
+												"</div>" +
+											"</div>";
+										} else{
+													content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
+													"</div>" +
+												"</div>" +
 											"</div>" +
 										"</div>" +
-									"</div>" +
-								"</div>" +
-							"</div>";
-						} else{
-									content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
-									"</div>" +
-								"</div>" +
-							"</div>" +
-						"</div>" +
-					"</div>";
+										"</div>";
 						}
 					});
+					
+					content += 	"<div style='clear: both;' class='row justify-content-center'>" +
+									"<ul class='pagination'>";
+					if(data.pInf.currentPage > 1){
+					content +=			"<li>" +
+											"<a class='page-link text-success' onclick='pageClick(this)'>&lt;&lt;</a>" +
+										"</li>" +
+										"<li>" +
+											"<a class='page-link text-success' onclick='pageClick(this)'>&lt;</a>" +
+										"</li>";
+					}
+					for(var p = data.pInf.startPage ; p <= data.pInf.endPage ; p++ ){
+						if(p === data.pInf.currentPage){
+							content +=	
+								"<li>" +
+									"<a class='page-link' onclick='pageClick(this)'>" + p + "</a>" +
+								"</li>";
+						}
+						if(p != data.pInf.currentPage){
+							content += 	
+								"<li>" +
+									"<a class='page-link text-success' onclick='pageClick(this)'>" + p + "</a>" +
+								"</li>";
+						}
+					}
+					
+					if(data.pInf.currentPage < data.pInf.maxPage){
+						content +=
+							"<li>" +
+								"<a class='page-link text-success' onclick='pageClick(this)'>&gt;</a>" +
+							"</li>" +
+							"<li>" +
+								"<a class='page-link text-success' onclick='pageClick(this)'>&gt;&gt;</a>" +
+							"</li>";
+					}
+					content += 
+						"</ul>" +
+					"</div>";
+
 					$(content).appendTo("#eventArea");
 				}
 			}
 		});
 	}
+	
+	function createBtn(){
+		flag = 0;
+		currentPage = 1;
+		eventList();
+	}
+	
+	function joinBtn(){
+		flag = 1;
+		currentPage = 1;
+		eventList();
+	}
+	
+	function pageClick(test){
+		var temp = $(test).text();
+		
+		currentPage *= 1;
+		switch(temp){
+		case '<<': currentPage = 1; break;
+		case '<': currentPage -= 1; break;
+		case '>': currentPage += 1; break;
+		case '>>': currentPage = maxPage; break;
+		default: currentPage = temp; break;
+		}
+		eventList();
+	};
+	
+	$(function(){
+		eventList();
+	});
+	
 </script>
 </body>
 </html>

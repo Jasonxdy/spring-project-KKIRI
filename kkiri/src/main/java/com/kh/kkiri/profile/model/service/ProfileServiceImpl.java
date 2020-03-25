@@ -25,32 +25,25 @@ public class ProfileServiceImpl implements ProfileService {
 		return profileDAO.selectMember(memberNo);
 	}
 
-	/** 프로필 생성한 이벤트 조회용 Service
+	/** 이벤트 수 조회용 Service
 	 * @param memberNo
-	 * @return cList
+	 * @param flag
+	 * @return listCount
 	 */
 	@Override
-	public List<Search> selectCreateEvent(Integer memberNo, int currentPage, int limit) {
-		return profileDAO.selectCreateEvent(memberNo, currentPage, limit);
+	public int listCount(int memberNo, int flag) {
+		return profileDAO.listCount(memberNo, flag);
 	}
 
-	/** 생성한 이벤트 개수 조회용 Service
+	/** 이벤트 조회용 Service
 	 * @param memberNo
-	 * @return cListCount
-	 * @throws Exception
+	 * @param currentPage
+	 * @param limit
+	 * @param flag
+	 * @return eList
 	 */
 	@Override
-	public int cListCount(int memberNo) throws Exception {
-		return profileDAO.cListCount(memberNo);
-	}
-
-	/** 참여한 이벤트 개수 조회용 Service
-	 * @param memberNo
-	 * @return jListCount
-	 * @throws Exception
-	 */
-	@Override
-	public int jListCount(int memberNo) throws Exception {
-		return profileDAO.jListCount(memberNo);
+	public List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag) {
+		return profileDAO.selectEventList(memberNo, currentPage, limit, flag);
 	}
 }

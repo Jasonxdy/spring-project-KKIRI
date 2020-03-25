@@ -100,20 +100,25 @@ public class EventDAO {
 
 	/**
 	 * 이벤트 참가 DAO
-	 * @param party
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
-	public int joinEvent(Party party) throws Exception{
-		return sqlSession.insert("eventMapper.joinEvent", party);
+	public int joinEvent(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.joinEvent", event);
 	}
 
 
-	public int cancelWaitEvent(Party party) throws Exception{
-		return sqlSession.delete("eventMapper.cancelWaitEvent", party);
+	/**
+	 * 이벤트 승인 대기 취소 DAO
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int cancelEvent(Event event) throws Exception {
+		return sqlSession.delete("eventMapper.cancelEvent", event);
 	}
-
-
+	
 	/**
 	 * 신고 등록용 DAO
 	 * @param report
@@ -138,10 +143,23 @@ public class EventDAO {
 	 * @throws Exception
 	 */
 	public int createEvent(Event event) throws Exception{
-		System.out.println("Event 객체 검사 : " + event);
 		return sqlSession.insert("eventMapper.createEvent",event);
 	}
 
+
+	/**
+	 * 이벤트 취소에 따른 티켓 회수
+	 * @param eventTicket 
+	 * @param event 
+	 * @return result
+	 * @throws Exception
+	 */
+	public int increaseTicket(Event event) throws Exception{
+		return sqlSession.update("eventMapper.increaseTicket", event);
+	}
+
+
+	
 
 	/** 이벤트 썸네일 사진 삽입용 DAO
 	 * @param image
@@ -160,6 +178,62 @@ public class EventDAO {
 	public int insertParty(Event event) throws Exception{
 		return sqlSession.insert("eventMapper.insertParty",event); 
 	}
+
+
+	/**
+	 * 티켓 차감
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int decreaseTicket(Event event) throws Exception{
+		return sqlSession.update("eventMapper.decreaseTicket", event);
+	}
+
+
+	/**
+	 * 최종 파티 구성원 list 조회
+	 * @param eventNo
+	 * @return partyList
+	 */
+	public List<Party> selectFinalPartyList(int eventNo) {
+		return sqlSession.selectList("eventMapper.selectFinalPartyList", eventNo);
+	}
+
+
+	/**
+	 * 주최자 이익 티켓 결제 내역 추가 
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertPaymentEarn(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.insertPaymentEarn", event);
+	}
+
+
+	/**
+	 * 참가자 티켓 사용 내역 추가
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertPaymentUse(Event event) throws Exception{
+		return sqlSession.insert("eventMapper.insertPaymentUse", event);
+	}
+
+
+	/**
+	 * 이벤트 완료 후 상태 변경
+	 * @param eventNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateEventConfirm(int eventNo) throws Exception{
+		return sqlSession.update("eventMapper.updateEventConfirm", eventNo);
+	}
+
+
 
 
 }

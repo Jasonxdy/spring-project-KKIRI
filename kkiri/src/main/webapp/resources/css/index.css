@@ -194,15 +194,19 @@
   vertical-align: middle;
 }
 .blog-slider__text .profile-img{
-  width: 20%;
-  border-radius: 50%;
-  float: left;
+    width: 20%;
+    border-radius: 50%;
+    float: left;
+    min-width: 80px;
+    min-height: 80px;
+    border: 1px solid #cdd2d8;
 }
 .blog-slider__text .leader-info{
-  float: left;
-  font-size: 1.1rem;
-  width: 40%;
-  padding-top: 6%;
+      float: left;
+    font-size: 1.1rem;
+    width: 40%;
+    padding-top: 3%;
+    margin-left: 15px;
 }
 .blog-slider__text .star-img{
     width: 25px;
@@ -220,6 +224,14 @@
   border: 1px solid;
   float: right;
   margin-top: 30px;
+}
+.no-data-content{
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
 }
 
 @media screen and (max-width: 576px) {

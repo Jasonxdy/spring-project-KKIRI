@@ -32,11 +32,12 @@
   position: relative;
 }
 .profile-icon{
-  width: 60px;
-  border: 1px solid #cdd2d8;
-  border-radius: 50px;
-  margin-left: 10px;
-  cursor: pointer;
+      width: 60px;
+    border: 1px solid #cdd2d8;
+    border-radius: 50px;
+    margin-left: 10px;
+    height: 60px;
+    cursor: pointer;
 }
 .profile-menu{
   position: absolute;

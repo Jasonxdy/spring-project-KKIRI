@@ -22,6 +22,8 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
+		<result property="eventAddress" column="EVENT_ADDRESS"/>
+		<result property="eventConfirm" column="EVENT_CONFIRM"/>
 	</resultMap>
 	
 	
@@ -60,7 +62,7 @@
 	<resultMap type="Party" id="partyResultSet">
 	<id property="eventNo" column="EVENT_NO"/>
 	<result property="memberNo" column="MEMBER_NO"/>
-	<result property="memberType" column="MEMBER_NO"/>
+	<result property="memberType" column="MEMBER_TYPE"/>
 	<result property="permission" column="PERMISSION"/>
 	</resultMap>
 	
@@ -137,13 +139,13 @@
 	
 	
 	<!-- 이벤트 참여 -->
-	<insert id="joinEvent" parameterType="Party">
+	<insert id="joinEvent" parameterType="Event">
 		INSERT INTO PARTY
 		VALUES(#{eventNo}, #{memberNo}, 'P', DEFAULT)
 	</insert>
 	
 	<!-- 이벤트 승인 대기 취소 -->
-	<delete id="cancelWaitEvent" parameterType="Party">
+	<delete id="cancelEvent" parameterType="Event">
 		DELETE FROM PARTY
 		WHERE EVENT_NO = #{eventNo}
 		AND MEMBER_NO = #{memberNo}
@@ -166,7 +168,7 @@
 	<insert id="createEvent" parameterType="Event">
 		INSERT INTO EVENT VALUES(#{eventNo},#{eventTitle},#{eventContent},
 		#{eventCategory},#{eventLocation},#{latitude},#{longtitude},#{eventStart},#{eventEnd},
-		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y')
+		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress})
 	</insert>
 	
 	<!-- 이벤트 생성 성공시 party테이블에 데이터 추가용  --> 
@@ -179,6 +181,52 @@
 		INSERT INTO IMAGE VALUES(IMG_SEQ.NEXTVAL,#{eventNo},#{imgOriginalName},#{imgChangeName},
 		SYSDATE,'Y','T')
 	</insert>
+	
+	
+	<!-- 이벤트 취소에 따른 티켓 회수 -->
+	<update id="increaseTicket" parameterType="Event">
+		UPDATE MEMBER SET
+		MEMBER_TICKET = MEMBER_TICKET + ${eventTicket}
+		WHERE MEMBER_NO = ${memberNo}
+	</update>
+	
+	<!-- 참가자 티켓 차감 -->
+	<update id="decreaseTicket" parameterType="Event">
+		UPDATE MEMBER SET
+		MEMBER_TICKET = MEMBER_TICKET - ${eventTicket}
+		WHERE MEMBER_NO = ${memberNo}
+	</update>
+	
+	
+	
+	<!-- 최종 파티 구성원 가져오기 -->
+	<select id="selectFinalPartyList" parameterType="_int" resultMap="partyResultSet">
+		SELECT * FROM PARTY
+		WHERE EVENT_NO = #{eventNo}
+		AND PERMISSION = 'Y'
+	</select>
+	
+	
+	<!-- 주최자 티켓 획득 결제내역 추가 -->
+	<insert id="insertPaymentEarn" parameterType="Event">
+		INSERT INTO PAYMENT VALUES
+		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'P', ${eventTicket}, SYSDATE)
+	</insert>
+	
+	
+	<!-- 참가자 티켓 사용 결제내역 추가 -->
+	<insert id="insertPaymentUse" parameterType="Event">
+		INSERT INTO PAYMENT VALUES
+		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'U', ${eventTicket}, SYSDATE)
+	</insert>
+	
+	
+	<update id="updateEventConfirm" parameterType="_int">
+		UPDATE EVENT SET
+		EVENT_CONFIRM = 'Y'
+		WHERE EVENT_NO = #{eventNo}
+	</update>
+	
 
 
 </mapper>
