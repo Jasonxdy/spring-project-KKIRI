@@ -1,8 +1,6 @@
 package com.kh.kkiri.member.controller;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -35,7 +33,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.member.model.service.MemberService;
-import com.kh.kkiri.member.model.vo.Attachment;
 import com.kh.kkiri.member.model.vo.AuthInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -51,6 +48,9 @@ public class MemberController {
 
 	@Autowired
 	private KakaoController kakaoLogin;
+	
+	@Autowired
+	private NaverController naverLogin;
 
 	@Inject
 	private AuthInfo authInfo;
@@ -254,8 +254,8 @@ public class MemberController {
 			String memberEmail = signUpInform[4].substring(9, signUpInform[4].length() - 1);
 			String memberGender = "M"; // 일단 남성. DB에서 null 가능으로 변경 필요.
 			String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
-			String memberPlace = "설정해주세요";
-			String memberCategory = "설정해주세요";
+			String memberPlace = "설정해 주세요";
+			String memberCategory = "설정해 주세요";
 			String memberIdSort = "G";
 
 //        System.out.println("비밀번호 값: "+memberPwd);
@@ -364,8 +364,8 @@ public class MemberController {
 //			System.out.println("memberEmail: " + memberEmail);
 //			System.out.println("memberGender: " + memberGender);
 			String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
-			String memberPlace = "설정해주세요";
-			String memberCategory = "설정해주세요";
+			String memberPlace = "설정해 주세요";
+			String memberCategory = "설정해 주세요";
 			String memberIdSort = "K";
 //      String birth = userInfo.get("kakao_account").get("birthday").toString();
 //      String image = userInfo.get("properties").get("profile_image").toString();
@@ -403,9 +403,7 @@ public class MemberController {
 						rdAttr.addFlashAttribute("msg", msg);
 						return "redirect:/";
 					}
-					
 				}
-				
 			}
 
 			// 아이디 중복 체크 + 로그인 + 회원가입
@@ -422,7 +420,6 @@ public class MemberController {
 					rdAttr.addFlashAttribute("msg", msg);
 				}
 			}
-
 		}
 
 		catch (Exception e) {
@@ -430,6 +427,85 @@ public class MemberController {
 		}
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping("naverLogin")
+	public String naverLogin(Model model, String state, String code, HttpSession session,
+			RedirectAttributes rdAttr) {
+		String storedState = (String)session.getAttribute("naverState");
+		
+		if(!state.equals(storedState)) {
+			session.setAttribute("msg", "검증 토큰 불일치!");
+			return "redirect:/";
+		} else {
+			try {
+				JsonNode userInfo = naverLogin.getNaverUserInfo(code, session);
+				String msg = null;
+				System.out.println(userInfo);
+					
+				String memberId = userInfo.get("response").get("id").toString();
+				String memberNickname = userInfo.get("response").get("nickname").toString().replaceAll("\"", "");
+				String memberEmail = userInfo.get("response").get("email").toString().replaceAll("\"", "");
+				String memberPwd = userInfo.get("resultcode").toString();
+				String memberGender = userInfo.get("response").get("gender").toString().replaceAll("\"", "");
+				if (memberGender.equals("male"))
+					memberGender = "M";
+				else if (memberGender.equals("female"))
+					memberGender = "Y";
+				else memberGender = "M";
+				String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
+				String memberPlace = "설정해 주세요";
+				String memberCategory = "설정해 주세요";
+				String memberIdSort = "V";
+				
+				Member socialMember = new Member(memberId, memberNickname, memberPwd, memberEmail, memberGender,
+						memberPhone, memberPlace, memberCategory, memberIdSort);
+
+				// email 중복 체크
+				Member checkSocailEmail = memberService.checkSocialEmail(memberEmail);
+				if (checkSocailEmail != null) {
+					if (checkSocailEmail.getMemberStatus().equals("N")) {
+						msg = "탈퇴된 회원의 email과 중복됩니다. 1:1문의를 남겨주세요.";
+						rdAttr.addFlashAttribute("msg", msg);
+						return "redirect:/";
+					} else {
+						switch (checkSocailEmail.getMemberIdSort()) {
+						case "N":
+							msg = "KKIRI ID로 가입되어 있는 email입니다";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						case "G":
+							msg = "google로 가입되어 있는 email입니다.";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						case "K":
+							msg = "kakao로 가입되어 있는 email입니다.";
+							rdAttr.addFlashAttribute("msg", msg);
+							return "redirect:/";
+						}
+					}
+				}
+
+				// 아이디 중복 체크 + 로그인 + 회원가입
+				Member loginMember = memberService.checkSocialId(memberId); // 이미 가입된 계정인지 체크
+				if (loginMember != null) {
+					model.addAttribute("loginMember", loginMember);
+				} else {
+					int signUpResult = memberService.socialSignUp(socialMember);
+					if (signUpResult > 0) {
+						loginMember = memberService.checkSocialId(memberId);
+						model.addAttribute("loginMember", loginMember);
+					} else {
+						msg = "회원 가입 실패";
+						rdAttr.addFlashAttribute("msg", msg);
+					}
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "redirect:/";
+		}
 	}
 
 }

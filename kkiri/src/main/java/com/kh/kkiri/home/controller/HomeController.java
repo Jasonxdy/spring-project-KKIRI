@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.kkiri.event.model.vo.Event;
-
 import com.kh.kkiri.home.model.service.HomeService;
 import com.kh.kkiri.member.controller.KakaoController;
+import com.kh.kkiri.member.controller.NaverController;
 import com.kh.kkiri.member.model.vo.Member;
 
 @Controller
@@ -39,6 +39,9 @@ public class HomeController {
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
 	
+	@Autowired
+	private NaverController naverController;
+	
 	/**
 	 * 메인 화면 로딩용 Controller
 	 * @return
@@ -55,9 +58,17 @@ public class HomeController {
 			
 		    // kakaoUrl
 		    String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
-
+		    
 		    /* 생성한 인증 URL을 View로 전달 */
 		    model.addAttribute("kakao_url", kakaoUrl);
+		    
+		    // naverUrl
+		    String naverState = naverController.generateState();
+		    System.out.println("홈컨에서 검증 토큰: "+naverState);
+		    session.setAttribute("naverState", naverState);
+		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://localhost:8080/kkiri/member/naverLogin&state=" + naverState;
+		    model.addAttribute("naverUrl", naverUrl);
+
 		    
 		    // 이벤트 추천
 		    List<Event> eventList = null;

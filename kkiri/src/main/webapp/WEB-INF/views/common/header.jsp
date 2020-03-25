@@ -108,6 +108,7 @@
               <button class="popup-confirm-btn login-conform-btn">로그인</button>
               <button id="googleLogin" type="button" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
               <button id="kakaoLogin" type="button" class="popup-confirm-btn another-btn">카카오 아이디로 로그인</button>
+              <button id="naverLogin" type="button" class="popup-confirm-btn another-btn">네이버 아이디로 로그인</button>
             </form>
           </div>
         </div>
@@ -133,6 +134,10 @@
         
          $("#kakaoLogin").on("click", function(){
         	location.href = "${kakao_url}";
+        })
+        
+         $("#naverLogin").on("click", function(){
+        	location.href = "${naverUrl}";
         })
       </script>
     
