@@ -29,7 +29,6 @@ public class NaverController {
 
 	private final static String N_CLIENT_ID = "LJUiiR8c6mrgWsanAhFZ";
 	private final static String N_CLIENT_SECRET = "zl1Qrn1xyf";
-	private final static String N_REDIRECT_URI = "http://localhost:8080/kkiri/member/naverLogin";
 
 	public String generateState() {
 		SecureRandom random = new SecureRandom();

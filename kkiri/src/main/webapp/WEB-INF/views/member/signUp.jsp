@@ -222,7 +222,7 @@
       
       // 유효성 검사 
       
-      function validate(){
+      //function validate(){
     	 
     	  var creatIdCheck={
     		  "memberId":false, // 입력확인, 아이디 유효성, 중복 검사
@@ -305,11 +305,11 @@
 				$memberPwd2.on("input", function(){
 					
 					if($memberPwd.val().trim() != $memberPwd2.val().trim()){
-						$("$checkPwd2").text("비밀번호 불일치");
+						$("#checkPwd2").text("비밀번호 불일치");
 						//.css("color", "#c82333" );
 						creatIdCheck.memberPwd2 = false;
 					}else{
-						$("$checkPwd2").text("비밀번호 일치");
+						$("#checkPwd2").text("비밀번호 일치");
 						//.css("color", "#0069d9" );
 						creatIdCheck.memberPwd2 = true;
 					}
@@ -320,7 +320,7 @@
     			
     		}); // ready 함수 끝
     		
-      }  // validate 끝 
+      //}  // validate 끝 
       
       
       // 전화번호 자릿수 제한
