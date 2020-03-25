@@ -61,8 +61,12 @@ public class ProfileServiceImpl implements ProfileService {
 		
 		if(result >0) {
 			result = profileDAO.undoFavorite(favorite);
+			
+			if(result>0) result = 2;
 		} else {
 			result = profileDAO.doFavorite(favorite);
+			
+			if(result>0) result = 1;
 		}
 		
 		return result;

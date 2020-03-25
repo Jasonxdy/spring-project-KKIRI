@@ -96,6 +96,7 @@ public class ProfileController {
 							@RequestParam(value="favoriteNo", required=false) Integer favoriteNo) {
 		Favorite favorite = new Favorite(memberNo, favoriteNo);
 		
+		// 좋아요 등록 1, 삭제 2
 		int result = profileService.theLove(favorite);
 		
 		return null;

@@ -177,9 +177,20 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
-	<select id="checkFavorite" parameterType="_int" resultType="_int">
+	<select id="checkFavorite" parameterType="Favorite" resultType="_int">
 		SELECT COUNT(*) FROM FAVORITE
 		WHERE MEMBER_NO = #{memberNo}
 		AND FAVORITE_NO = #{favoriteNo}
 	</select>
+	
+	<insert id="doFavorite" parameterType="Favorite">
+		INSERT INTO FAVORITE
+		VALUES(#{memberNo}, #{favoriteNo}, '호호')
+	</insert>
+	
+	<delete id="undoFavorite" parameterType="Favorite">
+		DELETE FROM FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+		AND FAVORITE_NO = #{favoriteNo}
+	</delete>
 </mapper>
