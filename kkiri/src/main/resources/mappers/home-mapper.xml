@@ -24,7 +24,7 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
-	<resultMap type="Event" id="eventResultSet">
+ 	<resultMap type="Event" id="eventResultSet">
 		<id property="eventNo" column="EVENT_NO"/>
 		<result property="eventTitle" column="EVENT_TITLE"/>
 		<result property="eventContent" column="EVENT_CONTENT"/>
@@ -37,12 +37,13 @@
 		<result property="eventTicket" column="EVENT_TICKET"/>
 		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
 		<result property="eventQuota" column="EVENT_QUOTA"/>
+		<result property="eventAddress" column="EVENT_ADDRESS"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberNickname" column="MEMBER_NICKNAME"/>
 		<result property="memberProfile" column="MEMBER_PROFILE"/>
 		<result property="memberRating" column="SCORE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
-	</resultMap>
+	</resultMap> 
 	
 	<!-- 전체 회원 수 조회 -->
 	<select id="selectMemberCount" resultType="_int">
@@ -68,12 +69,21 @@
 	</select>
 	
 	
-	<!-- 추천 이벤트 5개 뽑아오기 -->
+	<!-- 추천 이벤트 5개 뽑아오기(비회원) -->
 	<select id="recommandEvent" resultMap="eventResultSet">
 		SELECT * FROM
 		(SELECT * FROM V_EVENT
 		ORDER BY DBMS_RANDOM.VALUE)
 		WHERE ROWNUM &lt;=5
 	</select>
+	
+	<!-- 추천 이벤트 5개 뽑아오기(회원) -->
+	<select id="recommandEventLogin" parameterType="string" resultMap="eventResultSet">
+		SELECT * FROM
+		(SELECT * FROM V_EVENT
+        WHERE EVENT_ADDRESS LIKE '%' || #{memberPlace} || '%'
+		ORDER BY DBMS_RANDOM.VALUE)
+		WHERE ROWNUM &lt;=5
+	</select> 
 	
 </mapper>
