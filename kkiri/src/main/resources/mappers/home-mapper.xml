@@ -53,19 +53,15 @@
 	
 	
 	<!-- 한주간 가장 높은 평점을 받은 회원 5명 목록 -->
-	<select id="selectMemberList" parameterType="_int" resultMap="memberResultSet">
-		SELECT  ROWNUM RNUM, MEMBER_NO, MEMBER_NICKNAME, MEMBER_RATING
-		FROM (SELECT ROWNUM RNUM, MEMBER_NO, MEMBER_NICKNAME, MEMBER_RATING
-		        FROM MEMBER
-		        JOIN (SELECT PARTY.MEMBER_NO, AVG(RATING_SCORE) AS MEMBER_RATING
-		                FROM PARTY
-		                JOIN RATING ON (RATING.EVENT_NO = PARTY.EVENT_NO)
-		                WHERE MEMBER_TYPE = 'S'
-		                AND RATING_STATUS = 'Y'
-		                AND TRUNC(SYSDATE) - TRUNC(RATING_MODIFY_DT) &lt;= 7
-		                GROUP BY PARTY.MEMBER_NO) USING (MEMBER_NO)
-		        ORDER BY MEMBER_RATING DESC)
-		WHERE RNUM BETWEEN 1 AND #{memberCount}
+	<select id="selectMemberList" parameterType="_int" resultMap="eventResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE,SCORE
+		FROM (
+			SELECT DISTINCT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE,SCORE
+			FROM V_EVENT
+            WHERE SCORE IS NOT NULL
+			ORDER BY SCORE DESC
+		)
+		WHERE ROWNUM &lt;=#{memberCount}
 	</select>
 	
 	

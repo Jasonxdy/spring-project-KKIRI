@@ -19,7 +19,7 @@ $(function(){
       $(".banner-text-area").css({top:(bannerH-txtH)/2});
   }
 
-  // 이런 이벤트 어떠세요? 슬라이드
+  //이런 이벤트 어떠세요? 슬라이드
   var swiper = new Swiper('.blog-slider', {
         effect: 'fade',
         loop: false,
@@ -28,8 +28,7 @@ $(function(){
           clickable: true
         }
   });
-
-
+  
   // 주최자 랭킹 
 		$(".ranker-list>li").each(function(i){
       $(this).on({

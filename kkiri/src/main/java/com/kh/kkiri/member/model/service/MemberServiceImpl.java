@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.member.model.dao.MemberDAO;
-import com.kh.kkiri.member.model.vo.Attachment;
+
 import com.kh.kkiri.member.model.vo.Member;
 
 @Service

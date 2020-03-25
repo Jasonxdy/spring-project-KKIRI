@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.dao.ProfileDAO;
 import com.kh.kkiri.search.model.vo.Search;
@@ -45,5 +47,28 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag) {
 		return profileDAO.selectEventList(memberNo, currentPage, limit, flag);
+	}
+	
+	/** 좋아요 기능 Service
+	 * @param memberNo
+	 * @param favoriteNo
+	 * @return result
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int theLove(Favorite favorite) {
+		int result = profileDAO.checkFavorite(favorite);
+		
+		if(result >0) {
+			result = profileDAO.undoFavorite(favorite);
+			
+			if(result>0) result = 2;
+		} else {
+			result = profileDAO.doFavorite(favorite);
+			
+			if(result>0) result = 1;
+		}
+		
+		return result;
 	}
 }

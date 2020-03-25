@@ -61,6 +61,10 @@ html body .event-participate-btn{
     display:none;
 }
 
+#event-complete-confirmed{
+	display:none;
+}
+
 #wait-event-participate {
 	background-color: #dc3545;
     border-radius: .25rem;
