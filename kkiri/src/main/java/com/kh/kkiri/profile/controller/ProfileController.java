@@ -1,5 +1,6 @@
 package com.kh.kkiri.profile.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,15 +55,22 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("M", "남자"));
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
+				/*
 				// 생성한 이벤트 수 
 				int cListCount = profileService.cListCount(memberNo);
 				// 참여한 이벤트 수
 				int jListCount = profileService.jListCount(memberNo);
 				
-				PageInfo cpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
+				Pagination pagination = new Pagination();
+				
+				PageInfo cpInf = pagination.getPageInfo(limit, pagingBarSize, 1, cListCount);
+				PageInfo jpInf = pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
+				
+				System.out.println(cpInf);
+				
 				model.addAttribute("cpInf", cpInf);
-				PageInfo jpInf = Pagination.getPageInfo(limit, pagingBarSize, 1, jListCount);
 				model.addAttribute("jpInf", jpInf);
+				*/
 				
 				model.addAttribute("member", member);
 				
@@ -79,17 +87,46 @@ public class ProfileController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "createEvent", produces= "application/json; charset=utf-8")
-	public String createEvent(@RequestParam(value="memberNo", required=false) Integer memberNo,
-								@RequestParam(value="currentPage", required=false) Integer currentPage){
+	@RequestMapping(value = "selectListCount", produces= "application/json; charset=utf-8")
+	public String selectListCount(@RequestParam(value="memberNo", required=false) Integer memberNo,
+									@RequestParam(value="flag", required=false) Integer flag,
+									@RequestParam(value="currentPage", required=false) Integer currentPage
+									) {
+		int listCount = profileService.listCount(memberNo, flag);
 		
-		List<Search> cList = profileService.selectCreateEvent(memberNo, currentPage, limit);
-		System.out.println(memberNo);
-		System.out.println(cList);
+		PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(pInf);
+	}
+		
+	
+	@ResponseBody
+	@RequestMapping(value = "eventList", produces= "application/json; charset=utf-8")
+	public String eventList(@RequestParam(value="memberNo", required=false) Integer memberNo,
+								@RequestParam(value="currentPage", required=false) Integer currentPage,
+								@RequestParam(value="flag", required=false) Integer flag){
+		/*
+		List<Search> eList = profileService.selectEventList(memberNo, currentPage, limit, flag);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		
-		return gson.toJson(cList);
+		return gson.toJson(eList);
+		*/
+		
+		List<Search> eList = profileService.selectEventList(memberNo, currentPage, limit, flag);
+		
+		int listCount = profileService.listCount(memberNo, flag);
+		PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
+		
+		Gson gson = new Gson();
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    map.put("eList", eList);
+	    map.put("pInf", pInf);
+	    
+	    return gson.toJson(map);
 	}
 	
 }

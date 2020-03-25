@@ -17,24 +17,20 @@ public interface ProfileService {
 	 */
 	public abstract Member selectMember(int memberNo) throws Exception;
 
-	/** 프로필 생성한 이벤트 조회용 Service
+	/** 이벤트 수 조회용 Service
 	 * @param memberNo
-	 * @return cList
+	 * @param flag
+	 * @return listCount
 	 */
-	public abstract List<Search> selectCreateEvent(Integer memberNo, int currentPage, int limit);
+	public abstract int listCount(int memberNo, int flag);
 
-	/** 생성한 이벤트 개수 조회용 Service
+	/** 이벤트 조회용 Service
 	 * @param memberNo
-	 * @return cListCount
-	 * @throws Exception
+	 * @param currentPage
+	 * @param limit
+	 * @param flag
+	 * @return eList
 	 */
-	public abstract int cListCount(int memberNo) throws Exception;
-
-	/** 참여한 이벤트 개수 조회용 Service
-	 * @param memberNo
-	 * @return jListCount
-	 * @throws Exception
-	 */
-	public abstract int jListCount(int memberNo) throws Exception;
+	public abstract List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag);
 	
 }
