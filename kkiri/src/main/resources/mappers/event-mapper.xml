@@ -22,6 +22,7 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
+		<result property="eventAddress" column="EVENT_ADDRESS"/>
 	</resultMap>
 	
 	
@@ -166,7 +167,7 @@
 	<insert id="createEvent" parameterType="Event">
 		INSERT INTO EVENT VALUES(#{eventNo},#{eventTitle},#{eventContent},
 		#{eventCategory},#{eventLocation},#{latitude},#{longtitude},#{eventStart},#{eventEnd},
-		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y')
+		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress})
 	</insert>
 	
 	<!-- 이벤트 생성 성공시 party테이블에 데이터 추가용  --> 
