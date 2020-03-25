@@ -64,16 +64,26 @@
 						</c:otherwise>
 					</c:choose>
 
-					<li class=""><a class="nav-link event-participate-btn"
-						id="event-participate"> 이벤트 참가 </a> <a
+					<li class="">
+						<a class="nav-link event-participate-btn"
+						id="event-participate">
+						이벤트 참가
+						 </a>
+						<a class="nav-link event-participate-btn"
+						id="event-wait-list">
+						참가 신청 목록
+						 </a>
+						 <a
 						class="nav-link event-participate-btn"
 						id="cancel-event-participate"> 이벤트 참가취소 </a> <a
 						class="nav-link event-participate-btn" id="wait-event-participate">
-							주최자 승인 대기중 </a></li>
+							주최자 승인 대기중 </a>
 				</c:if>
 
 				<!-- 이벤트 종료 후 -->
 				<c:if test="${currTime >= event.eventEnd}">
+					<li class="nav-link event-participate-btn float-right mt-1" id="event-complete" style="height: 36px">이벤트 완료 확인</li>
+					<li class="nav-link event-participate-btn float-right mt-1" id="event-complete-confirmed" style="height: 36px">이벤트 완료 확인됨</li>
 					<li class=""><p class='already-finish-event float-right'>종료된
 							이벤트</p></li>
 				</c:if>
@@ -166,8 +176,11 @@
 			break;
 		}
 
-
+		
+		
+		// READY 함수
 		$(function() {
+			
 			// 신고 토글 버튼
 			$("#navbardrop").click(function(e) {
 				e.preventDefault();
@@ -197,7 +210,10 @@
 					
 					if(myEventCheck) { // 로그인한 회원이 해당 이벤트의 주최자 혹은 참여자인 경우
 						if(${loginMember.memberNo == event.memberNo}) { // 로그인한 회원이 주최자인 경우
-							// 이벤트 참여 버튼 -> 이벤트 수정 버튼 (+ 승인 대기중 참석시키기)
+							// 참가 신청 버튼 --> 참가자 승인 버튼으로 변경
+							$("#event-wait-list").css({
+								"display" : "block"
+							});
 						} else { // 로그인된 회원이 참여자인 경우
 							
 							if(permissionCheck){ // 참여자이면서 승인이 된 경우
@@ -225,8 +241,26 @@
 				}
 			}
 			// 이벤트가 종료되지 않은 경우 end
+			else {  // 이벤트가 종료된 경우
+				if(${loginMember != null}){ 
+					if(${event.memberNo} == '${loginMember.memberNo}') {
+						if('${event.eventConfirm}' == 'Y'){
+							$("#event-complete-confirmed").css({
+								"display" : "block"
+							});
+						} else {
+							$("#event-complete").css({
+								"display" : "block"
+							});
+						}
+					}
+				}
+			}
 		});
+		// READY 함수 END
 		
+		
+		console.log("이벤트 상태 : " + '${event.eventConfirm}');
 	</script>
 
 
@@ -234,6 +268,58 @@
 
 
 	<script>
+		// 주최자인 경우 이벤트 참가자 승인 대기 목록 조회
+		$("#event-wait-list").on({
+			click : function(e){
+				/* 모달 출력 */
+			}
+		});
+		
+		// 이벤트 완료 버튼 클릭 시
+		$("#event-complete").on({
+			click : function(e){
+				if(confirm("이벤트를 완료하시겠습니까?")) {
+					$.ajax({
+						url: "confirmEventComplete",
+						type: "POST",
+						data: {
+							"eventNo": ${event.eventNo},
+							"memberNo" : '${loginMember.memberNo}',
+							"eventTicket" : ${event.eventTicket}
+						},
+						success : function(result){
+							var msg = null;
+							switch(result) {
+							case 1 : 
+								$("#event-complete").css({
+									"display" : "none"
+								});
+								$("#event-complete-confirmed").css({
+									"display" : "block"
+								});
+								break;
+							case 0 : 
+								msg = "이벤트 완료 확인 실패";
+								break;
+							case -1 : 
+								msg = "이벤트 완료 확인 과정 중 오류 발생";
+								break;
+							}
+							if(msg != null) {
+								alert(msg);
+							}
+						},
+						error : function(){
+							console.log("ajax 통신 실패");
+						}
+					});
+					
+				}
+			}
+		});
+	
+	
+	
 		// 이벤트 참가 버튼 클릭시 팝업
 		$("#event-participate").on({
 			click : function(e) {
@@ -253,49 +339,7 @@
 		});
 		
 		
-		// 이벤트 참가 취소
-		$("#cancel-event-participate").on({
-			click : function() {
-				if (confirm("정말로 이벤트 참가를 취소하시겠습니까?")) {
-					
-					// 이벤트 승인 대기 취소 ajax
-					$.ajax({
-						url: "cancelJoinEvent",
-						type: "POST",
-						data: {
-							"eventNo": ${event.eventNo},
-							"memberNo" : '${loginMember.memberNo}',
-							"eventTicket" : ${event.eventTicket}
-						},
-						success : function(result){
-							var msg = null;
-							switch(result) {
-							case 1 : 
-								$("#cancel-event-participate").css({
-									"display" : "none"
-								});
-								$("#event-participate").css({
-									"display" : "block"
-								});
-								break;
-							case 0 : 
-								msg = "이벤트 참가 취소 실패";
-								break;
-							case -1 : 
-								msg = "이벤트 참가 취소 중 오류 발생";
-								break;
-							}
-							if(msg != null) {
-								alert(msg);
-							}
-						},
-						error : function(){
-							console.log("ajax 통신 실패");
-						}
-					});
-				}
-			}
-		});
+		
 
 		$(".already-join").on({
 			click : function() {
@@ -343,11 +387,20 @@
 		}
 		
 		
-		// 이벤트 승인 대기중 취소 버튼 클릭 --> ajax로 DB 반영
+		// 이벤트 참가 취소
+		$("#cancel-event-participate").on({
+			click : function() {
+				if (confirm("이벤트 참가를 정말 취소하시겠습니까?")) {
+					location.href = 'cancelJoinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}';
+				}
+			}
+		});
+		
+		// 이벤트 승인 대기 취소 버튼 클릭 --> ajax로 DB 반영
 		$("#wait-event-participate").on({
 			click : function() {
 				
-				if(confirm("승인 대기를 정말 취소하시겠습니까?")) {
+				if(confirm("이벤트 참가를 정말 취소하시겠습니까?")) {
 					// 이벤트 승인 대기 취소 ajax
 					$.ajax({
 						url: "cancelWaitEvent",
@@ -389,18 +442,6 @@
 				
 				}
 			});
-		
-		
-		// 이벤트 참가 취소
-		$("#cancel-event-participate").on({
-			click : function() {
-				if (confirm("정말로 이벤트 참가를 취소하시겠습니까?")) {
-					alert("이벤트 참가 취소 백단 실행");
-					$("#cancel-event-participate").hide(0);
-					$("#event-participate").show(0);
-				}
-			}
-		});
 		
 		
 	</script>

@@ -189,12 +189,12 @@ public class EventController {
 	// 이벤트 승인 대기 취소
 	@RequestMapping("cancelWaitEvent")
 	@ResponseBody
-	public int cancelWaitEvent(Party party) {
+	public int cancelWaitEvent(Event event) {
 		
 		int result =0;
 		
 		try {
-			result = eventService.cancelEvent(party);
+			result = eventService.cancelEvent(event);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = -1;
@@ -202,22 +202,55 @@ public class EventController {
 		return result;
 	}
 	
-	
-	// 이벤트 신청 취소
+	// 이벤트 참가 취소
 	@RequestMapping("cancelJoinEvent")
+	public String cancelJoinEvent(Event event, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String msg = null;
+		String url = null;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
+		try {
+			int result = eventService.cancelEvent(event);
+			if(result > 0) {
+				msg = "이벤트 참가가 취소되었습니다";
+			} else {
+				msg = "이벤트 참가 취소 실패";
+			}
+			
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + detailUrl;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "이벤트 참가 취소 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
+	
+	// 이벤트 완료 확인
+	@RequestMapping("confirmEventComplete")
 	@ResponseBody
-	public int cancelJoinEvent(Party party, int eventTicket) {
+	public int confirmEventComplete(Event event) {
 
 		int result =0;
 		
 		try {
-			result = eventService.cancelJoinEvent(party, eventTicket);
+			result = eventService.confirmEventComplete(event);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = -1;
 		}
+		System.out.println("화면으로 넘어가기 전 result : " + result);
 		return result;
+		
 	}
+	
+	
 	
 	
 	

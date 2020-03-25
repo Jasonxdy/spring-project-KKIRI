@@ -81,20 +81,11 @@ public interface EventService {
 
 	/**
 	 * 이벤트 승인 대기중 취소
-	 * @param party
+	 * @param event
 	 * @return result
 	 */
-	int cancelEvent(Party party) throws Exception;
+	int cancelEvent(Event event) throws Exception;
 
-	/**
-	 * 이벤트 참가 취소 서비스
-	 * @param party
-	 * @param eventTicket 
-	 * @return result
-	 * @throws Exception
-	 */
-	int cancelJoinEvent(Party party, int eventTicket) throws Exception;
-	
 	
 	/**
 	 * 신고 등록
@@ -115,4 +106,12 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int createEvent(Event event, Image image) throws Exception;
+
+	/**
+	 * 이벤트 완료 확인 service
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	int confirmEventComplete(Event event) throws Exception;
 }

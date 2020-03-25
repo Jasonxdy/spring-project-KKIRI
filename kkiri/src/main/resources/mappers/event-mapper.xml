@@ -23,6 +23,7 @@
 		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
 		<result property="eventAddress" column="EVENT_ADDRESS"/>
+		<result property="eventConfirm" column="EVENT_CONFIRM"/>
 	</resultMap>
 	
 	
@@ -61,7 +62,7 @@
 	<resultMap type="Party" id="partyResultSet">
 	<id property="eventNo" column="EVENT_NO"/>
 	<result property="memberNo" column="MEMBER_NO"/>
-	<result property="memberType" column="MEMBER_NO"/>
+	<result property="memberType" column="MEMBER_TYPE"/>
 	<result property="permission" column="PERMISSION"/>
 	</resultMap>
 	
@@ -144,7 +145,7 @@
 	</insert>
 	
 	<!-- 이벤트 승인 대기 취소 -->
-	<delete id="cancelEvent" parameterType="Party">
+	<delete id="cancelEvent" parameterType="Event">
 		DELETE FROM PARTY
 		WHERE EVENT_NO = #{eventNo}
 		AND MEMBER_NO = #{memberNo}
@@ -183,10 +184,10 @@
 	
 	
 	<!-- 이벤트 취소에 따른 티켓 회수 -->
-	<update id="increaseTicket" parameterType="hashmap">
+	<update id="increaseTicket" parameterType="Event">
 		UPDATE MEMBER SET
-		MEMBER_TICKET = MEMBER_TICKET - ${0,a}
-		WHERE MEMBER_NO = ${1,b}
+		MEMBER_TICKET = MEMBER_TICKET + ${eventTicket}
+		WHERE MEMBER_NO = ${memberNo}
 	</update>
 	
 	<!-- 참가자 티켓 차감 -->
@@ -195,6 +196,37 @@
 		MEMBER_TICKET = MEMBER_TICKET - ${eventTicket}
 		WHERE MEMBER_NO = ${memberNo}
 	</update>
+	
+	
+	
+	<!-- 최종 파티 구성원 가져오기 -->
+	<select id="selectFinalPartyList" parameterType="_int" resultMap="partyResultSet">
+		SELECT * FROM PARTY
+		WHERE EVENT_NO = #{eventNo}
+		AND PERMISSION = 'Y'
+	</select>
+	
+	
+	<!-- 주최자 티켓 획득 결제내역 추가 -->
+	<insert id="insertPaymentEarn" parameterType="Event">
+		INSERT INTO PAYMENT VALUES
+		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'P', ${eventTicket}, SYSDATE)
+	</insert>
+	
+	
+	<!-- 참가자 티켓 사용 결제내역 추가 -->
+	<insert id="insertPaymentUse" parameterType="Event">
+		INSERT INTO PAYMENT VALUES
+		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'U', ${eventTicket}, SYSDATE)
+	</insert>
+	
+	
+	<update id="updateEventConfirm" parameterType="_int">
+		UPDATE EVENT SET
+		EVENT_CONFIRM = 'Y'
+		WHERE EVENT_NO = #{eventNo}
+	</update>
+	
 
 
 </mapper>

@@ -124,36 +124,72 @@ public class EventServiceImpl implements EventService {
 	
 	/**
 	 * 이벤트 참가 취소
-	 * @param party
+	 * @param event
 	 * @return result
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int cancelEvent(Party party) throws Exception {
-		return eventDAO.cancelEvent(party);
+	public int cancelEvent(Event event) throws Exception {
+		
+		int result = eventDAO.cancelEvent(event);
+		if(result > 0) {
+			result = eventDAO.increaseTicket(event);
+		}
+		return result;
 	}
 	
 	/**
-	 * 이벤트 참가 취소 서비스
-	 * @param party
+	 * 이벤트 완료 확인 service
+	 * @param event
 	 * @return result
 	 * @throws Exception
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int cancelJoinEvent(Party party, int eventTicket) throws Exception {
+	public int confirmEventComplete(Event event) throws Exception {
 		
-		// party 테이블에서 삭제
-		int result = eventDAO.cancelEvent(party);
-		if(result > 0) {
-			// 티켓 회수
-			Map<String, String> ticket = new HashMap<String, String>();
-			ticket.put("memberNo", party.getMemberNo() + "");
-			ticket.put("eventTicket", eventTicket + "");
-			result = eventDAO.increaseTicket(ticket);
-			// 결제 내역
+		int result = 0;
+		
+		// 1. 이벤트 참여 구성원 가져오기
+		List<Party> partyList = eventDAO.selectFinalPartyList(event.getEventNo());
+		System.out.println("partyList : " + partyList);
+		
+		if(!partyList.isEmpty() && partyList !=null) {
+			
+			int eventOriginTicket = event.getEventTicket(); // 원래 티켓 장수 저장
+			
+			// 주최자 티켓 증가
+			// 티켓 수 추가 (참가자 수 - 1 (주최자 자신이므로)) * 이벤트 티켓 장수
+			event.setEventTicket((partyList.size()-1) * eventOriginTicket);
+			result = eventDAO.increaseTicket(event);
+			System.out.println("주최자 티켓 증가 후 result " + result);
+			
+			if(result>0) {
+				// 2. 주최자 결제내역 추가
+				result = eventDAO.insertPaymentEarn(event);
+				System.out.println("주최자 결제 내역 추가 후 result " + result);
+
+				if(result > 0) {
+					event.setEventTicket(eventOriginTicket); // 원래 이벤트 티켓 수로 돌림
+					// 3. 참가자 결제내역 추가
+					for (Party party : partyList) {
+						if(party.getMemberType().equals("P")) { // 참가자인 경우에만 추가
+							event.setMemberNo(party.getMemberNo()); // 참가자 아이디 설정
+							result = 0; // 재활용용 result
+							result = eventDAO.insertPaymentUse(event);
+							System.out.println("참가자 결제 내역 추가 후 result " + result);
+							
+							if(result == 0) {
+								throw new Exception(); // rollback 유도
+							}
+						}
+					}
+					if(result > 0) {
+						result = eventDAO.updateEventConfirm(event.getEventNo());
+					}
+				}
+			}
 		}
-		
 		return result;
 	}
 	
