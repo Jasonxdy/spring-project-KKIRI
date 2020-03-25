@@ -54,7 +54,7 @@
               <label for="questionContent">내용</label>
               <textarea id="questionContent"></textarea>
 
-              <button class="green-radius-btn">글 쓰기</button>&nbsp;
+              <button class="green-radius-btn">글쓰기</button>&nbsp;
               <button type="reset" class="green-radius-btn">취소</button>
            </form>
         </div>

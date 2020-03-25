@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.home.model.dao.HomeDAO;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -34,6 +35,15 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public List<Member> selectMemberList(int memberCount) throws Exception {
 		return homeDAO.selectMemberList(memberCount);
+	}
+
+	/** 추천 이벤트 5개 뽑아오기
+	 * @return eventList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Event> recommandEvent() throws Exception {
+		return homeDAO.recommandEvent();
 	}
 
 }

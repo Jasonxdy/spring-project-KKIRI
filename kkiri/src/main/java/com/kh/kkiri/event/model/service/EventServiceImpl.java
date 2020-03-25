@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.Event;
+import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
@@ -157,6 +158,55 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int insertReport(Report report) throws Exception {
 		return eventDAO.insertReport(report);
+	}
+
+	
+	/** 이벤트 생성용 Service
+	 * @param event
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int createEvent(Event event, Image image) throws Exception {
+		int result = 0;
+		
+		// 다음 이벤트 번호 얻어오기
+		int eventNo = eventDAO.selectNextNo();
+		
+		// 이벤트 게시글 삽입
+		if(eventNo>0) {
+			event.setEventContent(event.getEventContent().replace("\r\n", "<br>"));
+			
+			// 조회한 eventNo을 event에 세팅
+			event.setEventNo(eventNo);
+			
+			// 이벤트 게시글을 DB에 등록
+			result = eventDAO.createEvent(event);
+			
+			if(result>0) { // PARTY 테이블에 데이터 추가
+				result = 0;
+				
+				result = eventDAO.insertParty(event);
+			}
+		}
+		
+		if(result > 0 && image!=null) { // 이벤트 썸네일(image) 삽입 
+			result = 0;
+			
+			image.setEventNo(eventNo);
+			result = eventDAO.insertImage(image);
+			if(result==0) {
+				throw new Exception();
+			}
+		}
+		
+		if(result>0) {
+			// result에 생성된 이벤트 번호 저장
+			result = eventNo;
+		}
+		return result;
 	}
 
 }

@@ -8,6 +8,7 @@ import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.event.model.vo.Image;
 
 public interface EventService {
 
@@ -107,4 +108,11 @@ public interface EventService {
 
 	
 	
+	/** 이벤트 생성용 Service
+	 * @param event
+	 * @param image
+	 * @return result
+	 * @throws Exception
+	 */
+	int createEvent(Event event, Image image) throws Exception;
 }

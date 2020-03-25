@@ -19,11 +19,10 @@ public interface MemberService {
 	
 	/** 회원가입(ID 만들기) Service
 	 * @param createMember
-	 * @param files 
 	 * @return return
 	 * @throws Exception
 	 */
-	int createId(Member createMember, List<Attachment> files)throws Exception;
+	int createId(Member createMember)throws Exception;
 
 
 

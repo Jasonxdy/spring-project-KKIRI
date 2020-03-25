@@ -17,6 +17,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.kkiri.common.Pagination;
+import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
@@ -211,11 +213,34 @@ public class MypageController {
 		return "redirect:/mypage/in";
 	}
 	@RequestMapping("ticketLog")
-	public String ticketLog(Model model) {
+	public String ticketLog(Model model, 
+			@RequestParam(value="currentPage" , required = false) Integer currentPage,
+			@RequestParam(value="ticketsort" ,required=false)String ticketSort) {
+		
+		Ticket ticket = new Ticket();
 		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
+		ticket.setMemberNo(memberNo);
+		if(ticketSort ==null) {
+			ticketSort = "all";
+		}
+		ticket.setPaymentType(ticketSort);
+		// 페이징 처리
+		if(currentPage == null) {
+			currentPage = 1;
+		}
+		
 		try {
-		List<Ticket> ticketList = mypageService.ticketLog(memberNo);
+			System.out.println(ticket);
+		List<Ticket> ticketList = mypageService.ticketLog(ticket);
+		int listCount = mypageService.getListCount(ticket);
+		PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
+		System.out.println("listCount: " + listCount);
+		System.out.println("Pinf: " + Pinf);
+		
+		
 		model.addAttribute("ticketList", ticketList);
+		model.addAttribute("pInf", Pinf);
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓페이지 이동중 에러가 발생했습니다.");

@@ -29,15 +29,28 @@
 		</if>
 			#{paymentType}, #{ticket}, SYSDATE
 		)
-		
 	</insert>
 	
-	<select id="ticketLog" parameterType="_int" resultMap="ticketResultSet">
+	<select id="ticketLog" parameterType="Ticket" resultMap="ticketResultSet">
 	
 	SELECT PAYMENT_NO,MEMBER_NO, EVENT_TITLE,PAYMENT_TYPE,PAYMENT_TICKET, PAYMENT_DATE FROM PAYMENT
 	JOIN EVENT USING (EVENT_NO)
-    WHERE MEMBER_NO = #{memberNo}
+    WHERE MEMBER_NO = #{memberNo} 
+    <if test="paymentType != 'all'">
+	AND PAYMENT_TYPE = #{paymentType}
+	</if>
+	
 	ORDER BY PAYMENT_DATE
+	</select>
+	
+	<select id="getListCount" parameterType="Ticket" resultType="_int">
+	SELECT COUNT(*)
+	FROM PAYMENT
+	WHERE MEMBER_NO = #{memberNo} 
+	<if test="paymentType != 'all'">
+	AND PAYMENT_TYPE = #{paymentType}
+	</if>
+	
 	</select>
 	
 	

@@ -44,19 +44,6 @@ public class MemberDAO {
 	}
 
 	
-	/** 가입 프로필 사진
-	 * @param files
-	 * @return
-	 */
-	public int insertAttachment(List<Attachment> files) {
-		
-		return sqlSession.insert("memberMapper.insertAttachment", files);
-	}
-
-	
-	
-	
-	
 
 	public int updateMember(Member member) throws Exception{
 		return sqlSession.update("memberMapper.updateMember", member);

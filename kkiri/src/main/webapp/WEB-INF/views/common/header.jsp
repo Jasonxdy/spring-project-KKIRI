@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/index.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board.css">
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
@@ -48,7 +49,7 @@
 	                  <a href="${contextPath}/admin/member" class="createEvent-btn">관리자 페이지</a>
 	                  </c:if>
 	                  <c:if test="${loginMember.memberGrade != 'A' }">
-	                  <a href="eventCreate.html" class="createEvent-btn">이벤트 생성하기</a>
+	                  <a href="${contextPath}/event/goEventCreate" class="createEvent-btn">이벤트 생성하기</a>
 	                  </c:if>
 	                  <span class="separation"> | </span>
 	                  <a href="#">고객센터</a>
@@ -57,12 +58,12 @@
 	                  <div class="profile-wrap">
 	                    <!--  <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-icon">-->
 	                    
-	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/default.png"/>
+	                    <c:set var="src" value="${contextPath }/resources/upProfileImage/${loginMember.memberProfile }"/>
 	                    <img src="${src}" alt="프로필" class="profile-icon" >
 	                    <ul class="profile-menu">
 	                      <li><a href="${contextPath }/mypage/in">프로필</a></li>
-	                      <li><a href="#">이벤트</a></li>
-	                      <li><a href="#">티켓</a></li>
+	                      <li><a href="../mypage/moveEvent">이벤트</a></li>
+	                      <li><a href="../mypage/ticketLog">티켓</a></li>
 	                      <li><a href="${contextPath}/member/logout">로그아웃</a></li>
 	                    </ul>
 	                  </div>
@@ -106,7 +107,7 @@
 
               <button class="popup-confirm-btn login-conform-btn">로그인</button>
               <button id="googleLogin" type="button" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>
-              <button type="button" class="popup-confirm-btn another-btn">페이스북 아이디로 로그인</button>
+              <button id="kakaoLogin" type="button" class="popup-confirm-btn another-btn">카카오 아이디로 로그인</button>
             </form>
           </div>
         </div>
@@ -126,10 +127,12 @@
           }
         });
         
-        
-        
         $("#googleLogin").on("click", function(){
         	location.href = "${google_url}";
+        })
+        
+         $("#kakaoLogin").on("click", function(){
+        	location.href = "${kakao_url}";
         })
       </script>
     

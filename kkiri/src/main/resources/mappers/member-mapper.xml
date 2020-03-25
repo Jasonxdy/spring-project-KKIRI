@@ -23,13 +23,7 @@
 		<result property="memberRating" column="MEMBER_RATING"/>
 	</resultMap>
 	
-	<resultMap type="Attachment" id="attachmentResultSet">
-		<id property = "fileOriginName" column="FILE_ORIGIN_NAME" />
-		<result property="fileChangeName" column="FILE_CHANGE_NAME"/>
-		<result property="filePath" column="FILE_PATH"/>
-	</resultMap>
-	
-	
+
 	<!-- 로그인  -->
 	<select id="signInMember" parameterType="Member" resultMap="memberResultSet"> 
 		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NICKNAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_GENDER,
@@ -50,7 +44,7 @@
 			VALUES(MEM_SEQ.NEXTVAL, #{memberId}, #{memberNickname}, #{memberPwd}, 
 				#{memberEmail}, #{memberGender}, #{memberPhone}, #{memberBirth},
 				#{memberIntroduce}, #{memberPlace}, #{memberCategory},
-				DEFAULT, SYSDATE, DEFAULT,
+				#{memberProfile}, SYSDATE, DEFAULT,
 				DEFAULT, #{memberAccount}, 'N', DEFAULT)
 				
 	</insert>
@@ -173,6 +167,14 @@
 				DEFAULT, SYSDATE, DEFAULT,
 				DEFAULT, DEFAULT, 'G', DEFAULT)
 	</insert>
+	
+	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_GENDER, MEMBER_BIRTH, MEMBER_INTRODUCE, MEMBER_PLACE,
+				MEMBER_CATEGORY, MEMBER_PROFILE
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_STATUS = 'Y'
+	</select>
 	
 	
 </mapper>

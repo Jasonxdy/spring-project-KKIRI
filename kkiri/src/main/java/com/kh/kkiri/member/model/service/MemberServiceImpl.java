@@ -49,8 +49,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		return loginMember;
 	}
-	
-	
+		
 	
 	/** 회원가입(ID 만들기) Service
 	 * @param createMember
@@ -59,13 +58,16 @@ public class MemberServiceImpl implements MemberService{
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int createId(Member createMember,List<Attachment> files) throws Exception {
+	public int createId(Member createMember) throws Exception {
 		
 		System.out.println("2. 가입 회원정보:" + createMember);
 		
+		String encPwd = bCryptPasswordEncoder.encode(createMember.getMemberPwd());
+		createMember.setMemberPwd(encPwd);
+		
 		int result = memberDAO.createId(createMember);
 		
-		 result = result+ memberDAO.insertAttachment(files);
+		
 		
 		System.out.println("4. 가입 결과 result:" + result);
 		return result;

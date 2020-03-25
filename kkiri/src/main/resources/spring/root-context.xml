@@ -65,7 +65,6 @@
         <constructor-arg value="VIHjwkyohjsz_OMa_ArFjn5S" />
     </bean>
  
- 
     <bean id="googleOAuth2Parameters"
         class="org.springframework.social.oauth2.OAuth2Parameters">
         <property name="scope"
@@ -79,6 +78,20 @@
             value="192503345396-ec1f48apba23d1h7jvtfq77qfir8sqlg.apps.googleusercontent.com" />
         <constructor-arg value="VIHjwkyohjsz_OMa_ArFjn5S" />
     </bean>
+    
+    <!-- Facebook 소셜 로그인 연결 설정 -->
+ 
+    <!-- <bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <constructor-arg value="256397758691041" />
+        <constructor-arg value="cb86d9eb1cd53911a3c4bc93bd94ce6e" />
+    </bean> -->
+ 
+    <!-- <bean id="facebookOAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope" value="email, user_gender" />
+        <property name="redirectUri" value="http://localhost:8080/kkiri/member/facebookLogin" />
+    </bean> -->
 	
 	
 </beans>

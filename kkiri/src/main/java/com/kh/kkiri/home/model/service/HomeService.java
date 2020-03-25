@@ -2,6 +2,7 @@ package com.kh.kkiri.home.model.service;
 
 import java.util.List;
 
+import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.vo.Member;
 
 public interface HomeService {
@@ -24,6 +25,14 @@ public interface HomeService {
 	 * @throws Exception
 	 */
 	List<Member> selectMemberList(int memberCount) throws Exception;
+
+
+
+	/** 추천 이벤트 5개 뽑아오기
+	 * @return eventList
+	 * @throws Exception
+	 */
+	List<Event> recommandEvent() throws Exception;
 
 
 }

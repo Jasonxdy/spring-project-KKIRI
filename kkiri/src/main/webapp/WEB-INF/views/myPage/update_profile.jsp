@@ -116,7 +116,7 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 "></h5>
                     <input type="text" name="memberPlace" placeholder="주소 검색" class="interest-location-input col-5"
-                    	id="sample5_address" onkeypress="sample5_execDaumPostcode()" value="${loginMember.memberPlace }" readonly>
+                    	id="sample5_address" onclick="sample5_execDaumPostcode()" value="${loginMember.memberPlace }" readonly>
                   <img src="<%=request.getContextPath() %>/resources/img/search-icon.png" alt="찾기" class="search-icon col-3"
                  		onclick="sample5_execDaumPostcode()" style="width:10%; height:100%;">
                   </div>

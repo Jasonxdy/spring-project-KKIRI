@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,10 +20,17 @@
           <div id="banner">
             <div class="banner-text-area">
               <p class="banner-title">
-                많은 사람들이 끼리를 통해 삶을 공유하고 있습니다.<br>
+                		많은 사람들이 끼리를 통해 삶을 공유하고 있습니다.<br>
                 <span class="banner-sub-title">내 주변의 사람들과 좋아하는 일을 함께 하며 새로운 경험을 즐겨 보세요.</span>
               </p>
-              <a href="${contextPath}/member/signUp" class="go-sign-up">끼리 가입하기</a>
+              	<c:choose>
+              		<c:when test="${!empty loginMember}">
+		              	<a href="${contextPath}/event/goEventCreate" class="go-sign-up">이벤트 생성하기</a>
+              		</c:when>
+              		<c:otherwise>
+		              	<a href="${contextPath}/member/signUp" class="go-sign-up">끼리 가입하기</a>
+              		</c:otherwise>
+              	</c:choose>
             </div>
     				<video class='video' autoplay loop muted>
     					<source src='<%=request.getContextPath() %>/resources/movie/banner-movie.mp4' type='video/mp4'>
@@ -44,141 +55,68 @@
                 	</a>
                 </h5>
                 <!-- 이벤트 상세페이지 들어가기 Test용 start-->
-
-
-
-
-                  <h3 class="box-title">
-                    이런 이벤트 어떠세요?<br>
-                    <span class="box-sub-title">끼리에 가입하고 이벤트에 참여하세요.</span>
-                  </h3>
+			
+			
+			
+				<h3 class="box-title">	
+					<c:choose>
+	              		<c:when test="${!empty loginMember}">
+	              			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
+		              			${loginMember.memberNickname}님,
+		              			<c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
+		              			${mPlace[0]} ${mPlace[1]}
+		              			 지역 주변에 이런 이벤트 어떠세요?<br>
+		              			<span class="box-sub-title">주변에서 열리는 이벤트에 참석해보세요.</span>
+	              			</c:if>
+	              		</c:when>
+	              		<c:otherwise>
+		              		이런 이벤트 어떠세요?<br>
+	                    	<span class="box-sub-title">끼리에 가입하고 이벤트에 참여하세요.</span>
+	              		</c:otherwise>
+	              	</c:choose>
+ 				</h3>
+                    
                   <div class="blog-slider">
                     <div class="blog-slider__wrp swiper-wrapper">
-                      <div class="blog-slider__item swiper-slide on">
-                        <div class="blog-slider__img">
-                          <img src="<%=request.getContextPath() %>/resources/img/thumbnail1.PNG" alt="">
-                        </div>
-                        <div class="blog-slider__content">
-                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
-                          <div class="blog-slider__title">
-                            <p class="address">[같이 등산가요1]</p>
-                            <p class="location"><img src="<%=request.getContextPath() %>/resources/img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
-                          </div>
-                          <div class="blog-slider__text">
-                            <p class="leader">주최자</p>
-                            <div class="content">
-                              <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-img">
-                              <p class="leader-info">
-                                주최자 닉네임<br>
-                                <img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">
-                                <span class="star-rating">4.2</span>
-                              </p>
-                              <p class="member-count">참석인원 : 4/10</p>
-                            </div>
-                            <p class="ticket">티켓 : 4장</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="blog-slider__item swiper-slide">
-                        <div class="blog-slider__img">
-                          <img src="<%=request.getContextPath() %>/resources/img/thumbnail2.PNG" alt="">
-                        </div>
-                        <div class="blog-slider__content">
-                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
-                          <div class="blog-slider__title">
-                            <p class="address">[같이 등산가요2]</p>
-                            <p class="location"><img src="<%=request.getContextPath() %>/resources/img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
-                          </div>
-                          <div class="blog-slider__text">
-                            <p class="leader">주최자</p>
-                            <div class="content">
-                              <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-img">
-                              <p class="leader-info">
-                                주최자 닉네임<br>
-                                <img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">
-                                <span class="star-rating">4.2</span>
-                              </p>
-                              <p class="member-count">참석인원 : 4/10</p>
-                            </div>
-                            <p class="ticket">티켓 : 4장</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="blog-slider__item swiper-slide">
-                        <div class="blog-slider__img">
-                          <img src="<%=request.getContextPath() %>/resources/img/thumbnail3.PNG" alt="">
-                        </div>
-                        <div class="blog-slider__content">
-                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
-                          <div class="blog-slider__title">
-                            <p class="address">[같이 등산가요3]</p>
-                            <p class="location"><img src="<%=request.getContextPath() %>/resources/img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
-                          </div>
-                          <div class="blog-slider__text">
-                            <p class="leader">주최자</p>
-                            <div class="content">
-                              <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-img">
-                              <p class="leader-info">
-                                주최자 닉네임<br>
-                                <img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">
-                                <span class="star-rating">4.2</span>
-                              </p>
-                              <p class="member-count">참석인원 : 4/10</p>
-                            </div>
-                            <p class="ticket">티켓 : 4장</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="blog-slider__item swiper-slide">
-                        <div class="blog-slider__img">
-                          <img src="<%=request.getContextPath() %>/resources/img/thumbnail1.PNG" alt="">
-                        </div>
-                        <div class="blog-slider__content">
-                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
-                          <div class="blog-slider__title">
-                            <p class="address">[같이 등산가요4]</p>
-                            <p class="location"><img src="<%=request.getContextPath() %>/resources/img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
-                          </div>
-                          <div class="blog-slider__text">
-                            <p class="leader">주최자</p>
-                            <div class="content">
-                              <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-img">
-                              <p class="leader-info">
-                                주최자 닉네임<br>
-                                <img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">
-                                <span class="star-rating">4.2</span>
-                              </p>
-                              <p class="member-count">참석인원 : 4/10</p>
-                            </div>
-                            <p class="ticket">티켓 : 4장</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="blog-slider__item swiper-slide">
-                        <div class="blog-slider__img">
-                          <img src="<%=request.getContextPath() %>/resources/img/thumbnail2.PNG" alt="">
-                        </div>
-                        <div class="blog-slider__content">
-                          <span class="blog-slider__code">2020년 02월 21일 19:00</span>
-                          <div class="blog-slider__title">
-                            <p class="address">[같이 등산가요5]</p>
-                            <p class="location"><img src="<%=request.getContextPath() %>/resources/img/map-ping.png" alt="위치"> &nbsp;서울시 중구 다산로</p>
-                          </div>
-                          <div class="blog-slider__text">
-                            <p class="leader">주최자</p>
-                            <div class="content">
-                              <img src="<%=request.getContextPath() %>/resources/img/profile-ex.png" alt="프로필" class="profile-img">
-                              <p class="leader-info">
-                                주최자 닉네임<br>
-                                <img src="<%=request.getContextPath() %>/resources/img/star-on.png" alt="별점" class="star-img">
-                                <span class="star-rating">4.2</span>
-                              </p>
-                              <p class="member-count">참석인원 : 4/10</p>
-                            </div>
-                            <p class="ticket">티켓 : 4장</p>
-                          </div>
-                        </div>
-                      </div>
+                    
+                    
+                    <c:if test="${empty eventList}">
+                    	<p class="no-data-content">이벤트가 존재하지 않습니다!</p>
+                    </c:if>
+                    
+                    <c:if test="${!empty eventList}">
+                    	<c:forEach var="event" items="${eventList}" varStatus="vs">
+	                      <div class="blog-slider__item swiper-slide on">
+	                        <div class="blog-slider__img">
+	                          <img src="${contextPath}/resources/img/${event.eventThumbnail}" alt="이벤트 썸네일">
+	                        </div>
+	                        <div class="blog-slider__content">
+	                          <span class="blog-slider__code">
+	                          	<fmt:formatDate var="startDate" value="${event.eventStart}" pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+	                          	${startDate} 
+	                          </span>
+	                          <div class="blog-slider__title">
+	                            <p class="address">[${event.eventTitle}]</p>
+	                            <p class="location"><img src="${contextPath}/resources/img/map-ping.png" alt="위치"> &nbsp;${event.eventLocation}</p>
+	                          </div>
+	                          <div class="blog-slider__text">
+	                            <p class="leader">주최자</p>
+	                            <div class="content">
+	                              <img src="${contextPath}/resources/img/profile-ex.png" alt="프로필" class="profile-img">
+	                              <p class="leader-info">
+	                                		${event.memberNickname}<br>
+	                                <img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">
+	                                <span class="star-rating">${event.memberRating}</span>
+	                              </p>
+	                              <p class="member-count">참석인원 : ${event.partyCount}/${event.eventQuota}</p>
+	                            </div>
+	                            <p class="ticket">티켓 : ${event.eventTicket}장</p>
+	                          </div>
+	                        </div>
+	                      </div>
+                      	 </c:forEach>
+                    </c:if>
+                      
                     </div>
                     <div class="blog-slider__pagination swiper-pagination-bullets"></div>
                   </div>
