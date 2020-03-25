@@ -50,12 +50,27 @@
               <p class="have-ticket">보유한 티켓 수 : <span>${loginMember.memberTicket }</span></p>
 
               <select name="ticket-sort" id="ticket-sort">
-                <option value="all">전체</option>
-                <option value="U">사용</option>
-                <option value="P">수익</option>
-                <option value="C">충전</option>
-                <option value="R">환급</option>
-                <option value="B">환불</option>
+              <c:if test="${ticketSort=='all' }">
+              checked
+              </c:if>
+                <option value="all" <c:if test="${ticketSort=='all'}">
+              checked
+              </c:if>>전체</option>
+                <option value="U" 
+                <c:if test="${ticketSort=='U'}">selected</c:if>
+              >사용</option>
+                <option value="P" <c:if test="${ticketSort=='P' }">
+              selected
+              </c:if>>수익</option>
+                <option value="C" <c:if test="${ticketSort=='C' }">
+            selected
+              </c:if>>충전</option>
+                <option value="R" <c:if test="${ticketSort=='R' }">
+             selected
+              </c:if>>환급</option>
+                <option value="B" <c:if test="${ticketSort=='B' }">
+       selected
+              </c:if>>환불</option>
               </select>
 		
               <table class="ticket-table table table-hover table-striped">
@@ -122,36 +137,30 @@
               // 변수 선언
               var currentPage = ${pInf.currentPage};
               
-              var ticketsort = $("#ticket-sort").val();
-              
+              var ticketsort = '${ticketSort}';
+             
               // 클릭할때 마다 ticketLog를 호출해라
               
               
                 $(function(){
                   // 종류별로 색깔구분하기
                   $(".ticket-amount").each(function(index){
-                    if($(".ticket-amount").eq(index).text()<0){
+                    if($(".ticket-amount").eq(index).text().trim()<0){
+                    	console.log($(this).text())
                       $(this).css({"color":"#c82333"});
-                    }else if($(".ticket-amount").eq(index).text()>0){
+                    }else if($(".ticket-amount").eq(index).text().trim()>0){
+                    	console.log($(this).text())
                       $(this).css({"color":"#0069d9"});
                     }
                   });
 	
-                  $(".ticket-table tbody .ticket-sort").each(function(i){
                     $("#ticket-sort").on({
                       change : function(){
-                        if($(this).find("option:checked").text()=="전체"){
                         	ticketsort = $(this).val();
-                          	location.href="ticketLog?ticketsort="+ticketsort+"currentPage"=currentPage;
-                        	
-                        	$(".ticket-table tbody tr").show(0);
-                        }else($(this).find("option:checked").text()==$(".ticket-table tbody .ticket-sort").eq(i).text().trim()){
-                        	ticketsort = $(this).val();
-                        }
+                        	location.href="ticketLog?ticketsort="+ticketsort+"&currentPage="+currentPage;
                       }
                     });
-                  })
-
+                    
                 });
               </script>
               
@@ -164,19 +173,16 @@
                     <li>
                       <a class="page-link " href="
                   <c:url value="ticketLog">
-                    <c:param name="ticket-sort" value="${ticketSort}"/>  
+                    <c:param name="ticketsort" value="${ticketSort}"/>  
                   </c:url>
                       "
                       >&lt;&lt;</a>
                     </li>
-                    
-                    
-                    
                     <li>
                       <a class="page-link " href="
                     
                     <c:url value="ticketLog">
-                    <c:param name="ticket-sort" value="${ticketSort}"/>  
+                    <c:param name="ticketsort" value="${ticketSort}"/>  
                   	</c:url>
                   ">&lt;</a>
                     </li>
@@ -191,7 +197,8 @@
                     <li>
                       <a class="page-link" href="
                       <c:url value="ticketLog">
-                      <c:param name="ticket-sort" value="${ticketSort}" />
+                      <c:param name="ticketsort" value="${ticketSort}" />
+                      <c:param name="currentPage" value="${pg}" />
                       </c:url>
                       ">${pg }</a>
                     </li>
@@ -203,12 +210,12 @@
                     <li>
                       <a class="page-link " href="
                       <c:url value="ticketLog">
-                      <c:param name="ticket-sort" value="${ticketSort}" />
+                      <c:param name="ticketsort" value="${ticketSort}" />
                       <c:param name="currentPage" value="${pInf.currentPage+1}"/>
                       </c:url>
                       ">&gt;</a>
                     </li>
-                    </c:if>
+                   
                     
                     <!-- 맨 끝으로(>>) -->
                     <li>
@@ -219,6 +226,7 @@
                       </c:url>
                       ">&gt;&gt;</a>
                     </li>
+                     </c:if>
                   </ul>
                 </div>
               </div>

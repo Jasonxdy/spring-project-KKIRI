@@ -11,6 +11,7 @@ public class Pagination {
 	// PageInfo 객체를 리턴하는 static 메소드 추가
 	public static PageInfo getPageInfo(int limit, int pagingBarSize, int currentPage, int listCount) {
 		
+		//PageInfo pi = null;
 		
 		// currentPage와 listCount가 넘어온 상태이기 때문에
 		// 페이징 처리에 필요한 나머지 변수만 선언함

@@ -36,21 +36,35 @@ public class ProfileDAO {
 		return sqlSession.selectList("searchMapper.selectCreateEvent", memberNo, rowBounds);
 	}
 
-	/** 생성한 이벤트 수 조회용 DAO
+	/** 이벤트 수 조회용 DAO
 	 * @param memberNo
-	 * @return cListCount
-	 * @throws Exception
+	 * @param flag
+	 * @return listCount
 	 */
-	public int cListCount(int memberNo) throws Exception {
-		return sqlSession.selectOne("searchMapper.cListCount",memberNo);
+	public int listCount(int memberNo, int flag) {
+		if(flag == 0) {
+			return sqlSession.selectOne("searchMapper.cListCount",memberNo);
+		} else {
+			return sqlSession.selectOne("searchMapper.jListCount",memberNo);
+		}
 	}
 
-	/** 참여한 이벤트 수 조회용 DAO
+
+	/** 이벤트 조회용 DAO
 	 * @param memberNo
-	 * @return jListCount
-	 * @throws Exception
+	 * @param currentPage
+	 * @param limit
+	 * @param flag
+	 * @return eList
 	 */
-	public int jListCount(int memberNo) throws Exception {
-		return sqlSession.selectOne("searchMapper.jListCount",memberNo);
+	public List<Search> selectEventList(int memberNo, int currentPage, int limit, Integer flag) {
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		if(flag == 0) {
+			return sqlSession.selectList("searchMapper.selectCreateEvent", memberNo, rowBounds);
+		} else {
+			return sqlSession.selectList("searchMapper.selectJoinEvent", memberNo, rowBounds);
+		}
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -212,7 +213,7 @@ public class MypageController {
 		
 		return "redirect:/mypage/in";
 	}
-	@RequestMapping("ticketLog")
+	@RequestMapping(value="ticketLog" ,method=RequestMethod.GET)
 	public String ticketLog(Model model, 
 			@RequestParam(value="currentPage" , required = false) Integer currentPage,
 			@RequestParam(value="ticketsort" ,required=false)String ticketSort) {
@@ -231,22 +232,37 @@ public class MypageController {
 		
 		try {
 			System.out.println(ticket);
-		List<Ticket> ticketList = mypageService.ticketLog(ticket);
 		int listCount = mypageService.getListCount(ticket);
 		PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
-		System.out.println("listCount: " + listCount);
-		System.out.println("Pinf: " + Pinf);
-		
-		
+		List<Ticket> ticketList = mypageService.ticketLog(ticket,Pinf);
+		System.out.println(ticketSort);
 		model.addAttribute("ticketList", ticketList);
 		model.addAttribute("pInf", Pinf);
-		
+		model.addAttribute("ticketSort", ticketSort);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓페이지 이동중 에러가 발생했습니다.");
 			return "common/errorPage";
 		}
 		return "myPage/ticket_history";
+	}
+	@RequestMapping("moveEvent")
+	public String moveEvent(Model model) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		
+		
+		
+		try {
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "마이 이벤트 페이지 이동중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		return "my_event";
+		
 	}
 	
 }

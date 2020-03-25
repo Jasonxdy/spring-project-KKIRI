@@ -34,7 +34,6 @@ public class KakaoController {
     }
 
     public String getAccessToken(String autorize_code) {
-
       final String RequestUrl = "https://kauth.kakao.com/oauth/token";
       final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
       postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));

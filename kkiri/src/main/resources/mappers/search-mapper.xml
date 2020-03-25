@@ -70,14 +70,14 @@
 	</select>
 	 
 	<select id="cListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM V_EVENT
+		SELECT COUNT(*) FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
 		AND EVENT_STATUS = 'Y'
 	</select>
 	
 	<select id="jListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM V_EVENT
+		SELECT COUNT(*) FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'P'
 		AND EVENT_STATUS = 'Y'
@@ -89,6 +89,15 @@
 		FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
+		AND EVENT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectJoinEvent" parameterType="_int" resultMap="searchResultSet">
+		SELECT EVENT_NO, EVENT_TITLE, EVENT_CONTENT, EVENT_CATEGORY, EVENT_ADDRESS, EVENT_LOCATION, LATITUDE, LONGITUDE,
+				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_PROFILE, SCORE
+		FROM V_EVENT_P
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_TYPE = 'P'
 		AND EVENT_STATUS = 'Y'
 	</select>
 	
