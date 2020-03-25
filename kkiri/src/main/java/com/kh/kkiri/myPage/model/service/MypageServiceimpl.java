@@ -131,6 +131,27 @@ public class MypageServiceimpl implements MypageService{
 		
 		return mypageDAO.moveEvent(memberNo);
 	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int costTicket(Ticket ticket) throws Exception{
+		int result = 0;
+		// insert 작업
+		result= mypageDAO.costTicket(ticket);
+		
+		if(result>0) {
+			// update 작업
+			result = mypageDAO.updateTicket(ticket);
+			if(result >0) result = -1;
+		}
+		
+		if(result>0) {
+			// payment만 입력 되었을 시 강제로 오류 발생
+			throw new Exception();
+		}
+		
+		return result; 
+	}
 	
 	
 	

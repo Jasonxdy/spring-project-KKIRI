@@ -58,7 +58,7 @@
                 <span class="con">${loginMember.memberTicket }</span>
               </div>
 
-              <form class="refund-form" action="#" method="POST" onsubmit="return validate();">
+              <form class="refund-form" action="costTicket" method="POST" onsubmit="return validate();">
                 <p class="title">환급 받을 티켓</p>
                 <p class="account-info" id="accountFlag">
                
@@ -120,7 +120,7 @@
         }
         if($("refundTicket").val()>ticketCount){
         	alert("보유 티켓보다 많이 환급신청을 할 수 없습니다.");
-        	
+        	return false;
         }
       }
     </script>

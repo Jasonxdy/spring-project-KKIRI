@@ -50,7 +50,7 @@ public class MypageDAO {
 		return sqlSession.selectOne("paymentMapper.getListCount", ticket);
 	}
 
-	/** 환조씨가 작업중
+	/** 환조씨가 작업중 미 작 성 됨
 	 * @param memberNo
 	 * @return
 	 * @throws Exception
@@ -59,6 +59,15 @@ public class MypageDAO {
 		
 		
 		return sqlSession.selectList("eventMapper.get", memberNo);
+	}
+
+	public int costTicket(Ticket ticket) throws Exception{
+		// TODO Auto-generated method stub
+		return sqlSession.insert("paymentMapper.costTicket", ticket);
+	}
+
+	public int updateTicket(Ticket ticket) throws Exception{
+		return sqlSession.update("memberMapper.updateTicket", ticket);
 	}
 	
 }

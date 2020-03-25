@@ -193,4 +193,10 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND FAVORITE_NO = #{favoriteNo}
 	</delete>
+	
+	<update id="updateTicket" parameterType="Ticket">
+	UPDATE MEMBER SET MEMBER_TICKET = (MEMBER_TICKET-#{paymentTicket})
+	WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
 </mapper>

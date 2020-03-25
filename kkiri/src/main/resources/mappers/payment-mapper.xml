@@ -52,6 +52,9 @@
 	</if>
 	
 	</select>
-	
+	<insert id="costTicket" parameterType="Ticket" >
+	INSERT INTO PAYMENT VALUES
+	(PAY_SEQ.NEXTVAL, #{memberNo},null,#{paymentType},#{paymentTicket},SYSDATE)
+	</insert>
 	
 </mapper>
