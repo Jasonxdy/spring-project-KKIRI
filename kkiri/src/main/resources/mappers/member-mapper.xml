@@ -186,5 +186,4 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND FAVORITE_NO = #{favoriteNo}
 	</select>
-	
 </mapper>
