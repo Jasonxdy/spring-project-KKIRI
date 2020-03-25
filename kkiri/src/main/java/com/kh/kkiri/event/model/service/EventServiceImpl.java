@@ -162,22 +162,19 @@ public class EventServiceImpl implements EventService {
 			// 티켓 수 추가 (참가자 수 - 1 (주최자 자신이므로)) * 이벤트 티켓 장수
 			event.setEventTicket((partyList.size()-1) * eventOriginTicket);
 			result = eventDAO.increaseTicket(event);
-			System.out.println("주최자 티켓 증가 후 result " + result);
 			
 			if(result>0) {
 				// 2. 주최자 결제내역 추가
 				result = eventDAO.insertPaymentEarn(event);
-				System.out.println("주최자 결제 내역 추가 후 result " + result);
 
 				if(result > 0) {
-					event.setEventTicket(eventOriginTicket); // 원래 이벤트 티켓 수로 돌림
+					event.setEventTicket(-eventOriginTicket); // 원래 이벤트 티켓 수로 돌림
 					// 3. 참가자 결제내역 추가
 					for (Party party : partyList) {
 						if(party.getMemberType().equals("P")) { // 참가자인 경우에만 추가
 							event.setMemberNo(party.getMemberNo()); // 참가자 아이디 설정
 							result = 0; // 재활용용 result
 							result = eventDAO.insertPaymentUse(event);
-							System.out.println("참가자 결제 내역 추가 후 result " + result);
 							
 							if(result == 0) {
 								throw new Exception(); // rollback 유도

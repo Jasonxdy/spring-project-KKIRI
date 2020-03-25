@@ -44,7 +44,7 @@
 							id="selectParticipant"
 							href="selectParticipant?no=${event.eventNo}">참가회원</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">사진</a></li>
-						<li class="nav-item"><a class="nav-link active" href="#">후기</a>
+						<li class="nav-item"><a class="nav-link active" href="comment">후기</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -83,7 +83,8 @@
 				<!-- 이벤트 종료 후 -->
 				<c:if test="${currTime >= event.eventEnd}">
 					<li class="nav-link event-participate-btn float-right mt-1" id="event-complete" style="height: 36px">이벤트 완료 확인</li>
-					<li class="nav-link event-participate-btn float-right mt-1" id="event-complete-confirmed" style="height: 36px">이벤트 완료 확인됨</li>
+<!-- 					<li class="nav-link event-participate-btn float-right mt-1" id="event-complete-confirmed" style="height: 36px">이벤트 완료 확인됨</li> -->
+					<li class="" id="event-complete-confirmed"><p class='already-finish-event float-right'>이벤트 완료 확인됨</p></li>
 					<li class=""><p class='already-finish-event float-right'>종료된
 							이벤트</p></li>
 				</c:if>
