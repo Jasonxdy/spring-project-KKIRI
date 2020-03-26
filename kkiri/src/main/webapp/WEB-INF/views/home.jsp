@@ -86,7 +86,7 @@
                     <c:if test="${!empty eventList}">
                     	<c:forEach var="event" items="${eventList}" varStatus="vs">
 	                      <div class="blog-slider__item swiper-slide">
-	                        <div class="blog-slider__img">
+	                        <div class="blog-slider__img" onclick="eventLink();" >
 	                          <img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}" alt="이벤트 썸네일">
 	                        </div>
 	                        <div class="blog-slider__content">
@@ -113,13 +113,6 @@
 	                          </div>
 	                        </div>
 	                      </div>
-	                      
-	                      <script>
-	                      	$(function(){
-	                      		var btnIndex = $(".swiper-pagination-bullet-active").index(); 
-	                      		console.log(btnIndex);
-	                      	});
-	                      </script>
                       	 </c:forEach>
                     </c:if>
                       
@@ -132,9 +125,27 @@
               </div>
             </div>
           </div>
+          
 
-          <!-- 이런 이벤트는 어떠세요? end -->
-
+		  <!-- 이벤트 상세 주소 매핑 스크립트 -->
+		  <script>
+		  	function eventLink(){
+		  		var linkIndex = $(".blog-slider__pagination .swiper-pagination-bullet-active").index()+1;
+		  		if(linkIndex == 1){
+		  			location.href="${contextPath}/event/detail?no=${eventList[0].eventNo}";
+		  		}else if(linkIndex == 2){
+		  			location.href="${contextPath}/event/detail?no=${eventList[1].eventNo}";
+		  		}else if(linkIndex == 3){
+		  			location.href="${contextPath}/event/detail?no=${eventList[2].eventNo}";
+		  		}else if(linkIndex == 4){
+		  			location.href="${contextPath}/event/detail?no=${eventList[3].eventNo}";
+		  		}else if(linkIndex == 5){
+		  			location.href="${contextPath}/event/detail?no=${eventList[4].eventNo}";
+		  		}
+	  		}
+		  </script>
+		  <!-- 이런 이벤트는 어떠세요? end -->
+		  
           <!-- 주최자 랭킹 start -->
           <div id="ranking">
             <div class="container">
