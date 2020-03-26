@@ -132,6 +132,12 @@ public class MypageServiceimpl implements MypageService{
 		return mypageDAO.moveEvent(memberNo);
 	}
 
+	
+	@Override
+	public List<Event> moveEvent2(int memberNo) throws Exception {
+		return mypageDAO.moveEvent2(memberNo);
+	}
+
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int costTicket(Ticket ticket,Member loginMember) throws Exception{
