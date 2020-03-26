@@ -95,6 +95,8 @@ public class AdminController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 		
 		return "admin/admin_member";
@@ -125,7 +127,8 @@ public class AdminController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/";
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 	}
 	
@@ -199,6 +202,8 @@ public class AdminController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 		
 		return "admin/admin_report";
@@ -252,6 +257,8 @@ public class AdminController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 		
 		return "admin/admin_ask";
@@ -275,7 +282,8 @@ public class AdminController {
             return "redirect:/admin/ask";
 	     } catch (Exception e) {
             e.printStackTrace();
-            return "common/errorPage.jsp";
+            model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 	     }
 	}
 	
@@ -327,6 +335,8 @@ public class AdminController {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 		return "admin/admin_event";
 	}

@@ -160,6 +160,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.reportC }">
+						        		<c:param name="reportC" value="${param.reportC}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>
 	                    	">
@@ -176,6 +180,10 @@
 						        	
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.reportC }">
+						        		<c:param name="reportC" value="${param.reportC}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>
@@ -204,6 +212,10 @@
 							        		<c:param name="searchValue" value="${param.searchValue}"/>
 							        	</c:if>
 							        	
+							        	<c:if test="${!empty param.reportC }">
+							        		<c:param name="reportC" value="${param.reportC}"/>
+							        	</c:if>
+							        	
 			                    		<c:param name="currentPage" value="${p}"/>
 			                    	</c:url>
 		                    	">
@@ -224,6 +236,10 @@
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
 						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.reportC }">
+						        		<c:param name="reportC" value="${param.reportC}"/>
+						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
 		                    	</c:url>
 	                    	">
@@ -238,6 +254,10 @@
 						        	</c:if>
 						        	<c:if test="${!empty param.searchValue }">
 						        		<c:param name="searchValue" value="${param.searchValue}"/>
+						        	</c:if>
+						        	
+						        	<c:if test="${!empty param.reportC }">
+						        		<c:param name="reportC" value="${param.reportC}"/>
 						        	</c:if>
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
 		                    	</c:url>
@@ -361,7 +381,7 @@
 		        	<c:if test="${!empty param.searchValue }">
 		        		<c:param name="searchValue" value="${param.searchValue}"/>
 		        	</c:if>
-	               	<c:param name="currentPage" value="${param.currentPage}"/>
+	               	<c:param name="currentPage" value="1"/>
 	             </c:url>
 				//console.log(reportC);
 				location.href="${report}&reportC=" + reportC;

@@ -77,5 +77,17 @@
 		WHERE ASK_NO = #{askNo}
 	</update>
 	
+	<insert id="aksWrite" parameterType="Ask">
+		INSERT INTO ASK VALUES
+		(ASK_SEQ.NEXTVAL, #{askTitle}, #{askContent}, #{askEmail},
+		DEFAULT, NULL, DEFAULT, NULL,
+		<if test="memberNo != 0">
+		#{memberNo})
+		</if>
+		<if test="memberNo == 0">
+		NULL)
+		</if>
+	</insert>
+	
 	
 </mapper>

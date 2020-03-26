@@ -350,6 +350,8 @@ public class MemberController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 
 		return "redirect:" + beforeUrl;
@@ -449,6 +451,8 @@ public class MemberController {
 
 		catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 
 		return "redirect:/";
@@ -528,6 +532,8 @@ public class MemberController {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				model.addAttribute("errorMgs", "로그인 중 오류 발생");
+				return "common/errorPage";
 			}
 			return "redirect:/";
 		}

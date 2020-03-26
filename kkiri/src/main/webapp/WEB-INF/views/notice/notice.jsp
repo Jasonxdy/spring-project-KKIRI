@@ -17,7 +17,7 @@
             <a class="nav-link active" href="#" tabindex="-1">공지사항</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${contextPath }/ask/askWrite" tabindex="-1">1:1문의 작성</a>
+            <a class="nav-link" href="${contextPath }/ask/ask" tabindex="-1">1:1문의 작성</a>
           </li>
         </ul>
       </div>
