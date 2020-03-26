@@ -8,88 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
-<style>
-.owrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-.owrap * {padding: 0;margin: 0;}
-.owrap .oinfo {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-.owrap .oinfo:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-.oinfo .otitle {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-.oinfo .oclose {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-.oinfo .oclose:hover {cursor: pointer;}
-.oinfo .obody {position: relative;overflow: hidden;}
-.oinfo .odesc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-.odesc .oellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-.odesc .ojibun {font-size: 11px;color: #888;margin-top: -2px;}
-.oinfo .oimg {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-.oinfo:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-.oinfo .olink {color: #5085BB;}
-.ocontent {width: 100%;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
-
-#searchListArea h2{width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-    
-    /* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #00a185;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -106,8 +24,8 @@ input:checked + .slider:before {
 					style="background-color: #272e37; width: 100%;">
 					<div class="col-md-12">
 						<!-- <form> -->
-							<div class="row p-2">
-								<div class="col-md-3">
+							<div class="row p-3 find-event-wrap">
+								<div class="category-wrap">
 									<label class="mt-1 h4 event-section-title">카테고리</label> 
 									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="searchKey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -175,7 +93,7 @@ input:checked + .slider:before {
 									</ul>
 								</div>
 
-								<div class="col-md-4 mt-1 event-location">
+								<div class="mt-1 event-location">
 									<div class="dropdown" style="display: inline-block;">
 										<div class="mr-3">
 											<span class="h4 event-section-title">반경</span> <a
@@ -221,7 +139,7 @@ input:checked + .slider:before {
 									</div>
 								</div>
 
-								<div class="col-md-5 text-center findEventTitleWrap">
+								<div class="text-center findEventTitleWrap">
 									<input type="text" name="searchValue" id="searchValue" class="p-1 form-control eventTItleInput"
 										style="border-radius: 0.25rem;" placeholder="제목">
 									<a id="findEventButton" class="btn btn-primary" style="background-color: #00a185; border: none;" onclick="searchSlist()">검색</a>

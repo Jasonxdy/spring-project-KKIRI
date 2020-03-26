@@ -252,6 +252,9 @@
     transform: translate(-50%, -50%);
     font-weight: bold;
 }
+#event-recommend .star-rating{
+	vertical-align:middle;
+}
 @media screen and (max-width: 991px) {
 	.blog-slider__text .content .member-count{
 		padding-top : 0;
@@ -332,7 +335,7 @@
   .blog-slider__text .leader{
     display: block;
     text-align: left;
-    padding-left: 5%;
+    padding-left: 5px;
     border:none;
   }
 }
@@ -416,6 +419,7 @@
     bottom: 0;
     text-align: center;
     left: 50%;
+    width: 100%;
     transform: translateX(-50%);
 }
 #ranking .ranker > .star-rating>img{
@@ -485,7 +489,7 @@
 	    position: absolute;
 	    left: 50%;
 	    transform: translate(-50%,-50%);
-	    top: 20%;
+	    top: -50%;
 	}
 }
 @media (max-width: 405px){
