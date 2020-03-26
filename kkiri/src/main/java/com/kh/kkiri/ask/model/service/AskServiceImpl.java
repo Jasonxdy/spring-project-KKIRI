@@ -51,4 +51,15 @@ public class AskServiceImpl implements AskService {
 	public int adminSendAnswer(Ask ask) throws Exception {
 		return askDAO.adminSendAnswer(ask);
 	}
+	
+	/** 1:1문의 등록 Service
+	 * @param ask
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int askWrite(Ask ask) throws Exception {
+		return askDAO.askWrite(ask);
+	}
 }

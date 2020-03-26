@@ -67,6 +67,16 @@
 	</resultMap>
 	
 	
+	<resultMap type="Rating" id="ratingResultSet">
+	<id property="ratingNo" column="RATING_NO"/>
+	<result property="eventNo" column="EVENT_NO"/>
+	<result property="memberNo" column="MEMBER_NO"/>
+	<result property="ratingContent" column="RATING_CONTENT"/>
+	<result property="ratingModifyDate" column="RATING_MODIFY_DT"/>
+	<result property="ratingScore" column="RATING_SCORE"/>
+	<result property="ratingStatus" column="RATING_STATUS"/>
+	</resultMap>
+	
 	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
@@ -168,7 +178,7 @@
 	<insert id="createEvent" parameterType="Event">
 		INSERT INTO EVENT VALUES(#{eventNo},#{eventTitle},#{eventContent},
 		#{eventCategory},#{eventLocation},#{latitude},#{longtitude},#{eventStart},#{eventEnd},
-		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress})
+		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress},'N')
 	</insert>
 	
 	<!-- 이벤트 생성 성공시 party테이블에 데이터 추가용  --> 
@@ -236,6 +246,20 @@
 		AND RATING_STATUS = 'Y'
 	</select>
 	
-
-
+	
+	<select id="selectRatingList" parameterType="_int" resultMap="ratingResultSet">
+		SELECT * FROM RATING
+		WHERE EVENT_NO = ${eventNo}
+	</select>
+	
+	<select id="moveEvent1" parameterType="_int" resultMap="eventResultSet">
+	SELECT * 
+	FROM V_EVENT
+	WHERE MEMBER_NO= #{memberNo}
+	</select>
+	<select id="moveEvent2" parameterType="_int" resultMap="eventResultSet">
+	SELECT * 
+	FROM V_EVENT_SP
+	WHERE MEMBER_NO = #{memberNo}
+	</select>
 </mapper>

@@ -224,7 +224,7 @@ input:checked + .slider:before {
 								<div class="col-md-5 text-center findEventTitleWrap">
 									<input type="text" name="searchValue" id="searchValue" class="p-1 form-control eventTItleInput"
 										style="border-radius: 0.25rem;" placeholder="제목">
-									<a class="btn btn-primary" style="background-color: #00a185; border: none;" onclick="searchSlist()">검색</a>
+									<a id="findEventButton" class="btn btn-primary" style="background-color: #00a185; border: none;" onclick="searchSlist()">검색</a>
 								</div>
 							</div>
 					</div>
@@ -903,8 +903,13 @@ input:checked + .slider:before {
 		    };
 		    
 		    $(function(){
-		    	
-				searchSlist();
+		    	var testValue = "${findKeyword}";
+		    	if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
+					$("#searchKey").val(testValue);
+		    		$("#findEventButton").click();
+		    	}else{
+					searchSlist();  // 그냥 탐색을 들어갔을 때
+		    	}
 		    });
 		</script>
 </body>

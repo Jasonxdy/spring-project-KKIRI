@@ -40,4 +40,14 @@ public class AskDAO {
 		return sqlSession.update("askMapper.adminSendAnswer", ask);
 	}
 
+
+	/** 1:1 문의 등록 DAO
+	 * @param ask
+	 * @return
+	 * @throws Exception
+	 */
+	public int askWrite(Ask ask) throws Exception {
+		return sqlSession.insert("askMapper.aksWrite", ask);
+	}
+
 }

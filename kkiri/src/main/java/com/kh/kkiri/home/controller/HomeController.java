@@ -54,20 +54,20 @@ public class HomeController {
 			
 			// google_url 가져오는 로직
 			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		    model.addAttribute("google_url", url);
+		    session.setAttribute("google_url", url);
 			
 		    // kakaoUrl
 		    String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
 		    
 		    /* 생성한 인증 URL을 View로 전달 */
-		    model.addAttribute("kakao_url", kakaoUrl);
+		    session.setAttribute("kakao_url", kakaoUrl);
 		    
 		    // naverUrl
 		    String naverState = naverController.generateState();
 //		    System.out.println("홈컨에서 검증 토큰: "+naverState);
 		    session.setAttribute("naverState", naverState);
 		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://localhost:8080/kkiri/member/naverLogin&state=" + naverState;
-		    model.addAttribute("naverUrl", naverUrl);
+		    session.setAttribute("naverUrl", naverUrl);
 
 		    
 		    // 이벤트 추천

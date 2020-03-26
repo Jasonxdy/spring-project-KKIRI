@@ -257,13 +257,19 @@ public class MypageController {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
 
-
+		if(currentPage == null) {
+			currentPage = 1;
+		}
+		
+		
+		
 		try {
-
+			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo);
-
-
-
+			// 내가 참가한 이벤트 
+			List<Event> ejList = mypageService.moveEvent2(memberNo);
+			model.addAttribute("eList", eList);
+			model.addAttribute("ejList", ejList);
 
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -282,10 +288,11 @@ public class MypageController {
 
 	@RequestMapping("costTicket")
 	public String costTicket(String refundTicket, Model model,
-			RedirectAttributes rdattr) {
+			RedirectAttributes rdattr,
+			String memberPassword) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int ticketCount = Integer.parseInt(refundTicket);
-
+		loginMember.setMemberPwd(memberPassword);
 		Ticket ticket = new Ticket();
 		ticket.setMemberNo(loginMember.getMemberNo());
 		ticket.setPaymentTicket(ticketCount);
@@ -294,14 +301,22 @@ public class MypageController {
 
 				try {
 
-					int result = mypageService.costTicket(ticket);
-					// 0 = payment를 못넣음
+					int result = mypageService.costTicket(ticket,loginMember);
+					// 0 = 비밀번호 불일치
 					// 1 = payment만 넣음
 					// -1 = 둘 다 넣음
-					if(result<0)	msg="환급신청이 완료 되었습니다.";
-					else if (result ==0) msg="환급 신청작업중 오류가 발생하였습니다.";
-					else msg="환급 신청 과정중 문제가 발생하였습니다.";
-					loginMember.setMemberTicket((loginMember.getMemberTicket()-ticketCount));
+					// -2 = payment를 못넣음
+					
+					if(result==-1) {
+						msg="환급신청이 완료 되었습니다.";
+						loginMember.setMemberTicket((loginMember.getMemberTicket()-ticketCount));
+					}
+					else if(result==0) msg="비밀번호가 일치하지 않습니다.";
+					else if (result ==-2) msg="환급 신청작업중 오류가 발생하였습니다.";
+					else if (result==1)msg="환급 신청 과정중 문제가 발생하였습니다.";
+					
+					
+					loginMember.setMemberPwd("");
 					model.addAttribute("loginMember", loginMember);
 					rdattr.addFlashAttribute("msg", msg);
 					return "redirect:/mypage/moveRefund";

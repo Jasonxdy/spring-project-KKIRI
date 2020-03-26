@@ -254,7 +254,7 @@ public class EventDAO {
 	 */
 	public List<Rating> selectRatingList(int eventNo, PageInfo pInf) throws Exception{
 		RowBounds rbounds = new RowBounds((pInf.getCurrentPage()-1)*pInf.getLimit(), pInf.getLimit());
-		return sqlSession.selectList("eventMapper.getListCount", eventNo, rbounds);
+		return sqlSession.selectList("eventMapper.selectRatingList", eventNo, rbounds);
 	}
 
 

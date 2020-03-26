@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,17 +36,16 @@ public class ProfileController {
 	private int pagingBarSize = 5;
 	
 	@RequestMapping("user")
-	public String userProfile(//Integer no,
+	public String userProfile(int no,
 								Model model,
 								RedirectAttributes rdAttr,
-								HttpServletRequest request
+								HttpServletRequest request,
+								HttpSession session
 								) {
 		String beforeUrl = request.getHeader("referer");
 		
 		try {
-			int memberNo = 100;
-			
-			Member member = profileService.selectMember(memberNo);
+			Member member = profileService.selectMember(no);
 			
 			if(member != null) {
 				if(member.getMemberIntroduce() != null) {
@@ -55,6 +55,16 @@ public class ProfileController {
 				}
 				member.setMemberGender(member.getMemberGender().replace("M", "남자"));
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
+				
+				Member loginMember  = (Member)session.getAttribute("loginMember");
+				System.out.println(loginMember);
+				
+				if(loginMember != null) {
+					Favorite favorite = new Favorite(loginMember.getMemberNo(), no);
+					
+					int result = profileService.checkFavorite(favorite);
+					model.addAttribute("checkFavorite", result);
+				}
 				
 				model.addAttribute("member", member);
 				
