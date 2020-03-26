@@ -145,20 +145,25 @@
                         </div>
                       
                       <p><strong class='require'>필수</strong>&nbsp;전화번호</p>
-                      <input type="number" class="memberPhone" name="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">-
-                      <input type="number" class="memberPhone" name="memberPhone2" maxlength="4" oninput="maxLengthCheck(this)">-
-                      <input type="number" class="memberPhone" name="memberPhone3" maxlength="4" oninput="maxLengthCheck(this)"><br>
+                      <input type="number" class="memberPhone" name="memberPhone1" id="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">-
+                      <input type="number" class="memberPhone" name="memberPhone2" id="memberPhone2" maxlength="4" oninput="maxLengthCheck(this)">-
+                      <input type="number" class="memberPhone" name="memberPhone3" id="memberPhone3" maxlength="4" oninput="maxLengthCheck(this)"><br>
                       <div>
                             <span id="checkPhone">&nbsp;</span>
                         </div>
                       
                       <label for="memberEmail"><strong class='require'>필수</strong>&nbsp;이메일</label>
                       <input type="email" name="memberEmail" id="memberEmail"><br>
+                      <div>
+                            <span id="checkEmail">&nbsp;</span>
+                        </div>
+                      
                       <label for="memberBirth"><strong class='require'>필수</strong>&nbsp;생년월일</label>
                       <input type="date" name="memberBirth" id="memberBirth"><br>
+                      
                       <p><strong class='require'>필수</strong>&nbsp;성별</p>
-                      <label for="male" class="gender-label"><input type="radio" name="memberGender" value="M" id="male">남자</label>
-                      <label for="female" class="gender-label"><input type="radio" name="memberGender" value="F" id="female">여자</label><br>
+                      <label for="male" class="gender-label"><input type="radio" class="memberGender" name="memberGender" value="M" id="male">남자</label>
+                      <label for="female" class="gender-label"><input type="radio" class="memberGender" name="memberGender" value="F" id="female">여자</label><br>
                       <p>본인 계좌번호</p>
                       <select name="memberBankName">
                         <option value="none">은행선택</option>
@@ -168,7 +173,10 @@
                         <option value="하나은행">하나은행</option>
                       </select>
                       <input type="text" class="memberBankNumber" name="memberBankNumber" placeholder="계좌번호입력('-' 없이 입력해주세요.)"><br>
+                      
+                      <label for="memberAccountName" class="memberIntroduceTitle">예금주명</label>
                       <input type="text" class="memberAccountName" name="memberAccountName" placeholder="예금주명"><br>
+                      
                       <label for="memberIntroduce" class="memberIntroduceTitle">자기소개</label>
                       <textarea name="memberIntroduce" id="memberIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요."></textarea><br>
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
@@ -229,19 +237,17 @@
       
       
       // 유효성 검사 
-      
-      //function validate(){
-    	 
     	  var createIdCheck={
+    		  "memberProfile":false,
     		  "memberId":false, // 입력확인, 아이디 유효성, 중복 검사
     		  "memberIdUnique":false,
     		  "memberPwd":false, // 입력 확인, 비번 유효성
     		  "memberPwd2":false, // 중복검사
-    		  "memberNickname":false, //중복 검사, 입력확인
     		  
-    		  "memberPhone1":false, // 입력 확인
-    		  "memberPhone2":false,
-    		  "memberPhone3":false,
+    		  "memberNickname":false, //중복 검사, 입력확인
+    		  "memberNickUnique":false,
+    		  
+    		  "memberPhone":false,
     		  "memberEmail":false, //중복 검사, 입력확인
     		  "memberBirth":false, //입력 확인
     		  "memberGender":false //입력 확인 
@@ -253,22 +259,26 @@
     			var $memberIdUnique = $("memberIdUnique");
     			var $memberPwd = $("#memberPwd");
     			var $memberPwd2 = $("#memberPwd2");
-    			var $memberNickname = $("#memberNickname");
     			
+    			var $memberNickname = $("#memberNickname");
+    			var $memberNickUnique = $("#memberNickUnique");
+    			
+				var $memberPhone = ("#memberPhone");
     			var $memberPhone1 = $("#memberPhone1");
     			var $memberPhone2 = $("#memberPhone2");
     			var $memberPhone3 = $("#memberPhone3");
     		
-    			
     			var $memberEmail = $("#memberEmail");
+    			var $memberEmailUnique = $("#memberEmailUnique");
+    			
     			var $memberBirth = $("#memberBirth");
-    			var $memberGender = $("#memberGender");
+    			var $memberGender = $(".memberGender");
     			
 				$memberId.on("input" , function(){
 					
 					var regExp = /^[a-z][a-zA-z\d]{5,11}$/;
 					if(!regExp.test($memberId.val())){
-						$("#checkId").text("아이디 형식을 확인해주세요.").css("color", "#c82333" );
+						$("#checkId").text("아이디 형식을 확인").css("color", "#c82333" );
 						
 						createIdCheck.memberId=false;
 					}else{
@@ -281,11 +291,11 @@
 							success : function(result){
 								
 								if(result == "true"){
-									$("#checkId").text("아이디 사용가능").css("color", "#c82333" );
-									
+									$("#checkId").text("아이디 사용가능").css("color", "#0069d9" );
+									createIdCheck.memberIdUnique = true;
 								}else{
-									$("#checkId").text("이미 등록된 아이디").css("color", "#0069d9" );
-									
+									$("#checkId").text("이미 등록된 아이디").css("color", "#c82333" );
+									createIdCheck.memberIdUnique = false;
 								}
 							},
 							error: function(e){
@@ -294,7 +304,7 @@
 							}
 							
 						}); // ajax 끝
-						createIdCheck.idUnique = true;
+						
 						
 					}
 					
@@ -305,10 +315,10 @@
 					
 					var regExp = /^[a-zA-Z0-9~!@#$%^&*()_+]{6,15}$/;
 					if(!regExp.test($memberPwd.val())){
-						$("#checkPwd").text("비밀번호 형식을 확인해주세요.").css({"color": "#c82333"});
+						$("#checkPwd").text("비밀번호 형식을 확인").css({"color": "#c82333"});
 						createIdCheck.memberPwd = false;
 					}else{
-						$("#checkPwd").text("사용 가능한 비밀번호입니다.").css({"color": "#0069d9"});
+						$("#checkPwd").text("사용 가능한 비밀번호").css({"color": "#0069d9"});
 						createIdCheck.memberPwd = true;
 					}
 					
@@ -326,21 +336,133 @@
 					
 				});
     			
-				// 전화번호 입력 체크 ( 배열 길이로 체크)
+				// 닉네임 ajax
+				$memberNickname.on("input" , function(){
+					
+					var regExp = /^[a-zA-z0-9가-힣\d]{2,16}$/;
+					if(!regExp.test($memberNickname.val())){
+						$("#checkNickName").text("2글자 이상 입력").css("color", "#c82333" );
+						
+						createIdCheck.memberNickname=false;
+					}else{
+						
+						createIdCheck.memberNickname=true;
+						$.ajax({
+							url: "memberNickUnique",
+							data: {memberNickname: $memberNickname.val() },
+							type : "post",
+							success : function(result){
+								
+								if(result == "true"){
+									$("#checkNickName").text("닉네임 사용가능").css("color", "#0069d9" );
+									
+								}else{
+									$("#checkNickName").text("이미 등록된 닉네임").css("color", "#c82333" );
+									
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+	                			console.log(e);
+							}
+							
+						}); // ajax 끝
+						createIdCheck.memberNickUnique = true;
+						
+					}
+					
+				});
 				
-			
 				
-				// 이메일 , 닉네임 ajax, ㄴ
+				// 이메일 ajax
+				$memberEmail.on("input" , function(){
+					
+					var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+					if(!regExp.test($memberEmail.val())){
+						$("#checkEmail").text("이메일 형식을 확인해주세요.").css("color", "#c82333" );
+						
+						createIdCheck.memberEmail=false;
+					}else{
+						
+						createIdCheck.memberEmail=true;
+						$.ajax({
+							url: "memberEmailUnique",
+							data: {memberEmail: $memberEmail.val() },
+							type : "post",
+							success : function(result){
+								
+								if(result == "true"){
+									$("#checkEmail").text("이메일 사용가능").css("color", "#0069d9" );
+									
+								}else{
+									$("#checkEmail").text("이미 등록된 이메일").css("color", "#c82333" );
+									
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+	                			console.log(e);
+							}
+							
+						}); // ajax 끝
+						createIdCheck.memberEmailUnique = true;
+					}
+					
+				});
+				
+				//전화 번호
+				$(".memberPhone").on("input", function(){
+					
+					var regExp1 =  /^\d{2,3}$/; // 숫자 3글자
+	                var regExp2 =  /^\d{3,4}$/; // 숫자 3~4 글자
+	                var regExp3 =  /^\d{4,4}$/; // 숫자 4 글자
+					
+ 				 	if(!regExp1.test($memberPhone1.val()) || !regExp2.test($memberPhone2.val())
+							|| !regExp3.test($memberPhone3.val()) ){
+						$("#checkPhone").text("유효하지 않는 전화번호").css("color", "#c82333" );
+						createIdCheck.memberPhone = false;
+					}else{
+						$("#checkPhone").text("유효한 전화번호").css("color", "#0069d9" );
+						createIdCheck.memberPhone = true;
+					}   
+					
+				});
+				
+				// 생년월일
+					$memberBirth.on("input", function(){
+					if($("#memberBirth").val().trim() == ""){
+						createIdCheck.memberBirth = false;
+					}else{
+						createIdCheck.memberBirth = true;
+					}
+				});
+				
+				// 성별
+					$memberGender.on("input", function(){
+						if($(".memberGender").val().trim() == ""){
+							createIdCheck.memberGender = false;
+						}else{
+							createIdCheck.memberGender = true;
+						}
+					});
+					
 				
 				
-				
-				
-				
-
-    			
     		}); // ready 함수 끝
     		
-      //}  // validate 끝 
+   		function validate(){
+    			for(var key in createIdCheck){
+    				console.log(key + " / " + createIdCheck[key]);
+    				
+    				if(!createIdCheck[key]){
+    					alert("빠진 항목을 확인해주세요");
+    					var id = "#"+key;
+    					$(id).focus();
+    					return false;
+    				}
+    			}
+    			
+    		}
       
       
       // 전화번호 자릿수 제한
@@ -363,6 +485,7 @@
             var reader = new FileReader();
             reader.onload = function(e){
               $(".uploadImg").prop("src",e.target.result);
+              createIdCheck.memberProfile = true;
             }
           }
           reader.readAsDataURL(value.files[0]);

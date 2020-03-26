@@ -257,13 +257,19 @@ public class MypageController {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
 
-
+		if(currentPage == null) {
+			currentPage = 1;
+		}
+		
+		
+		
 		try {
-
+			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo);
-
-
-
+			// 내가 참가한 이벤트 
+			List<Event> ejList = mypageService.moveEvent2(memberNo);
+			model.addAttribute("eList", eList);
+			model.addAttribute("ejList", ejList);
 
 		}catch (Exception e) {
 			e.printStackTrace();

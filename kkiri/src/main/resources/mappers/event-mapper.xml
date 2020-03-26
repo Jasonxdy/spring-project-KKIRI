@@ -259,7 +259,7 @@
 	</select>
 	<select id="moveEvent2" parameterType="_int" resultMap="eventResultSet">
 	SELECT * 
-	FROM V_EVENT_P
+	FROM V_EVENT_SP
 	WHERE MEMBER_NO = #{memberNo}
 	</select>
 </mapper>
