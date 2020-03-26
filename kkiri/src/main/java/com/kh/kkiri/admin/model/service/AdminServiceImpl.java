@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.admin.model.dao.AdminDAO;
+import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.payment.model.dao.PaymentDAO;
@@ -77,5 +78,25 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional(rollbackFor = Exception.class)
 	public int recover(Integer memberNo) throws Exception {
 		return adminDAO.recover(memberNo);
+	}
+	
+	/** 영상 업로드 Service
+	 * @param videoName
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int insertVideo(String videoName) throws Exception {
+		return adminDAO.insertVideo(videoName);
+	}
+	
+	/** 영상 조회 Service
+	 * @return vList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Video> adminSelectVideo() throws Exception {
+		return adminDAO.adminSelectVideo();
 	}
 }

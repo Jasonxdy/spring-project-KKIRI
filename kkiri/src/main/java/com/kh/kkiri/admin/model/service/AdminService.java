@@ -3,6 +3,7 @@ package com.kh.kkiri.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -42,6 +43,19 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	int recover(Integer memberNo) throws Exception;
+
+	/** 영상 업로드 Service
+	 * @param videoName
+	 * @return result
+	 * @throws Exception
+	 */
+	int insertVideo(String videoName) throws Exception;
+
+	/** 영상 조회 Service
+	 * @return vList
+	 * @throws Exception
+	 */
+	List<Video> adminSelectVideo() throws Exception;
 
 
 }

@@ -24,6 +24,8 @@
 							tabindex="-1">신고</a></li>
 						<li class="nav-item"><a class="nav-link active" href="ask"
 							tabindex="-1">문의</a></li>
+						<li class="nav-item"><a class="nav-link" href="management"
+					tabindex="-1">관리</a></li>
 					</ul>
 				</div>
 

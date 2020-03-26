@@ -1,5 +1,6 @@
 package com.kh.kkiri.admin.controller;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
+import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.ask.model.service.AskService;
 import com.kh.kkiri.ask.model.vo.Ask;
 import com.kh.kkiri.common.Pagination;
@@ -339,6 +342,76 @@ public class AdminController {
 			return "common/errorPage";
 		}
 		return "admin/admin_event";
+	}
+	
+	@RequestMapping("management")
+	public String adminManagement(Model model,HttpSession session,
+			RedirectAttributes rdAttr) {
+		Enumeration<String> names = session.getAttributeNames();
+		boolean flag = false;
+		while(names.hasMoreElements()) {
+			if(names.nextElement().toString().equals("loginMember")) {
+				flag = true;
+			}
+		}
+		if(flag) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			if(!loginMember.getMemberGrade().equals("A")) {
+				rdAttr.addFlashAttribute("msg", "관리자만 접근할 수 있습니다.");
+				return "redirect:/";
+			}
+		}else {
+			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
+			return "redirect:/";
+		}
+		List<Video> vList = null;
+		try {
+			vList = adminService.adminSelectVideo();
+			model.addAttribute("vList", vList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "영상 조회 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+		
+		
+		
+		return "admin/admin_management";
+	}
+	
+	@RequestMapping("adminUploadVideo")
+	public String adminUploadVideo(Model model, HttpServletRequest request,
+			RedirectAttributes rdAttr,
+			@RequestParam(value="inputVideo", required=false) MultipartFile inputVideo) {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
+		
+		String savePath = root + "/uploadVideo";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) folder.mkdir();
+		
+		String msg = null;
+		
+		try {
+			String videoName = inputVideo.getOriginalFilename();
+			int result = adminService.insertVideo(videoName);
+			
+			if(result>0) {
+				inputVideo.transferTo(new File(savePath + "/" + videoName));
+				msg = "영상 업로드 성공";
+			} else {
+				msg = "영상 업로드 실패";
+			}
+			model.addAttribute("msg", msg);
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "영상 업로드 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+		return "redirect:/admin/management";
 	}
 	
 }

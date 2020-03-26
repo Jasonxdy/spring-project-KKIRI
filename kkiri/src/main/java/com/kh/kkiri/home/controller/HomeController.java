@@ -96,6 +96,10 @@ public class HomeController {
 			model.addAttribute("eventList",eventList);
 			model.addAttribute("rankSize", mlist.size());
 			
+			// 영상 주소를 올려야함. 해당 영상이 없거나 상태가 N이어도 오류가 나지 않게
+			// c:if로  기본값을 정해야함. 
+			// 파일을 이름을 바꾸어 기본 폴더로 옮기고 기존 파일은 대기 폴더로 옮김.
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "메인 화면 로딩 과정 중 오류 발생");
