@@ -73,13 +73,13 @@
 <script>
 	//임시
 	<c:if test='${loginMember != null}'>
-		var loginMemberNo = 100;
+		var loginMemberNo = ${loginMember.memberNo};
 	</c:if>
 	<c:if test='${loginMember == null}'>
 		var loginMemberNo = -1;
 	</c:if>
 	
-	var memberNo = 100;
+	var memberNo = ${member.memberNo};
 	
 	// 생성한 이벤트는 0, 참여한 이벤트는 1으로 구분한다
 	var flag = 0;
@@ -257,6 +257,7 @@
 	};
 	
 	$(function(){
+		console.log(${checkFavorite});
 		<c:if test='${checkFavorite == 1}'>
 			$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");
 		</c:if>
