@@ -65,7 +65,7 @@ public interface MypageService {
 	 */
 	List<Event> moveEvent(int memberNo)throws Exception;
 
-	int costTicket(Ticket ticket)throws Exception;
+	int costTicket(Ticket ticket, Member loginMember)throws Exception;
 
 	
 }
