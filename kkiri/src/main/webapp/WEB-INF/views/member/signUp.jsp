@@ -450,20 +450,6 @@
 				
     		}); // ready 함수 끝
     		
-   		function validate(){
-    			for(var key in createIdCheck){
-    				console.log(key + " / " + createIdCheck[key]);
-    				
-    				if(!createIdCheck[key]){
-    					alert("빠진 항목을 확인해주세요");
-    					var id = "#"+key;
-    					$(id).focus();
-    					return false;
-    				}
-    			}
-    			
-    		}
-      
       
       // 전화번호 자릿수 제한
       function maxLengthCheck(object) {
@@ -480,16 +466,35 @@
           }
         });
       });
+      
+      // 이미지 등록 체크
       function loadImg(value){
           if(value.files && value.files[0]){
             var reader = new FileReader();
             reader.onload = function(e){
               $(".uploadImg").prop("src",e.target.result);
+              
               createIdCheck.memberProfile = true;
             }
           }
           reader.readAsDataURL(value.files[0]);
       }
+      
+      
+   // 유효성 검사 validate()	
+ 		function validate(){
+  			for(var key in createIdCheck){
+  				console.log(key + " / " + createIdCheck[key]);
+  				
+  				if(!createIdCheck[key]){
+  					alert("빠진 항목을 확인해주세요");
+  					var id = "#"+key;
+  					$(id).focus();
+  					return false;
+  				}
+  			}
+  		}
+   
     </script>
 
     
