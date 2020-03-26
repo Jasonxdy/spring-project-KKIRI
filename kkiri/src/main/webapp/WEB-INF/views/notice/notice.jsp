@@ -5,28 +5,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean"
-    rel="stylesheet">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/board.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/header.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/footer.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <title>KKIRI(끼리)</title>
+  <title>공지사항</title>
 </head>
-
 <body>
   <jsp:include page="../common/header.jsp"/>
-  
     <!-- content 시작 -->
     <div id="container" class="container">
       <div class="row mt-5">
@@ -35,7 +17,7 @@
             <a class="nav-link active" href="#" tabindex="-1">공지사항</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="questionWrite.html" tabindex="-1">1:1문의 작성</a>
+            <a class="nav-link" href="${contextPath }/ask/askWrite" tabindex="-1">1:1문의 작성</a>
           </li>
         </ul>
       </div>

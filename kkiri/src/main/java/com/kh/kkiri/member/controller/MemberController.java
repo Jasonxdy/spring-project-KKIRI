@@ -359,7 +359,6 @@ public class MemberController {
 	@RequestMapping(value = "/kakaoLogin")
 	public String getKakaoSignIn(ModelMap model, @RequestParam("code") String code, HttpSession session,
 			RedirectAttributes rdAttr, HttpServletRequest request) {
-		String beforeUrl = request.getHeader("referer");
 		try {
 			JsonNode userInfo = kakaoLogin.getKakaoUserInfo(code);
 			String msg = null;
@@ -452,33 +451,33 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		return "redirect:" + beforeUrl;
+		return "redirect:/";
 	}
 	
 	@RequestMapping("naverLogin")
 	public String naverLogin(Model model, String state, String code, HttpSession session,
 			RedirectAttributes rdAttr, HttpServletRequest request) {
+		// session에 올려둔 상태 토큰을 HomeController에 등록한 url에서 요청한 상태 토큰과 검증
 		String storedState = (String)session.getAttribute("naverState");
-		String beforeUrl = request.getHeader("referer");
-		if(!state.equals(storedState)) {
+		// 이전 페이지 url 저장
+		if(!state.equals(storedState)) { // 검증이 불일치하면 
 			session.setAttribute("msg", "검증 토큰 불일치!");
 			return "redirect:/";
-		} else {
+		} else { // 검증이 일치할 때
 			try {
+				// JsonNode 형식으로 받은 userInfo
 				JsonNode userInfo = naverLogin.getNaverUserInfo(code, session);
 				String msg = null;
 				System.out.println(userInfo);
-					
+				
+				// JsonNode에 접근하는 메소드 get을 이용
+				// get(키값)은 value를 반환. 다만 ""가 같이 나옴
+				// reponse 내부에 id를 찾아서 String으로 변환
 				String memberId = userInfo.get("response").get("id").toString();
 				String memberNickname = userInfo.get("response").get("nickname").toString().replaceAll("\"", "");
 				String memberEmail = userInfo.get("response").get("email").toString().replaceAll("\"", "");
 				String memberPwd = userInfo.get("resultcode").toString();
 				String memberGender = userInfo.get("response").get("gender").toString().replaceAll("\"", "");
-				if (memberGender.equals("male"))
-					memberGender = "M";
-				else if (memberGender.equals("female"))
-					memberGender = "Y";
-				else memberGender = "M";
 				String memberPhone = "010-0000-0000"; // DB에서 default값 혹은 null 가능으로 변경
 				String memberPlace = "설정해 주세요";
 				String memberCategory = "설정해 주세요";
@@ -530,7 +529,7 @@ public class MemberController {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			return "redirect:" + beforeUrl;
+			return "redirect:/";
 		}
 	}
 

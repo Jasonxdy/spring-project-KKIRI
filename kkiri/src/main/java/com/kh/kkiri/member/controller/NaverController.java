@@ -24,6 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class NaverController {
+	// https://developers.naver.com/docs/login/web/
+	
 	// CSRF 방지를 위한 상태 토큰 생성 코드
 	// 상태 토큰은 추후 검증을 위해 세션에 저장되어야 한다.
 	
@@ -112,6 +114,8 @@ public class NaverController {
 		String accessToken = getAccessToken(autorize_code, session);
 		// add header
 		// Authorization: {토큰 타입] {접근 토큰] 형식으로 전달
+		// 요청헤더: 서버에 전달하는 사용자의 정보
+		// (처리 가능한 파일의 종류와 문자 코드, 언어 등)을 나타내는 부분이다.
 		post.addHeader("Authorization", "Bearer " + accessToken);
 
 		JsonNode returnNode = null;
@@ -139,6 +143,8 @@ public class NaverController {
 
 			// clear resources
 		}
+		
+		// JSON 형태로 사용자 정보를 MemberController로 전달
 		return returnNode;
 	}
 
