@@ -112,4 +112,9 @@ public class ProfileController {
 		
 		return gson.toJson(result);
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		return "test/test";
+	}
 }
