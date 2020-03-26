@@ -118,3 +118,14 @@
 .participate_event_con{
     display: none;
 }
+
+.pagination>li{
+height: 15%;
+width: 100%;
+padding: 0% ;
+margin: 0%;
+}
+.pagination>li>a{
+    width: 100% !important;
+    margin: 0%;
+}

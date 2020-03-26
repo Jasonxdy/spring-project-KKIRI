@@ -326,7 +326,7 @@ public class MypageController {
 					
 					
 					loginMember.setMemberPwd("");
-					model.addAttribute("loginMember", loginMember);
+//					model.addAttribute("loginMember", loginMember);
 					rdattr.addFlashAttribute("msg", msg);
 					return "redirect:/mypage/moveRefund";
 				}catch (Exception e) {
