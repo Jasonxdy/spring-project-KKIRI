@@ -30,6 +30,8 @@
 			<param-value>classpath:spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!-- 채팅 관련 -->
+		<async-supported>true</async-supported>
 	</servlet>
 		
 	<servlet-mapping>
@@ -46,6 +48,8 @@
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
+		<!-- 채팅 관련 -->
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>

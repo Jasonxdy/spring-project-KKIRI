@@ -82,6 +82,16 @@ input,select,textarea             {border:1px solid #cdd2d8; border-radius: 5px;
   font-size: 17px;
   transition: all 0.3s;
 }
+#googleLogin{
+    background: #f13f31 url(/kkiri/resources/img/google-login.png) no-repeat 25% 4.5px / 30px;
+}
+#kakaoLogin{
+	background: #fee934 url(/kkiri/resources/img/kakao-login.png) no-repeat 25% 4.5px / 30px;
+	color: #3e2723;
+}
+#naverLogin{
+	background: #00c73c url(/kkiri/resources/img/naver-login.PNG) no-repeat 25% 4.5px / 30px;
+}
 .popup-confirm-btn:hover{
   opacity: 0.7;
 }
@@ -93,6 +103,11 @@ input,select,textarea             {border:1px solid #cdd2d8; border-radius: 5px;
 @media (max-width: 768px) {
   .popup{
     width : 500px;
+  }
+  #googleLogin,
+  #kakaoLogin,
+  #naverLogin{
+  	background-position : 15%;
   }
 }
 @media (max-width: 500px) {

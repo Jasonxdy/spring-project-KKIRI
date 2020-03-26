@@ -200,9 +200,34 @@ public class MemberController {
 		  }
 	  }
 	
+	@ResponseBody
+	@RequestMapping("memberNickUnique")
+	public String memberNickUnique(String memberNickname,Model model ) {
+		  
+		  try {
+			  return memberService.memberNickUnique(memberNickname) == 0 ? true+"" : false+"";
+			  						// 서비스 인터페이스 -> 임플 -> 
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  model.addAttribute("errorMsg","닉네임 중복 체크 중 오류 발생");
+			  return "common/errorPage";
+		  }
+	  }
+
 	
-	
-	
+	@ResponseBody
+	@RequestMapping("memberEmailUnique")
+	public String memberEmailUnique(String memberEmail,Model model ) {
+		  
+		  try {
+			  return memberService.memberEmailUnique(memberEmail) == 0 ? true+"" : false+"";
+			  						// 서비스 인터페이스 -> 임플 -> 
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  model.addAttribute("errorMsg","닉네임 중복 체크 중 오류 발생");
+			  return "common/errorPage";
+		  }
+	  }
 	
 	
 	
@@ -350,6 +375,8 @@ public class MemberController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 
 		return "redirect:" + beforeUrl;
@@ -449,6 +476,8 @@ public class MemberController {
 
 		catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMgs", "로그인 중 오류 발생");
+			return "common/errorPage";
 		}
 
 		return "redirect:/";
@@ -528,6 +557,8 @@ public class MemberController {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				model.addAttribute("errorMgs", "로그인 중 오류 발생");
+				return "common/errorPage";
 			}
 			return "redirect:/";
 		}

@@ -17,9 +17,9 @@
 		<div id="container" class="container">
 			<div class="row mt-5">
 				<ul class="nav nav-tabs">
-					<li class="nav-item"><a class="nav-link" href="board.html"
+					<li class="nav-item"><a class="nav-link" href="${contextPath }/notice/notice"
 						tabindex="-1">공지사항</a></li>
-					<li class="nav-item"><a class="nav-link active" href="#"
+					<li class="nav-item"><a class="nav-link active" href="ask"
 						tabindex="-1">1:1문의 작성</a></li>
 				</ul>
 			</div>
@@ -27,22 +27,24 @@
 			<div class="row justify-content-md-center questionWriteSection">
 				<div class="col-12 rounded-sm">
 					<h2 class="mt-3 mb-3">1:1문의 작성</h2>
-					<form action="#" method="get" class="questionForm">
+					<form action="askWrite" method="post" class="questionForm">
 					<c:if test="${!empty loginMember}">
 						<input type="text" name="askEmail" id="contactEmail" 
 						value="${loginMember.memberEmail}" style="display:none;">
+						<input type="text" name="memberNo" 
+						value="${loginMember.memberNo}" style="display:none;">
 					</c:if>
 					
 					<c:if test="${empty loginMember}">
 						<label for="contactEmail">답변을 받으실 이메일 주소를 입력해주세요.</label> 
-						<input type="email" name="askEmail" id="contactEmail"> <br> 
+						<input type="email" name="askEmail" id="contactEmail" required> <br> 
 					</c:if>
 						
 						<label for="questionTitle">제목</label>
-						<input type="text" name="askTitle" id="questionTitle"> <br> 
+						<input type="text" name="askTitle" id="questionTitle" required> <br> 
 						
 						<label for="questionContent">내용</label>
-						<textarea id="questionContent" name="askContent"></textarea>
+						<textarea id="questionContent" name="askContent" required></textarea>
 
 						<button class="green-radius-btn">제출</button>
 						&nbsp;

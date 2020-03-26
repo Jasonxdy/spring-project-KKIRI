@@ -86,7 +86,7 @@
                     <c:if test="${!empty eventList}">
                     	<c:forEach var="event" items="${eventList}" varStatus="vs">
 	                      <div class="blog-slider__item swiper-slide">
-	                        <div class="blog-slider__img">
+	                        <div class="blog-slider__img" onclick="eventLink();" >
 	                          <img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}" alt="이벤트 썸네일">
 	                        </div>
 	                        <div class="blog-slider__content">
@@ -105,7 +105,7 @@
 	                              <p class="leader-info">
 	                                		${event.memberNickname}<br>
 	                                <img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">
-	                                <span class="star-rating">${event.memberRating}</span>
+	                                <span class="star-rating"><fmt:formatNumber value="${event.memberRating}" pattern="0.00"/></span>
 	                              </p>
 	                              <p class="member-count">참석인원 : ${event.partyCount}/${event.eventQuota}</p>
 	                            </div>
@@ -113,13 +113,6 @@
 	                          </div>
 	                        </div>
 	                      </div>
-	                      
-	                      <script>
-	                      	$(function(){
-	                      		var btnIndex = $(".swiper-pagination-bullet-active").index(); 
-	                      		console.log(btnIndex);
-	                      	});
-	                      </script>
                       	 </c:forEach>
                     </c:if>
                       
@@ -132,9 +125,27 @@
               </div>
             </div>
           </div>
+          
 
-          <!-- 이런 이벤트는 어떠세요? end -->
-
+		  <!-- 이벤트 상세 주소 매핑 스크립트 -->
+		  <script>
+		  	function eventLink(){
+		  		var linkIndex = $(".blog-slider__pagination .swiper-pagination-bullet-active").index()+1;
+		  		if(linkIndex == 1){
+		  			location.href="${contextPath}/event/detail?no=${eventList[0].eventNo}";
+		  		}else if(linkIndex == 2){
+		  			location.href="${contextPath}/event/detail?no=${eventList[1].eventNo}";
+		  		}else if(linkIndex == 3){
+		  			location.href="${contextPath}/event/detail?no=${eventList[2].eventNo}";
+		  		}else if(linkIndex == 4){
+		  			location.href="${contextPath}/event/detail?no=${eventList[3].eventNo}";
+		  		}else if(linkIndex == 5){
+		  			location.href="${contextPath}/event/detail?no=${eventList[4].eventNo}";
+		  		}
+	  		}
+		  </script>
+		  <!-- 이런 이벤트는 어떠세요? end -->
+		  
           <!-- 주최자 랭킹 start -->
           <div id="ranking">
             <div class="container">
@@ -156,7 +167,7 @@
 	                          <p class="rank"></p>
 	                          <img src="${contextPath}/resources/upProfileImage/${ranking.memberProfile}" alt="회원 썸네일">
 	                          <p class="nickname">${ranking.memberNickname}</p>
-	                          <p class="star-rating"><img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; ${ranking.memberRating}</p>
+	                          <p class="star-rating"><img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; <fmt:formatNumber value="${ranking.memberRating}" pattern="0.00"/></p>
 	                        </li>
                         </c:forEach>
                       </c:if>

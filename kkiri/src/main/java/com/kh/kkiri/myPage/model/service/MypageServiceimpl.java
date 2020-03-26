@@ -1,6 +1,7 @@
 package com.kh.kkiri.myPage.model.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
 import com.kh.kkiri.myPage.model.vo.Ticket;
-import com.kh.kkiri.payment.model.vo.Payment;
 
 @Service
 public class MypageServiceimpl implements MypageService{
@@ -130,6 +130,26 @@ public class MypageServiceimpl implements MypageService{
 	public List<Event> moveEvent(int memberNo) throws Exception {
 
 		return mypageDAO.moveEvent(memberNo);
+	}
+
+	
+	@Override
+	public List<Event> moveEvent2(int memberNo) throws Exception {
+		
+		// 1. 내가 참가한 이벤트들의 eventNo 얻어오기
+		List<Event> ejList = new ArrayList<Event>();
+		List<Integer> eveNo = mypageDAO.countEveNo(memberNo);
+		if(eveNo != null ||!eveNo.isEmpty()) {
+			for(int i = 0; i<eveNo.size();i++) {
+				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
+				ejList.add(ev);
+			}
+		}
+		 
+		
+		// 검색 하는 거
+		
+		return ejList; 
 	}
 
 	@Override

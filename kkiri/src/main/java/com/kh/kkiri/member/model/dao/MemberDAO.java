@@ -54,6 +54,27 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.idUniqueCheck", memberId);
 	}
 
+
+	/** 회원 닉네임 중복체크 DAO
+	 * @param memberNickname
+	 * @return result
+	 * @throws Exception
+	 */
+	public int memberNickUnique(String memberNickname)throws Exception {
+	
+		return sqlSession.selectOne("memberMapper.memberNickUnique", memberNickname);
+	}
+
+	/** 회원 이메일 중복체크 DAO
+	 * @param memberEmail
+	 * @return result
+	 * @throws Exception
+	 */
+	public int memberEmailUnique(String memberEmail)throws Exception {
+		
+		return sqlSession.selectOne("memberMapper.memberEmailUnique", memberEmail);
+	}
+
 	
 	
 	
@@ -91,6 +112,11 @@ public class MemberDAO {
 	public Member checkSocialEmail(String memberEmail) throws Exception {
 		return sqlSession.selectOne("memberMapper.checkSocialEmail", memberEmail);
 	}
+
+
+
+
+
 
 
 

@@ -33,6 +33,22 @@ public interface MemberService {
 	 */
 	int idUniqueCheck(String memberId)throws Exception;
 	
+	/** 닉네임 중복 체크 Service
+	 * @param memberNickname
+	 * @return result
+	 * @throws Exception
+	 */
+	int memberNickUnique(String memberNickname)throws Exception;
+	
+	
+	/** 이메일 중복 체크 Service
+	 * @param memberEmail
+	 * @return return
+	 * @throws Exception
+	 */
+	int memberEmailUnique(String memberEmail)throws Exception;
+	
+	
 	
 
 	/** social 계정 가입 여부 체크 Service
@@ -59,6 +75,14 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	Member checkSocialEmail(String memberEmail) throws Exception;
+
+
+
+
+
+
+
+	
 
 
 

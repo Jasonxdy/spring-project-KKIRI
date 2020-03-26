@@ -59,7 +59,21 @@
 						<c:forEach var="member" items="${mList}" varStatus="vs">
 							<tr class="text-center">
 								<th scope="row">${member.memberNo}</th>
-								<td>${member.memberId}</td>
+								<c:choose>
+									<c:when test="${member.memberIdSort == 'G'}">
+										<td>구글</td>
+									</c:when>
+									<c:when test="${member.memberIdSort == 'K'}">
+										<td>카카오</td>
+									</c:when>
+									<c:when test="${member.memberIdSort == 'V'}">
+										<td>네이버</td>
+									</c:when>
+									<c:otherwise>
+										<td>${member.memberId}</td>
+									</c:otherwise>
+								</c:choose>
+								
 								<td>${member.memberNickname}</td>
 								<td>${member.memberEmail}</td>
 								<td>
@@ -332,7 +346,8 @@
 
 		$(function () {
 	      $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").on("click", function () {
-	        location.href="#";
+	    	var memberNo = $(this).parent().children().eq(0).text();
+	    	  location.href="${contextPath}/profile/user?no=" + memberNo;
 	      }).mouseenter(function () {
 	        $("#admin-table td").not("#admin-table td:nth-child(8), #admin-table td:nth-child(9)").css("cursor", "pointer");
 	      });

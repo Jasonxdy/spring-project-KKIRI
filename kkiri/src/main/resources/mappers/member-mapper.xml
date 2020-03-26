@@ -49,19 +49,27 @@
 				
 	</insert>
 	
-	<!-- 회원 아이디 조회 -->
+	<!-- 회원 아이디 조회  ajax-->
   	<select id="idUniqueCheck" parameterType="Member" resultType="_int">
   		SELECT COUNT(*) FROM MEMBER 
   		WHERE MEMBER_ID = #{memberId}
   	</select>
 	
+	<!-- 회원 닉네임 조회 ajax-->
+  	<select id="memberNickUnique" parameterType="Member" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER 
+  		WHERE MEMBER_NICKNAME = #{memberNickname}
+  	</select>
+	
+	<!-- 회원 닉네임 조회 ajax-->
+  	<select id="memberEmailUnique" parameterType="Member" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER 
+  		WHERE MEMBER_EMAIL = #{memberEmail}
+  	</select>
 	
 	
 	
-	
-	
-	
-	
+	<!-- 관리자 회원 수 조회 -->
 	<select id="adminMemberCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM V_MEMBER_A
 		<where>
@@ -79,6 +87,7 @@
 		</where>
 	</select>
 	
+	<!-- 관리자 회원 조회 -->
 	<select id="adminSelectMember" parameterType="map" resultMap="memberResultSet">
 		SELECT *
 		FROM V_MEMBER_A
