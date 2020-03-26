@@ -258,23 +258,6 @@ input:checked + .slider:before {
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 	
 		<script>
-		/*  
-			<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
-				geocoder.addressSearch($("#place").text(), function(result, status) {
-					console.log("aaa");
-				
-			    if (status === kakao.maps.services.Status.OK) {
-			        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			        console.log(coords);
-			        //map.setCenter(coords);
-			    	} 
-				});
-			</c:if>
-			<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
-				coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
-			</c:if>
-			*/
-			
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
@@ -330,12 +313,22 @@ input:checked + .slider:before {
 							map.setCenter(coords);
 						} 
 					});
-			        searchSlist();
+			        if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
+						$("#searchKey").val(testValue);
+			    		$("#findEventButton").click();
+			    	}else{
+						searchSlist();  // 그냥 탐색을 들어갔을 때
+			    	}
 				</c:if>
 				
 				// 관심지역 없는 경우
 				<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
-					searchSlist();
+					if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
+						$("#searchKey").val(testValue);
+			    		$("#findEventButton").click();
+			    	}else{
+						searchSlist();  // 그냥 탐색을 들어갔을 때
+			    	}
 				</c:if>
 			});
 			 
@@ -652,16 +645,6 @@ input:checked + .slider:before {
 		    		}
 		    	});
 		    };
-		    
-		    /* $(function(){
-		    	var testValue = "${findKeyword}";
-		    	if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
-					$("#searchKey").val(testValue);
-		    		$("#findEventButton").click();
-		    	}else{
-					searchSlist();  // 그냥 탐색을 들어갔을 때
-		    	}
-		    }); */
 		</script>
 </body>
 </html>
