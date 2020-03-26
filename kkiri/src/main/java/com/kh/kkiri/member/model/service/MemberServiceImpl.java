@@ -80,12 +80,31 @@ public class MemberServiceImpl implements MemberService{
 	 */
 	@Override
 	public int idUniqueCheck(String memberId) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return memberDAO.idUniqueCheck(memberId);
 	}
 	
+	/** 닉네임 중복 체크 Service
+	 * @param memberNickname
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int memberNickUnique(String memberNickname) throws Exception {
+		
+		return memberDAO.memberNickUnique(memberNickname);
+	}
 	
-	
+	/** 이메일 중복 체크 Service
+	 * @param memberEmail
+	 * @return return
+	 * @throws Exception
+	 */
+	@Override
+	public int memberEmailUnique(String memberEmail) throws Exception {
+		
+		return memberDAO.memberEmailUnique(memberEmail);
+	}
 	
 	
 	/** social 계정 가입 여부 체크 Service
