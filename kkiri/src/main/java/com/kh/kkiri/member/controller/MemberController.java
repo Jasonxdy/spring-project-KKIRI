@@ -223,6 +223,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/googleLogin")
 	public String doSessionAssignActionPage(HttpServletRequest request, Model model, RedirectAttributes rdAttr) {
+		String beforeUrl = request.getHeader("referer");
 		try {
 			String code = request.getParameter("code");
 			String msg = null;
@@ -351,13 +352,14 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/";
+		return "redirect:" + beforeUrl;
 
 	}
 
 	@RequestMapping(value = "/kakaoLogin")
 	public String getKakaoSignIn(ModelMap model, @RequestParam("code") String code, HttpSession session,
-			RedirectAttributes rdAttr) {
+			RedirectAttributes rdAttr, HttpServletRequest request) {
+		String beforeUrl = request.getHeader("referer");
 		try {
 			JsonNode userInfo = kakaoLogin.getKakaoUserInfo(code);
 			String msg = null;
@@ -450,14 +452,14 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/";
+		return "redirect:" + beforeUrl;
 	}
 	
 	@RequestMapping("naverLogin")
 	public String naverLogin(Model model, String state, String code, HttpSession session,
-			RedirectAttributes rdAttr) {
+			RedirectAttributes rdAttr, HttpServletRequest request) {
 		String storedState = (String)session.getAttribute("naverState");
-		
+		String beforeUrl = request.getHeader("referer");
 		if(!state.equals(storedState)) {
 			session.setAttribute("msg", "검증 토큰 불일치!");
 			return "redirect:/";
@@ -528,7 +530,7 @@ public class MemberController {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			return "redirect:/";
+			return "redirect:" + beforeUrl;
 		}
 	}
 

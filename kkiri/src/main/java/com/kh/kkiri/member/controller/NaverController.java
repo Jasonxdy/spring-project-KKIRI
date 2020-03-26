@@ -78,6 +78,8 @@ public class NaverController {
 			// ObjectMapper는 기본 POJO 에서 또는 범용 JSON Tree Model (JsonNode)에서
 			// JSON으로 읽고 쓰는 기능과 변환 수행을위한 관련 기능을 제공합니다.
 			ObjectMapper mapper = new ObjectMapper();
+			
+			// JsonNode에 저장
 			returnNode = mapper.readTree(response.getEntity().getContent());
 
 		} catch (UnsupportedEncodingException e) {
@@ -95,19 +97,21 @@ public class NaverController {
 		} finally {
 			// clear resources
 		}
+		// returnNode 중에 "access_token"에 해당하는 부분만 문자열로 변환하여 리턴
 		return returnNode.get("access_token").toString();
 	}
-
+	
+	// 접근 토큰(access_token)을 성공적으로 발급 받았을 경우 
 	public JsonNode getNaverUserInfo(String autorize_code, HttpSession session) {
-
+		// 사용자 프로필 정보 조회 요청 URL
 		final String RequestUrl = "https://openapi.naver.com/v1/nid/me";
-		// String CLIENT_ID = K_CLIENT_ID; // REST API KEY
-		// String REDIRECT_URI = K_REDIRECT_URI; // 리다이렉트 URI
-		// String code = autorize_code; // 로그인 과정중 얻은 토큰 값
+		
+		// 서버와 서버간 request
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost post = new HttpPost(RequestUrl);
 		String accessToken = getAccessToken(autorize_code, session);
 		// add header
+		// Authorization: {토큰 타입] {접근 토큰] 형식으로 전달
 		post.addHeader("Authorization", "Bearer " + accessToken);
 
 		JsonNode returnNode = null;
