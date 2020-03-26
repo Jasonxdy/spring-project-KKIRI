@@ -60,10 +60,11 @@ public interface MypageService {
 
 	/** 마이페이지 이벤트 내역을 보는 Service
 	 * @param memberNo
+	 * @param pInf 
 	 * @return eList
 	 * @throws Exception
 	 */
-	List<Event> moveEvent(int memberNo)throws Exception;
+	List<Event> moveEvent(int memberNo, PageInfo pInf)throws Exception;
 
 	int costTicket(Ticket ticket, Member loginMember)throws Exception;
 
@@ -72,7 +73,9 @@ public interface MypageService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Event> moveEvent2(int memberNo)throws Exception;
+	List<Event> moveEvent2(int memberNo ,PageInfo pInf)throws Exception;
+
+	int listEventCount(int memberNo)throws Exception;
 
 	
 }

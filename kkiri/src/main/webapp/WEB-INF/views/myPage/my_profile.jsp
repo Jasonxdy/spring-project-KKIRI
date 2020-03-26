@@ -23,7 +23,7 @@
       <div class="container">
         <!-- content 시작 -->
         <div class="row">
-            <div class="col-2 nav-wrap">
+          <div class="col-2 nav-wrap">
             <a class="btn active" href="../mypage/in">프로필</a>
             <a class="btn" href="../mypage/moveEvent">이벤트</a>
             <a class="btn" href="../mypage/ticketLog">티켓</a>
