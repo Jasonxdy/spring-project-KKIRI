@@ -67,5 +67,12 @@ public interface MypageService {
 
 	int costTicket(Ticket ticket, Member loginMember)throws Exception;
 
+	/** 내가 참가한 이벤트 보는 Service
+	 * @param memberNo
+	 * @return
+	 * @throws Exception
+	 */
+	List<Event> moveEvent2(int memberNo)throws Exception;
+
 	
 }

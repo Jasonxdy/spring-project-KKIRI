@@ -50,7 +50,7 @@ public class MypageDAO {
 		return sqlSession.selectOne("paymentMapper.getListCount", ticket);
 	}
 
-	/** 환조씨가 작업중 미 작 성 됨
+	/** event 리스트를 가져가는 DAO
 	 * @param memberNo
 	 * @return
 	 * @throws Exception
@@ -58,7 +58,7 @@ public class MypageDAO {
 	public List<Event> moveEvent(int memberNo) throws Exception{
 		
 		
-		return sqlSession.selectList("eventMapper.get", memberNo);
+		return sqlSession.selectList("eventMapper.moveEvent1", memberNo);
 	}
 
 	public int costTicket(Ticket ticket) throws Exception{
@@ -68,6 +68,10 @@ public class MypageDAO {
 
 	public int updateTicket(Ticket ticket) throws Exception{
 		return sqlSession.update("memberMapper.updateTicket", ticket);
+	}
+
+	public List<Event> moveEvent2(int memberNo)throws Exception {
+		return sqlSession.selectList("eventMapper.moveEvent2", memberNo);
 	}
 	
 }
