@@ -265,8 +265,6 @@
 		});
 		// READY 함수 END
 		
-		
-		console.log("이벤트 상태 : " + '${event.eventConfirm}');
 	</script>
 
 

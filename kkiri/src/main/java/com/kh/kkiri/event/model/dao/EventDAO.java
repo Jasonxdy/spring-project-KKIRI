@@ -258,6 +258,52 @@ public class EventDAO {
 	}
 
 
+	/**
+	 * 내가 작성한 후기 조회
+	 * @param party
+	 * @return myRating
+	 * @throws Exception
+	 */
+	public Rating selectMyRating(Party party) throws Exception{
+		return sqlSession.selectOne("eventMapper.selectMyRating", party);
+	}
+
+
+	
+	
+	/**
+	 * 이벤트 후기 등록 DAO
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertRating(Rating rating) throws Exception{
+		return sqlSession.insert("eventMapper.insertRating", rating);
+	}
+
+
+	/**
+	 * 이벤트 후기 수정 service
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateRating(Rating rating) {
+		return sqlSession.update("eventMapper.updateRating", rating);
+	}
+
+
+	/**
+	 * 이벤트 후기 삭제 service
+	 * @param ratingNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRating(int ratingNo) throws Exception{
+		return sqlSession.update("eventMapper.deleteRating", ratingNo);
+	}
+
+
 
 
 }

@@ -196,15 +196,15 @@
 	<!-- 이벤트 취소에 따른 티켓 회수 -->
 	<update id="increaseTicket" parameterType="Event">
 		UPDATE MEMBER SET
-		MEMBER_TICKET = MEMBER_TICKET + ${eventTicket}
-		WHERE MEMBER_NO = ${memberNo}
+		MEMBER_TICKET = MEMBER_TICKET + #{eventTicket}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 참가자 티켓 차감 -->
 	<update id="decreaseTicket" parameterType="Event">
 		UPDATE MEMBER SET
-		MEMBER_TICKET = MEMBER_TICKET - ${eventTicket}
-		WHERE MEMBER_NO = ${memberNo}
+		MEMBER_TICKET = MEMBER_TICKET - #{eventTicket}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	
@@ -220,14 +220,14 @@
 	<!-- 주최자 티켓 획득 결제내역 추가 -->
 	<insert id="insertPaymentEarn" parameterType="Event">
 		INSERT INTO PAYMENT VALUES
-		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'P', ${eventTicket}, SYSDATE)
+		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'P', #{eventTicket}, SYSDATE)
 	</insert>
 	
 	
 	<!-- 참가자 티켓 사용 결제내역 추가 -->
 	<insert id="insertPaymentUse" parameterType="Event">
 		INSERT INTO PAYMENT VALUES
-		(PAY_SEQ.NEXTVAL, ${memberNo}, ${eventNo}, 'U', ${eventTicket}, SYSDATE)
+		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'U', #{eventTicket}, SYSDATE)
 	</insert>
 	
 	<!-- 주최자 이벤트 완료 확인 -->	
@@ -238,7 +238,7 @@
 	</update>
 	
 	
-	<!-- 전체 후기 수 조회 -->
+	<!-- 이벤트 전체 후기 수 조회 -->
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM RATING
@@ -247,11 +247,48 @@
 	</select>
 	
 	
+	<!-- 이벤트 후기 목록 조회 -->
 	<select id="selectRatingList" parameterType="_int" resultMap="ratingResultSet">
 		SELECT * FROM RATING
-		WHERE EVENT_NO = ${eventNo}
+		WHERE EVENT_NO = #{eventNo}
+		AND RATING_STATUS = 'Y'
 	</select>
 	
+	
+	<!-- 내 후기 조회 -->
+	<select id="selectMyRating" parameterType="Party" resultMap="ratingResultSet">
+		SELECT * FROM RATING
+		WHERE EVENT_NO = #{eventNo}
+		AND MEMBER_NO = #{memberNo}
+		AND RATING_STATUS = 'Y'
+	</select>
+	
+	
+	<!-- 후기 등록 -->
+	<insert id="insertRating" parameterType="Rating">
+		INSERT INTO RATING VALUES
+		(RAT_SEQ.NEXTVAL, #{eventNo}, #{memberNo}, #{ratingContent}, DEFAULT, DEFAULT, #{ratingScore}, DEFAULT)
+	</insert>
+	
 
-
+	<!-- 후기 수정 -->
+	<update id="updateRating" parameterType="Rating">
+		UPDATE RATING SET
+		RATING_CONTENT = #{ratingContent},
+		RATING_SCORE = #{ratingScore},
+		RATING_MODIFY_DT = SYSDATE
+		WHERE EVENT_NO = #{eventNo}
+		AND MEMBER_NO = #{memberNo}
+		AND RATING_STATUS = 'Y'
+	</update>
+	
+	<!-- 후기 삭제 -->
+	<update id="deleteRating" parameterType="_int">
+		UPDATE RATING SET
+		RATING_STATUS = 'N'
+		WHERE RATING_NO = #{ratingNo}
+	</update>
+	
+	
+	
 </mapper>

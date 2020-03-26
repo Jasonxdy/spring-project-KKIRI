@@ -62,5 +62,14 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			$(".eventCreater-profile").on({
+					click : function(){
+						location.href = "${contextPath}/profile/user?no=" + ${event.memberNo};
+					}
+			});
+		
+		</script>
 </body>
 </html>

@@ -133,4 +133,41 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int getListCount(int eventNo) throws Exception;
+
+	/**
+	 * 내가 작성한 후기 가져오기
+	 * @param party
+	 * @return myRating
+	 * @throws Exception
+	 */
+	Rating selectMyRating(Party party) throws Exception;
+
+	
+	/**
+	 * 이벤트 후기 등록 service
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	int insertRating(Rating rating) throws Exception;
+
+	
+	
+	/**
+	 * 이벤트 후기 수정 service
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateRating(Rating rating) throws Exception;
+
+	
+	
+	/**
+	 * 이벤트 후기 삭제 service
+	 * @param ratingNo
+	 * @return result
+	 * @throws Exception
+	 */
+	int deleteRating(int ratingNo) throws Exception;
 }
