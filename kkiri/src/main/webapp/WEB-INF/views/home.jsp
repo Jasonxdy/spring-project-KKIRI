@@ -84,7 +84,7 @@
                     	<p class="no-data-content">이벤트가 존재하지 않습니다!</p>
                     </c:if>
                     <c:if test="${!empty eventList}">
-                    	<c:forEach var="event" items="${eventList}">
+                    	<c:forEach var="event" items="${eventList}" varStatus="vs">
 	                      <div class="blog-slider__item swiper-slide">
 	                        <div class="blog-slider__img">
 	                          <img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}" alt="이벤트 썸네일">
@@ -113,6 +113,13 @@
 	                          </div>
 	                        </div>
 	                      </div>
+	                      
+	                      <script>
+	                      	$(function(){
+	                      		var btnIndex = $(".swiper-pagination-bullet-active").index(); 
+	                      		console.log(btnIndex);
+	                      	});
+	                      </script>
                       	 </c:forEach>
                     </c:if>
                       
@@ -145,7 +152,7 @@
                       </c:if>
                       <c:if test="${!empty mlist}">
                          <c:forEach var="ranking" items="${mlist}" varStatus="vs">
-	                      	 <li class="ranker">
+	                      	 <li class="ranker" onclick="location.href='${contextPath}/profile/user?no=${ranking.memberNo}'">
 	                          <p class="rank"></p>
 	                          <img src="${contextPath}/resources/upProfileImage/${ranking.memberProfile}" alt="회원 썸네일">
 	                          <p class="nickname">${ranking.memberNickname}</p>

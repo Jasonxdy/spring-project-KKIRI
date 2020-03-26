@@ -131,10 +131,16 @@
 .refund-wrap .refund-form .account-info{
   font-size: 18px;
 }
-.refund-wrap .refund-form .refundTicket{
-  width: 100%;
+.refund-wrap .refund-form .refundTicket {
+  width: 100%; 
   height: 40px;
   padding: 10px;
+}
+.refund-wrap .refund-form .refundTicketPWD {
+  width: 100%; 
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 .refund-wrap .refund-form .refund-submit-btn{
   margin:0;

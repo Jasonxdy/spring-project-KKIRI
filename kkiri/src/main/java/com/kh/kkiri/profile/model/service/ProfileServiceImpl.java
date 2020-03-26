@@ -71,4 +71,14 @@ public class ProfileServiceImpl implements ProfileService {
 		
 		return result;
 	}
+
+	/** 좋아요 체크용 Service
+	 * @param favorite
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int checkFavorite(Favorite favorite) throws Exception {
+		return profileDAO.checkFavorite(favorite);
+	}
 }
