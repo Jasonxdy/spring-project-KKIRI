@@ -168,7 +168,7 @@
 	<insert id="createEvent" parameterType="Event">
 		INSERT INTO EVENT VALUES(#{eventNo},#{eventTitle},#{eventContent},
 		#{eventCategory},#{eventLocation},#{latitude},#{longtitude},#{eventStart},#{eventEnd},
-		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress})
+		#{eventTicket},#{eventThumbnail},#{eventQuota},'Y',#{eventAddress},'N')
 	</insert>
 	
 	<!-- 이벤트 생성 성공시 party테이블에 데이터 추가용  --> 
