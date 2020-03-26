@@ -608,8 +608,8 @@ input:checked + .slider:before {
 		    };
 		    
 		    function moreSlist(){
-		    	$("#loading").show();
-    			$("#searchListArea").hide();
+		    	//$("#loading").show();
+    			//$("#searchListArea").hide();
 		    	$.ajax({
 		    		url : "searchEvents",
 		    		type : "POST",
