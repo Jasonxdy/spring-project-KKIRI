@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <!-- 이벤트 후기 페이지 CSS 적용 -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/eventDetail.css">
 <title>KKIRI(끼리)</title>
 </head>
 <body>
@@ -39,9 +37,13 @@
 	<div class="container">
 		<div class="row mt-5 event-detail-container">
 			<div class="col-md-7 event-afterComment">
-				<p class="info-text">후기글은 익명으로 기록됩니다.</p>
 
-				<!-- <div class="my-comment">
+				<!-- 후기 작성, 수정, 삭제 -->
+				<%-- <c:if test="${loginMember != null && event.eventNo == myEvent}"> --%>
+				<div id="comment-div">
+					<p class="info-text">후기글은 익명으로 기록됩니다.</p>
+
+					<!-- <div class="my-comment">
                             <p class="title">내 후기</p>
                             <p class="content">정말 재미있었어요!!!!!</p>
                             <p class="star-rating">
@@ -53,43 +55,49 @@
 
                         <button type="button" class="green-radius-btn delete-my-con common-btn">후기 삭제</button>
                         <button type="button" class="green-radius-btn update-my-con common-btn">후기 수정</button> -->
-				<button type="button" class="insert-comment green-radius-btn">후기
-					남기기</button>
+					<button type="button" class="insert-comment green-radius-btn">후기
+						남기기</button>
+				</div>
+				<%-- </c:if> --%>
+				<!-- 후기 작성, 수정, 삭제 end -->
+
+
+
 
 				<ul class="comment-wrap">
 					<li>
 						<p class="comment-content">후기내용1</p>
 						<p class="star-rating">
-							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
-								class="rating-num">4.5</span>
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점">
+							<span class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용2</p>
 						<p class="star-rating">
-							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
-								class="rating-num">4.5</span>
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점">
+							<span class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용3</p>
 						<p class="star-rating">
-							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
-								class="rating-num">4.5</span>
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점">
+							<span class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용4</p>
 						<p class="star-rating">
-							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
-								class="rating-num">4.5</span>
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점">
+							<span class="rating-num">4.5</span>
 						</p>
 					</li>
 					<li>
 						<p class="comment-content">후기내용5</p>
 						<p class="star-rating">
-							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점"> <span
-								class="rating-num">4.5</span>
+							별점 <img src="${contextPath}/resources/img/star-on.png" alt="별점">
+							<span class="rating-num">4.5</span>
 						</p>
 					</li>
 				</ul>
@@ -116,8 +124,8 @@
 
 			<div id="popup" class="popup create-comment-popup">
 				<p class="popup-title">
-					후기 남기기 <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼"
-						class="close-popup">
+					후기 남기기 <img src="${contextPath}/resources/img/close-btn.png"
+						alt="닫기버튼" class="close-popup">
 				</p>
 				<div class="popup-content">
 					<form action="#" method="get" onsubmit="return validate1();">
@@ -143,8 +151,8 @@
 
 			<div class="popup update-comment-popup">
 				<p class="popup-title">
-					후기 수정하기 <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼"
-						class="close-popup">
+					후기 수정하기 <img src="${contextPath}/resources/img/close-btn.png"
+						alt="닫기버튼" class="close-popup">
 				</p>
 				<div class="popup-content">
 					<form action="#" method="get" onsubmit="return validate2();">
@@ -299,6 +307,36 @@
 
 
 	<script>
+	
+	// ready 함수
+	$(function(){
+		$("#comment-div").hide(0); // 일단 comment 작성부 숨기기
+		if(${loginMember != null}) { // 로그인 된 경우
+			
+			var myEventCheck = false; // 참석 여부 체크
+			
+			<c:forEach var="party" items="${myEventList}">
+				if(${party.eventNo == event.eventNo}){
+					if('${party.permission}' == 'Y') { // 참여신청도 했고 승인도 됐었던 경우
+						myEventCheck = true;
+					}
+				}
+			</c:forEach>
+			
+			if(myEventCheck && ${loginMember.memberNo != event.memberNo}) { // 참여 신청도 했고 주최자가 아닌 경우 후기 작성 가능
+				$("#comment-div").show(0); // 보이기
+			}
+			
+			
+			
+		}
+		
+	});
+	
+	
+	
+	
+	
                 // 이벤트 참가 버튼 클릭시 팝업
                 $("#event-participate").on({
                     click : function(e){

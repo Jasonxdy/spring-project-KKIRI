@@ -399,6 +399,7 @@ public class EventController {
 				model.addAttribute("partyList", partyList);
 				model.addAttribute("ratingList", ratingList);
 				url = "event/eventAfterComment";
+				System.out.println("ratingList : " +ratingList);
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";

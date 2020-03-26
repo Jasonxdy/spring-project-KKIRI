@@ -73,6 +73,11 @@ html body .event-participate-btn{
     text-align: center;
 }
 
+/* 후기 작성 처음에 안보이게 하기 */
+#comment-div{ 
+	display : none;
+}
+
 /* 이벤트 상세 페이지 상단 공통 css end */
 .event-thumbnail{
     width: 100%;

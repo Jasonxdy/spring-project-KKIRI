@@ -67,6 +67,16 @@
 	</resultMap>
 	
 	
+	<resultMap type="Rating" id="ratingResultSet">
+	<id property="ratingNo" column="RATING_NO"/>
+	<result property="eventNo" column="EVENT_NO"/>
+	<result property="memberNo" column="MEMBER_NO"/>
+	<result property="ratingContent" column="RATING_CONTENT"/>
+	<result property="ratingModifyDate" column="RATING_MODIFY_DT"/>
+	<result property="ratingScore" column="RATING_SCORE"/>
+	<result property="ratingStatus" column="RATING_STATUS"/>
+	</resultMap>
+	
 	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
@@ -234,6 +244,12 @@
 		FROM RATING
 		WHERE EVENT_NO = #{eventNo}
 		AND RATING_STATUS = 'Y'
+	</select>
+	
+	
+	<select id="selectRatingList" parameterType="_int" resultMap="ratingResultSet">
+		SELECT * FROM RATING
+		WHERE EVENT_NO = ${eventNo}
 	</select>
 	
 
