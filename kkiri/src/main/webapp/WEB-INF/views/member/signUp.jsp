@@ -487,7 +487,7 @@
   				console.log(key + " / " + createIdCheck[key]);
   				
   				if(!createIdCheck[key]){
-  					alert("빠진 항목을 확인해주세요");
+  					alert("필수 입력사항을 확인해주세요");
   					var id = "#"+key;
   					$(id).focus();
   					return false;
