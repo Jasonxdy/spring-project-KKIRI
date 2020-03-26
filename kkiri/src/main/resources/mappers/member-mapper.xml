@@ -61,7 +61,7 @@
 	
 	
 	
-	
+	<!-- 관리자 회원 수 조회 -->
 	<select id="adminMemberCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM V_MEMBER_A
 		<where>
@@ -79,6 +79,7 @@
 		</where>
 	</select>
 	
+	<!-- 관리자 회원 조회 -->
 	<select id="adminSelectMember" parameterType="map" resultMap="memberResultSet">
 		SELECT *
 		FROM V_MEMBER_A
