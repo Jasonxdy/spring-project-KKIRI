@@ -31,11 +31,6 @@
 	        <artifactId>spring-websocket</artifactId>
 	        <version>${org.springframework-version}</version>
 	    </dependency>
-	    <dependency>
-	        <groupId>com.fasterxml.jackson.core</groupId>
-	        <artifactId>jackson-databind</artifactId>
-	        <version>${jackson.version}</version>
-	    </dependency>
 		
 		<!-- ojdbc6(JDBC 드라이버) 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->

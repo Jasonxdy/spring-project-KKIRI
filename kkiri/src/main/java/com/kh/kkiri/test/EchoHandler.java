@@ -12,8 +12,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @RequestMapping("/echo")
-public class EchoHandler extends TextWebSocketHandler {
-	//세션 리스트
+public class EchoHandler extends TextWebSocketHandler{
+    //세션 리스트
     private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
     private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
