@@ -270,5 +270,9 @@
 	AND MEMBER_TYPE ='P'
 	AND PERMISSION = 'Y'
 	</select>
-	
+	<select id="listEventCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*)
+	FROM V_EVENT
+	WHERE MEMBER_NO = #{memberNo}
+	</select>
 </mapper>

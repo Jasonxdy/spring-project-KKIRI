@@ -260,19 +260,26 @@ public class MypageController {
 		if(currentPage == null) {
 			currentPage = 1;
 		}
-		
-		
-		
 		try {
+			int listCount = mypageService.listEventCount(memberNo);
+			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
+			
+			
+			
+			
 			// 내가 주최자인 이벤트
-			List<Event> eList = mypageService.moveEvent(memberNo);
+			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
-			List<Event> ejList = mypageService.moveEvent2(memberNo);
+			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf);
+			
+			
+			
+			
 			System.out.println(ejList);
 			
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
-
+			model.addAttribute("pInf", pInf);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "마이 이벤트 페이지 이동중 에러가 발생했습니다.");

@@ -127,18 +127,18 @@ public class MypageServiceimpl implements MypageService{
 	 *
 	 */
 	@Override
-	public List<Event> moveEvent(int memberNo) throws Exception {
+	public List<Event> moveEvent(int memberNo,PageInfo pInf) throws Exception {
 
-		return mypageDAO.moveEvent(memberNo);
+		return mypageDAO.moveEvent(memberNo,pInf);
 	}
 
 	
 	@Override
-	public List<Event> moveEvent2(int memberNo) throws Exception {
+	public List<Event> moveEvent2(int memberNo,PageInfo pInf) throws Exception {
 		
 		// 1. 내가 참가한 이벤트들의 eventNo 얻어오기
 		List<Event> ejList = new ArrayList<Event>();
-		List<Integer> eveNo = mypageDAO.countEveNo(memberNo);
+		List<Integer> eveNo = mypageDAO.countEveNo(memberNo,pInf);
 		if(eveNo != null ||!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
 				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
@@ -182,8 +182,13 @@ public class MypageServiceimpl implements MypageService{
 				throw new Exception();
 			}
 		}
-		System.out.println("리절트 : "+result);
 		return result; 
+	}
+
+	@Override
+	public int listEventCount(int memberNo) throws Exception {
+		
+		return mypageDAO.listEventCount(memberNo);
 	}
 
 

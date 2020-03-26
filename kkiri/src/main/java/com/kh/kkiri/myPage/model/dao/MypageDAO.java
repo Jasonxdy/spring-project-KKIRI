@@ -52,13 +52,14 @@ public class MypageDAO {
 
 	/** event 리스트를 가져가는 DAO
 	 * @param memberNo
+	 * @param pInf 
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Event> moveEvent(int memberNo) throws Exception{
-		
-		
-		return sqlSession.selectList("eventMapper.moveEvent1", memberNo);
+	public List<Event> moveEvent(int memberNo, PageInfo pInf) throws Exception{
+		int OffSet = (pInf.getCurrentPage()-1*pInf.getLimit());
+		RowBounds rbounds = new RowBounds(OffSet, pInf.getLimit());
+		return sqlSession.selectList("eventMapper.moveEvent1", memberNo, rbounds);
 	}
 
 	public int costTicket(Ticket ticket) throws Exception{
@@ -74,8 +75,16 @@ public class MypageDAO {
 		return sqlSession.selectOne("eventMapper.moveEvent2", eveNo);
 	}
 
-	public List<Integer> countEveNo(int memberNo) throws Exception{
-		return sqlSession.selectList("eventMapper.countEveNo", memberNo);
+	public List<Integer> countEveNo(int memberNo, PageInfo pInf) throws Exception{
+		int offSet = (pInf.getCurrentPage()-1*pInf.getLimit());
+		RowBounds rbounds = new RowBounds(offSet, pInf.getLimit());
+		
+		
+		return sqlSession.selectList("eventMapper.countEveNo", memberNo,rbounds);
+	}
+
+	public int listEventCount(int memberNo) throws Exception{
+		return sqlSession.selectOne("eventMapper.listEventCount", memberNo);
 	}
 	
 }

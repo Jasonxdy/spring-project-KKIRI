@@ -22,10 +22,10 @@
         <!-- content 시작 -->
         <div class="row">
           <div class="col-2 nav-wrap">
-            <a class="btn" href="#">프로필</a>
-            <a class="btn active" href="#">이벤트</a>
-            <a class="btn" href="#">티켓</a>
-            <a class="btn" href="#">로그아웃</a>
+            <a class="btn " href="../mypage/in">프로필</a>
+            <a class="btn active" href="../mypage/moveEvent">이벤트</a>
+            <a class="btn" href="../mypage/ticketLog">티켓</a>
+            <a class="btn" href="../member/logout">로그아웃</a>
           </div>
 
           <div class="col-10">
@@ -85,7 +85,70 @@
                     </li>
                   </c:forEach>
                   </ul>
-                  <button type="button" class="green-radius-btn more-event-btn">더보기</button>
+                  <!-- 페이징바 시작 -->
+                  <div class="row justify-content-center pagination-wrap">
+                <div>
+                  <ul class="pagination">
+                  <c:if test="${pInf.currentPage >1 }">
+                  
+                    <li>
+                      <a class="page-link " href="
+                  <c:url value="moveEvent">
+                  </c:url>
+                      "
+                      >&lt;&lt;</a>
+                    </li>
+                    <li>
+                      <a class="page-link " href="
+                    
+                    <c:url value="moveEvent">
+                  	</c:url>
+                  ">&lt;</a>
+                    </li>
+                  </c:if>
+                  <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
+                  <c:if test="${pg ==pInf.currentPage}">
+                    <li>
+                      <a class="page-link">${pg }</a>
+                    </li>
+                  </c:if>
+                  <c:if test="${pg!=pInf.currentPage }">
+                    <li>
+                      <a class="page-link" href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pg}" />
+                      </c:url>
+                      ">${pg }</a>
+                    </li>
+                  </c:if>
+                  </c:forEach>
+                    
+                    <!-- 다음 페이지로(>) -->
+                    <c:if test="${pInf.currentPage<pInf.maxPage }">
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                      </c:url>
+                      ">&gt;</a>
+                    </li>
+                   
+                    
+                    <!-- 맨 끝으로(>>) -->
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pInf.maxPage}"/>
+                      </c:url>
+                      ">&gt;&gt;</a>
+                    </li>
+                     </c:if>
+                  </ul>
+                </div>
+              </div>
+                  
+                  
+                  <!-- 페이징바 종료 -->
                 </div>
 
                 <!-- 내가 참여한 이벤트 --> 
@@ -122,7 +185,70 @@
                     </c:forEach>
                     
                   </ul>
-                  <button type="button" class="green-radius-btn more-event-btn">더보기</button>
+                  <!-- 페이징바 시작 -->
+                  <div class="row justify-content-center pagination-wrap">
+                <div>
+                  <ul class="pagination">
+                  <c:if test="${pInf.currentPage >1 }">
+                  
+                    <li>
+                      <a class="page-link " href="
+                  <c:url value="moveEvent">
+                  </c:url>
+                      "
+                      >&lt;&lt;</a>
+                    </li>
+                    <li>
+                      <a class="page-link " href="
+                    
+                    <c:url value="moveEvent">
+                  	</c:url>
+                  ">&lt;</a>
+                    </li>
+                  </c:if>
+                  <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
+                  <c:if test="${pg ==pInf.currentPage}">
+                    <li>
+                      <a class="page-link">${pg }</a>
+                    </li>
+                  </c:if>
+                  <c:if test="${pg!=pInf.currentPage }">
+                    <li>
+                      <a class="page-link" href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pg}" />
+                      </c:url>
+                      ">${pg }</a>
+                    </li>
+                  </c:if>
+                  </c:forEach>
+                    
+                    <!-- 다음 페이지로(>) -->
+                    <c:if test="${pInf.currentPage<pInf.maxPage }">
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                      </c:url>
+                      ">&gt;</a>
+                    </li>
+                   
+                    
+                    <!-- 맨 끝으로(>>) -->
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="ticketLog">
+                      <c:param name="currentPage" value="${pInf.maxPage}"/>
+                      </c:url>
+                      ">&gt;&gt;</a>
+                    </li>
+                     </c:if>
+                  </ul>
+                </div>
+              </div>
+                  
+                  
+                  <!-- 페이징바 종료 -->
                 </div>
             </div>
         </div>
