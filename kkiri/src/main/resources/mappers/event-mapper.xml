@@ -259,7 +259,16 @@
 	</select>
 	<select id="moveEvent2" parameterType="_int" resultMap="eventResultSet">
 	SELECT * 
-	FROM V_EVENT_SP
-	WHERE MEMBER_NO = #{memberNo}
+	FROM V_EVENT
+	WHERE EVENT_NO = #{eveNo}
 	</select>
+	
+	<select id="countEveNo" parameterType="_int" resultType="_int">
+	SELECT EVENT_NO 
+	FROM PARTY
+	WHERE MEMBER_NO = #{memberNo}
+	AND MEMBER_TYPE ='P'
+	AND PERMISSION = 'Y'
+	</select>
+	
 </mapper>

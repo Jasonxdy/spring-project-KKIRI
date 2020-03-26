@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -56,57 +57,33 @@
               });
               
               </script>
-
-
+			<jsp:useBean id="sysdate" class="java.util.Date"/>
             <div class="my_event_wrapper">
               <!-- 내가 만든 이벤트 -->
                 <div class="event_content create_event_con my-profile-section">
                   <h4>내가 만든 이벤트</h4>
                   <ul>
-                  <c:forEach var="eve" items="${abc }"></c:forEach>
+                  <c:forEach var="eve" items="${eList}">
+                 
                     <li>
                       <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                        <img src="../resources/upEventThumbnail/${eve.eventThumbnail}" alt="이벤트썸네일">
                       </div>
                       <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
-                        <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
+                        <p class="event-date">
+                        <fmt:formatDate value="${eve.eventStart}" pattern="yyyy년 MM월 dd일 HH:mm"/>
                         </p>
+                        <p class="event-title">${eve.eventTitle }</p>
+                        <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${eve.eventAddress}</p>
+                        <p class="event-explanation">
+                          ${eve.eventContent}
+                        </p>
+                        <c:if test="${eve.eventEnd < sysdate }">
+                        <p class="end-event">종료된 이벤트</p>
+                        </c:if>
                       </div>  
                     </li>
-                    <li>
-                      <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
-                      </div>
-                      <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
-                        <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                        </p>
-                      </div>  
-                    </li>
-                    <li>
-                      <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
-                      </div>
-                      <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
-                        <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                        </p>
-                      </div>  
-                      <p class="end-event">종료된 이벤트</p>
-                    </li>
+                  </c:forEach>
                   </ul>
                   <button type="button" class="green-radius-btn more-event-btn">더보기</button>
                 </div>
@@ -115,70 +92,35 @@
                 <div class="event_content participate_event_con my-profile-section">
                   <h4>내가 참여한 이벤트</h4>
                   <ul>
+                  <c:forEach var="ele" items="${ejList}">
                     <li>
                       <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
+                        <img src="../resources/img/${ele.eventThumbnail }" alt="이벤트썸네일">
                       </div>
                       <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
+                        <p class="event-date">
+							<fmt:formatDate value="${ele.eventStart}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+						</p>
+                        <p class="event-title">${ele.eventTitle }</p>
+                        <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${ele.eventAddress}</p>
                         <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
+                         ${ele.eventContent}
                         </p>
                       </div>
                       <div class="creator-con">
-                        <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
+                        <img src="../resources/upProfileImage/${ele.memberProfile }" alt="회원아이콘">
                         <p class="creator-id">
-                          <span>주최자 아이디</span>
-                          <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
+                          <span>${ele.memberNickname }</span>
+                          <img src="../resources/img/star-on.png" alt="별점">&nbsp;${ele.memberRating }
                         </p>
-                      </div>  
-                    </li>
-                    <li>
-                      <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
-                      </div>
-                      <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
-                        <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                        </p>
-                      </div>
-                      <div class="creator-con">
-                        <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
-                        <p class="creator-id">
-                          <span>주최자 아이디</span>
-                          <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
-                        </p>
-                      </div>  
-                    </li>
-                    <li>
-                      <div class="thumb-wrap">
-                        <img src="../index 페이지 - 진웅/img/banner-alter-img.png" alt="이벤트썸네일">
-                      </div>
-                      <div class="sub-con">
-                        <p class="event-date">2020년 02월 21일 19:00</p>
-                        <p class="event-title">[맛집 도장깨기 2기]</p>
-                        <p class="event-location"><img src="../index 페이지 - 진웅/img/map-ping.png" alt="지도마커">&nbsp; 서울시 중구 다산로</p>
-                        <p class="event-explanation">
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                          이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.이벤트 설명 예시입니다.
-                        </p>
-                      </div>
-                      <div class="creator-con">
-                        <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="회원아이콘">
-                        <p class="creator-id">
-                          <span>주최자 아이디</span>
-                          <img src="../index 페이지 - 진웅/img/star-on.png" alt="별점">&nbsp;4.2
-                        </p>
+                        <c:if test="${ele.eventEnd<sysdate }">
                         <p class="end-event">종료된 이벤트</p>
+                        
+                        </c:if>
                       </div>  
                     </li>
+                    </c:forEach>
+                    
                   </ul>
                   <button type="button" class="green-radius-btn more-event-btn">더보기</button>
                 </div>

@@ -268,6 +268,8 @@ public class MypageController {
 			List<Event> eList = mypageService.moveEvent(memberNo);
 			// 내가 참가한 이벤트 
 			List<Event> ejList = mypageService.moveEvent2(memberNo);
+			System.out.println(ejList);
+			
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
 
@@ -277,7 +279,7 @@ public class MypageController {
 			return "common/errorPage";
 		}
 
-		return "my_event";
+		return "myPage/my_event";
 
 	}
 	@RequestMapping("moveRefund")

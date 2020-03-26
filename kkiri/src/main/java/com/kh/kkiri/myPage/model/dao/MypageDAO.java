@@ -70,8 +70,12 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.updateTicket", ticket);
 	}
 
-	public List<Event> moveEvent2(int memberNo)throws Exception {
-		return sqlSession.selectList("eventMapper.moveEvent2", memberNo);
+	public Event moveEvent2(int eveNo)throws Exception {
+		return sqlSession.selectOne("eventMapper.moveEvent2", eveNo);
+	}
+
+	public List<Integer> countEveNo(int memberNo) throws Exception{
+		return sqlSession.selectList("eventMapper.countEveNo", memberNo);
 	}
 	
 }
