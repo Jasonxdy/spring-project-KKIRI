@@ -30,6 +30,13 @@ public interface AskService {
 	 * @throws Exception
 	 */
 	int adminSendAnswer(Ask ask) throws Exception;
+
+	/** 1:1문의 등록 Service
+	 * @param ask
+	 * @return result
+	 * @throws Exception
+	 */
+	int askWrite(Ask ask) throws Exception;
 	
 	
 }
