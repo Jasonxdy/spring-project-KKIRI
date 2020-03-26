@@ -70,7 +70,12 @@
 		
 <script>
 	//임시
-	var memberNo = 100;
+	<c:if test='${loginMember != null}'>
+		var memberNo = 100;
+	</c:if>
+	<c:if test='${loginMember == null}'>
+		var memberNo = 100;
+	</c:if>
 	
 	// 생성한 이벤트는 0, 참여한 이벤트는 1으로 구분한다
 	var flag = 0;
@@ -202,7 +207,7 @@
 		$.ajax({
 			url : "theLove",
 			type : "POST",
-			data : { "memberNo" : ${loginMember.memberNo},
+			data : { "memberNo" : memberNo,
 						"favoriteNo" : ${member.memberNo}},
 			dataType : "json",
 			success : function(result){
