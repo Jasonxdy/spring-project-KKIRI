@@ -42,8 +42,10 @@
 									</c:forEach>
 								</div>
 								<c:if test='${loginMember.memberNo != member.memberNo }'>
-									<div class="col-md-1">
-										<a class="btn btn-primary mt-5" onclick="theLove()">좋아요</a>
+									<div class="col-md-1 px-0">
+										<div class="btn" onclick="theLove()">
+											<img id="favor" style="width: 100%; height: 100%" src="${contextPath}/resources/img/undoFavor.png">
+										</div>
 									</div>
 								</c:if>
 							</div>
@@ -71,11 +73,13 @@
 <script>
 	//임시
 	<c:if test='${loginMember != null}'>
-		var memberNo = 100;
+		var loginMemberNo = 100;
 	</c:if>
 	<c:if test='${loginMember == null}'>
-		var memberNo = 100;
+		var loginMemberNo = -1;
 	</c:if>
+	
+	var memberNo = 100;
 	
 	// 생성한 이벤트는 0, 참여한 이벤트는 1으로 구분한다
 	var flag = 0;
@@ -204,14 +208,24 @@
 	}
 	
 	function theLove(){
+		if(loginMemberNo == -1){
+			alert("로그인 해주세요");
+			return false;
+		}
+		
 		$.ajax({
 			url : "theLove",
 			type : "POST",
-			data : { "memberNo" : memberNo,
+			data : { "memberNo" : loginMemberNo,
 						"favoriteNo" : ${member.memberNo}},
 			dataType : "json",
 			success : function(result){
 				console.log(result);
+				if(result==1){
+					$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");
+				} else{
+					$("#favor").prop("src","${contextPath}/resources/img/undoFavor.png");
+				}
 			}
 		});
 	}
@@ -243,6 +257,10 @@
 	};
 	
 	$(function(){
+		<c:if test='${checkFavorite == 1}'>
+			$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");
+		</c:if>
+			
 		eventList();
 	});
 	

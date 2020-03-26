@@ -40,5 +40,12 @@ public interface ProfileService {
 	 * @return result
 	 */
 	public abstract int theLove(Favorite favorite);
+
+	/** 좋아요 체크용 Service
+	 * @param favorite
+	 * @return result
+	 * @throws Exception
+	 */
+	public abstract int checkFavorite(Favorite favorite) throws Exception;
 	
 }
