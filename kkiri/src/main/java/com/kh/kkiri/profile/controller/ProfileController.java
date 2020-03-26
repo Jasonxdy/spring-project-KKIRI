@@ -57,7 +57,6 @@ public class ProfileController {
 				member.setMemberGender(member.getMemberGender().replace("F", "여자"));
 				
 				Member loginMember  = (Member)session.getAttribute("loginMember");
-				System.out.println(loginMember);
 				
 				if(loginMember != null) {
 					Favorite favorite = new Favorite(loginMember.getMemberNo(), no);

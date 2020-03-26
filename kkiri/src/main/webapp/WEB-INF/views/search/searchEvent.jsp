@@ -8,23 +8,24 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
-    <style>
-    .owrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .owrap * {padding: 0;margin: 0;}
-    .owrap .oinfo {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .owrap .oinfo:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .oinfo .otitle {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .oinfo .oclose {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .oinfo .oclose:hover {cursor: pointer;}
-    .oinfo .obody {position: relative;overflow: hidden;}
-    .oinfo .odesc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-    .odesc .oellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .odesc .ojibun {font-size: 11px;color: #888;margin-top: -2px;}
-    .oinfo .oimg {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-    .oinfo:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .oinfo .olink {color: #5085BB;}
-    .ocontent {width: 100%;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
-    #searchListArea h2{width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+<style>
+.owrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+.owrap * {padding: 0;margin: 0;}
+.owrap .oinfo {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.owrap .oinfo:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+.oinfo .otitle {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.oinfo .oclose {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.oinfo .oclose:hover {cursor: pointer;}
+.oinfo .obody {position: relative;overflow: hidden;}
+.oinfo .odesc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.odesc .oellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.odesc .ojibun {font-size: 11px;color: #888;margin-top: -2px;}
+.oinfo .oimg {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.oinfo:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.oinfo .olink {color: #5085BB;}
+.ocontent {width: 100%;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
+
+#searchListArea h2{width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
     
     /* The switch - the box around the slider */
 .switch {
@@ -207,14 +208,13 @@ input:checked + .slider:before {
 												</a>
 											</c:if>
 											
-											<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
+											<c:if test="${(loginMember == null) || (loginMember.memberPlace == null)}">
 												KH정보교육원
 												</a>
 											</c:if>
 											
 
 											<div class="dropdown-menu find-city-wrap">
-												<!-- <label for="city">도시: </label> -->
 												<input id="city" class="form-control">
 											</div>
 										</div>
@@ -299,30 +299,45 @@ input:checked + .slider:before {
 			
 			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			
-			 $(function() {
-		          var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
-		          $("#city").autocomplete({
-		              source: availableCity,
-		              select: function(event, ui) {
-		                  $("#place").text(ui.item.value);
-		                  
-		               		// 주소로 좌표를 검색합니다
-							geocoder.addressSearch(ui.item.value, function(result, status) {
-								
-						    if (status === kakao.maps.services.Status.OK) {
-						        //var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-						        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-						        map.setCenter(coords);
-						    	} 
-							});
-							searchSlist();
-		              },
-		              focus: function(event, ui) {
-		                  return false;
-		                  //event.preventDefault();
-		              }
-		          });
+			$(function() {
+				var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
+		        $("#city").autocomplete({
+		        	source: availableCity,
+		            select: function(event, ui) {
+			            $("#place").text(ui.item.value);
+			                  
+			            // 주소로 좌표를 검색합니다
+						geocoder.addressSearch(ui.item.value, function(result, status) {
+									
+							if (status === kakao.maps.services.Status.OK) {
+								//var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+								coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+								map.setCenter(coords);
+							} 
+						});
+						searchSlist();
+		            },
+		            focus: function(event, ui) {
+		            	return false;
+		            }
 		        });
+		        // 관심 지역 설정한 경우
+		        <c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
+			        geocoder.addressSearch($("#place").text(), function(result, status) {
+						
+						if (status === kakao.maps.services.Status.OK) {
+							coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							map.setCenter(coords);
+						} 
+					});
+			        searchSlist();
+				</c:if>
+				
+				// 관심지역 없는 경우
+				<c:if test="${(logiMember == null) && (loginMember.memberPlace == null)}">
+					searchSlist();
+				</c:if>
+			});
 			 
 			 /* 이 위로 지도 관련 스크립트 */
 			 
@@ -347,21 +362,181 @@ input:checked + .slider:before {
 		        	searchSlist();
 		        });
 		        
-		        $("#place").on('input',function(){
-		        });
-		        
 		    // 이 위로 검색창 관련 스크립트
 		    var searchKey = "";
 		    var searchValue ="";
 		    var currentPage = 2;
 		    var num = 0;
-		    var numTemp = 0;
-		    var numTemp2 = 0;
 		    var radius = 0;
 		    var limit = 5;
 		    var limitTemp = 5;
 		    var webPage = 1;
 		    var checkEventStatus = 0;
+		    var content = "";
+			var startDate ="";
+			
+			function setList(sList){
+				$.each(sList, function(i){
+					
+					var c1 = coords;
+					//var c1 = map.getCenter();
+					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
+					var poly = new kakao.maps.Polyline({
+						path:[c1,c2]
+					});
+					var dist = poly.getLength();
+					
+					if(dist<radius){
+						num += 1;
+    					
+    					// 시작 시간 포맷 변경
+    					startDate = sList[i].eventStart.substring(0,4) +
+    								 "년 " + 
+    								 sList[i].eventStart.substring(4,6) +
+    								 "월 "+
+    								 sList[i].eventStart.substring(6,8) +
+    								 "일 " +
+    								 sList[i].eventStart.substring(8,10) +
+    								 ":" +
+    								 sList[i].eventStart.substring(10,12)
+    								 ;
+    					
+    					content +=
+    								"<div class='row card shadow my-4' id='searchList'>" +
+    									"<div class='col-md-12 h-100'>" +
+    										"<div class='row h-100'>" +
+												"<div class='col-md-3 thumb-wrap'>" +
+													"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
+												"</div>" +
+												"<div class='col-md-6 p-3'>" +
+													"<p class='mb-1' style='color: darkcyan;'>" + 
+													startDate + 
+													"</p>" +
+													"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
+													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
+													"<span>" + sList[i].eventAddress + "</span>" +
+													"<p>"+sList[i].eventLocation+"</p>" +
+													"<p class='content'>" + sList[i].eventContent + "</p>" +
+												"</div>" +
+												"<div class='col-md-3'>" +
+													"<div class='p-3'>" +
+														"<div>" +
+															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
+															"<div style='display: inline-block;'>" +
+																"<p class='mb-1'>" + sList[i].memberId + "</p>" +
+																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
+																"<span>x" + sList[i].eventScore + "</span>" +
+															"</div>" +
+														"</div>";
+						if(${nowDate} < sList[i].eventEnd){
+											content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ sList[i].eventTicket + "장</p>" +
+													"</div>" +
+												"</div>" +
+											"</div>" +
+										"</div>" +
+									"</div>";
+						} else{
+											content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
+													"</div>" +
+												"</div>" +
+											"</div>" +
+										"</div>" +
+									"</div>";
+						}
+									
+									// 마커를 생성하고 지도에 표시합니다
+					    var marker = new kakao.maps.Marker({
+					        map: map,
+					        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
+					    });
+						markers.push(marker);
+						
+					    kakao.maps.event.addListener(marker, 'click', function() {
+					    	var overlay = new kakao.maps.CustomOverlay({
+						        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
+						    });
+					    	
+					    	var overlayContent = document.createElement('div');
+						    overlayContent.setAttribute('class','owrap');
+						    
+						    var overlayInfo = document.createElement('div');
+						    overlayInfo.setAttribute('class','oinfo');
+						    
+						    var overlayTitle = document.createElement('div');
+						    overlayTitle.setAttribute('class','otitle');
+						    overlayTitle.innerHTML = sList[i].eventTitle;
+						    
+						    var overlayClose = document.createElement('div');
+						    overlayClose.setAttribute('class','oclose');
+						    
+						    var overlayBody = document.createElement('div');
+						    overlayBody.setAttribute('class','obody');
+						    
+						    var overlayImg = document.createElement('div');
+						    overlayImg.setAttribute('class','oimg');
+						    overlayImg.appendChild(
+						    				document.createElement('img'))
+						    				.setAttribute('src',"${contextPath}/resources/upEventThumbnail/"+sList[i].eventThumbnail);
+						    
+						    var overlayDesc = document.createElement('div');
+						    overlayDesc.setAttribute('class','odesc');
+						    
+						 	// 잠깐대기
+						    var overlayAddress = document.createElement('div');
+						    overlayAddress.setAttribute('class','oaddress');
+						    overlayAddress.innerHTML = sList[i].eventAddress;
+						    
+						    var overlayPlace = document.createElement('div');
+						    overlayPlace.setAttribute('class','oplace');
+						    overlayPlace.innerHTML = sList[i].eventLocation;
+						    
+						    var overlayScore = document.createElement('div');
+						    overlayScore.setAttribute('class','oscore');
+						    overlayScore.appendChild(
+						    				document.createElement('img'))
+						    				.setAttribute('src',"${contextPath}/resources/img/star-on.png");
+						    overlayScore.appendChild(
+						    				document.createElement('span')).innerHTML = sList[i].eventScore;
+						    
+						    var overlayJoin = document.createElement('p');
+						    overlayJoin.setAttribute('class','ojoin');
+						    
+							if(${nowDate} < sList[i].eventEnd){
+						    	overlayJoin.setAttribute('id','join');
+						    	overlayJoin.innerHTML = "티켓" + sList[i].eventTicket + "장";
+						    } else{
+						    	overlayJoin.setAttribute('class','already-finish-event')
+						    	overlayJoin.innerHTML = "종료된 이벤트";
+						    }
+						    
+						    overlayContent.appendChild(overlayInfo);
+						    overlayInfo.appendChild(overlayTitle);
+						    overlayTitle.appendChild(overlayClose);
+						    overlayInfo.appendChild(overlayBody);
+						    overlayBody.appendChild(overlayImg);
+						    overlayBody.appendChild(overlayDesc);
+						    overlayDesc.appendChild(overlayAddress);
+						    overlayDesc.appendChild(overlayPlace);
+						    overlayDesc.appendChild(overlayScore);
+						    overlayScore.appendChild(overlayJoin);
+
+						    overlayClose.onclick = function () {
+						        overlay.setMap(null);
+						    };
+						    
+						    overlay.setContent(overlayContent);
+						    
+					        overlay.setMap(map);
+					    });
+					}
+				});
+				
+				function setMarkers(map) {
+		    	    for (var i = 0; i < markers.length; i++) {
+		    	        markers[i].setMap(map);
+		    	    }            
+		    	}
+			}
 		    
 		    function searchSlist(){
 		    	$("#loading").show();
@@ -371,11 +546,9 @@ input:checked + .slider:before {
 		    	searchValue =  $("#searchValue").val();
 		    	
 		    	num = 0;
-		    	overlayNum = 0;
 		    	limitTemp = 5;
 		    	webPage = 1;
 		    	currentPage = 2;
-		    	numTemp = 0;
 		    	
 		    	$("#searchListArea").empty();
 		    	
@@ -394,8 +567,8 @@ input:checked + .slider:before {
 		    		dataType : "json",
 		    		success : function(sList){
 		    			
-		    			var content = "";
-		    			var startDate = "";
+		    			content = "";
+		    			startDate = "";
 		    			
 		    			switch($("#round").text()){
 		    				case '5 km': radius= 100; break;
@@ -404,7 +577,6 @@ input:checked + .slider:before {
 		    				case '50 km': radius= 400; break;
 		    				case '100 km': radius= 100000; break;
 		    			}
-		    			//radius=400;
 		    			
 		    			if(sList == ""){
 		    				$("#searchListArea").empty();
@@ -414,225 +586,11 @@ input:checked + .slider:before {
 			    			$("#searchListArea").show();
 		    			} else{
 		    				$("#searchListArea").empty();
-		    				$.each(sList, function(i){
-		    					
-		    					var c1 = coords;
-		    					//var c1 = map.getCenter();
-		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
-		    					var poly = new kakao.maps.Polyline({
-		    						path:[c1,c2]
-		    					});
-		    					var dist = poly.getLength();
-		    					
-		    					if(dist<radius){
-		    						num += 1;
-			    					
-			    					// 시작 시간 포맷 변경
-			    					startDate = sList[i].eventStart.substring(0,4) +
-			    								 "년 " + 
-			    								 sList[i].eventStart.substring(4,6) +
-			    								 "월 "+
-			    								 sList[i].eventStart.substring(6,8) +
-			    								 "일 " +
-			    								 sList[i].eventStart.substring(8,10) +
-			    								 ":" +
-			    								 sList[i].eventStart.substring(10,12)
-			    								 ;
-			    					
-			    					content +=
-			    								"<div class='row card shadow my-4' id='searchList'>" +
-			    									"<div class='col-md-12 h-100'>" +
-			    										"<div class='row h-100'>" +
-															"<div class='col-md-3 thumb-wrap'>" +
-																"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
-															"</div>" +
-															"<div class='col-md-6 p-3'>" +
-																"<p class='mb-1' style='color: darkcyan;'>" + 
-																startDate + 
-																"</p>" +
-																"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
-																"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
-																"<span id='eventAddress"+num+"'></span>" +
-																"<p>"+sList[i].eventLocation+"</p>" +
-																"<p class='content'>" + sList[i].eventContent + "</p>" +
-															"</div>" +
-															"<div class='col-md-3'>" +
-																"<div class='p-3'>" +
-																	"<div>" +
-																		"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
-																		"<div style='display: inline-block;'>" +
-																			"<p class='mb-1'>" + sList[i].memberId + "</p>" +
-																			"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-																			"<span>x" + sList[i].eventScore + "</span>" +
-																		"</div>" +
-																	"</div>";
-												if(${nowDate} < sList[i].eventEnd){
-																content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ sList[i].eventTicket + "장</p>" +
-																		"</div>" +
-																	"</div>" +
-																"</div>" +
-															"</div>" +
-														"</div>";
-												} else{
-																content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
-																"</div>" +
-															"</div>" +
-														"</div>" +
-													"</div>" +
-												"</div>";
-												}
-												
-												// 마커를 생성하고 지도에 표시합니다
-											    var marker = new kakao.maps.Marker({
-											        map: map,
-											        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-											    });
-												markers.push(marker);
-												
-											    kakao.maps.event.addListener(marker, 'click', function() {
-											    	var overlay = new kakao.maps.CustomOverlay({
-												        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-												    });
-											    	
-											    	var overlayContent = document.createElement('div');
-												    overlayContent.setAttribute('class','owrap');
-												    
-												    var overlayInfo = document.createElement('div');
-												    overlayInfo.setAttribute('class','oinfo');
-												    
-												    var overlayTitle = document.createElement('div');
-												    overlayTitle.setAttribute('class','otitle');
-												    overlayTitle.innerHTML = sList[i].eventTitle;
-												    
-												    var overlayClose = document.createElement('div');
-												    overlayClose.setAttribute('class','oclose');
-												    
-												    var overlayBody = document.createElement('div');
-												    overlayBody.setAttribute('class','obody');
-												    
-												    var overlayImg = document.createElement('div');
-												    overlayImg.setAttribute('class','oimg');
-												    overlayImg.appendChild(
-												    				document.createElement('img'))
-												    				.setAttribute('src',"${contextPath}/resources/upEventThumbnail/"+sList[i].eventThumbnail);
-												    
-												    var overlayDesc = document.createElement('div');
-												    overlayDesc.setAttribute('class','odesc');
-												    
-												 	// 잠깐대기
-												    var overlayAddress = document.createElement('div');
-												    overlayAddress.setAttribute('class','oaddress');
-												    console.log(markers);
-												    
-												    for(var m=0; m<markers.length; m++){
-												    	var checkMarker =new kakao.maps.Marker({
-													    	position : new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-													   	});
-												    	
-												    	if(markers[m].getPosition().toString()===checkMarker.getPosition().toString()){
-												    		overlayAddress.setAttribute('id','oaddress'+(m+1));
-												    		overlayAddress.innerHTML = $("#eventAddress"+(m+1)).text();
-												    	}
-												    }
-												    
-												    
-												    var overlayPlace = document.createElement('div');
-												    overlayPlace.setAttribute('class','oplace');
-												    overlayPlace.innerHTML = sList[i].eventLocation;
-												    
-												    var overlayScore = document.createElement('div');
-												    overlayScore.setAttribute('class','oscore');
-												    overlayScore.appendChild(
-												    				document.createElement('img'))
-												    				.setAttribute('src',"${contextPath}/resources/img/star-on.png");
-												    overlayScore.appendChild(
-												    				document.createElement('span')).innerHTML = sList[i].eventScore;
-												    
-												    var overlayJoin = document.createElement('p');
-												    overlayJoin.setAttribute('class','ojoin');
-												    
-													if(${nowDate} < sList[i].eventEnd){
-												    	overlayJoin.setAttribute('id','join');
-												    	overlayJoin.innerHTML = "티켓" + sList[i].eventTicket + "장";
-												    } else{
-												    	overlayJoin.setAttribute('class','already-finish-event')
-												    	overlayJoin.innerHTML = "종료된 이벤트";
-												    }
-												    
-												    overlayContent.appendChild(overlayInfo);
-												    overlayInfo.appendChild(overlayTitle);
-												    overlayTitle.appendChild(overlayClose);
-												    overlayInfo.appendChild(overlayBody);
-												    overlayBody.appendChild(overlayImg);
-												    overlayBody.appendChild(overlayDesc);
-												    overlayDesc.appendChild(overlayAddress);
-												    overlayDesc.appendChild(overlayPlace);
-												    overlayDesc.appendChild(overlayScore);
-												    overlayScore.appendChild(overlayJoin);
-
-												    overlayClose.onclick = function () {
-												        overlay.setMap(null);
-												    };
-												    
-												    overlay.setContent(overlayContent);
-												    
-											        overlay.setMap(map);
-											    });
-		    					}
-		    				});
 		    				
-		    				$.each(sList, function(i){
-		    					//var c1 = map.getCenter();
-		    					var c1 = coords;
-		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
-		    					var poly = new kakao.maps.Polyline({
-		    						path:[c1,c2]
-		    					});
-		    					var dist = poly.getLength();
-		    					
-		    					if(dist<radius){
-			    					var coord = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
-			    					var callback = function(result, status) {
-				    					if (status === kakao.maps.services.Status.OK) {
-				    						for(var m=0; m<markers.length; m++){
-										    	var checkMarker = new kakao.maps.Marker({
-											    	position : coord
-											   	});
-										    	
-										    	if(markers[m].getPosition().toString()===checkMarker.getPosition().toString()){
-										    		if(result[0].road_address != null){
-										    			
-										    			console.log("search : " + m);
-										    			console.log(markers[0]);
-										    			console.log(markers[1]);
-										    			console.log(markers[2]);
-										    			
-										    			console.log(result[0].road_address.address_name);
-										    			
-										    			console.log(document.getElementById('eventAddress'+(m+1)));
-										    			
-						    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].road_address.address_name;
-						    						} else{
-						    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].address.address_name;
-						    						}
-										    	}
-										    }
-				    					}
-			    					};
-			    					geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-		    					}
-		    				});
-		    				
-		    				function setMarkers(map) {
-		    		    	    for (var i = 0; i < markers.length; i++) {
-		    		    	        markers[i].setMap(map);
-		    		    	    }            
-		    		    	}
+		    				setList(sList);
 		    				
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
-		    				
-		    				numTemp = num;
 		    				
 		    				if(num < limit){
 		    					limitTemp = limit - num;
@@ -662,8 +620,8 @@ input:checked + .slider:before {
 		    				"checkEventStatus" : checkEventStatus},
 		    		dataType : "json",
 		    		success : function(sList){
-		    			var content = "";
-		    			var startDate ="";
+		    			content = "";
+		    			startDate ="";
 		    			currentPage += 1;
 		    			
 		    			if(sList == ""){
@@ -672,218 +630,11 @@ input:checked + .slider:before {
 		    		    	$("#loading").hide();
 		    			} else{
 		    				$("#addBtn").remove();
-		    				$.each(sList, function(i){
-		    					
-		    					//var c1 = map.getCenter();
-		    					var c1 = coords;
-		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
-		    					var poly = new kakao.maps.Polyline({
-		    						path:[c1,c2]
-		    					});
-		    					var dist = poly.getLength();
-		    					
-		    					if(dist<radius){
-		    						num += 1;
-		    						numTemp = num;
-			    					
-			    					startDate = sList[i].eventStart.substring(0,4) +
-			    								 "년 " + 
-			    								 sList[i].eventStart.substring(4,6) +
-			    								 "월 "+
-			    								 sList[i].eventStart.substring(6,8) +
-			    								 "일 " +
-			    								 sList[i].eventStart.substring(8,10) +
-			    								 ":" +
-			    								 sList[i].eventStart.substring(10,12)
-			    								 ;
-			    					console.log(num);
-			    					content +=
-			    								"<div class='row card shadow my-4' id='searchList'>" +
-			    									"<div class='col-md-12 h-100'>" +
-			    										"<div class='row h-100'>" +
-															"<div class='col-md-3 thumb-wrap'>" +
-																"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
-															"</div>" +
-															"<div class='col-md-6 p-3'>" +
-																"<p class='mb-1' style='color: darkcyan;'>" + 
-																startDate +
-																"</p>" +
-																"<h2 class='mb-3'>" + sList[i].eventTitle + "</h2>" +
-																"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
-																"<span id='eventAddress"+num+"'></span>" +
-																"<p>" + sList[i].eventLocation + "</p>" +
-																"<p class='content'>" + sList[i].eventContent + "</p>" +
-															"</div>" +
-															"<div class='col-md-3'>" +
-																"<div class='p-3'>" +
-																	"<div>" +
-																		"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
-																		"<div style='display: inline-block;'>" +
-																			"<p class='mb-1'>" + sList[i].memberId + "</p>" +
-																			"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-																			"<span>x" + sList[i].eventScore + "</span>" +
-																		"</div>" +
-																	"</div>";
-												if(${nowDate} < sList[i].eventEnd){
-																content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ sList[i].eventTicket + "장</p>" +
-																		"</div>" +
-																	"</div>" +
-																"</div>" +
-															"</div>" +
-														"</div>";
-												} else{
-																content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
-																"</div>" +
-															"</div>" +
-														"</div>" +
-													"</div>" +
-												"</div>";
-												}
-												
-												var marker = new kakao.maps.Marker({
-											        map: map,
-											        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-											    });
-												markers.push(marker);
-												
-												kakao.maps.event.addListener(marker, 'click', function() {
-											    	var overlay = new kakao.maps.CustomOverlay({
-												        yAnchor: 3,
-												        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-												    });
-											    	
-											    	var overlayContent = document.createElement('div');
-												    overlayContent.setAttribute('class','owrap');
-												    
-												    var overlayInfo = document.createElement('div');
-												    overlayInfo.setAttribute('class','oinfo');
-												    
-												    var overlayTitle = document.createElement('div');
-												    overlayTitle.setAttribute('class','otitle');
-												    overlayTitle.innerHTML = sList[i].eventTitle;
-												    
-												    var overlayClose = document.createElement('div');
-												    overlayClose.setAttribute('class','oclose');
-												    
-												    var overlayBody = document.createElement('div');
-												    overlayBody.setAttribute('class','obody');
-												    
-												    var overlayImg = document.createElement('div');
-												    overlayImg.setAttribute('class','oimg');
-												    overlayImg.appendChild(
-												    				document.createElement('img'))
-												    				.setAttribute('src',"${contextPath}/resources/upEventThumbnail/"+sList[i].eventThumbnail);
-												    
-												    var overlayDesc = document.createElement('div');
-												    overlayDesc.setAttribute('class','odesc');
-												    
-												    // 잠깐대기
-												    var overlayAddress = document.createElement('div');
-												    overlayAddress.setAttribute('class','oaddress');
-												    for(var m=0; m<markers.length; m++){
-												    	var checkMarker =new kakao.maps.Marker({
-													    	position : new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-													   	});
-												    	
-												    	if(markers[m].getPosition().toString()===checkMarker.getPosition().toString()){
-												    		console.log(m + " 번쨰 마커");
-												    		overlayAddress.setAttribute('id','oaddress'+(m+1));
-												    		overlayAddress.innerHTML = $("#eventAddress"+(m+1)).text();
-												    	}
-												    }
-												    
-												    var overlayPlace = document.createElement('div');
-												    overlayPlace.setAttribute('class','oplace');
-												    overlayPlace.innerHTML = sList[i].eventLocation;
-												    
-												    var overlayScore = document.createElement('div');
-												    overlayScore.setAttribute('class','oscore');
-												    overlayScore.appendChild(
-												    				document.createElement('img'))
-												    				.setAttribute('src',"${contextPath}/resources/img/star-on.png");
-												    overlayScore.appendChild(
-												    				document.createElement('span')).innerHTML = sList[i].eventScore;
-												    
-												    var overlayJoin = document.createElement('p');
-												    overlayJoin.setAttribute('class','ojoin');
-												    
-													if(${nowDate} < sList[i].eventEnd){
-												    	overlayJoin.setAttribute('id','join');
-												    	overlayJoin.innerHTML = "티켓" + sList[i].eventTicket + "장";
-												    } else{
-												    	overlayJoin.setAttribute('class','already-finish-event')
-												    	overlayJoin.innerHTML = "종료된 이벤트";
-												    }
-												    
-												    overlayContent.appendChild(overlayInfo);
-												    overlayInfo.appendChild(overlayTitle);
-												    overlayTitle.appendChild(overlayClose);
-												    overlayInfo.appendChild(overlayBody);
-												    overlayBody.appendChild(overlayImg);
-												    overlayBody.appendChild(overlayDesc);
-												    overlayDesc.appendChild(overlayAddress);
-												    overlayDesc.appendChild(overlayPlace);
-												    overlayDesc.appendChild(overlayScore);
-												    overlayScore.appendChild(overlayJoin);
-
-												    overlayClose.onclick = function () {
-												        overlay.setMap(null);
-												    };
-												    
-												    overlay.setContent(overlayContent);
-												    
-											        overlay.setMap(map);
-											    });
-		    					}
-		    				});
 		    				
-		    				numTemp = num;
-		    				
-		    				$.each(sList, function(i){
-		    					
-		    					//var c1 = map.getCenter();
-		    					var c1 = coords;
-		    					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
-		    					var poly = new kakao.maps.Polyline({
-		    						path:[c1,c2]
-		    					});
-		    					var dist = poly.getLength();
-		    					
-		    					if(dist<radius){
-		    						var coord = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
-			    					var callback = function(result, status) {
-				    					if (status === kakao.maps.services.Status.OK) {
-				    						if (status === kakao.maps.services.Status.OK) {
-					    						for(var m=0; m<markers.length; m++){
-											    	var checkMarker =new kakao.maps.Marker({
-												    	position : coord
-												   	});
-											    	
-											    	if(markers[m].getPosition().toString()===checkMarker.getPosition().toString()){
-											    		if(result[0].road_address != null){
-							    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].road_address.address_name;
-							    						} else{
-							    							document.getElementById("eventAddress"+(m+1)).innerHTML = result[0].address.address_name;
-							    						}
-											    	}
-											    }
-					    					}
-				    					}
-			    					};
-			    					geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-		    					}
-		    				});
-		    				
-		    				function setMarkers(map) {
-		    		    	    for (var i = 0; i < markers.length; i++) {
-		    		    	        markers[i].setMap(map);
-		    		    	    }            
-		    		    	}
+		    				setList(sList);
 		    				
 		    				content += "<div class='row' id='addBtn'><div class='col-md-12 text-center'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='moreSlist()'>더보기</button></div></div></div>"
 		    				$(content).appendTo("#searchListArea");
-		    				
-		    				console.log(document.getElementById('eventAddress'+ num));
 		    				
 		    				if(num >= (webPage*limit)){
 		    					limitTemp = limit;
@@ -891,7 +642,7 @@ input:checked + .slider:before {
 		    					$("#searchListArea").show();
 			    		    	$("#loading").hide();
 		    				} else{
-		    					limitTemp = (limit*webPage) - numTemp;
+		    					limitTemp = (limit*webPage) - num;
 		    					moreSlist();
 		    				}
 		    			}
@@ -902,7 +653,7 @@ input:checked + .slider:before {
 		    	});
 		    };
 		    
-		    $(function(){
+		    /* $(function(){
 		    	var testValue = "${findKeyword}";
 		    	if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
 					$("#searchKey").val(testValue);
@@ -910,7 +661,7 @@ input:checked + .slider:before {
 		    	}else{
 					searchSlist();  // 그냥 탐색을 들어갔을 때
 		    	}
-		    });
+		    }); */
 		</script>
 </body>
 </html>

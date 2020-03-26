@@ -220,7 +220,6 @@
 						"favoriteNo" : ${member.memberNo}},
 			dataType : "json",
 			success : function(result){
-				console.log(result);
 				if(result==1){
 					$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");
 				} else{
@@ -257,7 +256,6 @@
 	};
 	
 	$(function(){
-		console.log(${checkFavorite});
 		<c:if test='${checkFavorite == 1}'>
 			$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");
 		</c:if>
