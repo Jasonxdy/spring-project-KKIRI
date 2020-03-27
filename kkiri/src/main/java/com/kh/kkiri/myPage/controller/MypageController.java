@@ -271,8 +271,9 @@ public class MypageController {
 		System.out.println("cp"+currentPage);
 		try {
 			int listCount = mypageService.listEventCount(memberNo);
+			int listCount2 = mypageService.listEventCount2(memberNo);
 			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
-			PageInfo pInf2 = Pagination.getPageInfo(3, 5, currentPage2, listCount);
+			PageInfo pInf2 = Pagination.getPageInfo(3, 5, currentPage2, listCount2);
 			
 			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);

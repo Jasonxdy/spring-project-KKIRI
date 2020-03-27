@@ -86,5 +86,9 @@ public class MypageDAO {
 	public int listEventCount(int memberNo) throws Exception{
 		return sqlSession.selectOne("eventMapper.listEventCount", memberNo);
 	}
+
+	public int listEventCount2(int memberNo)throws Exception{
+		return sqlSession.selectOne("eventMapper.listEventCount2", memberNo);
+	}
 	
 }
