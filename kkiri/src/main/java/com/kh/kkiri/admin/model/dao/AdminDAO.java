@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -62,6 +63,23 @@ public class AdminDAO {
 	 */
 	public int recover(Integer memberNo) throws Exception {
 		return sqlSession.update("memberMapper.adminRecover", memberNo);
+	}
+
+	/** 영상 업로드 DAO
+	 * @param videoName
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertVideo(String videoName) throws Exception {
+		return sqlSession.insert("adminMapper.insertVideo", videoName);
+	}
+
+	/** 영상 조회 DAO
+	 * @return vList
+	 * @throws Exception
+	 */
+	public List<Video> adminSelectVideo() throws Exception {
+		return sqlSession.selectList("adminMapper.adminSelectVideo");
 	}
 
 }

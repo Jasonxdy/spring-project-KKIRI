@@ -58,7 +58,8 @@
 				<fmt:formatDate var="memberSignupDate"
 					value="${event.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
 				<div id="attendList"> 
-					<div class="media border p-3 profile-card">
+					<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
+					<span style="display:none">${event.memberNo}</span>
 						<img src="${contextPath}/resources/img/${event.memberProfile}"
 							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 						<div class="media-body ml-3 mt-1">
@@ -69,7 +70,8 @@
 					<c:forEach var="party" items="${partyList}">
 						<fmt:formatDate var="memberSignupDate"
 							value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-						<div class="media border p-3 profile-card">
+						<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${party.memberNo}'">
+						<span style="display:none">${party.memberNo}</span>
 							<img src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
 							<div class="media-body ml-3 mt-1">
@@ -194,8 +196,10 @@
 			success : function (partyList){
 				$.each(partyList, function(i){
 				$attendList = $("#attendList");
+				var location  = "location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'";
 				var memberCard = 
-					"<div class='media border p-3 profile-card'>" +
+					"<div class='media border p-3 profile-card' onclick=\"location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'\">" +
+					"<span style='display:none'>" + partyList[i].memberNo + "</span>" +
 				"<img src='${contextPath}/resources/img/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
 				"<div class='media-body ml-3 mt-1'>" +
 					"<h4>" + partyList[i].memberNickname + "</h4>" +
@@ -220,6 +224,24 @@
 	    	count++;
     	}
 	}
+	
+	function profileDetail(){
+		var memberNo = $(this).children("span").text();
+		location.href = "${contextPath}/profile/user?no=" + memberNo;
+	}
+
+	
+	$(function(){
+		/* 클릭 시 해당 회원 프로필 이동 */
+		
+		
+		/* $(".media").on({
+			click : function (){
+				var memberNo = $(this).children("span").text();
+				location.href = "${contextPath}/profile/user?no=" + memberNo;
+			}
+		}); */
+	});
 	
 	
 	</script>

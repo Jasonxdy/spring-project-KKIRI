@@ -338,7 +338,7 @@
 															"<div style='display: inline-block;'>" +
 																"<p class='mb-1'>" + sList[i].memberId + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-																"<span>x" + sList[i].eventScore + "</span>" +
+																"<span>" + sList[i].eventScore + "</span>" +
 															"</div>" +
 														"</div>";
 						if(${nowDate} < sList[i].eventEnd){

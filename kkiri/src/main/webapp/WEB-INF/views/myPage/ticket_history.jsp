@@ -22,9 +22,9 @@
         <!-- content 시작 -->
         <div class="row">
           <div class="col-2 nav-wrap">
-            <a class="btn active" href="../mypage/in">프로필</a>
+            <a class="btn " href="../mypage/in">프로필</a>
             <a class="btn" href="../mypage/moveEvent">이벤트</a>
-            <a class="btn" href="../mypage/ticketLog">티켓</a>
+            <a class="btn active" href="../mypage/ticketLog">티켓</a>
             <a class="btn" href="../member/logout">로그아웃</a>
           </div>
 			<c:if test="${ticketSort==null }">
@@ -35,13 +35,13 @@
 
             <ul class="nav nav-tabs" id="profile-nav-wrap">
               <li class="nav-item">
-                <a class="nav-link active move-btn" href="javascript:" tabindex="-1">내역</a>
+                <a class="nav-link active move-btn" href="../mypage/ticketLog" tabindex="-1">내역</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="javascript:" tabindex="-1">충전</a>
+                <a class="nav-link move-btn" href="../mypage/recharge" tabindex="-1">충전</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="moveRefund" tabindex="-1">환급</a>
+                <a class="nav-link move-btn" href="../mypage/moveRefund" tabindex="-1">환급</a>
               </li>
             </ul>
 

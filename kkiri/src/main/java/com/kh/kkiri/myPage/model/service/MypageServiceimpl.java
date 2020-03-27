@@ -191,6 +191,11 @@ public class MypageServiceimpl implements MypageService{
 		return mypageDAO.listEventCount(memberNo);
 	}
 
+	@Override
+	public int listEventCount2(int memberNo) throws Exception {
+		return mypageDAO.listEventCount2(memberNo);
+	}
+
 
 
 }

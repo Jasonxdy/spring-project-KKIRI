@@ -240,7 +240,6 @@ public class EventController {
 			e.printStackTrace();
 			result = -1;
 		}
-		System.out.println("화면으로 넘어가기 전 result : " + result);
 		return result;
 
 	}
@@ -369,12 +368,20 @@ public class EventController {
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectPartyList(eventNo);
 
-			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기 
 			if (model.getAttribute("loginMember") != null) {
 				List<Party> myEventList = eventService
 						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
 				if (myEventList != null) {
 					model.addAttribute("myEventList", myEventList);
+					// + 내가 남긴 후기 있는 경우 그것도 가져오기
+					for (Party party : myEventList) {
+						if(party.getEventNo() == event.getEventNo() && party.getMemberType().equals("P")) { // 해당 이벤트가 내가 참여한 이벤트인 경우 후기 가져옴
+							Rating myRating = eventService.selectMyRating(party);
+							model.addAttribute("myRating", myRating);
+							break;
+						}
+					}
 				}
 			}
 			
@@ -392,14 +399,14 @@ public class EventController {
 
 			// 후기 목록 조회
 			List<Rating> ratingList = eventService.selectRatingList(eventNo, pInf);
-
+			
 			if (event != null) {
 
 				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
 				model.addAttribute("ratingList", ratingList);
+				model.addAttribute("pInf", pInf);
 				url = "event/eventAfterComment";
-				System.out.println("ratingList : " +ratingList);
 
 			} else {
 				msg = "이벤트 상세 페이지 조회 실패";
@@ -413,6 +420,163 @@ public class EventController {
 			return "common/errorPage.jsp";
 		}
 		return url;
+	}
+	
+	
+	
+	
+	
+	
+	// 후기 등록
+	@RequestMapping("insertRating")
+	public String insertRating(Rating rating, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String msg;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
+		rating.setRatingContent(rating.getRatingContent().replace("\r\n", "<br>"));
+		try {
+			int result = eventService.insertRating(rating);
+
+			if (result > 0) {
+				msg = "이벤트 후기가 등록되었습니다";
+			} else {
+				msg = "이벤트 후기 등록 실패";
+			}
+
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + detailUrl;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "이벤트 후기 등록 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
+				
+	}
+	
+	
+	
+	// 후기 수정 
+	@RequestMapping("updateRating")
+	public String updateRating(Rating rating, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String msg;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
+		rating.setRatingContent(rating.getRatingContent().replace("\r\n", "<br>"));
+		try {
+			int result = eventService.updateRating(rating);
+
+			if (result > 0) {
+				msg = "이벤트 후기가 수정되었습니다";
+			} else {
+				msg = "이벤트 후기 수정 실패";
+			}
+
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + detailUrl;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "이벤트 후기 수정 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 후기 삭제
+	@RequestMapping("deleteRating")
+	public String deleteRating(int ratingNo, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		String msg;
+		String detailUrl = request.getHeader("referer");
+		model.addAttribute("detailUrl", detailUrl);
+		
+		try {
+			int result = eventService.deleteRating(ratingNo);
+
+			if (result > 0) {
+				msg = "이벤트 후기가 삭제되었습니다";
+			} else {
+				msg = "이벤트 후기 삭제 실패";
+			}
+
+			rdAttr.addFlashAttribute("msg", msg);
+			return "redirect:" + detailUrl;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "이벤트 후기 삭제 과정 중 오류 발생";
+			model.addAttribute("msg", msg);
+			return "common/errorPage";
+		}
+	}
+	
+	
+	
+	// 사진 등록 페이지 이동
+	@RequestMapping("picture")
+	public String selectPicture (@RequestParam(value = "no", required = false) Integer no, Model model,
+			RedirectAttributes rdAttr) {
+		
+
+		int eventNo = 0;
+
+//		테스트용으로 삭제 예정
+		if (no != null) {
+			eventNo = no;
+		} else {
+			eventNo = 99;
+		}
+
+		String msg = null;
+		String url = null;
+
+		try {
+
+			// 이벤트 + 주최자 정보 얻어오기
+			Event event = eventService.selectEvent(eventNo);
+
+			// 이벤트 참석자 정보 얻어오기
+			List<Member> partyList = eventService.selectPartyList(eventNo);
+
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			if (model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService
+						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
+				if (myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
+			}
+			
+			// 게시글 목록 가져오기
+			
+			
+			// 게시글에 대한 사진 목록 가져오기
+
+			if (event != null) {
+
+				model.addAttribute("event", event);
+				model.addAttribute("partyList", partyList);
+				url = "event/eventPicture";
+
+			} else {
+				msg = "이벤트 상세 페이지 조회 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				url = "redirect:/";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이벤트 상세 페이지 조회 과정 중 오류 발생");
+			return "common/errorPage.jsp";
+		}
+		return url;
+		
+		
+		
 	}
 
 }

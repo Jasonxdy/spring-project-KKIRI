@@ -96,6 +96,8 @@ public class HomeController {
 			model.addAttribute("eventList",eventList);
 			model.addAttribute("rankSize", mlist.size());
 			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "메인 화면 로딩 과정 중 오류 발생");

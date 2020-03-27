@@ -154,13 +154,14 @@
 				<div class="event-participant-profile-wrap" id="event-party-list">
 					<span class="event-participant-profile"> <img
 						src="${contextPath}/resources/img/${event.memberProfile}"
-						alt="주최자">
+						alt="주최자" id="eventCreater-profile-image">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
-							<span class="event-participant-profile"> <img
+							<span class="event-participant-profile participant-profile"> <img
 								src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참석자">
+								<div style="display:none">${party.memberNo}</div>
 							</span>
 						</c:if>
 					</c:forEach>
@@ -170,6 +171,23 @@
 			</div>
 		</div>
 		<!-- 이벤트 상세 페이지 end -->
+		
+		<!-- 프로필 사진 클릭 시  프로필 상세 이동 -->
+		<script>
+			$(".participant-profile").on({
+				click : function(e){
+					var memberNo = $(this).children("div").text();
+					location.href = "${contextPath}/profile/user?no=" + memberNo;
+				}
+			})
+			
+		$("#eventCreater-profile-image").on({
+					click : function(){
+						location.href = "${contextPath}/profile/user?no=" + ${event.memberNo};
+					}
+			});
+		</script>
+		
 
 	</div>
 

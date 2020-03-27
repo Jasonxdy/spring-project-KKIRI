@@ -153,7 +153,6 @@ public class EventServiceImpl implements EventService {
 		
 		// 1. 이벤트 참여 구성원 가져오기
 		List<Party> partyList = eventDAO.selectFinalPartyList(event.getEventNo());
-		System.out.println("partyList : " + partyList);
 		
 		if(!partyList.isEmpty() && partyList !=null) {
 			
@@ -274,6 +273,56 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Rating> selectRatingList(int eventNo, PageInfo pInf) throws Exception {
 		return eventDAO.selectRatingList(eventNo, pInf);
+	}
+	
+	/**
+	 * 내가 작성한 후기 가져오기
+	 * @param party
+	 * @return myRating
+	 * @throws Exception
+	 */
+	@Override
+	public Rating selectMyRating(Party party) throws Exception {
+		return eventDAO.selectMyRating(party);
+	}
+	
+	
+	
+	/**
+	 * 이벤트 후기 등록 service
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertRating(Rating rating) throws Exception {
+		return eventDAO.insertRating(rating);
+	}
+	
+	
+	/**
+	 * 이벤트 후기 수정 service
+	 * @param rating
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateRating(Rating rating) throws Exception {
+		return eventDAO.updateRating(rating);
+	}
+	
+	
+	/**
+	 * 이벤트 후기 삭제 service
+	 * @param ratingNo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int deleteRating(int ratingNo) throws Exception {
+		return eventDAO.deleteRating(ratingNo);
 	}
 
 }

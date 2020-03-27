@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+	<resultMap type="Video" id="VideoResultSet">
+		<id property="videoNo" column="VIDEO_NO"/>
+		<result property="videoName" column="VIDEO_NAME"/>
+		<result property="videoEnrollDate" column="VIDEO_ENROLL_DATE"/>
+		<result property="videoStatus" column="VIDEO_STATUS"/>
+	</resultMap>
+	
+	<insert id="insertVideo" parameterType="string">
+		INSERT INTO VIDEO VALUES
+		(VID_SEQ.NEXTVAL, #{videoName}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<select id="adminSelectVideo" resultMap="VideoResultSet">
+		SELECT * FROM VIDEO
+		WHERE VIDEO_STATUS = 'Y'
+	</select>
+</mapper>

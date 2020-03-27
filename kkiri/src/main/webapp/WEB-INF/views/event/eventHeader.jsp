@@ -20,7 +20,7 @@
 						pattern="yyyy년 MM월 dd일 E요일 · HH:mm"/>
 					<fmt:formatDate var="endDate" value="${event.eventEnd}"
 						pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
-
+						
 					<!-- 이벤트 시작시간, 끝나는 시간 -->
 					<p class="text-muted" id="eventDate" style="margin-bottom: 0em;">
 						${startDate}</p>
@@ -47,7 +47,7 @@
 							<c:choose>
 								<c:when test="${event.memberRating != 0}">
 									<img src="${contextPath}/resources/img/star-on.png" alt="별점"
-										class="star-img">&nbsp; ${event.memberRating}
+										class="star-img">&nbsp; <fmt:formatNumber value="${event.memberRating}" pattern=".00"/>	
 								</c:when>
 								<c:otherwise>
 									<p class="text-muted">
@@ -62,5 +62,14 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			$(".eventCreater-profile").on({
+					click : function(){
+						location.href = "${contextPath}/profile/user?no=" + ${event.memberNo};
+					}
+			});
+		
+		</script>
 </body>
 </html>
