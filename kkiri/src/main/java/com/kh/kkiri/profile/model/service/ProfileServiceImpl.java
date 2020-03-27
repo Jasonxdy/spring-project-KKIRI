@@ -81,4 +81,15 @@ public class ProfileServiceImpl implements ProfileService {
 	public int checkFavorite(Favorite favorite) throws Exception {
 		return profileDAO.checkFavorite(favorite);
 	}
+
+	/** 채팅 저장용 Service
+	 * @param eventNo
+	 * @param chatContent
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChat(int eventNo, String chatContent) {
+		return profileDAO.insertChat(eventNo, chatContent);
+	}
 }

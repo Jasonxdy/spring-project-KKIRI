@@ -121,9 +121,11 @@
 											<a class="h4 event-section-title" style="color: white; text-decoration: underline;" data-toggle="dropdown" href="#" id="place">
 											
 											<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
-												<c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
-												${mPlace[0]} ${mPlace[1]}
+												<%-- <c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
+												${mPlace[0]} ${mPlace[1]} --%>
+												loginMember.memberPlace
 												</a>
+												
 											</c:if>
 											
 											<c:if test="${(loginMember == null) || (loginMember.memberPlace == null)}">
@@ -197,6 +199,7 @@
 			var geocoder = new kakao.maps.services.Geocoder();
 			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 			var markers = [];
+			var overlays = [];
 			
 			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
 			
@@ -329,7 +332,7 @@
 													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
 													"<span>" + sList[i].eventAddress + "</span>" +
 													"<p>"+sList[i].eventLocation+"</p>" +
-													"<p class='content'>" + sList[i].eventContent + "</p>" +
+													"<p class='content'>" + sList[i].eventCategory + "</p>" +
 												"</div>" +
 												"<div class='col-md-3'>" +
 													"<div class='p-3'>" +
@@ -403,13 +406,13 @@
 						    overlayPlace.setAttribute('class','oplace');
 						    overlayPlace.innerHTML = sList[i].eventLocation;
 						    
-						    var overlayScore = document.createElement('div');
+						    /* var overlayScore = document.createElement('div');
 						    overlayScore.setAttribute('class','oscore');
 						    overlayScore.appendChild(
 						    				document.createElement('img'))
 						    				.setAttribute('src',"${contextPath}/resources/img/star-on.png");
 						    overlayScore.appendChild(
-						    				document.createElement('span')).innerHTML = sList[i].eventScore;
+						    				document.createElement('span')).innerHTML = sList[i].eventScore; */
 						    
 						    var overlayJoin = document.createElement('p');
 						    overlayJoin.setAttribute('class','ojoin');
@@ -430,8 +433,9 @@
 						    overlayBody.appendChild(overlayDesc);
 						    overlayDesc.appendChild(overlayAddress);
 						    overlayDesc.appendChild(overlayPlace);
-						    overlayDesc.appendChild(overlayScore);
-						    overlayScore.appendChild(overlayJoin);
+						    //overlayDesc.appendChild(overlayScore);
+						    //overlayScore.appendChild(overlayJoin);
+						    overlayDesc.appendChild(overlayJoin);
 
 						    overlayClose.onclick = function () {
 						        overlay.setMap(null);
@@ -440,6 +444,7 @@
 						    overlay.setContent(overlayContent);
 						    
 					        overlay.setMap(map);
+					        overlays.push(overlay);
 					    });
 					}
 				});
@@ -469,6 +474,11 @@
 		    		marker.setMap(null); 
 		    	});
     			markers.length = 0;
+    			
+    			overlays.forEach(function(overlay){
+    				overlay.setMap(null);
+    			});
+    			overlays.length = 0;
     			
 		    	$.ajax({
 		    		url : "searchEvents",

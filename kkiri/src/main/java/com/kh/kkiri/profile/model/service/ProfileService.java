@@ -47,5 +47,13 @@ public interface ProfileService {
 	 * @throws Exception
 	 */
 	public abstract int checkFavorite(Favorite favorite) throws Exception;
+
+	
+	/** 채팅 저장용 Service
+	 * @param eventNo
+	 * @param chatContent
+	 * @return
+	 */
+	public abstract int insertChat(int eventNo, String chatContent);
 	
 }

@@ -94,4 +94,9 @@ public class ProfileDAO {
 	public int undoFavorite(Favorite favorite) {
 		return sqlSession.delete("memberMapper.undoFavorite", favorite);
 	}
+
+
+	public int insertChat(int eventNo, String chatContent) {
+		return sqlSession.insert("profileMapper.insertChat", eventNo);
+	}
 }

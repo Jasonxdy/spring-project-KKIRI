@@ -140,7 +140,9 @@ public class ProfileController {
 	@ResponseBody
 	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
 	public String insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
-								@RequestParam(value="chatContent", required=false) String cahtContent) {
+								@RequestParam(value="chatContent", required=false) String chatContent) {
+		int result = profileService.insertChat(eventNo, chatContent);
+		
 		return null;
 	}
 }
