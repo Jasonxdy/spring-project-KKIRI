@@ -31,13 +31,13 @@
 
             <ul class="nav nav-tabs" id="profile-nav-wrap">
               <li class="nav-item">
-                <a class="nav-link move-btn" href="../mypage/ticketLog" tabindex="-1">내역</a>
+                <a class="nav-link active move-btn" href="../mypage/ticketLog" tabindex="-1">내역</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="javascript:" tabindex="-1">충전</a>
+                <a class="nav-link move-btn" href="../mypage/recharge" tabindex="-1">충전</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active move-btn" href="moveRefund" tabindex="-1">환급</a>
+                <a class="nav-link move-btn" href="../mypage/moveRefund" tabindex="-1">환급</a>
               </li>
             </ul>
 

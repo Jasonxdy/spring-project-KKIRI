@@ -334,11 +334,11 @@ public class MypageController {
 					model.addAttribute("errorMsg", "환급신청 작업중 에러가 발생했습니다.");
 					return "common/errorPage";
 				}
-
-
-
-
+	}
+	@RequestMapping("recharge")
+	public String ticketRecharge() {
+		
+		return "myPage/ticket_recharge";
 		
 	}
-
 }

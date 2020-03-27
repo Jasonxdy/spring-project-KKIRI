@@ -65,7 +65,7 @@
                   <ul>
                   <c:forEach var="eve" items="${eList}">
                  
-                    <li>
+                    <li class="move-detail">
                       <div class="thumb-wrap">
                         <img src="../resources/upEventThumbnail/${eve.eventThumbnail}" alt="이벤트썸네일">
                       </div>
@@ -81,9 +81,12 @@
                         <c:if test="${eve.eventEnd < sysdate }">
                         <p class="end-event">종료된 이벤트</p>
                         </c:if>
+                        <input class="eveno" type="number" value="${eve.eventNo}" style="display:none">
                       </div>  
                     </li>
                   </c:forEach>
+                  
+                  
                   </ul>
                   <!-- 페이징바 시작 -->
                   <div class="row justify-content-center pagination-wrap">
@@ -151,12 +154,24 @@
                   <!-- 페이징바 종료 -->
                 </div>
 
+				<script>
+                  $(function(){
+                	  $(".move-detail").click(function(){
+                		  console.log(12345)
+                		  var eventNo =  $(this).find(".eveno").val();
+                		  location.href="../event/detail?no="+eventNo;
+                	  })
+                  })
+                  
+                </script>
+
                 <!-- 내가 참여한 이벤트 --> 
                 <div class="event_content participate_event_con my-profile-section">
                   <h4>내가 참여한 이벤트</h4>
                   <ul>
                   <c:forEach var="ele" items="${ejList}">
-                    <li>
+                    <li class="move-detail">
+                    
                       <div class="thumb-wrap">
                         <img src="../resources/img/${ele.eventThumbnail }" alt="이벤트썸네일">
                       </div>
@@ -178,7 +193,7 @@
                         </p>
                         <c:if test="${ele.eventEnd<sysdate }">
                         <p class="end-event">종료된 이벤트</p>
-                        
+                        <input class="eveno" type="number" value="${eve.eventNo}" style="display:none">
                         </c:if>
                       </div>  
                     </li>
