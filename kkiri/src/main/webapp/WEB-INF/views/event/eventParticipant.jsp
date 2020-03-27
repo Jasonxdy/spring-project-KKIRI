@@ -70,13 +70,21 @@
 					<c:forEach var="party" items="${partyList}">
 						<fmt:formatDate var="memberSignupDate"
 							value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-						<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${party.memberNo}'">
+						<div class="media border p-3 profile-card">
 						<span style="display:none">${party.memberNo}</span>
 							<img src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
 							<div class="media-body ml-3 mt-1">
 								<h4>${party.memberNickname}</h4>
 								<p class="text-muted">${memberSignupDate}가입</p>
+							</div>
+							<div class="event-status-btnWrap">
+								<button type="button" class="reject-finish">승인 거절됨</button>
+								<button type="button" class="permission-finish">승인 허락됨</button>
+								<div class="do-wrap">
+									<button type="button" class="do-permission">승인하기</button>
+									<button type="button" class="do-reject">거절하기</button>
+								</div>
 							</div>
 						</div>
 					</c:forEach>

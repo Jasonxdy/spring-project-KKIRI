@@ -67,12 +67,7 @@
 }
 .profile-card{
     cursor: pointer;
-    transition: all .3s;
 }
-.profile-card:hover{
-    opacity: 0.7;
-}
-
 .declare-wrap{
     display: none;
 }
@@ -116,7 +111,34 @@
     border-radius: 50px;
     cursor: pointer;
 }
-
+.media{
+	position : relative;
+}
+.event-status-btnWrap{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+.event-status-btnWrap>button{
+    background-color: #888888;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: .25rem;
+    cursor: default !important; 
+}
+.event-status-btnWrap .do-wrap>button{
+    background: none;
+    border: 1px solid #00a185;
+    padding: 10px 20px;
+    border-radius: .25rem;
+    color: #00a185;
+    transition: all .3s;
+}
+.event-status-btnWrap .do-wrap>button:hover{
+    background: #00a185;
+    color: #ffffff;
+}
 /* 회원 상세보기 css start */
 #event-navi .nav-link.active, 
 #wrapper .navbar-light .navbar-nav .nav-link:hover,
@@ -128,10 +150,12 @@
     margin-bottom: 5px;
 }
 
-@media (max-width: 900px){
-    .event-thumbnail{
-        /* 최대 - 최소 사이즈 지정 -> 반응형으로 완성 필요 */
-    }
+@media (max-width: 991px){
+	html .media .event-status-btnWrap button{
+	    padding: 5px 10px;
+	    display: block;
+	    margin: 5px 0;
+	}
 }
 @media (max-width: 767px){
     .time-and-place{
