@@ -157,7 +157,7 @@
                     $("#ticket-sort").on({
                       change : function(){
                         	ticketsort = $(this).val();
-                        	location.href="ticketLog?ticketsort="+ticketsort+"&currentPage="+currentPage;
+                        	location.href="ticketLog?ticketsort="+ticketsort+"&currentPage="+1;
                       }
                     });
                     

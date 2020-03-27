@@ -36,7 +36,7 @@
 		</where>
 	</select>
 	
-	<!-- 탐색페이지 이벤트 조회 -->
+	<!-- 탐색페이지 이벤트 조회(종료 이벤트 포함) -->
 	<select id="selectList" parameterType="map" resultMap="searchResultSet">
 		SELECT * FROM V_SEARCH
 		<where>
@@ -66,7 +66,7 @@
 			AND EVENT_STATUS ='Y'
 			AND EVENT_END > SYSDATE
 		</where>
-		ORDER BY EVENT_NO
+		ORDER BY EVENT_START
 	</select>
 	 
 	<select id="cListCount" parameterType="_int" resultType="_int">

@@ -29,6 +29,7 @@
 	<nav class="navbar navbar-expand-sm navbar-light" id="stripe">
 		<div class="container" id="event-navi">
 			<ul class="navbar-nav nav-ul ml-2">
+			<li class="updateEvent" onclick="location.href='updateEventGo?no=${event.eventNo}'">이벤트 수정</li>
 				<c:choose>
 					<c:when test="${currTime < event.eventEnd}">
 						<li class="nav-item"><a class="nav-link active" id="detail"

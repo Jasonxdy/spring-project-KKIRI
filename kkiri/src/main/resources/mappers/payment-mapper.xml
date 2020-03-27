@@ -34,6 +34,8 @@
 	<select id="ticketLog" parameterType="Ticket" resultMap="ticketResultSet">
 	
 	SELECT PAYMENT_NO,MEMBER_NO, EVENT_TITLE,PAYMENT_TYPE,PAYMENT_TICKET, PAYMENT_DATE FROM PAYMENT
+	
+	
 	JOIN EVENT USING (EVENT_NO)
     WHERE MEMBER_NO = #{memberNo} 
     <if test="paymentType != 'all'">

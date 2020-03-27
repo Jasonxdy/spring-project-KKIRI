@@ -99,6 +99,7 @@
 			dataType : "json",
 			success : function(data){
 				var content ="";
+				console.log(data);
 				
 				if(data.eList == ""){
 					$("#eventArea").empty();
@@ -130,11 +131,11 @@
 												"</div>" +
 												"<div class='col-md-6 p-3'>" +
 													"<p class='mb-1' style='color: #00a185;''>" + startDate + "</p>" +
-													"<h2 class='mb-3 event-title'>[" + data.eList[i].eventTitle + "]</h2>" +
+													"<h2 class='mb-3 event-title'>" + data.eList[i].eventTitle + "</h2>" +
 													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" +
 													"<span>" + data.eList[i].eventAddress + "</span>" +
 													"<p>"+ data.eList[i].eventLocation+"</p>" +
-													"<p class='mb-0'>" + data.eList[i].eventContent + "</p>" +
+													"<p class='mb-0'>" + data.eList[i].eventCategory + "</p>" +
 												"</div>" +
 												"<div class='col-md-3'>" +
 													"<div class='p-3'>" +

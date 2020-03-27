@@ -56,7 +56,7 @@
                 <div class="step2 select-category step">
                   <h3 class="eventCreateTitle">2단계. 이벤트의 연관 카테고리를 선택해주세요.</h3>
                   <p class="sub-title">
-                    회원님께서 주최하실 이벤트의 연관 카테고리를 선택해주세요. 더 활발한 모임이 되는데에 도움이 될거에요.<br>
+              		회원님께서 주최하실 이벤트의 연관 카테고리를 선택해주세요. 더 활발한 모임이 되는데에 도움이 될거에요.<br>
                     (카테고리는 한개만 선택 가능합니다.)
                   </p>
                   <div class="category-wrap">
@@ -105,7 +105,7 @@
                       <label for="eventEnd">이벤트 종료 시간</label>
                       <input type="datetime-local" name="endTime" id="eventEnd"><br>
                       <label for="ticket">참가 티켓 수</label>
-                      <input type="number" name="eventTicket" id="ticket" min="0"><br>
+                      <input type="number" name="eventTicket" id="ticket" min="0" max="5"><br>
                       <label for="eventQuota">이벤트 정원</label>
                       <input type="number" name="eventQuota" id="eventQuota" min="2"><br>
 
@@ -113,12 +113,6 @@
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
                       <button class="go-step4 green-radius-btn mt-4">이벤트 생성</button>
                     </div>
-                  </div>
-                  <div class="step4 signUp-complete step">
-                    <h3 class="eventCreateTitle">이벤트 생성이 완료되었습니다!</h3>
-                    <p class="sub-title">이제 참가자들을 모아 이벤트를 함께 즐기세요.</p>
-
-                    <button type="button" class="green-radius-btn mt-4">이벤트 상세 페이지로</button>
                   </div>
               </form>
             </div>

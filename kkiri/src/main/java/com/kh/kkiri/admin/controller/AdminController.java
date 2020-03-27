@@ -435,7 +435,7 @@ public class AdminController {
 	
 	@RequestMapping("adminChangeVideo")
 	public String adminChangeVideo(Model model, String changeVideo,
-			HttpServletRequest request) {
+			HttpServletRequest request, RedirectAttributes rdAttr) {
 		System.out.println(changeVideo);
 		String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
 		String savePath = root + "/uploadVideo";
@@ -444,15 +444,19 @@ public class AdminController {
 		String msg = null;
 		
 		File[] fileList = path.listFiles();
-		File mainVideo = new File(savePath + "/" + "mainVideo.mp4");
-		File newVideo = new File(savePath + "/" + FileRename.rename("aaa.mp4"));
+		File newVideo = new File(savePath + "/" + FileRename.rename("mainVideo.mp4"));
 		if(fileList.length>0) {
 			for(int i=0; i < fileList.length; i++) {
 				if(fileList[i].getName().equals("mainVideo.mp4")) {
 					successRename = fileList[i].renameTo(newVideo);
-				} 
-				if(fileList[i].getName().equals(changeVideo)) {
-					successRename = fileList[i].renameTo(mainVideo);
+					for(int j=0; j < fileList.length; j++) {
+						if(fileList[j].getName().equals(changeVideo)) {
+							//System.out.println(mainVideo.getName());
+							successRename = fileList[j].renameTo(new File(savePath, "mainVideo.mp4"));
+							break;
+						} 
+					}
+					break;
 				} 
 			}
 		}
@@ -460,7 +464,7 @@ public class AdminController {
 		if(successRename) msg = "변경이 완료되었습니다.";
 		else msg = "변경에 실패했습니다.";
 		
-		model.addAttribute("msg", msg);
+		rdAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/";
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.common.Pagination;
+import com.kh.kkiri.common.Pagination2;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.member.model.service.MemberService;
@@ -238,6 +239,7 @@ public class MypageController {
 			PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 			List<Ticket> ticketList = mypageService.ticketLog(ticket,Pinf);
 			System.out.println(ticketSort);
+			System.out.println(ticketList);
 			model.addAttribute("ticketList", ticketList);
 			model.addAttribute("pInf", Pinf);
 			model.addAttribute("ticketSort", ticketSort);
@@ -262,7 +264,9 @@ public class MypageController {
 		if(currentPage == null) {
 			currentPage = 1;
 		}
-		if(currentPage2 == null) currentPage2 = 1;
+		if(currentPage2 == null) {
+			currentPage2 = 1;
+		}
 		if(flag == null) {
 			flag = 1;
 		}
@@ -272,9 +276,11 @@ public class MypageController {
 		try {
 			int listCount = mypageService.listEventCount(memberNo);
 			int listCount2 = mypageService.listEventCount2(memberNo);
+			System.out.println("listCount 1 : "+listCount);
+			System.out.println("listCount 2 : "+listCount2);
 			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
-			PageInfo pInf2 = Pagination.getPageInfo(3, 5, currentPage2, listCount2);
-			
+			System.out.println(pInf);
+			PageInfo pInf2 = Pagination2.getPageInfo(3, 5, currentPage2, listCount2);
 			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
