@@ -57,7 +57,7 @@ public class MypageDAO {
 	 * @throws Exception
 	 */
 	public List<Event> moveEvent(int memberNo, PageInfo pInf) throws Exception{
-		int OffSet = (pInf.getCurrentPage()-1*pInf.getLimit());
+		int OffSet = (pInf.getCurrentPage()-1)*pInf.getLimit();
 		RowBounds rbounds = new RowBounds(OffSet, pInf.getLimit());
 		return sqlSession.selectList("eventMapper.moveEvent1", memberNo, rbounds);
 	}
@@ -76,7 +76,7 @@ public class MypageDAO {
 	}
 
 	public List<Integer> countEveNo(int memberNo, PageInfo pInf) throws Exception{
-		int offSet = (pInf.getCurrentPage()-1*pInf.getLimit());
+		int offSet = (pInf.getCurrentPage()-1)*pInf.getLimit();
 		RowBounds rbounds = new RowBounds(offSet, pInf.getLimit());
 		
 		

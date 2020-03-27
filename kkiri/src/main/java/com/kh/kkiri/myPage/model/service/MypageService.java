@@ -77,5 +77,7 @@ public interface MypageService {
 
 	int listEventCount(int memberNo)throws Exception;
 
+	int listEventCount2(int memberNo)throws Exception;
+
 	
 }

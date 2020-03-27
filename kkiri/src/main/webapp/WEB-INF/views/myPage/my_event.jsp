@@ -32,10 +32,18 @@
 
             <ul class="nav nav-tabs" id="profile-nav-wrap">
               <li class="nav-item">
-                <a class="nav-link active move-btn" href="javascript:" tabindex="-1">내가 만든 이벤트</a>
+                <a class="nav-link 
+                <c:if test="${flag == 1}" >
+                active 
+                </c:if>
+                move-btn" href="javascript:" tabindex="-1">내가 만든 이벤트</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="javascript:" tabindex="-1">내가 참여한 이벤트</a>
+                <a class="nav-link
+                <c:if test="${flag == 2}">
+                active 
+                </c:if>
+                 move-btn" href="javascript:" tabindex="-1">내가 참여한 이벤트</a>
               </li>
             </ul>
             
@@ -60,7 +68,11 @@
 			<jsp:useBean id="sysdate" class="java.util.Date"/>
             <div class="my_event_wrapper">
               <!-- 내가 만든 이벤트 -->
-                <div class="event_content create_event_con my-profile-section">
+                <div class="event_content create_event_con my-profile-section" style="
+                <c:if test="${ flag ==2}">
+				display:none                
+                </c:if>
+                ">
                   <h4>내가 만든 이벤트</h4>
                   <ul>
                   <c:forEach var="eve" items="${eList}">
@@ -118,7 +130,7 @@
                   <c:if test="${pg!=pInf.currentPage }">
                     <li>
                       <a class="page-link" href="
-                      <c:url value="ticketLog">
+                      <c:url value="moveEvent">
                       <c:param name="currentPage" value="${pg}" />
                       </c:url>
                       ">${pg }</a>
@@ -130,7 +142,7 @@
                     <c:if test="${pInf.currentPage<pInf.maxPage }">
                     <li>
                       <a class="page-link " href="
-                      <c:url value="ticketLog">
+                      <c:url value="moveEvent">
                       <c:param name="currentPage" value="${pInf.currentPage+1}"/>
                       </c:url>
                       ">&gt;</a>
@@ -140,7 +152,7 @@
                     <!-- 맨 끝으로(>>) -->
                     <li>
                       <a class="page-link " href="
-                      <c:url value="ticketLog">
+                      <c:url value="moveEvent">
                       <c:param name="currentPage" value="${pInf.maxPage}"/>
                       </c:url>
                       ">&gt;&gt;</a>
@@ -155,6 +167,7 @@
                 </div>
 
 				<script>
+				// 해당 페이지 상세 입장하는 스크립트
                   $(function(){
                 	  $(".move-detail").click(function(){
                 		  console.log(12345)
@@ -166,7 +179,11 @@
                 </script>
 
                 <!-- 내가 참여한 이벤트 --> 
-                <div class="event_content participate_event_con my-profile-section">
+                <div class="event_content participate_event_con my-profile-section" style="
+                <c:if test="${ flag ==1}">
+				display:none                
+                </c:if>
+                ">
                   <h4>내가 참여한 이벤트</h4>
                   <ul>
                   <c:forEach var="ele" items="${ejList}">
@@ -209,6 +226,7 @@
                     <li>
                       <a class="page-link " href="
                   <c:url value="moveEvent">
+                  <c:param name="flag" value="2"/>
                   </c:url>
                       "
                       >&lt;&lt;</a>
@@ -217,21 +235,23 @@
                       <a class="page-link " href="
                     
                     <c:url value="moveEvent">
+                    <c:param name="flag" value="2"/>
                   	</c:url>
                   ">&lt;</a>
                     </li>
                   </c:if>
-                  <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
-                  <c:if test="${pg ==pInf.currentPage}">
+                  <c:forEach var ="pg" begin="${pInf2.startPage }" end="${pInf2.endPage }">
+                  <c:if test="${pg ==pInf2.currentPage}">
                     <li>
                       <a class="page-link">${pg }</a>
                     </li>
                   </c:if>
-                  <c:if test="${pg!=pInf.currentPage }">
+                  <c:if test="${pg!=pInf2.currentPage }">
                     <li>
                       <a class="page-link" href="
-                      <c:url value="ticketLog">
+                      <c:url value="moveEvent">
                       <c:param name="currentPage" value="${pg}" />
+                      <c:param name="flag" value="2"/>
                       </c:url>
                       ">${pg }</a>
                     </li>
@@ -239,11 +259,12 @@
                   </c:forEach>
                     
                     <!-- 다음 페이지로(>) -->
-                    <c:if test="${pInf.currentPage<pInf.maxPage }">
+                    <c:if test="${pInf2.currentPage<pInf.maxPage }">
                     <li>
                       <a class="page-link " href="
-                      <c:url value="ticketLog">
-                      <c:param name="currentPage" value="${pInf.currentPage+1}"/>
+                      <c:url value="moveEvent">
+                      <c:param name="currentPage" value="${pInf2.currentPage+1}"/>
+                      <c:param name="flag" value="2"/>
                       </c:url>
                       ">&gt;</a>
                     </li>
@@ -252,8 +273,9 @@
                     <!-- 맨 끝으로(>>) -->
                     <li>
                       <a class="page-link " href="
-                      <c:url value="ticketLog">
-                      <c:param name="currentPage" value="${pInf.maxPage}"/>
+                      <c:url value="moveEvent">
+                      <c:param name="currentPage" value="${pInf2.maxPage}"/>
+                      <c:param name="flag" value="2"/>
                       </c:url>
                       ">&gt;&gt;</a>
                     </li>

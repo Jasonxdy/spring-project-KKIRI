@@ -29,10 +29,10 @@
 
              <ul class="nav nav-tabs" id="profile-nav-wrap">
               <li class="nav-item">
-                <a class="nav-link active move-btn" href="../mypage/ticketLog" tabindex="-1">내역</a>
+                <a class="nav-link  move-btn" href="../mypage/ticketLog" tabindex="-1">내역</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link move-btn" href="../mypage/recharge" tabindex="-1">충전</a>
+                <a class="nav-link active move-btn" href="../mypage/recharge" tabindex="-1">충전</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link move-btn" href="../mypage/moveRefund" tabindex="-1">환급</a>
@@ -42,7 +42,7 @@
             <div class="ticket-wrap my-profile-section recharge-wrap">
               <h4>티켓 충전</h4>
               
-              <form action="#" method="get" class="recharge-form" onsubmit="return validate();">
+              <form action="ticketRecharge" method="get" class="recharge-form" onsubmit="return validate();">
                 <p class="recharge-title">충전 금액</p>
                 <div class="recharge-box">
                   <input type="radio" name="recharge-amount" value="1000" id="1000"><label for="1000">1,000원</label>
@@ -85,7 +85,9 @@
 
       }
     </script>
-
+https://developers.kakao.com/docs/restapi/kakaopay-api#시작하기-전에
+https://developers.kakao.com/docs/restapi/kakaopay-api#결제프로세스
+https://developers.kakao.com/docs/restapi/kakaopay-api#단건결제-프로세스
   <!-- content 끝 -->
 	<jsp:include page="../common/footer.jsp"/>
   </div>

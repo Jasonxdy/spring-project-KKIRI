@@ -313,4 +313,11 @@
 	FROM V_EVENT
 	WHERE MEMBER_NO = #{memberNo}
 	</select>
+	<select id="listEventCount2" parameterType="_int" resultType="_int">
+	SELECT COUNT(*)
+	FROM PARTY
+	WHERE MEMBER_NO = #{memberNo}
+	AND MEMBER_TYPE = 'P'
+	AND PERMISSION = 'Y'
+	</select>
 </mapper>
