@@ -304,6 +304,19 @@ public class EventDAO {
 	}
 
 
+	
+	
+	/**
+	 * 이벤트 사진 목록 개수 조회 dao 
+	 * @param eventNo
+	 * @return imageListCount
+	 * @throws Exception
+	 */
+	public int getImageListCount(int eventNo) throws Exception{
+		return sqlSession.selectOne("eventMapper.getImageListCount", eventNo);
+	}
+
+
 
 
 }

@@ -324,5 +324,18 @@ public class EventServiceImpl implements EventService {
 	public int deleteRating(int ratingNo) throws Exception {
 		return eventDAO.deleteRating(ratingNo);
 	}
+	
+	
+	
+	/**
+	 * 이벤트 사진 목록 개수 조회 service 
+	 * @param eventNo
+	 * @return imageListCount
+	 * @throws Exception
+	 */
+	@Override
+	public int getImageListCount(int eventNo) throws Exception {
+		return eventDAO.getImageListCount(eventNo);
+	}
 
 }

@@ -290,6 +290,10 @@
 	</update>
 	
 	
+	<select id="getImageListCount" parameterType="_int" resultType="_int">
+	</select>
+	
+	
 	<select id="moveEvent1" parameterType="_int" resultMap="eventResultSet">
 	SELECT * 
 	FROM V_EVENT

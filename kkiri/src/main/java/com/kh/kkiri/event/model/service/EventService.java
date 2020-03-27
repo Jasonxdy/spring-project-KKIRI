@@ -170,4 +170,15 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int deleteRating(int ratingNo) throws Exception;
+
+	
+	
+	
+	/**
+	 * 이벤트 사진 목록 개수 조회 service 
+	 * @param eventNo
+	 * @return imageListCount
+	 * @throws Exception
+	 */
+	int getImageListCount(int eventNo) throws Exception;
 }

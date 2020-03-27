@@ -39,7 +39,7 @@
 				<div class="col-md-5" id="eventCreater">
 					<h3>이벤트 주최자</h3>
 					<div class="event-creator-info mt-3">
-						<img src="${contextPath}/resources/img/${event.memberProfile}"
+						<img src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 							alt="주최자" class="eventCreater-profile mr-3">
 						<div class="id-rating">
 							<h5>${event.memberNickname}</h5>

@@ -295,13 +295,13 @@
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
 					<span class="event-participant-profile" id="eventCreater-profile-image"> <img
-						src="${contextPath}/resources/img/${event.memberProfile}"
+						src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 						alt="주최자">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
 							<span class="event-participant-profile participant-profile"> <img
-								src="${contextPath}/resources/img/${party.memberProfile}"
+								src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 								alt="참석자">
 								<div style="display:none">${party.memberNo}</div>
 							</span>

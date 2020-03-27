@@ -22,6 +22,7 @@ import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.service.EventService;
+import com.kh.kkiri.event.model.vo.BoardAndImage;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
@@ -358,8 +359,6 @@ public class EventController {
 		String msg = null;
 		String url = null;
 
-		
-
 		try {
 
 			// 이벤트 + 주최자 정보 얻어오기
@@ -368,7 +367,7 @@ public class EventController {
 			// 이벤트 참석자 정보 얻어오기
 			List<Member> partyList = eventService.selectPartyList(eventNo);
 
-			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기 
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
 			if (model.getAttribute("loginMember") != null) {
 				List<Party> myEventList = eventService
 						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
@@ -376,7 +375,12 @@ public class EventController {
 					model.addAttribute("myEventList", myEventList);
 					// + 내가 남긴 후기 있는 경우 그것도 가져오기
 					for (Party party : myEventList) {
-						if(party.getEventNo() == event.getEventNo() && party.getMemberType().equals("P")) { // 해당 이벤트가 내가 참여한 이벤트인 경우 후기 가져옴
+						if (party.getEventNo() == event.getEventNo() && party.getMemberType().equals("P")) { // 해당 이벤트가
+																												// 내가
+																												// 참여한
+																												// 이벤트인
+																												// 경우 후기
+																												// 가져옴
 							Rating myRating = eventService.selectMyRating(party);
 							model.addAttribute("myRating", myRating);
 							break;
@@ -384,12 +388,11 @@ public class EventController {
 					}
 				}
 			}
-			
 
 			// 해당 이벤트 후기 얻어오기
 			// 전체 후기 수 조회
 			int listCount = eventService.getListCount(eventNo);
-			
+
 			// 현재 페이지 확인
 			if (currentPage == null)
 				currentPage = 1;
@@ -399,7 +402,7 @@ public class EventController {
 
 			// 후기 목록 조회
 			List<Rating> ratingList = eventService.selectRatingList(eventNo, pInf);
-			
+
 			if (event != null) {
 
 				model.addAttribute("event", event);
@@ -421,19 +424,14 @@ public class EventController {
 		}
 		return url;
 	}
-	
-	
-	
-	
-	
-	
+
 	// 후기 등록
 	@RequestMapping("insertRating")
 	public String insertRating(Rating rating, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
+
 		rating.setRatingContent(rating.getRatingContent().replace("\r\n", "<br>"));
 		try {
 			int result = eventService.insertRating(rating);
@@ -453,18 +451,16 @@ public class EventController {
 			model.addAttribute("msg", msg);
 			return "common/errorPage";
 		}
-				
+
 	}
-	
-	
-	
-	// 후기 수정 
+
+	// 후기 수정
 	@RequestMapping("updateRating")
 	public String updateRating(Rating rating, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
+
 		rating.setRatingContent(rating.getRatingContent().replace("\r\n", "<br>"));
 		try {
 			int result = eventService.updateRating(rating);
@@ -485,15 +481,14 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
+
 	// 후기 삭제
 	@RequestMapping("deleteRating")
 	public String deleteRating(int ratingNo, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
-		
+
 		try {
 			int result = eventService.deleteRating(ratingNo);
 
@@ -513,14 +508,11 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
-	
+
 	// 사진 등록 페이지 이동
 	@RequestMapping("picture")
-	public String selectPicture (@RequestParam(value = "no", required = false) Integer no, Model model,
-			RedirectAttributes rdAttr) {
-		
+	public String selectPicture(@RequestParam(value = "no", required = false) Integer no,
+			@RequestParam(value = "no", required = false) Integer currentPage, Model model, RedirectAttributes rdAttr) {
 
 		int eventNo = 0;
 
@@ -550,11 +542,25 @@ public class EventController {
 					model.addAttribute("myEventList", myEventList);
 				}
 			}
-			
-			// 게시글 목록 가져오기
-			
-			
-			// 게시글에 대한 사진 목록 가져오기
+
+//			------------------------ 사진 기능 -----------------------
+
+			// 해당 이벤트 후기 얻어오기
+			// 전체 후기 수 조회
+			int listCount = eventService.getImageListCount(eventNo);
+
+			// 현재 페이지 확인
+			if (currentPage == null)
+				currentPage = 1;
+
+			// 페이지 정보 저장
+			PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
+
+			// 후기 목록 조회
+			List<Rating> ratingList = eventService.selectRatingList(eventNo, pInf);
+
+			// 사진 및 게시글 목록 가져오기
+			List<BoardAndImage> imageList = eventService.selectImageList();
 
 			if (event != null) {
 
@@ -574,9 +580,7 @@ public class EventController {
 			return "common/errorPage.jsp";
 		}
 		return url;
-		
-		
-		
+
 	}
 
 }

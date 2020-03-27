@@ -41,7 +41,7 @@
 		<div class="row mt-5 event-detail-container">
 			<div class="col-md-7 event-detail">
 				<!-- 최대 크기 적용, 사진 가운데 정렬 필요 -->
-				<img src="${contextPath}/resources/img/${event.eventThumbnail}"
+				<img src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}"
 					class="event-thumbnail">
 				<p class="mt-3" id="eventContent">${event.eventContent}</p>
 			</div>
@@ -153,13 +153,13 @@
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
 					<span class="event-participant-profile"> <img
-						src="${contextPath}/resources/img/${event.memberProfile}"
+						src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 						alt="주최자" id="eventCreater-profile-image">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
 							<span class="event-participant-profile participant-profile"> <img
-								src="${contextPath}/resources/img/${party.memberProfile}"
+								src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 								alt="참석자">
 								<div style="display:none">${party.memberNo}</div>
 							</span>

@@ -60,7 +60,7 @@
 				<div id="attendList"> 
 					<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
 					<span style="display:none">${event.memberNo}</span>
-						<img src="${contextPath}/resources/img/${event.memberProfile}"
+						<img src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 						<div class="media-body ml-3 mt-1">
 							<h4>${event.memberNickname}</h4>
@@ -72,7 +72,7 @@
 							value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
 						<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${party.memberNo}'">
 						<span style="display:none">${party.memberNo}</span>
-							<img src="${contextPath}/resources/img/${party.memberProfile}"
+							<img src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 								alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
 							<div class="media-body ml-3 mt-1">
 								<h4>${party.memberNickname}</h4>
