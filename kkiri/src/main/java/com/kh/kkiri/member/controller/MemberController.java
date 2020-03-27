@@ -378,8 +378,9 @@ public class MemberController {
 			model.addAttribute("errorMgs", "로그인 중 오류 발생");
 			return "common/errorPage";
 		}
-
-		return "redirect:" + beforeUrl;
+		
+		if(beforeUrl != null) return "redirect:" + beforeUrl;
+		else return "redirect:/";
 
 	}
 

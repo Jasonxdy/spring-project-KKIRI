@@ -1,6 +1,8 @@
 package com.kh.kkiri.admin.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -442,24 +444,52 @@ public class AdminController {
 		File path = new File(savePath);
 		boolean successRename = false;
 		String msg = null;
+		byte[] buf = new byte[1024];
+		FileInputStream fin = null;
+		FileOutputStream fout = null;
+
+		File oldFile = new File(savePath + "/" + changeVideo);
+		File newFile = new File(savePath + "/" + "mainVideo.mp4");
+		 
 		
 		File[] fileList = path.listFiles();
 		File newVideo = new File(savePath + "/" + FileRename.rename("mainVideo.mp4"));
-		if(fileList.length>0) {
-			for(int i=0; i < fileList.length; i++) {
-				if(fileList[i].getName().equals("mainVideo.mp4")) {
-					successRename = fileList[i].renameTo(newVideo);
-					for(int j=0; j < fileList.length; j++) {
-						if(fileList[j].getName().equals(changeVideo)) {
-							//System.out.println(mainVideo.getName());
-							successRename = fileList[j].renameTo(new File(savePath, "mainVideo.mp4"));
-							break;
-						} 
-					}
-					break;
-				} 
+		try {
+			
+			if(fileList.length>0) {
+				for(int i=0; i < fileList.length; i++) {
+					if(fileList[i].getName().equals("mainVideo.mp4")) {
+						successRename = fileList[i].renameTo(newVideo);
+						for(int j=0; j < fileList.length; j++) {
+							if(fileList[j].getName().equals(changeVideo)) {
+								//System.out.println(mainVideo.getName());
+								successRename = fileList[j].renameTo(newFile);
+								if(!successRename){
+								    buf = new byte[1024];
+								    fin = new FileInputStream(oldFile);
+								    fout = new FileOutputStream(newFile);
+								 
+								    int read = 0;
+								    while((read=fin.read(buf,0,buf.length))!=-1){
+								        fout.write(buf, 0, read);
+								    }
+								     
+								    fin.close();
+								    fout.close();
+								    successRename = oldFile.delete();
+								}
+								break;
+							}
+						}
+						break;
+					} 
+				}
 			}
+
+		} catch(Exception e) {
+			
 		}
+		
 		
 		if(successRename) msg = "변경이 완료되었습니다.";
 		else msg = "변경에 실패했습니다.";
