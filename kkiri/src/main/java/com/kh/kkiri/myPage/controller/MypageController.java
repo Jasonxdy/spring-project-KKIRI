@@ -250,7 +250,9 @@ public class MypageController {
 	}
 	@RequestMapping("moveEvent")
 	public String moveEvent(Model model,
-			@RequestParam(value="currentPage" , required = false) Integer currentPage
+			@RequestParam(value="currentPage" , required = false) Integer currentPage,
+			@RequestParam(value="currentPage2" , required = false) Integer currentPage2,
+			@RequestParam(value="flag" , required = false) Integer flag
 
 			) {
 
@@ -260,26 +262,29 @@ public class MypageController {
 		if(currentPage == null) {
 			currentPage = 1;
 		}
+		if(currentPage2 == null) currentPage2 = 1;
+		if(flag == null) {
+			flag = 1;
+		}
+		
+		System.out.println("flag:"+flag);
+		System.out.println("cp"+currentPage);
 		try {
 			int listCount = mypageService.listEventCount(memberNo);
+			int listCount2 = mypageService.listEventCount2(memberNo);
 			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
-			
-			
-			
+			PageInfo pInf2 = Pagination.getPageInfo(3, 5, currentPage2, listCount2);
 			
 			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
-			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf);
-			
-			
-			
-			
-			System.out.println(ejList);
+			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf2);
 			
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
 			model.addAttribute("pInf", pInf);
+			model.addAttribute("pInf2", pInf2);
+			model.addAttribute("flag", flag);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "마이 이벤트 페이지 이동중 에러가 발생했습니다.");
@@ -326,7 +331,7 @@ public class MypageController {
 					
 					
 					loginMember.setMemberPwd("");
-//					model.addAttribute("loginMember", loginMember);
+					model.addAttribute("loginMember", loginMember);
 					rdattr.addFlashAttribute("msg", msg);
 					return "redirect:/mypage/moveRefund";
 				}catch (Exception e) {
@@ -336,9 +341,18 @@ public class MypageController {
 				}
 	}
 	@RequestMapping("recharge")
-	public String ticketRecharge() {
+	public String recharge() {
 		
 		return "myPage/ticket_recharge";
 		
+	}
+	
+	@RequestMapping("ticketRecharge")
+	public String ticketRecharge() {
+		
+		
+		
+		
+		return "redirect:/mypage/ticketLog";
 	}
 }
