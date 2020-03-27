@@ -19,7 +19,7 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberNickname" column="MEMBER_NICKNAME"/>
 		<result property="memberProfile" column="MEMBER_PROFILE"/>
-		<result property="memberRating" column="MEMBER_RATING"/>
+		<result property="memberRating" column="SCORE"/>
 		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
 		<result property="partyCount" column="PARTY_COUNT"/>
 		<result property="eventAddress" column="EVENT_ADDRESS"/>

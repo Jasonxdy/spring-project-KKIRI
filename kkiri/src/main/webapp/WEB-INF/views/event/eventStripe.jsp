@@ -43,7 +43,7 @@
 						<li class="nav-item"><a class="nav-link"
 							id="selectParticipant"
 							href="selectParticipant?no=${event.eventNo}">참가회원</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">사진</a></li>
+						<li class="nav-item"><a class="nav-link" id="picture" href="picture?no=${event.eventNo}">사진</a></li>
 						<li class="nav-item"><a class="nav-link" id="comment" href="comment?no=${event.eventNo}">후기</a>
 						</li>
 					</c:otherwise>
@@ -180,6 +180,12 @@
 			$("#event-navi li a").removeClass("active");
 			$("#comment").addClass("active");
 			break;
+			
+		case "picture":
+			$("#event-navi li a").removeClass("active");
+			$("#picture").addClass("active");
+			break;
+			
 		}
 
 		

@@ -513,5 +513,70 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	
+	// 사진 등록 페이지 이동
+	@RequestMapping("picture")
+	public String selectPicture (@RequestParam(value = "no", required = false) Integer no, Model model,
+			RedirectAttributes rdAttr) {
+		
+
+		int eventNo = 0;
+
+//		테스트용으로 삭제 예정
+		if (no != null) {
+			eventNo = no;
+		} else {
+			eventNo = 99;
+		}
+
+		String msg = null;
+		String url = null;
+
+		try {
+
+			// 이벤트 + 주최자 정보 얻어오기
+			Event event = eventService.selectEvent(eventNo);
+
+			// 이벤트 참석자 정보 얻어오기
+			List<Member> partyList = eventService.selectPartyList(eventNo);
+
+			// 로그인된 경우 해당 회원이 참석한 이벤트 목록 가져오기
+			if (model.getAttribute("loginMember") != null) {
+				List<Party> myEventList = eventService
+						.selectMyEventList(((Member) model.getAttribute("loginMember")).getMemberNo());
+				if (myEventList != null) {
+					model.addAttribute("myEventList", myEventList);
+				}
+			}
+			
+			// 게시글 목록 가져오기
+			
+			
+			// 게시글에 대한 사진 목록 가져오기
+
+			if (event != null) {
+
+				model.addAttribute("event", event);
+				model.addAttribute("partyList", partyList);
+				url = "event/eventPicture";
+
+			} else {
+				msg = "이벤트 상세 페이지 조회 실패";
+				rdAttr.addFlashAttribute("msg", msg);
+				url = "redirect:/";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "이벤트 상세 페이지 조회 과정 중 오류 발생");
+			return "common/errorPage.jsp";
+		}
+		return url;
+		
+		
+		
+	}
 
 }
