@@ -39,7 +39,7 @@ public class MypageDAO {
 
 	public List<Ticket> ticketLog(Ticket ticket, PageInfo pinf)throws Exception {
 		
-		int OffSet  = (pinf.getCurrentPage()-1)*pinf.getLimit()+1;
+		int OffSet  = (pinf.getCurrentPage()-1)*pinf.getLimit();
 		RowBounds rowbound = new RowBounds(OffSet,pinf.getLimit());
 		
 		
