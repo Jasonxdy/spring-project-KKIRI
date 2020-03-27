@@ -117,16 +117,30 @@ public class ProfileController {
 	}
 	
 	@RequestMapping("test")
-	public ModelAndView test(ModelAndView mv) {
-		mv.setViewName("test/test");
-		
+	public String test(Model model,
+						RedirectAttributes rdAttr,
+						HttpServletRequest request,
+						HttpSession session) {
 		//User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//System.out.println("user name : " + user.getUsername());
 		
-		System.out.println("nomarl chat page");
+		String beforeUrl = request.getHeader("referer");
 		
-		mv.addObject("userid", "admin");
+		Member loginMember  = (Member)session.getAttribute("loginMember");
 		
-		return mv;
+		if(loginMember != null) {
+			model.addAttribute("loginMember", loginMember);
+			return "test/test";
+		} else {
+			rdAttr.addFlashAttribute("msg", "로그인 해주세요!");
+			return "redirect:"+beforeUrl;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
+	public String insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
+								@RequestParam(value="chatContent", required=false) String cahtContent) {
+		return null;
 	}
 }

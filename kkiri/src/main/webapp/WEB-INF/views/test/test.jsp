@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
-	<input type="text" id="message" />
-	<input type="button" id="sendBtn" value="submit"/>
-	<div id="messageArea"></div>
+	<div>
+		<jsp:include page="../../../WEB-INF/views/common/header.jsp" />
+		<input type="text" id="message" />
+		<input type="button" id="sendBtn" value="submit"/>
+		<div id="messageArea"></div>
+	</div>
 </body>
-<script type="text/javascript">
+<script>
 	$("#sendBtn").click(function() {
 		sendMessage();
 		$('#message').val('')
@@ -24,14 +25,46 @@
 	var sock = new SockJS("<c:url value="/echo"/>");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
+	
 	// 메시지 전송
 	function sendMessage() {
-		sock.send($("#message").val());
+		var date = new Date();
+		var now = moment(date).format('YYYYMMDDHHmmssdd');
+		
+		sock.send("${loginMember.memberProfile}," + "${loginMember.memberNickname}," + $("#message").val() + "," + now );
 	}
 	// 서버로부터 메시지를 받았을 때
 	function onMessage(msg) {
 		var data = msg.data;
-		$("#messageArea").append(data + "<br/>");
+		var userId = null;
+		var content = "";
+		var dateTemp = null;
+		var thumb = null;
+		var comment = null;
+		var date = null;
+		
+		var str = data.split(',');
+		
+		thumb = str[0];
+		userId = str[1];
+		comment = str[2];
+		dateTemp = str[3];
+		
+		console.log(dateTemp);
+		
+		date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
+		
+		content += 	"<div class='media'>" +
+						"<img style='width : 64px; height : 64px;' class='mr-3' src='${contextPath}/resources/upProfileImage/" + thumb +"'>" +
+						"<div class='media-body'>" +
+							"<span class='h2'>" + userId + "&nbsp;</span>" +
+							"<span>" + date  + "</span><br>" +
+							comment +
+						"</div>" +
+					"</div>";
+							
+		//$("#messageArea").append(data + "<br/>");
+		$("#messageArea").append(content);
 	}
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
