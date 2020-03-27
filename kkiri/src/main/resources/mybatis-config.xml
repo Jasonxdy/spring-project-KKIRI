@@ -10,6 +10,7 @@
 	<!-- 2. 별칭 작성 부분 -->
 	<typeAliases>
 		<typeAlias type="com.kh.kkiri.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.kkiri.notice.model.vo.Notice" alias="Notice"/>
 		
 		<typeAlias type="com.kh.kkiri.member.model.vo.Favorite" alias="Favorite"/>
 		<typeAlias type="com.kh.kkiri.search.model.vo.Search" alias="Search"/>
@@ -29,6 +30,7 @@
 	<!-- resources 폴더가 기준 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/notice-mapper.xml"/>
 		<mapper resource="/mappers/search-mapper.xml"/>
 		<mapper resource="/mappers/home-mapper.xml"/>
 		<mapper resource="/mappers/payment-mapper.xml"/>

@@ -38,7 +38,7 @@
                  <c:if test="${ empty sessionScope.loginMember  }">
 	                 <a href="#" class="login-btn">로그인</a>
 	                 <a href="${contextPath }/member/signUp">회원가입</a>
-	                 <a href="${contextPath }/notice/notice">고객센터</a>
+	                 <a href="${contextPath }/notice/noticeList">고객센터</a>
 	                 <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
                  </c:if>
                   
@@ -52,7 +52,7 @@
 	                  <a href="${contextPath}/event/goEventCreate" class="createEvent-btn">이벤트 생성하기</a>
 	                  </c:if>
 	                  <span class="separation"> | </span>
-	                  <a href="${contextPath }/notice/notice">고객센터</a>
+	                  <a href="${contextPath }/notice/noticeList">고객센터</a>
 	                  <span class="separation"> | </span>
 	                  <a href="${pageContext.servletContext.contextPath}/search/searchEvent">탐색</a>
 	                  <div class="profile-wrap">

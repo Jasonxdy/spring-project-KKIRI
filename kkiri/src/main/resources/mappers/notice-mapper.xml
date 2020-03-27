@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper" >
+
+
+	<resultMap type="Notice" id="noticeResultSet">
+		<id property="noticeNo" column="NOTICE_NO"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeEnrollDate" column="NOTICE_ENROLL_DT"/>
+		<result property="noticeModifyDate" column="NOTICE_MODIFY_DT"/>
+		<result property="noticeStatus" column="NOTICE_STATUS"/>
+	</resultMap>
+
+	<!-- 공지사항 게시글 수 조회(+검색) -->
+  <select id="getListCount" parameterType="map" resultType="_int">
+	SELECT COUNT(*) FROM NOTICE
+	<where>
+		<if test="searchValue != null">
+			<bind name="sv" value="'%'+ _parameter.searchValue + '%'" />
+			<choose>
+				<when test="searchKey== 'createDate'">
+					AND NOTICE_ENROLL_DT LIKE #{sv}
+				</when>
+				<when test="searchKey== 'title'">
+					AND NOTICE_TITLE LIKE #{sv}
+				</when>
+				<otherwise>
+					AND ( NOTICE_ENROLL_DT LIKE #{sv}
+					OR NOTICE_TITLE LIKE #{sv})
+				</otherwise>
+			</choose>
+			AND NOTICE_STATUS ='Y'
+		</if>
+	</where>
+  </select>
+  
+  <select id="selectList" parameterType="map" resultMap="noticeResultSet">
+  
+  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_ENROLL_DT,
+  			NOTICE_MODIFY_DT, NOTICE_STATUS
+  			FROM NOTICE
+  
+ 		<where>
+	 		<if test="searchValue != null">
+	  		<bind name="sv" value="'%'+ _parameter.searchValue + '%'"/>	
+  				<choose>
+  					<when test="searchKey== 'createDate'">
+  						AND NOTICE_ENROLL_DT LIKE #{sv}
+  					</when>
+  					<when test="searchKey== 'title'">
+  						AND NOTICE_TITLE LIKE #{sv}
+  					</when>
+  					<otherwise>
+  						AND ( NOTICE_ENROLL_DT LIKE #{sv}
+  						OR NOTICE_TITLE LIKE #{sv})
+  					</otherwise>
+  				</choose>
+  				AND NOTICE_STATUS ='Y'
+  			</if>
+  		</where>
+  </select>
+	
+
+
+</mapper>
