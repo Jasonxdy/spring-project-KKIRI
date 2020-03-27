@@ -28,28 +28,34 @@
 					tabindex="-1">관리</a></li>
 			</ul>
 		</div>
-		<div class="row">
-			<div id="uploadVideo" class="col">
+		<br>
+		<div class="row justify-content-md-center">
+			<div id="uploadVideo" class="col-10">
 			<form action="adminUploadVideo" method="post"
 				enctype="multipart/form-data" role="form">
 				<lable for="">영상 업로드</lable>
 				<input name="inputVideo" type="file"> <br>
-				<button>업로드</button>
+				<button class="btn btn-sm btn-outline-dark">업로드</button>
 			</form>
 			</div>
 		</div>
-		<div class="row">
-			<div id="selectVideo" class="col">
-			<form action="" method="post">
-			<c:if test="${empty vList}">
-				업로드된 영상이 없습니다.
-			</c:if>
-			<c:forEach var="video" items="${vList}">
-				<input id="videoRadio" name="video" type="radio"> 
-				<lable for="videoRadio">${video.videoName}</lable><br>
-			</c:forEach>
-				<button>선택</button>
-			</form>
+		<div class="row justify-content-md-center">
+			<div id="" class="col-10">
+				<div class="videoDiv">
+				<c:if test="${empty vList}">
+					업로드된 영상이 없습니다.
+				</c:if>
+				<c:forEach var="video" items="${vList}" varStatus="vs">
+					<input id="videoRadio${vs.count}" name="changeVideo" type="radio" value="${video}"> 
+					<label for="videoRadio${vs.count}" class="videoLabel">
+						<video class='adminVideo' preload="metadata" loop muted>
+	    					<source src='${contextPath}/resources/uploadVideo/${video}' type='video/mp4'>
+	    				</video>
+					</label>
+				</c:forEach>
+				<br>
+					<button id="selectVideo" class="btn btn-sm btn-outline-dark">선택</button>
+				</div>
 			</div>
 			
 		</div>
@@ -80,6 +86,24 @@
 					}, 600);
 				}
 			});
+		});
+		
+		$(".videoLabel").on("click", function(){
+			$(this).children().css("background-color", "rgba(0,161,133,.5)");
+			$(".videoLabel").not($(this)).children().css("background-color", "white");
+			console.log($(this).prev().val());
+			fileName = $(this).prev().val();
+		});
+		
+		$(".videoLabel").on("mouseenter", function(){
+			$(this).children().prop("controls", "true");
+			
+		}).on("mouseleave", function(){
+			$(this).children().removeAttr("controls", "true");
+		});
+		
+		$("#selectVideo").on("click", function(){
+			location.href = "adminChangeVideo?changeVideo=" + fileName;
 		});
 
 	</script>

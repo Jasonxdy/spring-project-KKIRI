@@ -1,6 +1,7 @@
 package com.kh.kkiri.admin.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
-import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.ask.model.service.AskService;
 import com.kh.kkiri.ask.model.vo.Ask;
+import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.SendEmail;
 import com.kh.kkiri.common.vo.PageInfo;
@@ -346,7 +347,7 @@ public class AdminController {
 	
 	@RequestMapping("management")
 	public String adminManagement(Model model,HttpSession session,
-			RedirectAttributes rdAttr) {
+			RedirectAttributes rdAttr, HttpServletRequest request) {
 		Enumeration<String> names = session.getAttributeNames();
 		boolean flag = false;
 		while(names.hasMoreElements()) {
@@ -364,9 +365,23 @@ public class AdminController {
 			rdAttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			return "redirect:/";
 		}
-		List<Video> vList = null;
+		
 		try {
-			vList = adminService.adminSelectVideo();
+			String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
+			
+			String savePath = root + "/uploadVideo";
+			
+			File path = new File(savePath);
+			
+			File[] fileList = path.listFiles();
+			
+			List<String> vList = new ArrayList<String>();
+			
+			if(fileList.length>0) {
+				for(int i=0; i < fileList.length; i++) {
+					vList.add(fileList[i].getName());
+				}
+			}
 			model.addAttribute("vList", vList);
 			
 		}catch (Exception e) {
@@ -374,9 +389,6 @@ public class AdminController {
 			model.addAttribute("errorMsg", "영상 조회 과정에서 오류 발생");
 			return "common/errorPage";
 		}
-		
-		
-		
 		return "admin/admin_management";
 	}
 	
@@ -389,22 +401,29 @@ public class AdminController {
 		
 		String savePath = root + "/uploadVideo";
 		
-		File folder = new File(savePath);
+		File path = new File(savePath);
 		
-		if(!folder.exists()) folder.mkdir();
+		
+		if(!path.exists()) path.mkdir();
 		
 		String msg = null;
 		
+		int result = 0;
 		try {
-			String videoName = inputVideo.getOriginalFilename();
-			int result = adminService.insertVideo(videoName);
+			String videoName = FileRename.rename(inputVideo.getOriginalFilename());
 			
-			if(result>0) {
-				inputVideo.transferTo(new File(savePath + "/" + videoName));
-				msg = "영상 업로드 성공";
-			} else {
-				msg = "영상 업로드 실패";
+			inputVideo.transferTo(new File(savePath + "/" + videoName));
+			
+			File[] fileList = path.listFiles();
+			if(fileList.length>0) {
+				for(int i=0; i < fileList.length; i++) {
+					if(fileList[i].getName().equals(videoName)) {
+						result = 1;
+					}
+				}
 			}
+			if(result>0) msg = "영상 업로드 성공";
+			else msg = "영상 업로드 실패";
 			model.addAttribute("msg", msg);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -412,6 +431,38 @@ public class AdminController {
 			return "common/errorPage";
 		}
 		return "redirect:/admin/management";
+	}
+	
+	@RequestMapping("adminChangeVideo")
+	public String adminChangeVideo(Model model, String changeVideo,
+			HttpServletRequest request) {
+		System.out.println(changeVideo);
+		String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
+		String savePath = root + "/uploadVideo";
+		File path = new File(savePath);
+		boolean successRename = false;
+		String msg = null;
+		
+		File[] fileList = path.listFiles();
+		File mainVideo = new File(savePath + "/" + "mainVideo.mp4");
+		File newVideo = new File(savePath + "/" + FileRename.rename("aaa.mp4"));
+		if(fileList.length>0) {
+			for(int i=0; i < fileList.length; i++) {
+				if(fileList[i].getName().equals("mainVideo.mp4")) {
+					successRename = fileList[i].renameTo(newVideo);
+				} 
+				if(fileList[i].getName().equals(changeVideo)) {
+					successRename = fileList[i].renameTo(mainVideo);
+				} 
+			}
+		}
+		
+		if(successRename) msg = "변경이 완료되었습니다.";
+		else msg = "변경에 실패했습니다.";
+		
+		model.addAttribute("msg", msg);
+		
+		return "redirect:/";
 	}
 	
 }

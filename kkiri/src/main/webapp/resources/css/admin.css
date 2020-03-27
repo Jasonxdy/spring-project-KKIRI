@@ -21,3 +21,20 @@ td{height: 38px;}
 		-webkit-appearance:none; /* 화살표 없애기 for chrome*/
 		-moz-appearance:none; /* 화살표 없애기 for firefox*/
 		}
+
+.videoDiv lable{
+	float: left;
+}
+
+.adminVideo{
+	width: 10rem;
+	height: 10rem;
+	padding: 5px;
+	
+	/* background-clip: padding-box; */
+}
+
+#selectVideo{
+	clear: both;
+	display: block;
+}
