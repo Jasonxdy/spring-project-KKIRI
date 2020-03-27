@@ -33,7 +33,7 @@
               	</c:choose>
             </div>
     				<video class='video' autoplay loop muted>
-    					<source src='${contextPath}/resources/uploadVideo/mainVideo.mp4' type='video/mp4'>
+    					<source src='${contextPath}/resources/movie/banner-movie.mp4' type='video/mp4'>
     				</video>
             <div class="video-shadow"> </div>
       		</div>
