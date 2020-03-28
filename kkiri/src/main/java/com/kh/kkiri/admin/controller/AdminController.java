@@ -3,7 +3,6 @@ package com.kh.kkiri.admin.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
+import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.ask.model.service.AskService;
 import com.kh.kkiri.ask.model.vo.Ask;
 import com.kh.kkiri.common.FileRename;
@@ -369,21 +369,8 @@ public class AdminController {
 		}
 		
 		try {
-			String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
+			List<Video> vList = adminService.adminSelectVideo();
 			
-			String savePath = root + "/uploadVideo";
-			
-			File path = new File(savePath);
-			
-			File[] fileList = path.listFiles();
-			
-			List<String> vList = new ArrayList<String>();
-			
-			if(fileList.length>0) {
-				for(int i=0; i < fileList.length; i++) {
-					vList.add(fileList[i].getName());
-				}
-			}
 			model.addAttribute("vList", vList);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -410,21 +397,16 @@ public class AdminController {
 		String msg = null;
 		int result = 0;
 		try {
-			String videoName = FileRename.rename(inputVideo.getOriginalFilename());
+			String originalName = inputVideo.getOriginalFilename();
+			String changeName = FileRename.rename(originalName);
 			
-			inputVideo.transferTo(new File(savePath + "/" + videoName));
+			Video video = new Video(originalName, changeName);
 			
-			File[] fileList = path.listFiles();
-			if(fileList.length>0) {
-				for(int i=0; i < fileList.length; i++) {
-					if(fileList[i].getName().equals(videoName)) {
-						result = 1;
-					}
-				}
-			}
-			
-			if(result>0) msg = "영상 업로드 성공";
-			else msg = "영상 업로드 실패";
+			result = adminService.insertVideo(video);
+			if(result > 0) {
+				inputVideo.transferTo(new File(savePath + "/" + changeName));
+				msg = "영상 업로드 성공";
+			} else msg = "영상 업로드 실패";
 			
 			model.addAttribute("msg", msg);
 		}catch (Exception e) {
@@ -437,68 +419,43 @@ public class AdminController {
 	
 	@RequestMapping("adminChangeVideo")
 	public String adminChangeVideo(Model model, String changeVideo,
-			HttpServletRequest request, RedirectAttributes rdAttr) {
+			RedirectAttributes rdAttr) {
 		System.out.println(changeVideo);
-		String root = request.getSession().getServletContext().getRealPath("resources"); // c:로 시작하는 경로
-		String savePath = root + "/uploadVideo";
-		File path = new File(savePath);
-		boolean successRename = false;
 		String msg = null;
-		byte[] buf = new byte[1024];
-		FileInputStream fin = null;
-		FileOutputStream fout = null;
-
-		File oldFile = new File(savePath + "/" + changeVideo);
-		File newFile = new File(savePath + "/" + "mainVideo.mp4");
-		 
-		
-		File[] fileList = path.listFiles();
-		File newVideo = new File(savePath + "/" + FileRename.rename("mainVideo.mp4"));
 		try {
-			
-			if(fileList.length>0) {
-				for(int i=0; i < fileList.length; i++) {
-					if(fileList[i].getName().equals("mainVideo.mp4")) {
-						successRename = fileList[i].renameTo(newVideo);
-						for(int j=0; j < fileList.length; j++) {
-							if(fileList[j].getName().equals(changeVideo)) {
-								//System.out.println(mainVideo.getName());
-								successRename = fileList[j].renameTo(newFile);
-								if(!successRename){
-								    buf = new byte[1024];
-								    fin = new FileInputStream(oldFile);
-								    fout = new FileOutputStream(newFile);
-								 
-								    int read = 0;
-								    while((read=fin.read(buf,0,buf.length))!=-1){
-								        fout.write(buf, 0, read);
-								    }
-								     
-								    fin.close();
-								    fout.close();
-								    successRename = oldFile.delete();
-								}
-								break;
-							}
-						}
-						break;
-					} 
-				}
-			}
-
+			int result = adminService.adminChangeVideo(changeVideo);
+			if(result > 1) msg = "변경이 완료되었습니다.";
+			else msg = "변경에 실패했습니다.";
 		} catch(Exception e) {
-			
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "메인 영상 변경 과정에서 오류 발생");
+			return "common/errorPage";
 		}
-		
-		
-		if(successRename) msg = "변경이 완료되었습니다.";
-		else msg = "변경에 실패했습니다.";
 		
 		rdAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/";
 	}
 	
+	@RequestMapping("adminDeleteVideo")
+	public String adminDeleteVideo(Model model, String changeVideo,
+			RedirectAttributes rdAttr) {
+		System.out.println(changeVideo);
+		String msg = null;
+		try {
+			int result = adminService.adminDeleteVideo(changeVideo);
+			if(result > 0) msg = "삭제가 완료되었습니다.";
+			else msg = "삭제에 실패했습니다.";
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "영상 삭제 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+		
+		rdAttr.addFlashAttribute("msg", msg);
+		
+		return "redirect:/admin/management";
+	}
 }
 
 

@@ -70,8 +70,8 @@ public class AdminDAO {
 	 * @return result
 	 * @throws Exception
 	 */
-	public int insertVideo(String videoName) throws Exception {
-		return sqlSession.insert("adminMapper.insertVideo", videoName);
+	public int insertVideo(Video video) throws Exception {
+		return sqlSession.insert("adminMapper.insertVideo", video);
 	}
 
 	/** 영상 조회 DAO
@@ -80,6 +80,34 @@ public class AdminDAO {
 	 */
 	public List<Video> adminSelectVideo() throws Exception {
 		return sqlSession.selectList("adminMapper.adminSelectVideo");
+	}
+
+	/** 메인 영상 교체 DAO
+	 * @param changeVideo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int adminChangeVideo(String changeVideo) throws Exception{
+		int result = sqlSession.update("adminMapper.changeMain", changeVideo);
+		result += sqlSession.update("adminMapper.changeNormal", changeVideo);
+		return result;
+	}
+
+	/** 메인 영상 가져오기 DAO
+	 * @return mainVideo
+	 * @throws Exception
+	 */
+	public String selectMainVideo() throws Exception {
+		return sqlSession.selectOne("adminMapper.selectMainVideo");
+	}
+
+	/** 영상 삭제 DAO
+	 * @param changeVideo
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminDeleteVideo(String changeVideo) throws Exception {
+		return sqlSession.update("adminMapper.adminDeleteVideo", changeVideo);
 	}
 
 }

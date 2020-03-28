@@ -3,18 +3,44 @@
 <mapper namespace="adminMapper">
 	<resultMap type="Video" id="VideoResultSet">
 		<id property="videoNo" column="VIDEO_NO"/>
-		<result property="videoName" column="VIDEO_NAME"/>
+		<result property="videoOriginalName" column="VIDEO_ORIGINAL_NM"/>
+		<result property="videoChangeName" column="VIDEO_CHANGE_NM"/>
 		<result property="videoEnrollDate" column="VIDEO_ENROLL_DATE"/>
 		<result property="videoStatus" column="VIDEO_STATUS"/>
+		<result property="videoUse" column="VIDEO_USE"/>
 	</resultMap>
 	
-	<insert id="insertVideo" parameterType="string">
+	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO VIDEO VALUES
-		(VID_SEQ.NEXTVAL, #{videoName}, DEFAULT, DEFAULT)
+		(VID_SEQ.NEXTVAL, #{videoOriginalName}, #{videoChangeName}, 
+		 DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	<select id="adminSelectVideo" resultMap="VideoResultSet">
 		SELECT * FROM VIDEO
 		WHERE VIDEO_STATUS = 'Y'
 	</select>
+	
+	<update id="changeMain" parameterType="string">
+		UPDATE VIDEO SET
+		VIDEO_USE = 'Y'
+		WHERE VIDEO_CHANGE_NM = #{changeVideo}
+	</update>
+	
+	<update id="changeNormal" parameterType="string">
+		UPDATE VIDEO SET
+		VIDEO_USE = 'N'
+		WHERE VIDEO_CHANGE_NM != #{changeVideo}
+	</update>
+	
+	<select id="selectMainVideo" resultType="string">
+		SELECT VIDEO_CHANGE_NM FROM VIDEO
+		WHERE VIDEO_USE = 'Y'
+	</select>
+	
+	<update id="adminDeleteVideo" parameterType="string">
+		UPDATE VIDEO SET
+		VIDEO_STATUS = 'N'
+		WHERE VIDEO_CHANGE_NM = #{changeVideo}
+	</update>
 </mapper>

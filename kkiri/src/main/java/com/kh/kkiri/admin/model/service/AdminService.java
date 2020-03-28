@@ -45,17 +45,37 @@ public interface AdminService {
 	int recover(Integer memberNo) throws Exception;
 
 	/** 영상 업로드 Service
-	 * @param videoName
+	 * @param video
 	 * @return result
 	 * @throws Exception
 	 */
-	int insertVideo(String videoName) throws Exception;
+	int insertVideo(Video video) throws Exception;
 
 	/** 영상 조회 Service
 	 * @return vList
 	 * @throws Exception
 	 */
 	List<Video> adminSelectVideo() throws Exception;
+
+	/** 메인 영상 교체 Service
+	 * @param changeVideo
+	 * @return result
+	 * @throws Exception
+	 */
+	int adminChangeVideo(String changeVideo) throws Exception;
+
+	/** 메인 영상 이름 가져오기 Service
+	 * @return mainVideo
+	 * @throws Exception
+	 */
+	String selectMainVideo() throws Exception;
+
+	/** 영상 삭제 Service
+	 * @param changeVideo
+	 * @return result
+	 * @throws Exception
+	 */
+	int adminDeleteVideo(String changeVideo) throws Exception;
 
 
 }

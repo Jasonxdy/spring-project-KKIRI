@@ -4,20 +4,33 @@ import java.sql.Date;
 
 public class Video {
 	private int videoNo;
-	private String videoName;
+	private String videoOriginalName;
+	private String videoChangeName;
 	private Date videoEnrollDate;
 	private String videoStatus;
+	private String videoUse;
 	
 	public Video() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Video(int videoNo, String videoName, Date videoEnrollDate, String videoStatus) {
+	public Video(int videoNo, String videoOriginalName, String videoChangeName, Date videoEnrollDate,
+			String videoStatus, String videoUse) {
 		super();
 		this.videoNo = videoNo;
-		this.videoName = videoName;
+		this.videoOriginalName = videoOriginalName;
+		this.videoChangeName = videoChangeName;
 		this.videoEnrollDate = videoEnrollDate;
 		this.videoStatus = videoStatus;
+		this.videoUse = videoUse;
+	}
+	
+	
+
+	public Video(String videoOriginalName, String videoChangeName) {
+		super();
+		this.videoOriginalName = videoOriginalName;
+		this.videoChangeName = videoChangeName;
 	}
 
 	public int getVideoNo() {
@@ -28,12 +41,20 @@ public class Video {
 		this.videoNo = videoNo;
 	}
 
-	public String getVideoName() {
-		return videoName;
+	public String getVideoOriginalName() {
+		return videoOriginalName;
 	}
 
-	public void setVideoName(String videoName) {
-		this.videoName = videoName;
+	public void setVideoOriginalName(String videoOriginalName) {
+		this.videoOriginalName = videoOriginalName;
+	}
+
+	public String getVideoChangeName() {
+		return videoChangeName;
+	}
+
+	public void setVideoChangeName(String videoChangeName) {
+		this.videoChangeName = videoChangeName;
 	}
 
 	public Date getVideoEnrollDate() {
@@ -52,11 +73,23 @@ public class Video {
 		this.videoStatus = videoStatus;
 	}
 
+	public String getVideoUse() {
+		return videoUse;
+	}
+
+	public void setVideoUse(String videoUse) {
+		this.videoUse = videoUse;
+	}
+
 	@Override
 	public String toString() {
-		return "Video [videoNo=" + videoNo + ", videoName=" + videoName + ", videoEnrollDate=" + videoEnrollDate
-				+ ", videoStatus=" + videoStatus + "]";
+		return "Video [videoNo=" + videoNo + ", videoOriginalName=" + videoOriginalName + ", videoChangeName="
+				+ videoChangeName + ", videoEnrollDate=" + videoEnrollDate + ", videoStatus=" + videoStatus
+				+ ", videoUse=" + videoUse + "]";
 	}
+
+	
+	
 	
 	
 }

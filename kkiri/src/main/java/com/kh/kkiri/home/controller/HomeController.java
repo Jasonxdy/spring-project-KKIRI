@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.kkiri.admin.model.service.AdminService;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.home.model.service.HomeService;
 import com.kh.kkiri.member.controller.KakaoController;
@@ -42,6 +43,9 @@ public class HomeController {
 	@Autowired
 	private NaverController naverController;
 	
+	@Autowired
+	private AdminService adminService;
+	
 	/**
 	 * 메인 화면 로딩용 Controller
 	 * @return
@@ -51,6 +55,9 @@ public class HomeController {
 			HttpSession session) {
 		
 		try {
+			// 메인 영상 조회
+			String mainVideo = adminService.selectMainVideo();
+			session.setAttribute("mainVideo", mainVideo);
 			
 			// google_url 가져오는 로직
 			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);

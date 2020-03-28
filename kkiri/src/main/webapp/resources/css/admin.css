@@ -27,14 +27,51 @@ td{height: 38px;}
 }
 
 .adminVideo{
-	width: 10rem;
-	height: 10rem;
+	width: 16rem;
+	height: 12rem;
 	padding: 5px;
 	
 	/* background-clip: padding-box; */
 }
 
-#selectVideo{
+.videoButton{
 	clear: both;
-	display: block;
+	display: inline;
 }
+.file_input_textbox
+{
+float: left
+}
+ 
+.file_input_div
+{
+position: relative;
+width: 100px;
+height: 23px;
+overflow: hidden;
+}
+ 
+.file_input_button
+{
+width: 100px;
+position: absolute;
+top: 0px;
+background-color: #00a185;
+color: #FFFFFF;
+border-style: solid;
+}
+ 
+.file_input_hidden
+{
+font-size: 45px;
+position: absolute;
+right: 0px;
+top: 0px;
+opacity: 0;
+ 
+filter: alpha(opacity=0);
+-ms-filter: "alpha(opacity=0)";
+-khtml-opacity: 0;
+-moz-opacity: 0;
+}
+

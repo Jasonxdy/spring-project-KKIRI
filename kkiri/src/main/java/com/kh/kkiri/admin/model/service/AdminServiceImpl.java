@@ -81,14 +81,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	/** 영상 업로드 Service
-	 * @param videoName
+	 * @param Video
 	 * @return result
 	 * @throws Exception
 	 */
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int insertVideo(String videoName) throws Exception {
-		return adminDAO.insertVideo(videoName);
+	public int insertVideo(Video video) throws Exception {
+		return adminDAO.insertVideo(video);
 	}
 	
 	/** 영상 조회 Service
@@ -98,5 +98,36 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Video> adminSelectVideo() throws Exception {
 		return adminDAO.adminSelectVideo();
+	}
+	
+	/** 메인 영상 교체 Service
+	 * @param changeVideo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int adminChangeVideo(String changeVideo) throws Exception {
+		return adminDAO.adminChangeVideo(changeVideo);
+	}
+	
+	/** 메인 영상 이름 가져오기 Service
+	 * @return mainVideo
+	 * @throws Exception
+	 */
+	@Override
+	public String selectMainVideo() throws Exception {
+		return adminDAO.selectMainVideo();
+	}
+	
+	/** 영상 삭제 Service
+	 * @param changeVideo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int adminDeleteVideo(String changeVideo) throws Exception {
+		return adminDAO.adminDeleteVideo(changeVideo);
 	}
 }
