@@ -25,7 +25,9 @@
 						<li class="nav-item"><a class="nav-link" href="ask"
 							tabindex="-1">문의</a></li>
 						<li class="nav-item"><a class="nav-link" href="management"
-					tabindex="-1">관리</a></li>
+							tabindex="-1">관리</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="statistic" tabindex="-1">통계</a></li>
 					</ul>
 				</div>
 
@@ -37,7 +39,7 @@
 							<thead>
 								<tr class="text-center">
 					                <th scope="col">이벤트번호</th>
-					                <th scope="col">주최자</th>
+					                <th scope="col">주최자(별명)</th>
 					                <th scope="col">제목</th>
 					                <th scope="col">장소</th>
 					                <th scope="col">정원</th>

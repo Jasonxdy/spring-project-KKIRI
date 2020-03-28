@@ -25,7 +25,9 @@
 					<li class="nav-item"><a class="nav-link" href="ask"
 						tabindex="-1">문의</a></li>
 					<li class="nav-item"><a class="nav-link" href="management"
-					tabindex="-1">관리</a></li>
+						tabindex="-1">관리</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="statistic" tabindex="-1">통계</a></li>
 				</ul>
 			</div>
 

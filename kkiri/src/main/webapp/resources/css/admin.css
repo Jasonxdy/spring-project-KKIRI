@@ -26,11 +26,14 @@ td{height: 38px;}
 	float: left;
 }
 
+.usedVideo {
+	color: red;
+}
+
 .adminVideo{
 	width: 16rem;
 	height: 12rem;
-	padding: 5px;
-	
+		
 	/* background-clip: padding-box; */
 }
 

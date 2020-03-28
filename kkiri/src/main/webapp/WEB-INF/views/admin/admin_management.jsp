@@ -27,6 +27,8 @@
 						tabindex="-1">문의</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						href="management" tabindex="-1">관리</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="statistic" tabindex="-1">통계</a></li>
 				</ul>
 			</div>
 			<br>
@@ -56,15 +58,20 @@
 						<c:forEach var="video" items="${vList}" varStatus="vs">
 							<input id="videoRadio${vs.count}" name="changeVideo" type="radio"
 								value="${video.videoChangeName}" style="display: none;">
-							<label for="videoRadio${vs.count}" class="videoLabel"> 
+							<label for="videoRadio${vs.count}" class="videoLabel mx-2"> 
 								<video class='adminVideo' preload="metadata" loop muted>
 									<source src='${contextPath}/resources/uploadVideo/${video.videoChangeName}'
 										type='video/mp4'>
 								</video>
 								<div>
+								<c:if test="${fn:length(video.videoOriginalName) gt '15'}">
+									<span>파일명: ${fn:substring(video.videoOriginalName, 0, 15)}...</span>
+								</c:if>
+								<c:if test="${fn:length(video.videoOriginalName) lt '16'}">
 									<span>파일명: ${video.videoOriginalName}</span>
+								</c:if>
 									<c:if test="${video.videoUse == 'Y' }">
-										<span>사용중</span>
+										<span class="usedVideo">사용중</span>
 									</c:if>
 								</div>
 							</label>
@@ -85,78 +92,82 @@
 	<jsp:include page="../common/footer.jsp" />
 
 
-	<script>
-		function scrollFunction() {
-			if ($(window).scrollTop() >= 200) {
-				$('#button-top').show(0);
-			} else {
-				$('#button-top').hide(0);
-			}
+<script>
+	function scrollFunction() {
+		if ($(window).scrollTop() >= 200) {
+			$('#button-top').show(0);
+		} else {
+			$('#button-top').hide(0);
 		}
-		$(function() {
+	}
+	$(function() {
+		scrollFunction();
+		$(window).scroll(function() {
 			scrollFunction();
-			$(window).scroll(function() {
-				scrollFunction();
-			});
-			$('#button-top').on({
-				click : function() {
-					$('html,body').stop().animate({
-						scrollTop : 0
-					}, 600);
-				}
-			});
 		});
-
-		$(".videoLabel").on(
-				"click",
-				function() {
-					$(this).children().css("background-color",
-							"rgba(0,161,133,.5)");
-					$(".videoLabel").not($(this)).children().css(
-							"background-color", "white");
-					console.log($(this).prev().val());
-					fileName = $(this).prev().val();
-					fileUsed = $(this).children().eq(1).children().eq(1).text();
-				});
-
-		$(".videoLabel").on("mouseenter", function() {
-			$(this).children().prop("controls", "true");
-
-		}).on("mouseleave", function() {
-			$(this).children().removeAttr("controls", "true");
-		});
-
-		$("#selectVideo").on("click", function() {
-			location.href = "adminChangeVideo?changeVideo=" + fileName;
-		});
-		
-		$("#deleteVideo").on("click", function() {
-			console.log("fileUsed: " + fileUsed);
-			if(fileUsed == '사용중'){
-				alert("사용중인 영상은 삭제할 수 없습니다.");
-			} else{
-				location.href = "adminDeleteVideo?changeVideo=" + fileName;
+		$('#button-top').on({
+			click : function() {
+				$('html,body').stop().animate({
+					scrollTop : 0
+				}, 600);
 			}
 		});
+	});
 	
-		function validate(){
-			var mp4File = $("#inputVideo").val();
-			var fileForm = /(.*?)\.(mp4)$/;
-			
-			if(mp4File == ""){
-				alert("파일을 첨부해주세요.");
+	// 영상 선택
+	$(".videoLabel").on(
+			"click",
+			function() {
+				$(this).children().css("background-color",
+						"rgba(0,161,133,.5)");
+				$(".videoLabel").not($(this)).children().css(
+						"background-color", "white");
+				console.log($(this).prev().val());
+				fileName = $(this).prev().val();
+				fileUsed = $(this).children().eq(1).children().eq(1).text();
+			});
+	
+	// 영상에 마우스 오버시 control 추가
+	$(".videoLabel").on("mouseenter", function() {
+		$(this).children().prop("controls", "true");
+	}).on("mouseleave", function() {
+		$(this).children().removeAttr("controls", "true");
+	});
+
+	// 메인 영상 변경 버튼
+	$("#selectVideo").on("click", function() {
+		location.href = "adminChangeVideo?changeVideo=" + fileName;
+	});
+	
+	// 영상 삭제 버튼
+	$("#deleteVideo").on("click", function() {
+		console.log("fileUsed: " + fileUsed);
+		if(fileUsed == '사용중'){
+			alert("사용중인 영상은 삭제할 수 없습니다.");
+		} else{
+			location.href = "adminDeleteVideo?changeVideo=" + fileName;
+		}
+	});
+	
+	// 영상 업로드 유효성 검사
+	function validate(){
+		var mp4File = $("#inputVideo").val();
+		var fileForm = /(.*?)\.(mp4)$/;
+		
+		if(mp4File == ""){
+			alert("파일을 첨부해주세요.");
+			return false;
+		}
+		
+		if(mp4File != "" && mp4File != null){
+			if(!mp4File.match(fileForm)){
+				alert("mp4 파일만 업로드 가능합니다.");
 				return false;
 			}
-			
-			if(mp4File != "" && mp4File != null){
-				if(!mp4File.match(fileForm)){
-					alert("mp4 파일만 업로드 가능합니다.");
-					return false;
-				}
-			}
 		}
-		
-	</script>
+	}
+	
+</script>
 </body>
 
 </html>

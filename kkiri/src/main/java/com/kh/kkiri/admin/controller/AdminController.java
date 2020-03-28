@@ -456,6 +456,13 @@ public class AdminController {
 		
 		return "redirect:/admin/management";
 	}
+	
+	@RequestMapping("statistic")
+	public String adminStatistic(Model model, String changeVideo,
+			RedirectAttributes rdAttr) {
+		
+		return "admin/admin_statistic";
+	}
 }
 
 
