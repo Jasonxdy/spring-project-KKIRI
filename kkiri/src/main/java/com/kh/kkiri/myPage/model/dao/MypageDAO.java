@@ -37,6 +37,12 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.deleteMember", loginMember);
 	}
 
+	/** 티켓 기록을 가지고 오는 DAO
+	 * @param ticket
+	 * @param pinf
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Ticket> ticketLog(Ticket ticket, PageInfo pinf)throws Exception {
 		
 		int OffSet  = (pinf.getCurrentPage()-1)*pinf.getLimit();

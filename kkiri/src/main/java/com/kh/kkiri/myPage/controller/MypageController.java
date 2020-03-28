@@ -316,7 +316,7 @@ public class MypageController {
 		Ticket ticket = new Ticket();
 		ticket.setMemberNo(loginMember.getMemberNo());
 		ticket.setPaymentTicket(ticketCount);
-		ticket.setPaymentType("C");
+		ticket.setPaymentType("R");
 		String msg = null;
 
 				try {
