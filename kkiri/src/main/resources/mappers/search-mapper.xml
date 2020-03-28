@@ -32,7 +32,6 @@
 			<if test="searchValue != null">
 				AND EVENT_TITLE LIKE #{sv}
 			</if>
-			AND EVENT_STATUS ='Y'
 		</where>
 	</select>
 	
@@ -47,7 +46,6 @@
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				AND EVENT_TITLE LIKE #{sv}
 			</if>
-			AND EVENT_STATUS ='Y'
 		</where>
 		ORDER BY EVENT_NO
 	</select>
@@ -63,7 +61,6 @@
 				<bind name="sv" value="'%' + _parameter.searchValue + '%'"/>
 				AND EVENT_TITLE LIKE #{sv}
 			</if>
-			AND EVENT_STATUS ='Y'
 			AND EVENT_END > SYSDATE
 		</where>
 		ORDER BY EVENT_START
@@ -73,14 +70,12 @@
 		SELECT COUNT(*) FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
-		AND EVENT_STATUS = 'Y'
 	</select>
 	
 	<select id="jListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'P'
-		AND EVENT_STATUS = 'Y'
 	</select>
 	  
 	<select id="selectCreateEvent" parameterType="_int" resultMap="searchResultSet">
@@ -89,7 +84,6 @@
 		FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
-		AND EVENT_STATUS = 'Y'
 	</select>
 	
 	<select id="selectJoinEvent" parameterType="_int" resultMap="searchResultSet">
@@ -98,7 +92,6 @@
 		FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'P'
-		AND EVENT_STATUS = 'Y'
 	</select>
 	
 </mapper>
