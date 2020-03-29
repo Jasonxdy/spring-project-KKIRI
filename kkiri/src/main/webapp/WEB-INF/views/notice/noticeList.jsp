@@ -46,7 +46,7 @@
 							<th scope="row">${notice.noticeNo}</th>
 							<td><p class="board-title-td">${notice.noticeTitle}</p></td>
 							<td>${notice.noticeModifyDate}</td>
-							<%-- <td>${notice.noticeCount}</td> --%>
+							 <td>${notice.noticeCount}</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -67,23 +67,28 @@
             </select>
           </div>
         </div>
-        <div class="col-md-9 col-sm-7">
+        <div class="col-md-8 col-sm-5">
           <div class="input-group mb-3">
             <input name="searchValue" type="text" class="form-control inputSection">
           </div>
         </div>
+        
+        <div class="col-md-1 col-sm-2">
+        <%-- 로그인된 계정이 관리자 등급인 경우 --%>
+        	
+		        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
+		        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
+		        		onclick="location.href = 'insertForm';">쓰기</button>
+		        </c:if>
+	        
+        </div>
+        
         <div class="col-md-1 col-sm-2">
           <div class="input-group-append">
             <button class="green-radius-btn search-btn" type="button">검색</button>
           </div>
         </div>
-        <div>
-        <%-- 로그인된 계정이 관리자 등급인 경우 --%>
-	        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
-	        	<button type="button" class="btn btn-success float-right" id="insertBtn" 
-	        		onclick="location.href = 'insertForm';">글쓰기</button>
-	        </c:if>
-        </div>
+        
 		
       <!-- 페이징 바 -->
       <div class="row justify-content-center pagination-wrap">

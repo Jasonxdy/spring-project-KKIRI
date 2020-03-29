@@ -17,7 +17,7 @@
 		<div id="container" class="container">
 			<div class="row mt-5">
 				<ul class="nav nav-tabs">
-					<li class="nav-item"><a class="nav-link" href="${contextPath }/notice/notice"
+					<li class="nav-item"><a class="nav-link" href="${contextPath }/notice/noticeList"
 						tabindex="-1">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link active" href="ask"
 						tabindex="-1">1:1문의 작성</a></li>

@@ -31,4 +31,48 @@ public class NoticeDAO {
 		return sqlSession.selectList("noticeMapper.selectList",map,rowBounds);
 	}
 
+	
+	public int selectNextNo() {
+		
+		return sqlSession.selectOne("noticeMapper.selectNextNo");
+	}
+
+	public int insertNotice(Notice notice) throws Exception {
+		
+		return sqlSession.insert("noticeMapper.insertNotice", notice);
+	}
+
+	
+	/** 공지사항 상세 조회용 
+	 * @param no
+	 * @return
+	 * @throws Exception
+	 */
+	public Notice selectNotice(Integer no) throws Exception {
+		
+		return sqlSession.selectOne("noticeMapper.selectNotice", no);
+	}
+
+	
+	
+	public int increaseCount(Integer no) throws Exception {
+		
+		return sqlSession.update("noticeMapper.increaseCount", no);
+	}
+
+	public int updateNotice(Notice notice) throws Exception {
+		
+		return sqlSession.update("noticeMapper.updateNotice", notice);
+	}
+
+	public int deleteNotice(Integer no) {
+		return sqlSession.update("noticeMapper.deleteNotice", no);
+	}
+
+	
+	
+	
+	
+	
+	
 }
