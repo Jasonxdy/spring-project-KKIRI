@@ -36,14 +36,23 @@
                 <c:if test="${flag == 1}" >
                 active 
                 </c:if>
-                move-btn" href="javascript:" tabindex="-1">내가 만든 이벤트</a>
+                move-btn" href="
+                <c:url value="moveEvent">
+                <c:param name="flag" value="1"/>
+                </c:url>
+                " tabindex="-1">내가 만든 이벤트</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link
                 <c:if test="${flag == 2}">
                 active 
                 </c:if>
-                 move-btn" href="javascript:" tabindex="-1">내가 참여한 이벤트</a>
+                 move-btn" href="
+                  <c:url value="moveEvent">
+                <c:param name="flag" value="2"/>
+                </c:url>
+                 
+                 " tabindex="-1">내가 참여한 이벤트</a>
               </li>
             </ul>
             
