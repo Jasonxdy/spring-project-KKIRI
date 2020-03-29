@@ -1,15 +1,31 @@
 package com.kh.kkiri.event.model.vo;
 
 public class Chat {
+	private int chatNo;
 	private int eventNo;
 	private String chatContent;
 	
-	public Chat (){}
+	public Chat(){}
+
+	public Chat(int chatNo, int eventNo, String chatContent) {
+		super();
+		this.chatNo = chatNo;
+		this.eventNo = eventNo;
+		this.chatContent = chatContent;
+	}
 
 	public Chat(int eventNo, String chatContent) {
 		super();
 		this.eventNo = eventNo;
 		this.chatContent = chatContent;
+	}
+
+	public int getChatNo() {
+		return chatNo;
+	}
+
+	public void setChatNo(int chatNo) {
+		this.chatNo = chatNo;
 	}
 
 	public int getEventNo() {
@@ -30,7 +46,8 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "Chat [eventNo=" + eventNo + ", chatContent=" + chatContent + "]";
+		return "Chat [chatNo=" + chatNo + ", eventNo=" + eventNo + ", chatContent=" + chatContent + "]";
 	}
+	
 	
 }
