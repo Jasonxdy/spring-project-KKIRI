@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.BoardAndImage;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Rating;
@@ -314,6 +315,21 @@ public class EventDAO {
 	 */
 	public int getImageListCount(int eventNo) throws Exception{
 		return sqlSession.selectOne("eventMapper.getImageListCount", eventNo);
+	}
+
+
+
+	
+	/**
+	 * 사진 목록 조회 dao
+	 * @param eventNo
+	 * @param pInf
+	 * @return imageList
+	 * @throws Exception
+	 */
+	public List<BoardAndImage> selectImageList(int eventNo, PageInfo pInf) throws Exception{
+		RowBounds rowBounds = new RowBounds((pInf.getCurrentPage()-1) * pInf.getLimit(), pInf.getLimit());
+		return sqlSession.selectList("eventMapper.selectImageList", eventNo, rowBounds);
 	}
 
 

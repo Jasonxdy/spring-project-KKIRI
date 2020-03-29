@@ -77,6 +77,19 @@
 	<result property="ratingStatus" column="RATING_STATUS"/>
 	</resultMap>
 	
+	<resultMap type="BoardAndImage" id="boardAndImageResultSet">
+	<id property="imgNo" column="IMG_NO"/>
+	<result property="eventNo" column="EVENT_NO"/>
+	<result property="imgOriginalName" column="IMG_ORIGINAL_NAME"/>
+	<result property="imgChangeName" column="IMG_CHANGE_NAME"/>
+	<result property="imgEnrollDt" column="IMG_ENROLL_DT"/>
+	<result property="boardNo" column="BOARD_NO"/>
+	<result property="boardTitle" column="BOARD_TITLE"/>
+	<result property="boardContent" column="BOARD_CONTENT"/>
+	<result property="boardModifyDt" column="BOARD_MODIFY_DT"/>
+	<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
 	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
@@ -289,8 +302,19 @@
 		WHERE RATING_NO = #{ratingNo}
 	</update>
 	
-	
+	<!-- 전체 이미지 수 조회 -->
 	<select id="getImageListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM V_IMAGE
+		WHERE EVENT_NO = ${eventNo}
+	</select>
+	
+	
+	<select id="selectImageList" parameterType="_int" resultMap="boardAndImageResultSet">
+		SELECT * FROM V_IMAGE
+		WHERE EVENT_NO = #{eventNo} 
+		AND IMG_STATUS = 'Y'
+		AND BOARD_STATUS = 'Y'
+		ORDER BY IMG_NO DESC
 	</select>
 	
 	

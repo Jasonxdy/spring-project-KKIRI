@@ -574,13 +574,11 @@ public class EventController {
 				currentPage = 1;
 
 			// 페이지 정보 저장
-			PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
+			PageInfo pInf = Pagination.getPageInfo(9, 5, currentPage, listCount);
 
 			// 후기 목록 조회
-			List<Rating> ratingList = eventService.selectRatingList(eventNo, pInf);
-
-			// 사진 및 게시글 목록 가져오기
-			List<BoardAndImage> imageList = eventService.selectImageList();
+			List<BoardAndImage> imageList = eventService.selectImageList(eventNo, pInf);
+			System.out.println("imageList : " + imageList);
 
 			if (event != null) {
 

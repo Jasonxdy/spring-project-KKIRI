@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.BoardAndImage;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Rating;
@@ -181,4 +182,16 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int getImageListCount(int eventNo) throws Exception;
+
+	
+	
+	
+	/**
+	 * 사진 목록 조회
+	 * @param eventNo
+	 * @param pInf
+	 * @return imageList
+	 * @throws Exception
+	 */
+	List<BoardAndImage> selectImageList(int eventNo, PageInfo pInf) throws Exception;
 }

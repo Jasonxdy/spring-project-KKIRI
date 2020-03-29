@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
+import com.kh.kkiri.event.model.vo.BoardAndImage;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
@@ -336,6 +337,20 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int getImageListCount(int eventNo) throws Exception {
 		return eventDAO.getImageListCount(eventNo);
+	}
+	
+	
+	
+	/**
+	 * 사진 목록 조회
+	 * @param eventNo
+	 * @param pInf
+	 * @return imageList
+	 * @throws Exception
+	 */
+	@Override
+	public List<BoardAndImage> selectImageList(int eventNo, PageInfo pInf) throws Exception {
+		return eventDAO.selectImageList(eventNo, pInf);
 	}
 
 }
