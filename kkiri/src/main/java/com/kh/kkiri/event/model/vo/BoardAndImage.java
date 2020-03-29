@@ -34,104 +34,106 @@ public class BoardAndImage {
 		this.boardModifyDt = boardModifyDt;
 		this.memberNo = memberNo;
 	}
+	
 
 
-	int getImgNo() {
+
+	public int getImgNo() {
 		return imgNo;
 	}
 
 
-	void setImgNo(int imgNo) {
+	public void setImgNo(int imgNo) {
 		this.imgNo = imgNo;
 	}
 
 
-	int getEventNo() {
+	public int getEventNo() {
 		return eventNo;
 	}
 
 
-	void setEventNo(int eventNo) {
+	public void setEventNo(int eventNo) {
 		this.eventNo = eventNo;
 	}
 
 
-	String getImgOriginalName() {
+	public String getImgOriginalName() {
 		return imgOriginalName;
 	}
 
 
-	void setImgOriginalName(String imgOriginalName) {
+	public void setImgOriginalName(String imgOriginalName) {
 		this.imgOriginalName = imgOriginalName;
 	}
 
 
-	String getImgChangeName() {
+	public String getImgChangeName() {
 		return imgChangeName;
 	}
 
 
-	void setImgChangeName(String imgChangeName) {
+	public void setImgChangeName(String imgChangeName) {
 		this.imgChangeName = imgChangeName;
 	}
 
 
-	Timestamp getImgEnrollDt() {
+	public Timestamp getImgEnrollDt() {
 		return imgEnrollDt;
 	}
 
 
-	void setImgEnrollDt(Timestamp imgEnrollDt) {
+	public void setImgEnrollDt(Timestamp imgEnrollDt) {
 		this.imgEnrollDt = imgEnrollDt;
 	}
 
 
-	int getBoardNo() {
+	public int getBoardNo() {
 		return boardNo;
 	}
 
 
-	void setBoardNo(int boardNo) {
+	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
 
-	String getBoardTitle() {
+	public String getBoardTitle() {
 		return boardTitle;
 	}
 
 
-	void setBoardTitle(String boardTitle) {
+	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
 	}
 
 
-	String getBoardContent() {
+	public String getBoardContent() {
 		return boardContent;
 	}
 
 
-	void setBoardContent(String boardContent) {
+	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
 
 
-	Timestamp getBoardModifyDt() {
+	public Timestamp getBoardModifyDt() {
 		return boardModifyDt;
 	}
 
 
-	void setBoardModifyDt(Timestamp boardModifyDt) {
+	public void setBoardModifyDt(Timestamp boardModifyDt) {
 		this.boardModifyDt = boardModifyDt;
 	}
 
 
-	int getMemberNo() {
+	public int getMemberNo() {
 		return memberNo;
 	}
 
 
-	void setMemberNo(int memberNo) {
+	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 

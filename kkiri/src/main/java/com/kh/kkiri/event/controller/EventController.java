@@ -342,25 +342,25 @@ public class EventController {
 		}
 
 	}
-	
+
 	// 이벤트 수정페이지로 이동(서진웅)
-	
+
 	@RequestMapping("updateEventGo")
 	public String updateEventGo(Model model, HttpServletRequest request, Integer no) {
-		
+
 		try {
 			Event event = eventService.selectEvent(no);
-			
-			event.setEventContent(event.getEventContent().replace("\r\n","<br>"));
-			model.addAttribute("event",event);
-			
+
+			event.setEventContent(event.getEventContent().replace("\r\n", "<br>"));
+			model.addAttribute("event", event);
+
 			return "event/eventUpdate";
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "이벤트 수정 화면 출력 과정 중 오류발생");
 			return "common/errorPage";
 		}
-		
+
 	}
 
 	// 이벤트 후기 페이지 이동
@@ -532,7 +532,8 @@ public class EventController {
 	// 사진 등록 페이지 이동
 	@RequestMapping("picture")
 	public String selectPicture(@RequestParam(value = "no", required = false) Integer no,
-			@RequestParam(value = "no", required = false) Integer currentPage, Model model, RedirectAttributes rdAttr) {
+			@RequestParam(value = "currentPage", required = false) Integer currentPage, Model model,
+			RedirectAttributes rdAttr) {
 
 		int eventNo = 0;
 
@@ -578,10 +579,10 @@ public class EventController {
 
 			// 후기 목록 조회
 			List<BoardAndImage> imageList = eventService.selectImageList(eventNo, pInf);
-			System.out.println("imageList : " + imageList);
 
 			if (event != null) {
 
+				model.addAttribute("imageList", imageList);
 				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
 				url = "event/eventPicture";

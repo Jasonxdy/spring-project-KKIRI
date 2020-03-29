@@ -60,7 +60,7 @@
     text-align: center;
 }
 
-html .update-image-popup{
+html .update-image-popup, html .upload-image-popup{
 	top: 50%;
 }
 

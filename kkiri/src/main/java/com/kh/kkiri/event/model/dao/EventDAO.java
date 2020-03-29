@@ -94,7 +94,13 @@ public class EventDAO {
 		return sqlSession.selectList("eventMapper.selectPartyList", eventNo, rbound);
 	}
 
-
+	
+	/**
+	 * 로그인된 회원이 참석한 이벤트 목록 조회
+	 * @param memberNo
+	 * @return myEventList
+	 * @throws Exception
+	 */
 	public List<Party> selectMyEventList(int memberNo) throws Exception{
 		return sqlSession.selectList("eventMapper.selectMyEventList", memberNo);
 	}

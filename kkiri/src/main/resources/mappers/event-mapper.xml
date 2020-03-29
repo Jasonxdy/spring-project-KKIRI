@@ -305,10 +305,10 @@
 	<!-- 전체 이미지 수 조회 -->
 	<select id="getImageListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_IMAGE
-		WHERE EVENT_NO = ${eventNo}
+		WHERE EVENT_NO = #{eventNo}
 	</select>
 	
-	
+	<!-- 이미지 목록 조회 -->
 	<select id="selectImageList" parameterType="_int" resultMap="boardAndImageResultSet">
 		SELECT * FROM V_IMAGE
 		WHERE EVENT_NO = #{eventNo} 

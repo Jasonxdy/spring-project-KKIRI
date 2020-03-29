@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,17 +8,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/eventPicture.css">
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/eventPicture.css">
 <title>KKIRI(끼리)</title>
 </head>
 <body>
 
 
-<div id="wrapper">
+	<div id="wrapper">
 
 		<!-- Header -->
 		<jsp:include page="../common/header.jsp" />
-		
+
 		<!-- 현재시간 구하기 -->
 		<jsp:useBean id="currTime" class="java.util.Date" />
 
@@ -29,7 +30,7 @@
 			pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
 
 		<!-- 이벤트 상세 상단 정보 start -->
-		<jsp:include page="eventHeader.jsp"/>
+		<jsp:include page="eventHeader.jsp" />
 		<!-- 이벤트 상세 상단 정보 end -->
 	</div>
 
@@ -41,119 +42,64 @@
 	<div class="container">
 		<div class="row mt-5 event-detail-container">
 			<div class="col-md-7 event-picture">
-                    <ul>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail1.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목1</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용1</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail2.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목2</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용2</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목3</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용3</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail1.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목4</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용4</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail2.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목5</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용5</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목6</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용6</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail1.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목7</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용7</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail2.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목8</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용8</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="picture-wrap">
-                                <img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
-                                <p class="picture-title">이미지 제목9</p>
-                                <p class="picture-date">2020년 03월 13일 13:15</p>
-                                <p class="picture-content">이미지 내용9</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <button type="button" class="upload-image green-radius-btn">사진 업로드</button>
-                     <!-- 페이징 바 -->
-                        <div class="row justify-content-center pagination-wrap">
-                            <div>
-                            <ul class="pagination">
-                                <li>
-                                <a class="page-link " href="#">&lt;&lt;</a>
-                                </li>
-                                <li>
-                                <a class="page-link " href="#">&lt;</a>
-                                </li>
-                                <li>
-                                <a class="page-link" href="#">1</a>
-                                </li>
-                                <li>
-                                <a class="page-link " href="#">2</a>
-                                </li>
-                                <li>
-                                <a class="page-link " href="#">3</a>
-                                </li>
-                                <li>
-                                <a class="page-link " href="#">4</a>
-                                </li>
-                                <li>
-                                <a class="page-link " href="#">5</a>
-                                </li>
-                                <!-- 다음 페이지로(>) -->
-                                <li>
-                                <a class="page-link " href="#">&gt;</a>
-                                </li>
-                                <!-- 맨 끝으로(>>) -->
-                                <li>
-                                <a class="page-link " href="#">&gt;&gt;</a>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                    <!-- 페이징 바 끝 -->
-                    </div>
+
+			 	<ul>
+				<!-- 이미지 목록이 없는 경우 -->
+				<c:if test="${empty imageList}">
+					<h5 class="text-muted">등록된 이미지가 없습니다</h3>
+				</c:if>
+
+				<!-- 이미지 목록이 있는 경우 -->
+				<c:if test="${!empty imageList}">
+						<c:forEach var="image" items="${imageList}" varStatus="vs">
+							<li>
+								<div class="picture-wrap">
+									<img
+										src="${contextPath}/resources/upEventPicture/${image.imgChangeName}"
+										alt="이미지예시">
+									<p class="picture-title">${image.boardTitle}</p>
+									<fmt:formatDate var="imageDate" value="${image.boardModifyDt}"
+										pattern="yyyy년 MM월 dd일 HH:mm" />
+									<p class="picture-date">${imageDate}</p>
+									<p class="picture-content">${image.boardContent}</p>
+								</div>
+							</li>
+						</c:forEach>
+				</c:if>
+				</ul>
+				
+				
+				<!-- 최종적으로 참여했던 경우 나타내기-->
+				<c:if test="${!empty loginMember}">
+					<c:if test="${!empty myEventList}">
+						<c:forEach var="myEvent" items="${myEventList}">
+							<c:if test="${event.eventNo == myEvent.eventNo && myEvent.permission == 'Y'}">
+								<button type="button" class="upload-image green-radius-btn">사진
+									업로드</button>
+							</c:if>
+						</c:forEach>
+					</c:if>
+				</c:if>
+				<!-- 페이징 바 -->
+				<div class="row justify-content-center pagination-wrap">
+					<div>
+						<ul class="pagination">
+							<li><a class="page-link " href="#">&lt;&lt;</a></li>
+							<li><a class="page-link " href="#">&lt;</a></li>
+							<li><a class="page-link" href="#">1</a></li>
+							<li><a class="page-link " href="#">2</a></li>
+							<li><a class="page-link " href="#">3</a></li>
+							<li><a class="page-link " href="#">4</a></li>
+							<li><a class="page-link " href="#">5</a></li>
+							<!-- 다음 페이지로(>) -->
+							<li><a class="page-link " href="#">&gt;</a></li>
+							<!-- 맨 끝으로(>>) -->
+							<li><a class="page-link " href="#">&gt;&gt;</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- 페이징 바 끝 -->
+			</div>
 			<div class="col-md-5">
 				<div class="time-and-place">
 					<h4>시간과 장소</h4>
@@ -171,7 +117,7 @@
 					</p>
 					<!-- 위도, 경도로 얻은 주소 -->
 					<p class="mt-3" style="margin-bottom: 0em;">
-						<img src="${contextPath}/resources/img/map-ping.PNG"
+						<img src="${contextPath}/resources/img/map-ping.png"
 							style="height: 18px;" alt="위치아이콘"> ${event.eventLocation}
 
 					</p>
@@ -267,10 +213,10 @@
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
-							<span class="event-participant-profile participant-profile"> <img
-								src="${contextPath}/resources/img/${party.memberProfile}"
+							<span class="event-participant-profile participant-profile">
+								<img src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참석자">
-								<div style="display:none">${party.memberNo}</div>
+								<div style="display: none">${party.memberNo}</div>
 							</span>
 						</c:if>
 					</c:forEach>
@@ -280,68 +226,69 @@
 			</div>
 		</div>
 		<!-- 이벤트 상세 페이지 end -->
-		
+
 		<div class="popup detail-image-popup" id="popup">
-                    <p class="popup-title">
-                      사진 자세히보기
-                      <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼" class="close-popup">
-                    </p>
-                    <div class="popup-content popup-img">
-                        <img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
-                        <div class="content-wrap">
-                            <p class="popup-picture-title">이미지 제목9</p>
-                            <p class="popup-picture-date">2020년 03월 13일 13:15</p>
-                            <p class="popup-picture-content">이미지 내용9</p>
-                        </div>
-                    </div>
-                    <div class="button-area">
-                        <button type="button" class="modify-button green-radius-btn">수정하기</button>
-                        <button type="button" class="delete-button green-radius-btn">삭제하기</button>
-                    </div>
-                  </div>
+			<p class="popup-title">
+				사진 자세히보기 <img src="${contextPath}/resources/img/close-btn.png"
+					alt="닫기버튼" class="close-popup">
+			</p>
+			<div class="popup-content popup-img">
+				<img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
+				<div class="content-wrap">
+					<p class="popup-picture-title">이미지 제목9</p>
+					<p class="popup-picture-date">2020년 03월 13일 13:15</p>
+					<p class="popup-picture-content">이미지 내용9</p>
+				</div>
+			</div>
+			<div class="button-area">
+				<button type="button" class="modify-button green-radius-btn">수정하기</button>
+				<button type="button" class="delete-button green-radius-btn">삭제하기</button>
+			</div>
+		</div>
 
-                  <div class="popup upload-image-popup common-image-popup">
-                    <p class="popup-title">
-                      사진 업로드
-                      <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼" class="close-popup">
-                    </p>
-                    <form action="#" method="get" onsubmit="return uploadValidate();">
-                        <img class="upload-image-section">
-                        <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
-                        <input type="file" class="upload-file" id="upload-file" onchange="loadImg(this)">
+		<div class="popup upload-image-popup common-image-popup">
+			<p class="popup-title">
+				사진 업로드 <img src="${contextPath}/resources/img/close-btn.png"
+					alt="닫기버튼" class="close-popup">
+			</p>
+			<form action="#" method="get" onsubmit="return uploadValidate();">
+				<img class="upload-image-section">
+				<button type="button" class="upload-image-btn green-radius-btn">사진
+					업로드</button>
+				<input type="file" class="upload-file" id="upload-file"
+					onchange="loadImg(this)"> <label for="upload-image-title">제목</label>
+				<input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
 
-                        <label for="upload-image-title">제목</label>
-                        <input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
+				<label for="upload-image-content">내용</label>
+				<textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
 
-                        <label for="upload-image-content">내용</label>
-                        <textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
+				<button class="green-radius-btn submit-upload-img">작성 완료</button>
+			</form>
+		</div>
 
-                        <button class="green-radius-btn submit-upload-img">작성 완료</button>
-                    </form>
-                  </div>
+		<div class="popup update-image-popup common-image-popup">
+			<p class="popup-title">
+				사진 수정하기 <img src="${contextPath}/resources/img/close-btn.png"
+					alt="닫기버튼" class="close-popup">
+			</p>
+			<form action="#" method="get">
+				<img class="upload-image-section"
+					src="${contextPath}/resources/img/thumbnail3.PNG" alt="예시 이미지">
+				<button type="button" class="upload-image-btn green-radius-btn">사진
+					업로드</button>
+				<input type="file" class="upload-file" onchange="loadImg(this)">
 
-                  <div class="popup update-image-popup common-image-popup">
-                    <p class="popup-title">
-                      사진 수정하기
-                      <img src="${contextPath}/resources/img/close-btn.png" alt="닫기버튼" class="close-popup">
-                    </p>
-                    <form action="#" method="get">
-                        <img class="upload-image-section" src="${contextPath}/resources/img/thumbnail3.PNG" alt="예시 이미지">
-                        <button type="button" class="upload-image-btn green-radius-btn">사진 업로드</button>
-                        <input type="file" class="upload-file" onchange="loadImg(this)">
+				<label for="upload-updateImg-title">제목</label> <input type="text"
+					id="upload-updateImg-title" placeholder="제목을 작성해주세요."> <label
+					for="upload-updateImg-content">내용</label>
+				<textarea id="upload-updateImg-content" placeholder="내용을 작성해주세요."></textarea>
 
-                        <label for="upload-updateImg-title">제목</label>
-                        <input type="text" id="upload-updateImg-title" placeholder="제목을 작성해주세요.">
+				<button class="green-radius-btn submit-upload-img">수정 완료</button>
+			</form>
+		</div>
 
-                        <label for="upload-updateImg-content">내용</label>
-                        <textarea id="upload-updateImg-content" placeholder="내용을 작성해주세요."></textarea>
+		<div class="popup-shadow"></div>
 
-                        <button class="green-radius-btn submit-upload-img">수정 완료</button>
-                    </form>
-                  </div>
-                  
-                  <div class="popup-shadow"></div>
-		
 		<!-- 프로필 사진 클릭 시  프로필 상세 이동 -->
 		<script>
 			$(".participant-profile").on({
@@ -357,10 +304,11 @@
 					}
 			});
 		</script>
-		
-		
-		
+
+
+
 		<script>
+		
                   // 사진 삭제 이벤트
                   $(".button-area .delete-button").on({
                       click : function(){
@@ -439,14 +387,14 @@
                       }
                   }
                 </script>
-		
+
 
 	</div>
 
 	<jsp:include page="../common/footer.jsp" />
-	
-	
-	
+
+
+
 
 </body>
 </html>

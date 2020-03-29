@@ -320,7 +320,6 @@
 
 	<script>
 	
-	// ready 함수
 		if(${loginMember != null}) { // 로그인 된 경우
 			
 			var myEventCheck = false; // 참석 여부 체크
