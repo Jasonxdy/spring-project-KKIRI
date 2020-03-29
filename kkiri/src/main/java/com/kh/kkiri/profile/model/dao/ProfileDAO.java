@@ -102,6 +102,17 @@ public class ProfileDAO {
 	 * @return
 	 */
 	public int insertChat(Chat chat) {
-		return sqlSession.insert("profileMapper.insertChat", chat);
+		return sqlSession.insert("searchMapper.insertChat", chat);
 	}
+
+
+	/** 채팅 출력용 DAO
+	 * @param eventNo
+	 * @return chatList
+	 */
+	public List<Chat> selectChat(int eventNo) {
+		return sqlSession.selectList("searchMapper.selectChat", eventNo);
+	}
+	
+	
 }

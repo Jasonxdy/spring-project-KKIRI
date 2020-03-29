@@ -9,6 +9,10 @@ import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
 
+/**
+ * @author 정미경
+ *
+ */
 @Service
 public interface ProfileService {
 
@@ -49,12 +53,18 @@ public interface ProfileService {
 	 */
 	public abstract int checkFavorite(Favorite favorite) throws Exception;
 
-	
+
 	/** 채팅 저장용 Service
-	 * @param eventNo
-	 * @param chatContent
+	 * @param chat
 	 * @return
 	 */
 	public abstract int insertChat(Chat chat);
+
+	
+	/** 채팅 출력용 Service
+	 * @param eventNo
+	 * @return chatList
+	 */
+	public abstract List<Chat> selectChat(int eventNo);
 	
 }

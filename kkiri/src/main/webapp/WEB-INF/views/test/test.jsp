@@ -11,6 +11,7 @@
 <body>
 	<div>
 		<jsp:include page="../../../WEB-INF/views/common/header.jsp" />
+		<input type="button" onclick="selectChat()" value="채팅 로딩"/>
 		<input type="text" id="message" />
 		<input type="button" id="sendBtn" value="submit"/>
 		<div id="messageArea"></div>
@@ -30,6 +31,18 @@
 	function sendMessage() {
 		var date = new Date();
 		var now = moment(date).format('YYYYMMDDHHmmssdd');
+		var chatContent = "${loginMember.memberProfile}," + "${loginMember.memberNickname}," + $("#message").val() + "," + now ;
+		var eventNo = 100; // 임시
+		
+		$.ajax({
+			url : "insertChat",
+			type : "POST",
+			data : {"eventNo" : eventNo,
+					"chatContent" : chatContent},
+			success : function(result){
+				console.log(result);
+			}
+		});
 		
 		sock.send("${loginMember.memberProfile}," + "${loginMember.memberNickname}," + $("#message").val() + "," + now );
 	}
@@ -50,8 +63,6 @@
 		comment = str[2];
 		dateTemp = str[3];
 		
-		console.log(dateTemp);
-		
 		date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
 		
 		content += 	"<div class='media'>" +
@@ -70,6 +81,20 @@
 	function onClose(evt) {
 		$("#messageArea").append("연결 끊김");
 
+	}
+	
+	function selectChat(){
+		var eventNo = 100;
+		
+		$.ajax({
+			url : "selectChat",
+			type : "POST",
+			data : {"eventNo" : eventNo},
+			dataType : "json",
+			success : function(chatList){
+				console.log(chatList)
+			}
+		});
 	}
 </script>
 </html>

@@ -92,4 +92,13 @@ public class ProfileServiceImpl implements ProfileService {
 	public int insertChat(Chat chat) {
 		return profileDAO.insertChat(chat);
 	}
+
+	/** 채팅 출력용 Service
+	 * @param eventNo
+	 * @return chatList
+	 */
+	@Override
+	public List<Chat> selectChat(int eventNo) {
+		return profileDAO.selectChat(eventNo);
+	}
 }
