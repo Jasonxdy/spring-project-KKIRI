@@ -319,7 +319,7 @@
     					
     					content +=
     								"<div class='row card shadow my-4' id='searchList'>" +
-    									"<div class='col-md-12 h-100'>" +
+    									"<div class='col-md-12 h-100 eventBar' onclick=\"location.href= '${contextPath}/event/detail?no="+ sList[i].eventNo +"'\" >" +
     										"<div class='row h-100'>" +
 												"<div class='col-md-3 thumb-wrap'>" +
 													"<img class='p-2 thumb' src='${contextPath}/resources/upEventThumbnail/" + sList[i].eventThumbnail + "' alt='로고'>" +
@@ -377,6 +377,7 @@
 						    
 						    var overlayInfo = document.createElement('div');
 						    overlayInfo.setAttribute('class','oinfo');
+						    overlayInfo.setAttribute("onclick","location.href = '${contextPath}/event/detail?no=" + sList[i].eventNo + "'");
 						    
 						    var overlayTitle = document.createElement('div');
 						    overlayTitle.setAttribute('class','otitle');

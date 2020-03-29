@@ -32,6 +32,9 @@
 	  text-overflow: ellipsis;
 	   white-space: nowrap;
 }
+.eventBar :hover {
+	cursor: pointer;
+}
 @media (max-width: 1199px) {
     #category div{
         font-size:15px;
