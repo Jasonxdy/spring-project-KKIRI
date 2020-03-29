@@ -89,7 +89,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;}
-.oinfo .oclose {    position: absolute;top: 10px;right: 10px;width: 17px;height: 17px;background: url(/kkiri/resources/img/close-btn.png) no-repeat center center;background-size: 100%;}
+    
+.eventBar :hover {cursor: pointer;}
+.oinfo :hover {cursor: pointer;}
+.oinfo .oclose {    position: absolute;top: 10px;right: 10px;width: 17px;height: 17px;background: url(/kkiri/resources/img/close-btn.png) no-repeat center center;background-size: 100%; z-index:100;}
 .oinfo .oclose:hover {cursor: pointer;}
 .oinfo .obody {position: relative;overflow: hidden;}
 .oinfo .odesc { margin: 5px 0 0 90px;height: 75px;}

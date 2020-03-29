@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
@@ -54,6 +55,6 @@ public interface ProfileService {
 	 * @param chatContent
 	 * @return
 	 */
-	public abstract int insertChat(int eventNo, String chatContent);
+	public abstract int insertChat(Chat chat);
 	
 }

@@ -195,7 +195,48 @@ public class MypageServiceimpl implements MypageService{
 	public int listEventCount2(int memberNo) throws Exception {
 		return mypageDAO.listEventCount2(memberNo);
 	}
-
-
-
+	
+	
+	/** 즐겨찾기 수 조회
+	 * @param memberNo
+	 * @return count
+	 * @throws Exception
+	 */
+	@Override
+	public int getFavoriteCount(int memberNo) throws Exception {
+		return mypageDAO.getFavoriteCount(memberNo);
+	}
+	
+	/** 즐겨찾기 목록 조회
+	 * @param memberNo
+	 * @param pInf 
+	 * @return fList
+	 * @throws Exception
+	 */
+	@Override
+	public List<Member> moveFavorite(int memberNo, PageInfo pInf) throws Exception {
+		return mypageDAO.moveFavorite(memberNo, pInf);
+	}
+	
+	/** 즐겨찾기 메모 변경
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int changeMemo(Member member) throws Exception {
+		member.setMemberIntroduce(member.getMemberIntroduce().replace("\n", "<br>"));
+		return mypageDAO.changeMemo(member);
+	}
+	
+	/** 즐겨찾기 삭제
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int deleteFavorite(Member member) throws Exception {
+		return mypageDAO.deleteFavorite(member);
+	}
 }

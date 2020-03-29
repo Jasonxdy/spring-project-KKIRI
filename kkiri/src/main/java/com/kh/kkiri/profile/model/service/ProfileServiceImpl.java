@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.dao.ProfileDAO;
@@ -83,13 +84,12 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	/** 채팅 저장용 Service
-	 * @param eventNo
-	 * @param chatContent
+	 * @param chat
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertChat(int eventNo, String chatContent) {
-		return profileDAO.insertChat(eventNo, chatContent);
+	public int insertChat(Chat chat) {
+		return profileDAO.insertChat(chat);
 	}
 }

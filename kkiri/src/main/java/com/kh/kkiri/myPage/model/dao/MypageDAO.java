@@ -96,5 +96,33 @@ public class MypageDAO {
 	public int listEventCount2(int memberNo)throws Exception{
 		return sqlSession.selectOne("eventMapper.listEventCount2", memberNo);
 	}
+
+	/** 즐겨찾기 수 조회 DAO
+	 * @param memberNo
+	 * @return count
+	 * @throws Exception
+	 */
+	public int getFavoriteCount(int memberNo) throws Exception {
+		return sqlSession.selectOne("memberMapper.getFavoriteCount", memberNo);
+	}
+
+	/** 즐겨찾기 목록 조회 DAO
+	 * @param memberNo
+	 * @param pInf
+	 * @return fList
+	 */
+	public List<Member> moveFavorite(int memberNo, PageInfo pInf) {
+		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
+		return sqlSession.selectList("memberMapper.moveFavorite", memberNo, rowBounds);
+	}
+
+	public int changeMemo(Member member) throws Exception {
+		return sqlSession.update("memberMapper.changeMemo", member);
+	}
+
+	public int deleteFavorite(Member member) throws Exception {
+		return sqlSession.delete("memberMapper.deleteFavorite", member);
+	}
 	
 }

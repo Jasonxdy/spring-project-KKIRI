@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.search.model.vo.Search;
@@ -96,7 +97,11 @@ public class ProfileDAO {
 	}
 
 
-	public int insertChat(int eventNo, String chatContent) {
-		return sqlSession.insert("profileMapper.insertChat", eventNo);
+	/** 채팅 저장용 DAO
+	 * @param chat
+	 * @return
+	 */
+	public int insertChat(Chat chat) {
+		return sqlSession.insert("profileMapper.insertChat", chat);
 	}
 }

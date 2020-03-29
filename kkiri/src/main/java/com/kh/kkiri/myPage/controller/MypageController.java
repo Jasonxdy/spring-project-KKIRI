@@ -361,4 +361,62 @@ public class MypageController {
 		
 		return "redirect:/mypage/ticketLog";
 	}
+	
+	
+	@RequestMapping("moveFavorite")
+	public String moveFavorite(Model model,
+			@RequestParam(value="currentPage", required=false) Integer currentPage) {
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		try {
+			int count = mypageService.getFavoriteCount(memberNo);
+			if(currentPage == null) currentPage = 1;
+			
+			PageInfo pInf = Pagination.getPageInfo(9, 10, currentPage, count);
+			
+			List<Member> fList = mypageService.moveFavorite(memberNo, pInf);
+			
+			model.addAttribute("pInf", pInf);
+			model.addAttribute("fList", fList);
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		return "myPage/my_favorite";
+	}
+	
+	@RequestMapping("changeMemo")
+	public String changeMemo(Model model, Member member) {
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		member.setMemberNo(loginMember.getMemberNo());
+		
+		try {
+			int result = mypageService.changeMemo(member);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		return "redirect:/mypage/moveFavorite";
+	}
+	
+	@RequestMapping("deleteFavorite")
+	public String deleteFavorite(Model model, Member member) {
+		
+		
+		try {
+			int result = mypageService.deleteFavorite(member);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "즐겨찾기 삭제 중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
+		
+		return "redirect:/mypage/moveFavorite";
+	}
 }

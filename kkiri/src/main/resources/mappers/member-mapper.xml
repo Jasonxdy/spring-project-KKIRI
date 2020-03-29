@@ -215,4 +215,33 @@
 	WHERE MEMBER_NO = #{memberNo}
 	
 	</update>
+	
+	<!-- 즐겨찾기 수 조회 -->
+	<select id="getFavoriteCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(MEMBER_NO) FROM V_FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 즐겨찾기 목록 조회 -->
+	<!-- MEMBER_TICKET = FAVORITE_NO -->
+	<!-- FAVORITE_MEMO = MEMBER_INTRODUCE -->
+	<select id="moveFavorite" parameterType="_int" resultMap="memberResultSet">
+		SELECT * FROM V_FAVORITE
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	<!-- 즐겨찾기 메모 변경 -->
+	<update id="changeMemo" parameterType="Member">
+		UPDATE FAVORITE SET
+		FAVORITE_MEMO = #{memberIntroduce}
+		WHERE MEMBER_NO = #{memberNo}
+		AND FAVORITE_NO = #{memberTicket}
+	</update>
+	
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="deleteFavorite" parameterType="Member">
+		DELETE FROM FAVORITE
+		WHERE MEMBER_NO=#{memberNo}
+		AND FAVORITE_NO=#{memberTicket}
+	</delete>
+	
 </mapper>

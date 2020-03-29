@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.member.model.vo.Favorite;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.profile.model.service.ProfileService;
@@ -141,7 +142,9 @@ public class ProfileController {
 	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
 	public String insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
 								@RequestParam(value="chatContent", required=false) String chatContent) {
-		int result = profileService.insertChat(eventNo, chatContent);
+		Chat chat = new Chat(eventNo, chatContent);
+		
+		int result = profileService.insertChat(chat);
 		
 		return null;
 	}
