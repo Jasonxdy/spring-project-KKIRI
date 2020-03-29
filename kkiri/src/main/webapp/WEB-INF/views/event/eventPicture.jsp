@@ -54,6 +54,7 @@
 						<c:forEach var="image" items="${imageList}" varStatus="vs">
 							<li>
 								<div class="picture-wrap">
+									<div id="memberNo" style="display:none">${image.memberNo}</div>
 									<img
 										src="${contextPath}/resources/upEventPicture/${image.imgChangeName}"
 										alt="이미지예시">
@@ -62,6 +63,8 @@
 										pattern="yyyy년 MM월 dd일 HH:mm" />
 									<p class="picture-date">${imageDate}</p>
 									<p class="picture-content">${image.boardContent}</p>
+									<p class="picture-imgNo" style="display:none;">${image.imgNo}</p>
+									<p class="picture-boardNo" style="display:none;">${image.boardNo}</p>
 								</div>
 							</li>
 						</c:forEach>
@@ -69,7 +72,7 @@
 				</ul>
 				
 				
-				<!-- 최종적으로 참여했던 경우 나타내기-->
+				<!-- 최종적으로 참여했던 경우 사진 업로드 나타내기-->
 				<c:if test="${!empty loginMember}">
 					<c:if test="${!empty myEventList}">
 						<c:forEach var="myEvent" items="${myEventList}">
@@ -80,26 +83,79 @@
 						</c:forEach>
 					</c:if>
 				</c:if>
+				
+				
+				
+				
 				<!-- 페이징 바 -->
 				<div class="row justify-content-center pagination-wrap">
 					<div>
 						<ul class="pagination">
-							<li><a class="page-link " href="#">&lt;&lt;</a></li>
-							<li><a class="page-link " href="#">&lt;</a></li>
-							<li><a class="page-link" href="#">1</a></li>
-							<li><a class="page-link " href="#">2</a></li>
-							<li><a class="page-link " href="#">3</a></li>
-							<li><a class="page-link " href="#">4</a></li>
-							<li><a class="page-link " href="#">5</a></li>
-							<!-- 다음 페이지로(>) -->
-							<li><a class="page-link " href="#">&gt;</a></li>
-							<!-- 맨 끝으로(>>) -->
-							<li><a class="page-link " href="#">&gt;&gt;</a></li>
+						<c:if test="${pInf.currentPage > 1}">
+							<li><a class="page-link " href="<c:url value="picture?no=${event.eventNo}">
+		                    		<c:param name="currentPage" value="1"/>
+		                    	</c:url>">&lt;&lt;</a></li>
+							<li><a class="page-link " href="<c:url value="picture?no=${event.eventNo}">
+		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
+		                    	</c:url>">&lt;</a></li>
+		                    	</c:if>
+		                    	
+		                    	<c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
+	                	<c:if test="${p == pInf.currentPage}">
+			                <li>
+			                    <a class="page-link">${p}</a>
+			                </li>
+		                </c:if>
+	                	
+	                	<c:if test="${p != pInf.currentPage}">
+	                		<li>
+		                    	<a class="page-link" 
+			                    	href=" 
+			                    	<c:url value="picture">
+			                    		<c:param name="currentPage" value="${p}"/>
+			                    	</c:url>
+		                    	">
+				                    ${p}
+				                </a>
+		                	</li>
+	                	</c:if>
+	                	
+                	</c:forEach>
+                	<c:if test="${pInf.currentPage < pInf.maxPage }">
+                	<!-- 다음 페이지로(>) -->
+		                <li>
+							<a class="page-link text-success" 
+		                    	href=" 
+		                    	<c:url value="picture">
+		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+		                    	</c:url>
+	                    	">
+			                    &gt;
+			                </a>
+		                </li>
+		                
+		                <!-- 맨 끝으로(>>) -->
+		                <li>
+		                    <a class="page-link" 
+		                    	href=" 
+		                    	<c:url value="picture">
+		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+		                    	</c:url>
+	                    	">
+			                    &gt;&gt;
+			                </a>
+		                </li>
+	                
+	                </c:if>
 						</ul>
 					</div>
 				</div>
 				<!-- 페이징 바 끝 -->
 			</div>
+			
+			
+			
+			
 			<div class="col-md-5">
 				<div class="time-and-place">
 					<h4>시간과 장소</h4>
@@ -178,16 +234,6 @@
 						var zoomControl = new kakao.maps.ZoomControl();
 						map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 						/* 지도 도구 end */
-						
-						
-						if(${currTime < event.eventEnd}){
-							console.log("이벤트 발생 전");
-						} else {
-							console.log("이벤트 발생 후");
-						}
-						
-						
-						
 					</script>
 					<!-- 지도 부분 end -->
 				</div>
@@ -216,7 +262,7 @@
 							<span class="event-participant-profile participant-profile">
 								<img src="${contextPath}/resources/img/${party.memberProfile}"
 								alt="참석자">
-								<div style="display: none">${party.memberNo}</div>
+								<div style="display: none;">${party.memberNo}</div>
 							</span>
 						</c:if>
 					</c:forEach>
@@ -227,17 +273,22 @@
 		</div>
 		<!-- 이벤트 상세 페이지 end -->
 
+
+
+		<!-- 사진 자세히 보기 팝업 -->
 		<div class="popup detail-image-popup" id="popup">
 			<p class="popup-title">
 				사진 자세히보기 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
 			<div class="popup-content popup-img">
-				<img src="${contextPath}/resources/img/thumbnail3.PNG" alt="이미지예시">
+				<img src="" alt="이미지예시">
 				<div class="content-wrap">
-					<p class="popup-picture-title">이미지 제목9</p>
-					<p class="popup-picture-date">2020년 03월 13일 13:15</p>
-					<p class="popup-picture-content">이미지 내용9</p>
+					<p class="popup-picture-imgNo" style="display:none;"></p>
+					<p class="popup-picture-boardNo" style="display:none;"></p>
+					<p class="popup-picture-title"></p>
+					<p class="popup-picture-date"></p>
+					<p class="popup-picture-content"></p>
 				</div>
 			</div>
 			<div class="button-area">
@@ -246,6 +297,9 @@
 			</div>
 		</div>
 
+
+
+		<!-- 사진 업로드 팝업 -->
 		<div class="popup upload-image-popup common-image-popup">
 			<p class="popup-title">
 				사진 업로드 <img src="${contextPath}/resources/img/close-btn.png"
@@ -265,23 +319,27 @@
 				<button class="green-radius-btn submit-upload-img">작성 완료</button>
 			</form>
 		</div>
-
+		
+		
+		<!-- 사진 수정 팝업 -->
 		<div class="popup update-image-popup common-image-popup">
 			<p class="popup-title">
 				사진 수정하기 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
-			<form action="#" method="get">
+			<form action="updatePicture" method="post" enctype="multipart/form-data" role="form" onsubmit="return updateValidate();">
 				<img class="upload-image-section"
-					src="${contextPath}/resources/img/thumbnail3.PNG" alt="예시 이미지">
+					src="" alt="예시 이미지">
 				<button type="button" class="upload-image-btn green-radius-btn">사진
 					업로드</button>
-				<input type="file" class="upload-file" onchange="loadImg(this)">
+				<input type="file" class="upload-file" onchange="loadImg(this)" name="image">
 
+				<input type="text" name="imgNo" id="upload-updateImg-imgNo" style="display:none;">
+				<input type="text" name="boardNo" id="upload-updateImg-boardNo" style="display:none;">
 				<label for="upload-updateImg-title">제목</label> <input type="text"
-					id="upload-updateImg-title" placeholder="제목을 작성해주세요."> <label
+					id="upload-updateImg-title" placeholder="제목을 작성해주세요." name="boardTitle"> <label
 					for="upload-updateImg-content">내용</label>
-				<textarea id="upload-updateImg-content" placeholder="내용을 작성해주세요."></textarea>
+				<textarea id="upload-updateImg-content" placeholder="내용을 작성해주세요." name="boardContent"></textarea>
 
 				<button class="green-radius-btn submit-upload-img">수정 완료</button>
 			</form>
@@ -328,6 +386,8 @@
                         $(".update-image-popup form > img").attr("src",$("#popup .popup-content img").attr("src"));
                         $(".update-image-popup #upload-updateImg-title").val($("#popup .popup-picture-title").text());
                         $(".update-image-popup #upload-updateImg-content").text($("#popup .popup-picture-content").text());
+                        $(".update-image-popup #upload-updateImg-imgNo").val($("#popup .popup-picture-imgNo").text());
+                        $(".update-image-popup #upload-updateImg-boardNo").val($("#popup .popup-picture-boardNo").text());
                       }
                   });
 
@@ -347,13 +407,23 @@
                     }
                     reader.readAsDataURL(value.files[0]);
                   }
-
+					
+                  
+                  // 사진 클릭 시 이벤트
                   $(".picture-wrap").on({
                     click : function(){
                       $("#popup .popup-img>img").attr("src",$(this).children("img").attr("src"));
                       $("#popup .popup-picture-title").text($(this).find(".picture-title").text());
                       $("#popup .popup-picture-date").text($(this).find(".picture-date").text());
                       $("#popup .popup-picture-content").text($(this).find(".picture-content").text());
+                      $("#popup .popup-picture-imgNo").text($(this).find(".picture-imgNo").text());
+                      $("#popup .popup-picture-boardNo").text($(this).find(".picture-boardNo").text());
+                      
+                      // 로그인한 사람이 해당 글을 작성한 작성자인 경우 수정, 삭제 버튼 보이기
+                      if($(this).children("div").text() == '${loginMember.memberNo}'){
+	                      $(".button-area").css("display", "block");
+                      }
+                      
                       $(".popup-shadow, #popup").show(0);
                     }
                   });
@@ -370,6 +440,17 @@
                         $(".upload-image-popup, .popup-shadow").show(0);
                       }
                   });
+                  
+                  // 사진 수정 시 유효성 검사
+                  function updateValidate(){
+                	  if($("#upload-updateImg-title").val().trim() == ""){
+                		  alert("제목을 입력해주세요!");
+                          return false;
+                	  } else if($("#upload-updateImg-content").val().trim() == ""){
+                		  alert("내용을 입력해주세요!");
+                          return false;
+                	  }
+                  }
 
                   // 사진 팝업 업로드시 유효성 검사
                   function uploadValidate(){

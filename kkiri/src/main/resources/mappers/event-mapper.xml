@@ -318,6 +318,26 @@
 	</select>
 	
 	
+	<!-- 이미지 수정 -->
+	<update id="updateImage" parameterType="BoardAndImage">
+		UPDATE IMAGE SET
+		IMG_ORIGINAL_NAME = #{imgOriginalName},
+		IMG_CHANGE_NAME = #{imgChangeName},
+		IMG_ENROLL_DT = SYSDATE
+		WHERE IMG_NO = #{imgNo}
+	</update>
+	
+	
+	<!-- 이미지에 대한 게시글 수정 -->
+	<update id="updateBoard" parameterType="BoardAndImage">
+		UPDATE BOARD SET
+		BOARD_TITLE = #{boardTitle},
+		BOARD_CONTENT = #{boardContent},
+		BOARD_MODIFY_DT = SYSDATE
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
 	<select id="moveEvent1" parameterType="_int" resultMap="eventResultSet">
 	SELECT * 
 	FROM V_EVENT

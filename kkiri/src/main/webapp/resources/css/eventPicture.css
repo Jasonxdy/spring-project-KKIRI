@@ -173,6 +173,7 @@ html body .pagination-wrap{
 .detail-image-popup .button-area{
     text-align: center;
     margin-top: 20px;
+    display: none;
 }
 .detail-image-popup .button-area button{
   margin : 0 5px;

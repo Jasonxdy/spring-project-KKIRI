@@ -1,5 +1,6 @@
 package com.kh.kkiri.event.model.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
@@ -351,6 +354,48 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<BoardAndImage> selectImageList(int eventNo, PageInfo pInf) throws Exception {
 		return eventDAO.selectImageList(eventNo, pInf);
+	}
+	
+	
+	/**
+	 * 사진 수정 service
+	 * @param boardAndImage
+	 * @param image 
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateBoard(BoardAndImage boardAndImage, MultipartFile image, String savePath) throws Exception {
+		
+		int result = 0;
+		
+		// 사진이 수정된 경우
+		if (!image.getOriginalFilename().equals("")) {
+			
+			// rename 처리
+			String imgChangeName = FileRename.rename(image.getOriginalFilename());
+			
+			boardAndImage.setImgChangeName(imgChangeName);
+			boardAndImage.setImgOriginalName(image.getOriginalFilename());
+			
+			// IMAGE 테이블 UPDATE
+			result = eventDAO.updateImage(boardAndImage);
+			
+			if(result > 0) {
+				
+				// 새로 생긴 파일 저장
+				image.transferTo(new File(savePath + "/" + imgChangeName));
+				
+				result = eventDAO.updateBoard(boardAndImage);
+			}
+		} else {
+			result = eventDAO.updateBoard(boardAndImage);
+		}
+		
+		
+		return result;
+		
 	}
 
 }

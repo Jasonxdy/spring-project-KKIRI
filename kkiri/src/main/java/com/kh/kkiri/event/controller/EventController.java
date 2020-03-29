@@ -477,7 +477,7 @@ public class EventController {
 	// 후기 수정
 	@RequestMapping("updateRating")
 	public String updateRating(Rating rating, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
-		String msg;
+		String msg = null;
 		String detailUrl = request.getHeader("referer");
 		model.addAttribute("detailUrl", detailUrl);
 
@@ -585,6 +585,7 @@ public class EventController {
 				model.addAttribute("imageList", imageList);
 				model.addAttribute("event", event);
 				model.addAttribute("partyList", partyList);
+				model.addAttribute("pInf", pInf);
 				url = "event/eventPicture";
 
 			} else {
@@ -602,4 +603,43 @@ public class EventController {
 
 	}
 
+	// 사진 수정하기
+	@RequestMapping("updatePicture")
+	public String updatePicture(BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr,
+			HttpServletRequest request, @RequestParam(value = "image", required = false) MultipartFile image) {
+
+		// 상세조회 화면으로 redirect 하기위함
+		String detailUrl = request.getHeader("referer");
+
+		// 결과값을 받을 result
+		int result = 0;
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/upEventPicture";
+
+		// 저장폴더가 있는지 검사하여 없을 경우 생성하기
+		File folder = new File(savePath);
+		if (!folder.exists())
+			folder.mkdir();
+
+		try {
+			// 사진 및 게시글 수정
+			result = eventService.updateBoard(boardAndImage, image, savePath);
+
+			String msg = null;
+			if (result > 0)
+				msg = "사진 수정 성공";
+			else
+				msg = "사진 수정 실패";
+			rdAttr.addFlashAttribute("msg", msg);
+
+			// 수정 후 상세조회 화면 요청
+			return "redirect:" + detailUrl;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "사진 수정 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
 }

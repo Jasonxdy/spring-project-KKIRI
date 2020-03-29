@@ -339,6 +339,31 @@ public class EventDAO {
 	}
 
 
+	
+	
+	/**
+	 * 사진 수정 dao
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateImage(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.update("eventMapper.updateImage", boardAndImage);
+	}
+
+
+	
+	/**
+	 * 사진에 대한 게시글 수정 dao
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.update("eventMapper.updateBoard", boardAndImage);
+	}
+
+
 
 
 }

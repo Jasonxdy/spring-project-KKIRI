@@ -3,6 +3,8 @@ package com.kh.kkiri.event.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
 import com.kh.kkiri.event.model.vo.Event;
@@ -194,4 +196,16 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	List<BoardAndImage> selectImageList(int eventNo, PageInfo pInf) throws Exception;
+
+	
+	
+	/**
+	 * 사진 수정 service
+	 * @param boardAndImage
+	 * @param image 
+	 * @param savePath 
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateBoard(BoardAndImage boardAndImage, MultipartFile image, String savePath) throws Exception;
 }
