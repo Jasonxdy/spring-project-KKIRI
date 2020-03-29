@@ -79,5 +79,34 @@ public interface MypageService {
 
 	int listEventCount2(int memberNo)throws Exception;
 
+
+	/** 즐겨찾기 수 조회
+	 * @param memberNo
+	 * @return count
+	 * @throws Exception
+	 */
+	int getFavoriteCount(int memberNo) throws Exception;
+	
+	/** 즐겨찾기 목록 조회
+	 * @param memberNo
+	 * @param pInf 
+	 * @return fList
+	 * @throws Exception
+	 */
+	List<Member> moveFavorite(int memberNo, PageInfo pInf) throws Exception;
+
+	/** 즐겨찾기 메모 변경
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	int changeMemo(Member member) throws Exception;
+
+	/** 즐겨찾기 삭제
+	 * @param member
+	 * @return result
+	 * @throws Exception
+	 */
+	int deleteFavorite(Member member) throws Exception;
 	
 }

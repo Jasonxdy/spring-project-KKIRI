@@ -21,6 +21,11 @@
 		<result property="eventScore" column="SCORE"/>
 	</resultMap>
 	
+	<resultMap type="Chat" id="chatResultSet">
+		<id property="chatNo" column="CHAT_NO"/>
+		<result property="chatContent" column="CHAT_CONTENT"/>
+	</resultMap>
+	
 	<!-- 탐색페이지 이벤트 수 조회 -->
 	<select id="getSearchCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM V_SEARCH
@@ -94,4 +99,14 @@
 		AND MEMBER_TYPE = 'P'
 	</select>
 	
+	<insert id="insertChat" parameterType="Chat">
+		INSERT INTO CHAT
+		VALUES(CHT_SEQ.NEXTVAL,#{eventNo},#{chatContent})
+	</insert>
+	
+	<select id="selectChat" parameterType="_int" resultMap="chatResultSet">
+		SELECT CHAT_NO,CHAT_CONTENT
+		FROM CHAT
+		WHERE EVENT_NO = #{eventNo}
+	</select>
 </mapper>
