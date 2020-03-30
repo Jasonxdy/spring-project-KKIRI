@@ -215,7 +215,14 @@ public class MypageServiceimpl implements MypageService{
 	 */
 	@Override
 	public List<Member> moveFavorite(int memberNo, PageInfo pInf) throws Exception {
-		return mypageDAO.moveFavorite(memberNo, pInf);
+		List<Member> fList = mypageDAO.moveFavorite(memberNo, pInf);
+		
+		for(Member member : fList) {
+			if(member.getMemberIntroduce() != null) {
+				member.setMemberIntroduce(member.getMemberIntroduce().replace("<br>", "\n"));
+			}
+		}
+		return fList;
 	}
 	
 	/** 즐겨찾기 메모 변경
