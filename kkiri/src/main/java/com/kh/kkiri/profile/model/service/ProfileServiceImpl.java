@@ -90,7 +90,15 @@ public class ProfileServiceImpl implements ProfileService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertChat(Chat chat) {
-		return profileDAO.insertChat(chat);
+		int chatNo = profileDAO.selectChatNo();
+		
+		chat.setChatNo(chatNo);
+		
+		chat.setChatContent(chat.getChatContent()+","+chatNo);
+		
+		profileDAO.insertChat(chat);
+		
+		return chatNo;
 	}
 
 	/** 채팅 출력용 Service
@@ -100,5 +108,15 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public List<Chat> selectChat(int eventNo) {
 		return profileDAO.selectChat(eventNo);
+	}
+	
+	/** 채팅 삭제용 Service
+	 * @param chatNo
+	 * @return result
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteChat(int chatNo) {
+		return profileDAO.deleteChat(chatNo);
 	}
 }

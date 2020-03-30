@@ -158,4 +158,12 @@ public class ProfileController {
 		return new Gson().toJson(chatList);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="deleteChat", produces = "application/json; charset=utf-8")
+	public int deleteChat(@RequestParam(value="chatNo", required=false) int chatNo) {
+		
+		int result = profileService.deleteChat(chatNo);
+		
+		return result;
+	}
 }

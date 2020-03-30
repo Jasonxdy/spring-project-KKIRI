@@ -113,6 +113,20 @@ public class ProfileDAO {
 	public List<Chat> selectChat(int eventNo) {
 		return sqlSession.selectList("searchMapper.selectChat", eventNo);
 	}
+
+
+	public int selectChatNo() {
+		return sqlSession.selectOne("searchMapper.selectChatNo");
+	}
+
+
+	/** 채팅 삭제용 DAO
+	 * @param chatNo
+	 * @return result
+	 */
+	public int deleteChat(int chatNo) {
+		return sqlSession.update("searchMapper.deleteChat", chatNo);
+	}
 	
 	
 }
