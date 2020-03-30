@@ -42,7 +42,9 @@
                     <div class="card m-2" style="width: 16rem;">
 					  <div class="card-body">
 					  	<div class="favoriteFImg">
+					  		<a href="${contextPath}/profile/user?no=${fList.memberTicket}">
 					  		<img style="width: 100%;" src="${contextPath}/resources/upProfileImage/${fList.memberProfile}">
+					  		</a>
 					  	</div>
 					    <div id="nickDiv" style="display:inline-block;" class="">${fList.memberNickname}</div>
 				    	<img class="favoriteDeleteImg" src="${contextPath}/resources/img/x-btn.png">

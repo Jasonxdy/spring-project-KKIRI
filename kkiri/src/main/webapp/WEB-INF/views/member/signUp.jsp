@@ -110,7 +110,7 @@
                   <button type="button" class="go-step1 green-radius-btn">1단계로</button>
                   <button type="button" class="go-step3 green-radius-btn">3단계로</button>
                 </div>
-                <div class="step3 input-info step">
+                <div class="step3 input-info step" id="step3">
                     <h3 class="signUpTitle">3단계. 회원님의 정보를 입력해주세요.</h3>
                     <p class="sub-title"><strong class='require'>필수</strong>표시는 필수적으로 입력하셔야 합니다.</p>
                     <div class="insert-member-info">
@@ -157,6 +157,14 @@
                       <div>
                             <span id="checkEmail">&nbsp;</span>
                         </div>
+                      <label for=""><strong class='require'>필수</strong>&nbsp;이메일 인증</label>
+                      <button id="emailConfirmBtn" class="btn btn-outline-dark mb-1" type="button">인증번호 받기</button>
+                      <input id="emailConfirmInput" type="text" style="width:10%;" placeholder="인증번호">
+                      <%-- <input id="emailConfirmNo" type="text" style="display:none;" value="${confirmNo}"> --%>
+                      <div id="emailConfirmSpan" style="display:inline-block; width:26%"></div>
+                      <script>
+                      	
+                      </script>
                       
                       <label for="memberBirth"><strong class='require'>필수</strong>&nbsp;생년월일</label>
                       <input type="date" name="memberBirth" id="memberBirth"><br>
@@ -183,6 +191,9 @@
                       <button class="go-step4 green-radius-btn mt-4">회원가입</button>
                     </div>
                   </div>
+                  <div class="container text-center" id="loading">
+					<img src="${contextPath}/resources/img/loading.gif">
+				  </div>
                   <div class="step4 signUp-complete step">
                     <h3 class="signUpTitle">회원가입 성공!</h3>
                     <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
@@ -249,12 +260,13 @@
     		  
     		  "memberPhone":false,
     		  "memberEmail":false, //중복 검사, 입력확인
+    		  "memberEmailConfirm":false, //중복 검사, 입력확인
     		  "memberBirth":false, //입력 확인
     		  "memberGender":false //입력 확인 
     	  };
     	  
     		$(document).ready(function(){
-    			
+    			$("#loading").hide();
     			var $memberId = $("#memberId");
     			var $memberIdUnique = $("memberIdUnique");
     			var $memberPwd = $("#memberPwd");
@@ -393,10 +405,10 @@
 								
 								if(result == "true"){
 									$("#checkEmail").text("이메일 사용가능").css("color", "#0069d9" );
-									
+									createIdCheck.memberEmailUnique = true;
 								}else{
 									$("#checkEmail").text("이미 등록된 이메일").css("color", "#c82333" );
-									
+									createIdCheck.memberEmailUnique = false;
 								}
 							},
 							error: function(e){
@@ -406,8 +418,48 @@
 							
 						}); // ajax 끝
 						createIdCheck.memberEmailUnique = true;
+						if(createIdCheck.memberEmailUnique && createIdCheck.memberEmail){
+							$("#emailConfirmBtn").removeClass("btn-outline-dark").addClass("btn-outline-primary");
+						}
 					}
 					
+				});
+				
+				// 이메일 인증
+					//$("#emailConfirmBtn").removeClass("btn-outline-dark").addClass("btn-outline-primary");
+					$("#emailConfirmBtn").on("click", function(){
+						$("#step3").hide();
+						$("#loading").show();
+						var email = $("#memberEmail").val();
+						$.ajax({
+							url: "emailConfirm",
+							data: {email: email},
+							type : "post",
+							success : function(result){
+								if(result != "false"){
+									alert("인증번호가 "+ email + "로 발송되었습니다.");
+									emailConfirmNo = result;
+								} else alert("인증 메일 발송 실패");
+								$("#loading").hide();
+	                			$("#step3").show();
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+	                			console.log(e);
+	                			$("#loading").hide();
+	                			$("#step3").show();
+							}
+						}); // ajax 끝
+					});
+				
+				$("#emailConfirmInput").on("input", function(){
+					if($("#emailConfirmInput").val() == emailConfirmNo){
+						$("#emailConfirmSpan").text("인증 번호가 일치합니다.").css("color", "#0069d9");
+						createIdCheck.memberEmailConfirm = true;
+					} else {
+						$("#emailConfirmSpan").text("인증 번호가 일치하지 않습니다.").css("color", "#c82333");
+						createIdCheck.memberEmailConfirm = false;
+					}
 				});
 				
 				//전화 번호
