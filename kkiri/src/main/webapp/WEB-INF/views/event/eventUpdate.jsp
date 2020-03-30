@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,6 +20,12 @@
 
 <body>
   <div id="wrapper">
+  
+  <fmt:formatDate var="startDate" value="${event.eventStart}"
+		pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+	<fmt:formatDate var="endDate" value="${event.eventEnd}"
+		pattern="yyyy년 MM월 dd일 E요일 · HH:mm" />
+		
     <jsp:include page="../common/header.jsp"/>
     <div id="container">
       <div class="eventCreate">
@@ -29,7 +36,7 @@
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
               </div>
-              <form class="eventCreateForm" action="updateEvent" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
+              <form class="eventCreateForm" action="updateEvent?no=${event.eventNo}" method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
                 <div class="step1 select-location step">
                   <h3 class="eventCreateTitle step-1-title">1단계. 이벤트를 진행할 지역을 수정해 주세요.</h3>
                   <!-- 다음 지도창 -->
@@ -94,27 +101,27 @@
                     </p>
                     <div class="insert-event-info">
                       <label class="event-thumbnail-label">이벤트 썸네일 사진</label>
-                      <input type="file" class="uploadInput" name="eventProfile" onchange="loadImg(this)">
+                      <input type="file" class="uploadInput" name="thumbnailImg" onchange="loadImg(this)">
                       <div class="uploadImgWrap">
-                        <img class="uploadImg" src="img/banner-alter-img.png">
+                        <img class="uploadImg" src="${contextPath}/resources/upEventThumbnail/${event.eventThumbnail}">
                         <button type="button" class="uploadBtn">사진 업로드</button>
                       </div><br>
                       <label for="eventTitle">이벤트 제목</label>
-                      <input type="text" name="eventTitle" id="eventTitle" value="크로스 핏 모여서 즐겨요"><br>
+                      <input type="text" name="eventTitle" id="eventTitle" value="${event.eventTitle}"><br>
                       <label for="eventIntroduce" class="eventIntroduceTitle">이벤트 소개내용</label>
-                      <textarea name="eventIntroduce" id="eventIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요.">크로스핏 모여서 즐겨요</textarea><br>
+                      <textarea name="eventContent" id="eventIntroduce" rows="8" cols="80" placeholder="내용을 입력해주세요.">${event.eventContent}</textarea><br>
                       <label for="startDate">이벤트 시작 시간</label>
-                      <input type="text" name="startDate" id="startDate" value="2020년 3월 9일 월요일 15:00" disabled><br>
+                      <input type="text" name="startDate" id="startDate" value="${startDate}" disabled><br>
                       <label for="endDate">이벤트 종료 시간</label>
-                      <input type="text" name="endDate" id="endDate" value="2020년 3월 9일 월요일 18:00" disabled><br>
+                      <input type="text" name="endDate" id="endDate" value="${endDate}" disabled><br>
                       <label for="ticket">참가 티켓 수</label>
-                      <input type="number" name="eventTicket" id="ticket" value="5"><br>
+                      <input type="number" name="eventTicket" id="ticket" value="${event.eventTicket}"><br>
                       <label for="boundary">이벤트 정원</label>
-                      <input type="number" name="boundary" id="boundary" min="2" value="50"><br>
+                      <input type="number" name="eventQuota" id="boundary" min="2" value="${event.eventQuota}"><br>
 
                       
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
-                      <button type="button" class="go-step4 green-radius-btn mt-4">이벤트 수정 완료</button>
+                      <button class="go-step4 green-radius-btn mt-4">이벤트 수정 완료</button>
                     </div>
                   </div>
               </form>
@@ -198,6 +205,18 @@
               }
             }
           });
+        
+        // 기존에 선택한 카테고리 출력 
+		var category = "${event.eventCategory}";       
+		
+		if(category != "null"){
+			$(".category-wrap>input").each(function(){
+				if($(this).val() == category){
+					$(this).prop("checked","true");					
+				}
+			});
+		}
+		
       });
       
       function validate(){
@@ -278,6 +297,7 @@
 		    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 		    	
 		        if (status === kakao.maps.services.Status.OK) {
+		        	
 		            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
 		            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 		            
@@ -342,18 +362,17 @@
 			// 마커가 지도 위에 표시되도록 설정합니다
 			marker2.setMap(map);
 			
-			
 			// 기존 지도의 상세주소를 표시해줍니다.
-            var detailAddr = '<div>지번 주소 : ' + ${event.eventAddress} + '</div>';
+            var detailAddr = '<div>지번 주소 : ${event.eventAddress} </div>';
             
-            var content = '<div class="bAddr">' +
+            var content = '<div class="bAddr newPosition">' +
                             '<span class="title">주소정보</span>' + 
                             detailAddr + 
                         '</div>';
             
             infowindow.setContent(content);
             infowindow.open(map, marker2);
-			
+            
 		});
 			
 	</script>
