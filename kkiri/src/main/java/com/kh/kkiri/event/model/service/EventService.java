@@ -254,4 +254,14 @@ public interface EventService {
 	 * @return result
 	 */
 	public abstract int deleteChat(int chatNo);
+
+	/**  이벤트 수정(서진웅) service
+	 * @param event
+	 * @param image
+	 * @param savePath
+	 * @param thumbnailImg
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception;
 }

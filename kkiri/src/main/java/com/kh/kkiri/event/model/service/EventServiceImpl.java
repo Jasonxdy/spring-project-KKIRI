@@ -498,4 +498,18 @@ public class EventServiceImpl implements EventService {
 	public int deleteChat(int chatNo) {
 		return eventDAO.deleteChat(chatNo);
 	}
+
+	/**  이벤트 수정(서진웅) service
+	 * @param event
+	 * @param image
+	 * @param savePath
+	 * @param thumbnailImg
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception {
+		return 0;
+	}
 }
