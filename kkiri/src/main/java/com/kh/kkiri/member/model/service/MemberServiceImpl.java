@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService{
 		Member loginMember = memberDAO.signInMember(member);
 		
 		if( !bCryptPasswordEncoder.matches(member.getMemberPwd(), 
-				loginMember.getMemberPwd())) {
+				loginMember.getMemberPwd()) ) {
 			// 비번이 일치하지 않는다면?? 
 			
 			loginMember = null;

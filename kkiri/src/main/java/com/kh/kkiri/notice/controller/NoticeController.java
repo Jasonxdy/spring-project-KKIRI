@@ -24,7 +24,7 @@ import com.kh.kkiri.notice.model.vo.Notice;
 
 @Controller
 @RequestMapping("/notice/*")
-@SessionAttributes({"loginMember","detailUrl"})
+@SessionAttributes({"loginMember","detailUrl","msg"})
 public class NoticeController {
 	
 	@Autowired

@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html lang="ko">
+
+<style>
+	/*  제목 말줄임 */
+		.board-title-td{
+		display: inline-block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 50px;
+		}
+</style>
+
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
@@ -35,25 +47,23 @@
               </tr>
             </thead>
             <tbody>
-            	<c:if test="${empty list }">
+	           	<c:if test="${empty list }">
 					<tr>
-						<td colspan="5">존재하는 공지사항이 엄슴</td>
+						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:if test="${!empty list }">
-					
+					<c:if test="${!empty list }">
 						<c:forEach var="notice" items="${list}" varStatus="vs">
 							<c:if test="${notice.noticeStatus == 'Y' }">
-							<tr class="text-center">
-								<th scope="row">${notice.noticeNo}</th>
-								<td><p class="board-title-td">${notice.noticeTitle}</p></td>
-								<td>${notice.noticeModifyDate}</td>
-								 <td>${notice.noticeCount}</td>
-							</tr>
+								<tr class="text-center">
+									<th scope="row">${notice.noticeNo}</th>
+									<td><p class="board-title-td">${notice.noticeTitle}</p></td>
+									<td>${notice.noticeModifyDate}</td>
+									<td>${notice.noticeCount}</td>
+								</tr>
 							</c:if>
 						</c:forEach>
-					
-				</c:if>
+					</c:if>
             </tbody>
           </table>
         </div>
@@ -62,12 +72,16 @@
 
       <div class="row justify-content-md-center">
         <!-- 검색 -->
+        
         <div class="col-md-2 col-sm-3">
           <div class="input-group">
+          <form action="noticeList" class="text-center" id="searchForm" method="GET" >
             <select name="searchKey" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
               <option selected>구분</option>
-              <option value="createDate">작성일</option>
               <option value="title">제목</option>
+              <option value="content">내용</option>
+              <option value="createDate">작성일</option>
+              <option value="title_content">제목+내용</option>
             </select>
           </div>
         </div>
@@ -76,22 +90,20 @@
             <input name="searchValue" type="text" class="form-control inputSection">
           </div>
         </div>
+        <div class="col-md-1 col-sm-2">
+          <div class="input-group-append">
+            <button type="submit" class="green-radius-btn search-btn">검색</button>
+          </div>
+        </div>
+       </form>
         
         <div class="col-md-1 col-sm-2">
         <%-- 로그인된 계정이 관리자 등급인 경우 --%>
-        	
-		        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
-		        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
-		        		onclick="location.href = 'insertForm';">쓰기</button>
-		        </c:if>
-	        
-        </div>
-        
-        <div class="col-md-1 col-sm-2">
-          <div class="input-group-append">
-            <button class="green-radius-btn search-btn" type="button">검색</button>
-          </div>
-        </div>
+	        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
+	        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
+	        		onclick="location.href = 'insertForm';">쓰기</button>
+	        </c:if>
+       </div>
         
 		
       <!-- 페이징 바 -->

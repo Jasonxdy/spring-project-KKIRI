@@ -49,14 +49,18 @@
 	 		<if test="searchValue != null">
 	  		<bind name="sv" value="'%'+ _parameter.searchValue + '%'"/>	
   				<choose>
-  					<when test="searchKey== 'createDate'">
-  						AND NOTICE_ENROLL_DT LIKE #{sv}
-  					</when>
+  					
   					<when test="searchKey== 'title'">
   						AND NOTICE_TITLE LIKE #{sv}
   					</when>
+  					<when test="searchKey== 'content'">
+  						AND NOTICE_CONTENT LIKE #{sv}
+  					</when>
+  					<when test="searchKey== 'createDate'">
+  						AND NOTICE_ENROLL_DT LIKE #{sv}
+  					</when>
   					<otherwise>
-  						AND ( NOTICE_ENROLL_DT LIKE #{sv}
+  						AND ( NOTICE_CONTENT LIKE #{sv}
   						OR NOTICE_TITLE LIKE #{sv})
   					</otherwise>
   				</choose>

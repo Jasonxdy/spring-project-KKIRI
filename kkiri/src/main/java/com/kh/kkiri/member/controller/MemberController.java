@@ -81,7 +81,8 @@ public class MemberController {
 			// // loginMember = null;
 			// }
 
-			if (loginMember != null) {
+		if (loginMember != null) {
+			
 				model.addAttribute("loginMember", loginMember);
 
 			} else {

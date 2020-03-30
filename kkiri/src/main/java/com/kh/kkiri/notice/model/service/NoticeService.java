@@ -10,6 +10,8 @@ public interface NoticeService {
 
 	int getListCount(Map<String, String> map)throws Exception;
 
+	
+	
 	List<Notice> selectList(Map<String, String> 
 	map, PageInfo pInf)throws Exception;
 
