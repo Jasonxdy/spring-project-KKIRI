@@ -356,7 +356,7 @@ public class MypageController {
 	@RequestMapping("ticketRecharge")
 	public String ticketRecharge() {
 		
-		
+		System.out.println("값 받으려고 들어옴");
 		
 		
 		return "redirect:/mypage/ticketLog";

@@ -71,24 +71,23 @@
 				
 				<script>
 				// 결제 API 추가
-				
+				// buyer_addr : '서울특별시 강남구 삼성동',						    buyer_postcode : '123-456',    $(".recharge-box >input").val()
 				var IMP = window.IMP; // 생략가능
 				
 					
 				
-				IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+				IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 					function Card(){
 						IMP.request_pay({
 						    pg : 'inicis', // version 1.1.0부터 지원.
 						    pay_method : 'card',
 						    merchant_uid : 'merchant_' + new Date().getTime(),
 						    name : '주문명:티켓 충전',
-						    amount : $(".recharge-box >input").val(),
+						    amount : 100,
 						    buyer_email : '${loginMember.memberEmail}',
-						    buyer_name : '구매자이름',
-						    buyer_tel : '010-1234-5678',
-						    buyer_addr : '서울특별시 강남구 삼성동',
-						    buyer_postcode : '123-456',
+						    buyer_name : '${loginMember.memberNickname}',
+						    buyer_tel : '${loginMember.memberPhone}',
+						    
 						    m_redirect_url : '../mypage/recharge'
 						}, function(rsp) {
 						    if ( rsp.success ) {
@@ -121,7 +120,7 @@
         }else if($("input[name=recharge-way]:checked").length==0){
           alert("결제 방식을 선택해주세요!");
           return false;
-        }else if($(".rechargeMethod").val()=='creditCard'){
+        }else if($("input[name=recharge-way]:checked").val()=='creditCard'){
         	console.log(123);
         	Card();
         	return false;
