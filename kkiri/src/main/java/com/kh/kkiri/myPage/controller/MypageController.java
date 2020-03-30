@@ -405,12 +405,16 @@ public class MypageController {
 	}
 	
 	@RequestMapping("deleteFavorite")
-	public String deleteFavorite(Model model, Member member) {
-		
-		
+	public String deleteFavorite(Model model, Member member,
+			RedirectAttributes rdattr) {
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		member.setMemberNo(loginMember.getMemberNo());
+		String msg = null;
 		try {
 			int result = mypageService.deleteFavorite(member);
-			
+			if(result>0) msg = "변경되었습니다.";
+			else msg = "변경 실패";
+			rdattr.addFlashAttribute("msg", msg);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 삭제 중 에러가 발생했습니다.");
