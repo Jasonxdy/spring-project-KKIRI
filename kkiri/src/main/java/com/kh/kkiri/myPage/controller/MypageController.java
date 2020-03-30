@@ -26,6 +26,7 @@ import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
 import com.kh.kkiri.myPage.model.vo.Ticket;
+import com.kh.kkiri.payment.model.vo.Payment;
 
 @RequestMapping("/mypage/*")
 @Controller
@@ -354,12 +355,39 @@ public class MypageController {
 	}
 	
 	@RequestMapping("ticketRecharge")
-	public String ticketRecharge() {
+	public String ticketRecharge(@RequestParam(value = "recharge-amount")Integer rechargeAmount,
+			Model model, 
+			@RequestParam(value="recharge-way")String rechargeWay,
+			RedirectAttributes attrs) {
 		
 		System.out.println("값 받으려고 들어옴");
+		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
 		
+		Payment ticket = new Payment();
+		
+		ticket.setMemberNo(memberNo);
+		ticket.setPaymentTicket((rechargeAmount/1000));
+		ticket.setPaymentType("C");
+		
+		int result = 0;
+		System.out.println(ticket);
+		String msg= "";
+		try {
+			
+		result = mypageService.ticketRecharge(ticket);
+		// 0 : 기록도 못세겼다 / 1: log만 남겼다. 2: 모두 완료했다.
+		
+		if(result >1) msg="티켓 충전이 완료 되었습니다.";
+		else if (result>0) msg="티켓이 충전중 오류가 발생했습니다. 관리자에게 문의 해주시기 바랍니다.";
+		else msg="티켓 충전에 실패하였습니다.";
+		attrs.addFlashAttribute("msg", msg);
 		
 		return "redirect:/mypage/ticketLog";
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "티켓충전 작업중 에러가 발생했습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	

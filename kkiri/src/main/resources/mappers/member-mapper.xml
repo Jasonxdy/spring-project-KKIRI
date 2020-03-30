@@ -209,7 +209,7 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND FAVORITE_NO = #{favoriteNo}
 	</delete>
-	
+	<!-- 티켓 환불 -->
 	<update id="updateTicket" parameterType="Ticket">
 	UPDATE MEMBER SET MEMBER_TICKET = (MEMBER_TICKET-#{paymentTicket})
 	WHERE MEMBER_NO = #{memberNo}
@@ -243,5 +243,9 @@
 		WHERE MEMBER_NO=#{memberNo}
 		AND FAVORITE_NO=#{memberTicket}
 	</delete>
-	
+	<update id="ticketRecharge" parameterType="map">
+	UPDATE MEMBER SET
+	MEMBER_TICKET = (MEMBER_TICKET+#{ticket})
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

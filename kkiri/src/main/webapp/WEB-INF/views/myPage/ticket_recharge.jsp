@@ -43,7 +43,7 @@
             <div class="ticket-wrap my-profile-section recharge-wrap">
               <h4>티켓 충전</h4>
               
-              <form action="#" method="get" class="recharge-form" onsubmit="return validate();">
+              <form action="#" method="post" class="recharge-form" onsubmit="return validate();">
                 <p class="recharge-title">충전 금액</p>
                 <div class="recharge-box">
                   <input type="radio" name="recharge-amount" value="1000" id="1000"><label for="1000">1,000원</label>
@@ -96,11 +96,14 @@
 						        msg += '상점 거래ID : ' + rsp.merchant_uid;
 						        msg += '결제 금액 : ' + rsp.paid_amount;
 						        msg += '카드 승인번호 : ' + rsp.apply_num;
+						        alert(msg);
+						        return true;
 						    } else {
 						        var msg = '결제에 실패하였습니다.';
 						        msg += '에러내용 : ' + rsp.error_msg;
-						    }
 						    alert(msg);
+						    return false
+						    }
 						});
 					}
 				
@@ -120,12 +123,16 @@
         }else if($("input[name=recharge-way]:checked").length==0){
           alert("결제 방식을 선택해주세요!");
           return false;
-        }else if($("input[name=recharge-way]:checked").val()=='creditCard'){
+        }
+        
+        if($("input[name=recharge-way]:checked").val()=='creditCard'){
         	console.log(123);
-        	Card();
+        	alert($(this).val());
+        	Card()
+        	
         	return false;
         }
-        return false
+        return false;
       }
       
       

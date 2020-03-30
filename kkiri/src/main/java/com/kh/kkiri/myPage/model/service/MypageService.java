@@ -108,5 +108,12 @@ public interface MypageService {
 	 * @throws Exception
 	 */
 	int deleteFavorite(Member member) throws Exception;
+
+	/** 티켓 충전
+	 * @param ticket
+	 * @return
+	 * @throws Exception
+	 */
+	int ticketRecharge(Payment ticket)throws Exception;
 	
 }
