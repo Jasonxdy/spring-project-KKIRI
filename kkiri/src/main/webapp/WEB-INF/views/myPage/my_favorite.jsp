@@ -39,23 +39,22 @@
                   <br>
                  <div class="row justify-content-md-start">
                   <c:forEach var="fList" items="${fList}">
-                    <div class="card m-2" style="width: 14rem;">
+                    <div class="card m-2" style="width: 16rem;">
 					  <div class="card-body">
 					  	<div class="favoriteFImg">
 					  		<img style="width: 100%;" src="${contextPath}/resources/upProfileImage/${fList.memberProfile}">
 					  	</div>
 					    <div id="nickDiv" style="display:inline-block;" class="">${fList.memberNickname}</div>
-					    <a class=""  href="deleteFavorite?memberTicket=${fList.memberTicket}&memberNo=${fList.memberNo}" style="display:none;">
-					    	<img style="" src="${contextPath}/resources/img/x-btn.png">
-					    </a>
-					    	<%-- ${fList.memberIntroduce} --%>
-					    <textarea class="favorite-memo card-text mt-1" placeholder="메모"
-					    		style="resize: none; height: 5rem;">${fList.memberIntroduce}</textarea>
-					    <span style="display:none">${fList.memberTicket}</span>
-					    <div class="float-right" style="display:none">
-						    <button class="btn btn-sm btn-outline-dark mx-1 memoUpdate">수정</button>
-						    <!-- <button class="btn btn-sm btn-outline-dark mx-1">취소</button> -->
-					    </div>
+				    	<img class="favoriteDeleteImg" src="${contextPath}/resources/img/x-btn.png">
+					    <form action="changeMemo" method="post">
+						    <textarea class="favorite-memo card-text mt-1" placeholder="메모"
+						    		name="memberIntroduce">${fList.memberIntroduce}</textarea>
+						    <input name="memberTicket" value="${fList.memberTicket}" style="display:none"/>
+						    <div class="float-right" style="display:none">
+							    <button class="btn btn-sm btn-outline-dark mx-1 memoUpdate">수정</button>
+							    <!-- <button class="btn btn-sm btn-outline-dark mx-1">취소</button> -->
+						    </div>
+					    </form>
 					  </div>
 					</div>
                   </c:forEach>
@@ -135,27 +134,25 @@
       </div>
     </div>  
   <script>
-  	/* $(".favorite-memo").on("mouseenter", function(){
-  		//console.log($(this).val());
-  		//html("<button>수정</button>")
-  		$(this).parent().children().last().css("display", "inline");
-  	}).on("mouseleave", function(){
-  		$(this).parent().children().last().css("display", "none");;
-  	}); */
   	$(".card-body").on("mouseenter", function(){
-  		$(this).children().eq(2).css("display", "inline");
-  		$(this).children().last().css("display", "inline");
+  		$(this).children().eq(2).css("display", "inline"); // X
+  		$(this).children().last().children().last().css("display", "inline"); //수정 버튼
+  		console.log($(this).children().eq(2));
   	}).on("mouseleave", function(){
   		$(this).children().eq(2).css("display", "none");
-  		$(this).children().last().css("display", "none");
+  		$(this).children().last().children().last().css("display", "none");
   	});
   	
-  	$(".memoUpdate").on("click", function(){
-  		var favoriteNo = $(this).parent().parent().children().eq(4).text();
-  		var updateMemo = $(this).parent().parent().children().eq(3).val();
-  		//console.log(memberNo);
-  		location.href="changeMemo?memberIntroduce=" + updateMemo + "&memberTicket=" + favoriteNo;
-  	});
+  	
+  	 $(".favoriteDeleteImg").on("click", function () {
+  		var favoriteNo = $(this).parent().children().eq(3).children().eq(1).val();
+		//console.log(favoriteNo);
+  		if(confirm("정말 삭제 하시겠습니까?")){
+  			location.href="deleteFavorite?memberTicket=" + favoriteNo;
+  		}
+     }).mouseenter(function () {
+       $(".favoriteDeleteImg").css("cursor", "pointer");
+     });
   	
   	
   </script>

@@ -40,10 +40,12 @@
     height: 30px;
     text-overflow: ellipsis;
 }
-.card-body a{
+
+.favoriteDeleteImg{
 	position: absolute;
     top: 5%;
     right: 5%;
+    display:none;
 }
 .card-body{
 	height: 15rem !important;	
@@ -67,5 +69,11 @@
 	vertical-align: top !important;
 }
 
+.favorite-memo{
+	resize: none; 
+	height: 5rem; 
+	width:100%;
+	/* border: none; */
+}
 
 
