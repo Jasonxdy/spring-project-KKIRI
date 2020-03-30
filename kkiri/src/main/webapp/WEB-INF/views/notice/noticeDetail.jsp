@@ -17,10 +17,10 @@
       <div class="row mt-5">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link" href="board.html" tabindex="-1">공지사항</a>
+            <a class="nav-link active" href="${contextPath }/notice/noticeList" tabindex="-1">공지사항</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#" tabindex="-1">1:1문의 작성</a>
+            <a class="nav-link " href="${contextPath }/ask/ask" tabindex="-1">1:1문의 작성</a>
           </li>
         </ul>
       </div>
@@ -28,22 +28,27 @@
       <div class="row justify-content-md-center questionWriteSection">
         <div class="col-12 rounded-sm">
           <h2 class="mt-3 mb-3">공지사항 작성</h2>
-           <form action="#" method="get" class="questionForm">
-             
-              <br>
-              <label for="questionTitle">제목</label>
-              <input type="text" id="questionTitle">
-              <br>
-              <label for="questionContent">내용</label>
-              <textarea id="questionContent"></textarea>
-
-			<p>
+           <form action="updateForm" method="get" class="questionForm">
+           
+             <p>
 				${notice.noticeModifyDate }
 				<span class="float-right">조회수  ${notice.noticeCount }</span>
 			</p>
+             
+              <br>
+              <label for="questionTitle">제목</label>
+              <div id="notice-content">${notice.noticeTitle}</div>
+              <br>
+              <label for="questionContent">내용</label>
+              <div id="notice-content">${notice.noticeContent}</div>
 
 
-              <button class="green-radius-btn">글쓰기</button>&nbsp;
+             <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
+		        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
+		        		onclick="location.href = 'insertForm';">수정</button>
+		        	<button class="btn btn-success float-right" id="deleteBtn">삭제</button>
+		        </c:if>
+		       		
               <button type="reset" class="green-radius-btn">취소</button>
            </form>
         </div>
@@ -61,6 +66,13 @@
 	<jsp:include page="../common/footer.jsp"/>
 
   <script>
+  
+  $("#deleteBtn").on("click",function(){
+		if(confirm("정말 삭제 하시겠습니까?")) location.href = "delete?no=${param.no}";
+	});
+  
+  
+  
     function scrollFunction() {
       if ($(window).scrollTop() >= 200) {
         $('#button-top').show(0);

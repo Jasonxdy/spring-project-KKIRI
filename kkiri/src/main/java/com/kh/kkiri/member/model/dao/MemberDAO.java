@@ -1,11 +1,10 @@
 package com.kh.kkiri.member.model.dao;
 
-import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 
 import com.kh.kkiri.member.model.vo.Member;
 
@@ -111,6 +110,17 @@ public class MemberDAO {
 	 */
 	public Member checkSocialEmail(String memberEmail) throws Exception {
 		return sqlSession.selectOne("memberMapper.checkSocialEmail", memberEmail);
+	}
+
+
+
+	/** 티켓 충전 DAO
+	 * @param ticket
+	 * @return
+	 * @throws Exception
+	 */
+	public int ticketRecharge(Map<String , Object> map) throws Exception{
+		return sqlSession.update("memberMapper.ticketRecharge", map);
 	}
 
 

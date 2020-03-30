@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/common.css">
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/header.css">
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/footer.css">
+    <link rel="stylesheet" href="../index 페이지 - 진웅/css/chatting.css">
 
     <!-- 이벤트 상세 페이지 CSS 적용 -->
     <link rel="stylesheet" href="../index 페이지 - 진웅/css/eventAfterComment.css">
@@ -96,6 +97,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
         <!-- 이벤트 상세 상단 정보 end -->
 
@@ -551,6 +553,71 @@
                 </div>
             </div>
             <!-- 이벤트 상세 페이지 end -->
+
+
+            <button type="button" class="chatting-btn"><img src="../index 페이지 - 진웅/img/chat-icon.png" alt="채팅 아이콘"></button>
+
+            <div class="chatting-wrap">
+                <p class="chatting-title">
+                    채팅 방
+                    <button type="button" class="close-btn"><img src="../index 페이지 - 진웅/img/close-btn.png" alt="채팅창 닫기"></button>
+                </p>
+                
+                <div class="chatting-content">
+                    <div class="other-member">
+                        <img src="../index 페이지 - 진웅/img/profile-ex.png" alt="타회원 프로필" class="profile-img">
+                        <p class="nickname">타회원 닉네임1</p>
+                        <div class="con-wrap">
+                            <p class="con">
+                                여러분 환영합니다!!<br>
+                                여러분 환영합니다!!<br>
+                                여러분 환영합니다!!<br>
+                            </p>
+                            <p class="con-time">18:30</p>
+                        </div>
+                    </div>
+                    <div class="other-member">
+                        <img src="../index 페이지 - 진웅/img/profile-ex2.png" alt="타회원 프로필" class="profile-img">
+                        <p class="nickname">타회원 닉네임2</p>
+                        <div class="con-wrap">
+                            <p class="con">
+                                배고프다 ㅠㅠ
+                            </p>
+                            <p class="con-time">18:30</p>
+                        </div>
+                    </div>
+
+                    <div class="my-area">
+                        <p class="con">
+                            점심 뭐드세요??
+                            <button class="delete-btn"><span class="text-hidden">글삭제</span></button>
+                        </p>
+                        <p class="con-time">18:40</p>
+                    </div>
+                </div>
+                
+                <form action="#" method="get" class="chatting-form" onsubmit="return false;">
+                    <textarea class="chatting-text-input" placeholder="내용을 입력해주세요."></textarea>
+                    <button class="chatting-submit"><span class="text-hidden">전송하기</span></button>
+                </form>
+            </div>
+            
+            <script>
+                // 채팅창 스크립트
+                $(function(){
+                    $(".chatting-btn").on({
+                        click : function(){
+                            $(".chatting-wrap").stop().fadeIn(300);
+                        }
+                    });
+                    $(".close-btn>img").on({
+                        click : function(){
+                            $(".chatting-wrap").stop().fadeOut(300);
+                        }
+                    })
+
+                });
+            </script>
         </div>
 
         <div id="footer">

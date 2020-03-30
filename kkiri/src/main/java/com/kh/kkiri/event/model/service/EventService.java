@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Rating;
@@ -259,4 +260,36 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int rejectJoinEvent(Event event) throws Exception;
+	
+	
+	
+	
+	/** 채팅 저장용 Service
+	 * @param chat
+	 * @return
+	 */
+	public abstract int insertChat(Chat chat);
+
+	
+	/** 채팅 출력용 Service
+	 * @param eventNo
+	 * @return chatList
+	 */
+	public abstract List<Chat> selectChat(int eventNo);
+	
+	/** 채팅 삭제용 Service
+	 * @param chatNo
+	 * @return result
+	 */
+	public abstract int deleteChat(int chatNo);
+
+	/**  이벤트 수정(서진웅) service
+	 * @param event
+	 * @param image
+	 * @param savePath
+	 * @param thumbnailImg
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception;
 }

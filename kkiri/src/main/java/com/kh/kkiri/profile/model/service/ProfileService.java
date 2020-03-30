@@ -13,6 +13,10 @@ import com.kh.kkiri.search.model.vo.Search;
  * @author 정미경
  *
  */
+/**
+ * @author user1
+ *
+ */
 @Service
 public interface ProfileService {
 
@@ -66,5 +70,11 @@ public interface ProfileService {
 	 * @return chatList
 	 */
 	public abstract List<Chat> selectChat(int eventNo);
+	
+	/** 채팅 삭제용 Service
+	 * @param chatNo
+	 * @return result
+	 */
+	public abstract int deleteChat(int chatNo);
 	
 }

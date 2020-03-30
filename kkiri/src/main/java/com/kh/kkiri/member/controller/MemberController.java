@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.kkiri.common.FileRename;
+import com.kh.kkiri.common.SendEmail;
 import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.AuthInfo;
 import com.kh.kkiri.member.model.vo.Member;
@@ -58,6 +59,9 @@ public class MemberController {
 
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	
+	@Autowired
+	private SendEmail sendEmail;
 
 	// 6번 @세션 어트리뷰트 사용하기
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -563,6 +567,21 @@ public class MemberController {
 			}
 			return "redirect:/";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("emailConfirm")
+	public String emailConfirm(HttpSession session, String email) {
+		StringBuffer sb = new StringBuffer();
+		for(int i=0 ; i<6 ; i++) {
+			sb.append((int)(Math.random()*10));
+		}
+		String confirmNo = sb.toString();
+		session.setAttribute("confirmNo", confirmNo);
+		boolean result = sendEmail.send(email, "회원님", "KKIRI 이메일 인증", "인증번호: "+confirmNo);
+		
+		if(result) return confirmNo;
+		else return "false";
 	}
 
 }

@@ -70,7 +70,7 @@
 	<select id="recommandEvent" resultMap="eventResultSet">
 		SELECT * FROM
 		(SELECT * FROM V_EVENT
-		WHERE EVENT_END &lt; SYSDATE
+		WHERE EVENT_END &gt; SYSDATE
 		ORDER BY DBMS_RANDOM.VALUE)
 		WHERE ROWNUM &lt;=5
 	</select>
@@ -79,7 +79,7 @@
 	<select id="recommandEventLogin" parameterType="string" resultMap="eventResultSet">
 		SELECT * FROM
 		(SELECT * FROM V_EVENT
-		WHERE EVENT_END &lt; SYSDATE
+		WHERE EVENT_END &gt; SYSDATE
         AND EVENT_ADDRESS LIKE '%' || #{memberPlace} || '%'
 		ORDER BY DBMS_RANDOM.VALUE)
 		WHERE ROWNUM &lt;=5

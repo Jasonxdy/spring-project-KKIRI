@@ -2,7 +2,9 @@ package com.kh.kkiri.myPage.model.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,8 @@ import com.kh.kkiri.member.model.dao.MemberDAO;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
 import com.kh.kkiri.myPage.model.vo.Ticket;
+import com.kh.kkiri.payment.model.dao.PaymentDAO;
+import com.kh.kkiri.payment.model.vo.Payment;
 
 @Service
 public class MypageServiceimpl implements MypageService{
@@ -28,7 +32,11 @@ public class MypageServiceimpl implements MypageService{
 	private MypageDAO mypageDAO;
 
 	@Autowired
+	private PaymentDAO paymentDAO;
+	
+	@Autowired
 	private MemberDAO memberDAO;
+	
 	/** 계좌정보 변경을 위한 Service
 	 * @param account
 	 * @return result
@@ -246,4 +254,34 @@ public class MypageServiceimpl implements MypageService{
 	public int deleteFavorite(Member member) throws Exception {
 		return mypageDAO.deleteFavorite(member);
 	}
+
+	/** 티켓 충전
+	 *
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int ticketRecharge(Payment ticket) throws Exception {
+		int result = 0;
+		// 1. insert 작업
+		
+		// DAO 재활용을 위한 map에 넣는 작업
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", ticket.getMemberNo());
+		map.put("paymentType", ticket.getPaymentType());
+		map.put("ticket", ticket.getPaymentTicket());
+		
+		result = paymentDAO.insertPayment(map);
+		if(result >0) {
+			// member의 ticket수 업데이트
+			result = memberDAO.ticketRecharge(map);
+			if(result >0) {
+				result = 2;
+			}
+		}
+		return result;
+	}
+	
+	
+	
 }

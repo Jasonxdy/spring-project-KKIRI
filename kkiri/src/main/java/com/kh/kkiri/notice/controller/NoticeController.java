@@ -83,7 +83,9 @@ public class NoticeController {
 	@RequestMapping("insert")
 	public String insertNotice(Notice notice, Model model, RedirectAttributes rdAttr) {
 	
+		Member loginMember = (Member)model.getAttribute("loginMember");
 		
+		//notice.setNoticeWriter(loginMember.getMemberId());
 		
 		try {
 			// 공지사항 등록 서비스 호출
@@ -91,16 +93,22 @@ public class NoticeController {
 			
 			String msg = null;
 			String url = null;
+			
+			System.out.println("결과"+ result);
+			
 			if(result > 0) { 
 				msg = "공지사항 등록 성공";
-				url = "detail?no="+result;
+			//	url = "detail?no="+result;
+				url = "noticeList";
 			}
 			else {
 				msg = "공지사항 등록 실패";
-				url = "list";
+				//url = "list";
+				url="notice";
 			}
 			rdAttr.addFlashAttribute("msg", msg);
-			return "redirect:" + url;
+			 return "redirect:" + url;
+			// return "redirect:/";
 			
 		}catch (Exception e) {
 			e.printStackTrace();

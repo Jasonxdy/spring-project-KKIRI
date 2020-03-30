@@ -23,6 +23,7 @@ import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
@@ -363,7 +364,7 @@ public class EventController {
 		try {
 			Event event = eventService.selectEvent(no);
 
-			event.setEventContent(event.getEventContent().replace("\r\n", "<br>"));
+			event.setEventContent(event.getEventContent().replace("<br>", "\r\n"));
 			model.addAttribute("event", event);
 
 			return "event/eventUpdate";
@@ -374,7 +375,60 @@ public class EventController {
 		}
 
 	}
-
+	
+	// 이벤트 수정(서진웅)
+		@RequestMapping("updateEvent")
+		public String updateEvent(Integer no,
+									Model model,
+									RedirectAttributes rdAttr, 
+									HttpServletRequest request,
+									@RequestParam(value = "thumbnailImg", required = false) MultipartFile thumbnailImg,
+									Event event
+									) {
+			event.setEventNo(no);
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "/upEventThumbnail";
+			File folder = new File(savePath);
+			
+			if (!folder.exists()) {
+				folder.mkdir();
+			}
+			
+			try {
+				Image image = null;
+				String changeFileName = null;
+				
+				if(!thumbnailImg.getOriginalFilename().equals("")) {
+					changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
+					
+					image = new Image(thumbnailImg.getOriginalFilename(), changeFileName);
+				}
+				
+				event.setEventThumbnail(changeFileName);
+				
+				int result = eventService.updateEvent(event,image,savePath,thumbnailImg);
+				
+				String url = null;
+				if (result > 0) { // DB에 게시글 삽입 성공시
+					if (image != null) {
+						thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
+					}
+					model.addAttribute("eventNo", result);
+					url = "event/updateEventComplete";
+				} else {
+					String msg = "이벤트 수정 실패";
+					rdAttr.addFlashAttribute("msg", msg);
+					url = "redirect:/";
+				}
+				return url;
+			}catch(Exception e) {
+				e.printStackTrace();
+				model.addAttribute("errorMsg", "이벤트 수정 과정 중 오류발생");
+				return "common/errorPage";
+			}
+		}
+		
 	// 이벤트 후기 페이지 이동
 	@RequestMapping("comment")
 	public String comment(@RequestParam(value = "no", required = false) Integer no, Model model,
@@ -764,4 +818,34 @@ public class EventController {
 
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
+	public int insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
+								@RequestParam(value="chatContent", required=false) String chatContent) {
+		Chat chat = new Chat(eventNo, chatContent);
+		
+		int result = eventService.insertChat(chat);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectChat", produces = "application/json; charset=utf-8")
+	public String selectChat(@RequestParam(value="eventNo", required=false) int eventNo) {
+		
+		List<Chat> chatList = eventService.selectChat(eventNo);
+		
+		return new Gson().toJson(chatList);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteChat", produces = "application/json; charset=utf-8")
+	public int deleteChat(@RequestParam(value="chatNo", required=false) int chatNo) {
+		
+		int result = eventService.deleteChat(chatNo);
+		
+		return result;
+	}
+	
 }

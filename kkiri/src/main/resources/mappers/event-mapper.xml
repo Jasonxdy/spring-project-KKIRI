@@ -26,6 +26,11 @@
 		<result property="eventConfirm" column="EVENT_CONFIRM"/>
 	</resultMap>
 	
+	<resultMap type="Chat" id="chatResultSet">
+		<id property="chatNo" column="CHAT_NO"/>
+		<result property="chatContent" column="CHAT_CONTENT"/>
+	</resultMap>
+	
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id property="memberNo" column="MEMBER_NO"/>
@@ -443,4 +448,28 @@
 	AND MEMBER_TYPE = 'P'
 	AND PERMISSION = 'Y'
 	</select>
+	
+	
+	<insert id="insertChat" parameterType="Chat">
+		INSERT INTO CHAT
+		VALUES(#{chatNo},#{eventNo},#{chatContent},DEFAULT)
+	</insert>
+	
+	<select id="selectChat" parameterType="_int" resultMap="chatResultSet">
+		SELECT CHAT_NO,CHAT_CONTENT
+		FROM CHAT
+		WHERE EVENT_NO = #{eventNo}
+		AND CHAT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectChatNo" resultType="_int">
+		SELECT CHT_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<update id="deleteChat">
+		UPDATE CHAT SET
+		CHAT_STATUS = 'N'
+		WHERE CHAT_NO = #{chatNo}
+	</update>
 </mapper>
