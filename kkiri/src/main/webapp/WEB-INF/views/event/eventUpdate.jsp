@@ -341,6 +341,19 @@
 
 			// 마커가 지도 위에 표시되도록 설정합니다
 			marker2.setMap(map);
+			
+			
+			// 기존 지도의 상세주소를 표시해줍니다.
+            var detailAddr = '<div>지번 주소 : ' + ${event.eventAddress} + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+            
+            infowindow.setContent(content);
+            infowindow.open(map, marker2);
+			
 		});
 			
 	</script>
