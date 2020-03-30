@@ -16,13 +16,23 @@
     <!-- content 시작 -->
     <div id="container" class="container">
       
+      <div class="row mt-5">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="${contextPath }/notice/noticeList" tabindex="-1">공지사항</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="${contextPath }/ask/ask" tabindex="-1">1:1문의 작성</a>
+          </li>
+        </ul>
+      </div>
+      
 
       <div class="row justify-content-md-center questionWriteSection">
         <div class="col-12 rounded-sm">
           <h2 class="mt-3 mb-3">공지사항 작성</h2>
-           <form action="#" method="get" class="questionForm">
-           	
-	       	  
+           <form action="insert" method="get" class="questionForm">
+           
 				&nbsp; &nbsp;
 		      <span class="form-inline mb-2">
 				<label class="input-group-addon mr-3 insert-label">작성일</label>

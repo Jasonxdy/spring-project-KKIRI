@@ -12,6 +12,7 @@
 		<result property="noticeModifyDate" column="NOTICE_MODIFY_DT"/>
 		<result property="noticeStatus" column="NOTICE_STATUS"/>
 		<result property="noticeCount" column="NOTICE_COUNT"/>
+		<result property="noticeWriter" column="NOTICE_WRITER"/>
 		
 	</resultMap>
 
@@ -66,7 +67,7 @@
 	
 	<!-- 공지글 다음 글번호 조회 -->
 	<select id="selectNextNo" resultType="_int">
-		SELECT SEQ_NNO.NEXTVAL FROM DUAL
+		SELECT NOT_SEQ.NEXTVAL FROM DUAL
 	</select>
 
 	
@@ -94,8 +95,8 @@
 	<!-- 공지사항 등록 -->
 	<insert id="insertNotice" parameterType="Notice">
 		INSERT INTO 
-		NOTICE(NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_WRITER) 
-		VALUES(#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeWriter})
+		NOTICE(NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT) 
+		VALUES(#{noticeNo}, #{noticeTitle}, #{noticeContent})
 	</insert>
 	
 
@@ -110,7 +111,6 @@
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
-
 
 
 

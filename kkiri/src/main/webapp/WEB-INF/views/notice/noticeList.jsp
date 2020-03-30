@@ -41,14 +41,18 @@
 					</tr>
 				</c:if>
 				<c:if test="${!empty list }">
-					<c:forEach var="notice" items="${list}" varStatus="vs">
-						<tr class="text-center">
-							<th scope="row">${notice.noticeNo}</th>
-							<td><p class="board-title-td">${notice.noticeTitle}</p></td>
-							<td>${notice.noticeModifyDate}</td>
-							 <td>${notice.noticeCount}</td>
-						</tr>
-					</c:forEach>
+					
+						<c:forEach var="notice" items="${list}" varStatus="vs">
+							<c:if test="${notice.noticeStatus == 'Y' }">
+							<tr class="text-center">
+								<th scope="row">${notice.noticeNo}</th>
+								<td><p class="board-title-td">${notice.noticeTitle}</p></td>
+								<td>${notice.noticeModifyDate}</td>
+								 <td>${notice.noticeCount}</td>
+							</tr>
+							</c:if>
+						</c:forEach>
+					
 				</c:if>
             </tbody>
           </table>
@@ -224,6 +228,53 @@
 	
 
   <script>
+	//공지사항 상세보기
+	$(function(){
+		$("#list-table td").click(function(){
+			var noticeNo = $(this).parent().children().eq(0).text();
+			// 쿼리스트링을 이용하여 get 방식으로 글 번호를 server로 전달
+			<c:url var="detailUrl" value="detail">
+          		<c:if test="${!empty param.searchKey }">
+        		<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+	        	
+             	<c:param name="currentPage" value="${pInf.currentPage}"/>
+           	</c:url>
+			
+			location.href="${detailUrl}&no="+noticeNo;
+		
+		}).mouseenter(function(){
+			$(this).parent().css("cursor", "pointer");
+		
+		});
+		
+	});
+  
+  
+		// 페이지 이동 후에도 검색 결과가 검색창 input 태그에 표시되도록 하는 script
+		$(function(){
+			var searchKey = "${param.searchKey}";
+			var searchValue = "${param.searchValue}";
+			
+			if(searchKey != "null" && searchValue != "null"){
+				$.each($("select[name=searchKey] > option"), function(index, item){
+					if($(item).val() == searchKey){
+						$(item).prop("selected","true");
+					} 
+				});
+				
+				$("input[name=searchValue]").val(searchValue);
+			}
+				
+		});
+  
+  
+  
+  
+  
     function scrollFunction() {
       if ($(window).scrollTop() >= 200) {
         $('#button-top').show(0);
