@@ -306,6 +306,8 @@
 	<select id="getImageListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM V_IMAGE
 		WHERE EVENT_NO = #{eventNo}
+		AND IMG_STATUS = 'Y'
+		AND BOARD_STATUS = 'Y'
 	</select>
 	
 	<!-- 이미지 목록 조회 -->
@@ -334,6 +336,41 @@
 		BOARD_TITLE = #{boardTitle},
 		BOARD_CONTENT = #{boardContent},
 		BOARD_MODIFY_DT = SYSDATE
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<!-- 이미지 번호 조회 -->
+	<select id="selectImageNo" resultType="_int">
+		SELECT IMG_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 이미지 등록 -->
+	<insert id="insertEventImage" parameterType="BoardAndImage">
+		INSERT INTO IMAGE VALUES
+		(#{imgNo}, #{eventNo}, #{imgOriginalName}, #{imgChangeName}, DEFAULT, DEFAULT, 'R')
+	</insert>
+	
+	
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="BoardAndImage">
+		INSERT INTO BOARD VALUES
+		(BNO_SEQ.NEXTVAL, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{imgNo})
+	</insert>
+	
+	
+	<!-- 이미지 삭제 -->
+	<update id="deleteImage" parameterType="BoardAndImage">
+		UPDATE IMAGE SET
+		IMG_STATUS = 'N'
+		WHERE IMG_NO = #{imgNo}
+	</update>
+	
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard" parameterType="BoardAndImage">
+		UPDATE BOARD SET
+		BOARD_STATUS = 'N'
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	

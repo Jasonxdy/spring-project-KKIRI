@@ -208,4 +208,27 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int updateBoard(BoardAndImage boardAndImage, MultipartFile image, String savePath) throws Exception;
+
+	
+	
+	/**
+	 * 사진 등록 service
+	 * @param boardAndImage
+	 * @param image
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	int insertBoard(BoardAndImage boardAndImage, MultipartFile image, String savePath) throws Exception;
+
+	
+	
+	
+	/**
+	 * 후기 사진 삭제 service
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	int deletePicture(BoardAndImage boardAndImage) throws Exception;
 }

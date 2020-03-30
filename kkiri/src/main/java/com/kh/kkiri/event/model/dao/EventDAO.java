@@ -364,6 +364,65 @@ public class EventDAO {
 	}
 
 
+	
+	
+	/**
+	 * 사진 등록용 dao
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertEventImage(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.insert("eventMapper.insertEventImage", boardAndImage);
+	}
+
+
+	
+	
+	/**
+	 * 게시글 등록용 dao
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertBoard(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.insert("eventMapper.insertBoard", boardAndImage);
+	}
+
+
+	/**
+	 * 이미지 번호 조회용 dao
+	 * @return imgNo
+	 * @throws Exception
+	 */
+	public int selectImageNo() throws Exception{
+		return sqlSession.selectOne("eventMapper.selectImageNo");
+	}
+
+
+	/**
+	 * 이미지 삭제 dao
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteImage(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.update("eventMapper.deleteImage", boardAndImage);
+	}
+
+
+	
+	/**
+	 * 게시글 삭제
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteBoard(BoardAndImage boardAndImage) throws Exception{
+		return sqlSession.update("eventMapper.deleteBoard", boardAndImage);
+	}
+
+
 
 
 }

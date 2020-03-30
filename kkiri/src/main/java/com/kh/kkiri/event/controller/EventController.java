@@ -507,7 +507,6 @@ public class EventController {
 	public String deleteRating(int ratingNo, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
 		String msg;
 		String detailUrl = request.getHeader("referer");
-		model.addAttribute("detailUrl", detailUrl);
 
 		try {
 			int result = eventService.deleteRating(ratingNo);
@@ -576,8 +575,9 @@ public class EventController {
 
 			// 페이지 정보 저장
 			PageInfo pInf = Pagination.getPageInfo(9, 5, currentPage, listCount);
+			
 
-			// 후기 목록 조회
+			// 사진 목록 조회
 			List<BoardAndImage> imageList = eventService.selectImageList(eventNo, pInf);
 
 			if (event != null) {
@@ -617,6 +617,9 @@ public class EventController {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/upEventPicture";
 
+		// 내용 <br> 바꾸기
+		boardAndImage.setBoardContent(boardAndImage.getBoardContent().replace("\r\n", "<br>"));
+
 		// 저장폴더가 있는지 검사하여 없을 경우 생성하기
 		File folder = new File(savePath);
 		if (!folder.exists())
@@ -628,7 +631,7 @@ public class EventController {
 
 			String msg = null;
 			if (result > 0)
-				msg = "사진 수정 성공";
+				msg = "사진이 수정되었습니다.";
 			else
 				msg = "사진 수정 실패";
 			rdAttr.addFlashAttribute("msg", msg);
@@ -642,4 +645,79 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	// 사진 등록
+	@RequestMapping("insertPicture")
+	public String insertPicture(BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr,
+			HttpServletRequest request, @RequestParam(value = "image", required = false) MultipartFile image) {
+
+		// 상세조회 화면으로 redirect 하기위함
+//		String detailUrl = request.getHeader("referer");
+
+		// 결과값을 받을 result
+		int result = 0;
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/upEventPicture";
+
+		// 내용 <br> 바꾸기
+		boardAndImage.setBoardContent(boardAndImage.getBoardContent().replace("\r\n", "<br>"));
+
+		// 저장폴더가 있는지 검사하여 없을 경우 생성하기
+		File folder = new File(savePath);
+		if (!folder.exists())
+			folder.mkdir();
+
+		try {
+			// 사진 및 게시글 수정
+			result = eventService.insertBoard(boardAndImage, image, savePath);
+
+			String msg = null;
+			if (result > 0)
+				msg = "사진이 등록되었습니다";
+			else
+				msg = "사진 등록 실패";
+			rdAttr.addFlashAttribute("msg", msg);
+
+			// 등록 후 상세조회 화면 요청
+			return "redirect:picture";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "사진 등록 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 사진 삭제
+	@RequestMapping("deletePicture")
+	public String deletePicture (BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
+		
+		int result = 0;
+		String msg = null;
+		String detailUrl = request.getHeader("referer");
+		
+		try {
+			
+			result = eventService.deletePicture(boardAndImage);
+			
+			if (result > 0)
+				msg = "사진이 삭제되었습니다";
+			else
+				msg = "사진 삭제 실패";
+			rdAttr.addFlashAttribute("msg", msg);
+
+			// 등록 후 상세조회 화면 요청
+			return "redirect:" + detailUrl;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "사진 삭제 과정에서 오류 발생");
+			return "common/errorPage";
+		}
+		
+	}
+	
 }

@@ -397,5 +397,67 @@ public class EventServiceImpl implements EventService {
 		return result;
 		
 	}
+	
+	
+	
+	/**
+	 * 사진 등록 service
+	 * @param boardAndImage
+	 * @param image
+	 * @param savePath
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertBoard(BoardAndImage boardAndImage, MultipartFile image, String savePath) throws Exception {
+		
+		// 1.IMAGE 테이블에 값 추가
+		
+		// 원래 이름 추가
+		boardAndImage.setImgOriginalName(image.getOriginalFilename());
+		
+		// 변경된 이름 추가
+		String imgChangeName = FileRename.rename(image.getOriginalFilename());
+		boardAndImage.setImgChangeName(imgChangeName);
+		
+		int imgNo = eventDAO.selectImageNo();
+		boardAndImage.setImgNo(imgNo);
+		
+		int result = eventDAO.insertEventImage(boardAndImage);
+		
+		// result > 0 일때 BOARD에 값 추가
+		if(result>0) {
+			result = eventDAO.insertBoard(boardAndImage);
+			if(result > 0) {
+				// board에 추가한 다음 파일 생성
+				// 새로 생긴 파일 저장
+				image.transferTo(new File(savePath + "/" + imgChangeName));
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 후기 사진 삭제 service
+	 * @param boardAndImage
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deletePicture(BoardAndImage boardAndImage) throws Exception {
+		
+		// 1. 이미지 상태 변경
+		int result = eventDAO.deleteImage(boardAndImage);
+		
+		// 2. 게시글 상태 변경
+		if(result > 0) {
+			result = eventDAO.deleteBoard(boardAndImage);
+		}
+		return result;
+	}
 
 }

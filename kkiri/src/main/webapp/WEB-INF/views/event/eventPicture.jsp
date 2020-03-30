@@ -58,7 +58,13 @@
 									<img
 										src="${contextPath}/resources/upEventPicture/${image.imgChangeName}"
 										alt="이미지예시">
-									<p class="picture-title">${image.boardTitle}</p>
+									<p class="picture-title" style="display:none">${image.boardTitle}</p>
+									<c:if test="${fn:length(image.boardTitle) > 10}">
+										<p class="picture-title-short">${fn:substring(image.boardTitle,0,9) }…</p>
+									</c:if>
+									<c:if test="${fn:length(image.boardTitle) <= 10}">
+										<p class="picture-title-short">${image.boardTitle}</p>
+									</c:if>
 									<fmt:formatDate var="imageDate" value="${image.boardModifyDt}"
 										pattern="yyyy년 MM월 dd일 HH:mm" />
 									<p class="picture-date">${imageDate}</p>
@@ -305,16 +311,18 @@
 				사진 업로드 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
-			<form action="#" method="get" onsubmit="return uploadValidate();">
+			<form action="insertPicture" method="post" enctype="multipart/form-data" role="form" onsubmit="return uploadValidate();">
 				<img class="upload-image-section">
 				<button type="button" class="upload-image-btn green-radius-btn">사진
 					업로드</button>
-				<input type="file" class="upload-file" id="upload-file"
+				<input type="file" class="upload-file" id="upload-file" name="image"
 					onchange="loadImg(this)"> <label for="upload-image-title">제목</label>
-				<input type="text" id="upload-image-title" placeholder="제목을 작성해주세요.">
+				<input type="text" id="upload-image-title" placeholder="제목을 작성해주세요." name="boardTitle">
 
 				<label for="upload-image-content">내용</label>
-				<textarea id="upload-image-content" placeholder="내용을 작성해주세요."></textarea>
+				<textarea id="upload-image-content" placeholder="내용을 작성해주세요." name="boardContent"></textarea>
+				<input type="text" name="memberNo" style="display:none" value="${loginMember.memberNo}">
+				<input type="text" name="eventNo" style="display:none" value="${event.eventNo}">
 
 				<button class="green-radius-btn submit-upload-img">작성 완료</button>
 			</form>
@@ -373,7 +381,8 @@
                         if(!confirm("정말로 해당 게시글을 삭제하시겠습니까?")){
                             return false;
                         }else{
-                            alert("사진 게시글 삭제 백단 수행!");
+                        	
+                        	location.href = "deletePicture?imgNo=" + $("#popup .popup-picture-imgNo").text() + "&boardNo=" + $("#popup .popup-picture-boardNo").text();  
                         }
                       }
                   });
@@ -385,7 +394,12 @@
                         $(".update-image-popup").show();
                         $(".update-image-popup form > img").attr("src",$("#popup .popup-content img").attr("src"));
                         $(".update-image-popup #upload-updateImg-title").val($("#popup .popup-picture-title").text());
-                        $(".update-image-popup #upload-updateImg-content").text($("#popup .popup-picture-content").text());
+                        
+                        String.prototype.replaceAll = function(org, dest) {
+                            return this.split(org).join(dest);
+                        }
+                        
+                        $(".update-image-popup #upload-updateImg-content").html($("#popup .popup-picture-content").html().replaceAll("<br>", "\r\n"));
                         $(".update-image-popup #upload-updateImg-imgNo").val($("#popup .popup-picture-imgNo").text());
                         $(".update-image-popup #upload-updateImg-boardNo").val($("#popup .popup-picture-boardNo").text());
                       }
@@ -415,9 +429,12 @@
                       $("#popup .popup-img>img").attr("src",$(this).children("img").attr("src"));
                       $("#popup .popup-picture-title").text($(this).find(".picture-title").text());
                       $("#popup .popup-picture-date").text($(this).find(".picture-date").text());
-                      $("#popup .popup-picture-content").text($(this).find(".picture-content").text());
+                      
+                      $("#popup .popup-picture-content").html($(this).find(".picture-content").html());
                       $("#popup .popup-picture-imgNo").text($(this).find(".picture-imgNo").text());
                       $("#popup .popup-picture-boardNo").text($(this).find(".picture-boardNo").text());
+                      
+                      console.log($(this).find(".picture-content").text());
                       
                       // 로그인한 사람이 해당 글을 작성한 작성자인 경우 수정, 삭제 버튼 보이기
                       if($(this).children("div").text() == '${loginMember.memberNo}'){
