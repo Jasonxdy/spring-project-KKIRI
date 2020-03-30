@@ -388,13 +388,16 @@ public class MypageController {
 	}
 	
 	@RequestMapping("changeMemo")
-	public String changeMemo(Model model, Member member) {
+	public String changeMemo(Model model, Member member,
+			RedirectAttributes rdattr) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		member.setMemberNo(loginMember.getMemberNo());
-		
+//		String msg = null;
 		try {
 			int result = mypageService.changeMemo(member);
-			
+//			if(result>0) msg = "변경되었습니다.";
+//			else msg = "변경 실패";
+//			rdattr.addFlashAttribute("msg", msg);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");
@@ -409,12 +412,12 @@ public class MypageController {
 			RedirectAttributes rdattr) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		member.setMemberNo(loginMember.getMemberNo());
-		String msg = null;
+//		String msg = null;
 		try {
 			int result = mypageService.deleteFavorite(member);
-			if(result>0) msg = "변경되었습니다.";
-			else msg = "변경 실패";
-			rdattr.addFlashAttribute("msg", msg);
+//			if(result>0) msg = "삭제되었습니다.";
+//			else msg = "삭제 실패";
+//			rdattr.addFlashAttribute("msg", msg);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 삭제 중 에러가 발생했습니다.");
