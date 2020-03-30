@@ -73,21 +73,40 @@
 							</c:if>
 						</c:if>
 					</c:forEach>
+					
+					setTimeout(function(){
+						$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);	
+					},100);
 				}
 			});
+			
 			$(".close-btn>img").on({
 				click : function() {
 					$(".chatting-wrap").stop().fadeOut(300);
 					$("#messageArea").empty();
 				}
-			})
-
+			});
+			
+			$("#message").on({
+				keydown : function(e){
+					var keyCode = e.keyCode;
+					if(keyCode == 13 && !e.shiftKey){
+						e.preventDefault();
+						$("#sendBtn").click();
+						$('#message').val('');
+					}
+				}
+			});
 		});
 		
 		// 채팅 보내기
 		$("#sendBtn").click(function() {
-			sendMessage();
-			$('#message').val('')
+			if($("#message").val().trim()==""){
+				alert("내용을 입력해주세요");
+			}else{
+				sendMessage();
+				$('#message').val('');
+			}
 		});
 		
 		// 메시지 전송
@@ -131,7 +150,7 @@
 				
 				if(noticeDate != dateTemp.substring(0,8)){
 					noticeDate = dateTemp.substring(0,8);
-					content += "<div>------- " + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + " -------</div>"
+					content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
 				}
 				
 				date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
@@ -157,6 +176,7 @@
 								"</div>";
 				}
 				$("#messageArea").append(content);
+				$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 			}
 		}
 		
@@ -188,7 +208,7 @@
 						
 						if(noticeDate != dateTemp.substring(0,8)){
 							noticeDate = dateTemp.substring(0,8);
-							content += "<div>------- " + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + " -------</div>"
+							content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
 						}
 						
 						if(userId === '${loginMember.memberNickname}'){
