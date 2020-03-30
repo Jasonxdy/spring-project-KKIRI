@@ -37,9 +37,11 @@
               <li class="nav-item">
                 <a class="wty1 nav-link active move-btn" href="javascript:" tabindex="-1">내 정보</a>
               </li>
+              <c:if test="${loginMember.memberIdSort == 'N'}">
               <li class="nav-item">
                 <a class="wty1 nav-link move-btn" href="javascript:" tabindex="-1">비밀번호 변경</a>
               </li>
+              </c:if>
               <li class="nav-item">
                 <a class="wty1 nav-link move-btn" href="javascript:" tabindex="-1">환급 계좌</a>
               </li>
@@ -120,7 +122,8 @@
               </div>
             </div>
     
-    
+    		<c:if test="${loginMember.memberIdSort == 'N'}">
+    		
             <form id="display-password" class="my-profile-section moving-1" action="updatePassword" onsubmit="return passCheck();" method="POST">
               <h4>비밀번호 변경</h4>
                 
@@ -135,15 +138,17 @@
                     <div class="col-4">
                       새로운 비밀번호
                     </div>
-                    <input id="passCheck1" class="passborder" type="password" placeholder="새로운 비밀번호를 입력해주세요." name ="changePassword" >
+                    <input id="passCheck1" class="passborder newPWD" type="password" placeholder="새로운 비밀번호를 입력해주세요." name ="changePassword" >
+                    
                   </div>
                   <br>
                   <div class="row my-profile-tableTitle">
                     <div class="col-4">
                       비밀번호 확인
                     </div>
-                    <input id="passCheck2" class="passborder" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요." >
+                    <input id="passCheck2" class="passborder newPWD" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요." >
                   </div>
+                  <div class="row passCheck1" style="display : hidden; margin:center;"></div>
                   <br>
                   <div class="row">
 
@@ -153,6 +158,24 @@
                   </div>
                     
               </form>
+              </c:if>
+              
+              <script>
+              
+              $(function(){
+            	$(".newPWD").on("input",function(){
+            		if($("#passCheck1").val()!=$("#passCheck2").val()){
+            			$(".passCheck1").css("color","red").html("비밀번호가 일치하지 않습니다.")
+            			$(".passCheck1").attr("display","block")
+            		}else{
+            			$(".passCheck1").css("color","green").html("비밀번호가 일치합니다.")
+            			$(".passCheck1").attr("display","block")
+            		}
+            	})  
+              })
+              
+              </script>
+              
               
               <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount" onsubmit="">
               <c:set var="banks" value="${fn:split(loginMember.memberAccount, ',')}"/>
