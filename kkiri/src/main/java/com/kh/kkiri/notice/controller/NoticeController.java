@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +24,7 @@ import com.kh.kkiri.notice.model.vo.Notice;
 
 @Controller
 @RequestMapping("/notice/*")
+@SessionAttributes({"loginMember","detailUrl"})
 public class NoticeController {
 	
 	@Autowired
@@ -51,7 +53,7 @@ public class NoticeController {
 			if (currentPage == null)
 				currentPage = 1;
 
-			PageInfo pInf = Pagination.getPageInfo(5, 5, currentPage, listCount);
+			PageInfo pInf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 			
 			List<Notice> list = noticeService.selectList(map, pInf);
 
@@ -226,7 +228,7 @@ public class NoticeController {
 				String url = null;
 				if(result > 0) {
 					msg = "공지사항이 삭제되었습니다.";
-					url = "redirect:list";
+					url = "redirect:noticeList";
 				}
 				else {
 					msg = "공지사항 수정 실패";

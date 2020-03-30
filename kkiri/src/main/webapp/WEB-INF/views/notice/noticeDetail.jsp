@@ -43,14 +43,26 @@
               <div id="notice-content">${notice.noticeContent}</div>
 
 
+           </form>
              <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
-		        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
-		        		onclick="location.href = 'insertForm';">수정</button>
-		        	<button class="btn btn-success float-right" id="deleteBtn">삭제</button>
+		        	<a class="green-radius-btn search-btn" id="updateBtn" 
+		        		href="updateForm?no=${param.no}">수정</a>
+		        	<button class="green-radius-btn search-btn" id="deleteBtn">삭제</button>
 		        </c:if>
 		       		
-              <button type="reset" class="green-radius-btn">취소</button>
-           </form>
+              <a class="green-radius-btn search-btn"
+				href="
+				<c:url value="noticeList">
+                  		<c:if test="${!empty param.searchKey }">
+		        		<c:param name="searchKey" value="${param.searchKey}"/>
+		        	</c:if>
+		        	
+		        	<c:if test="${!empty param.searchValue }">
+		        		<c:param name="searchValue" value="${param.searchValue}"/>
+		        	</c:if>
+                  		<c:param name="currentPage" value="${param.currentPage}"/>
+                  	</c:url>" >뒤로
+                </a>
         </div>
       </div>
     </div>

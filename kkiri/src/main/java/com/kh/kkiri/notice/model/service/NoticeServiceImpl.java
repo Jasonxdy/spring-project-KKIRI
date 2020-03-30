@@ -90,6 +90,8 @@ public class NoticeServiceImpl implements NoticeService {
 	public Notice updateView(Integer no) throws Exception {
 		Notice notice = noticeDAO.selectNotice(no);
 		
+		System.out.println("게시물" + notice.getNoticeContent());
+		
 		notice.setNoticeContent(notice.getNoticeContent().replace("<br>", "\r\n"));
 		notice.setNoticeNo(no);
 		

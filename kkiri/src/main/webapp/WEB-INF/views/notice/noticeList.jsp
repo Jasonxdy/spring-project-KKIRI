@@ -103,7 +103,7 @@
           	<li>
                  <a class="page-link text-success" 
                    	href=" 
-                   	<c:url value="list">
+                   	<c:url value="noticeList">
                    		<c:if test="${!empty param.searchKey }">
 			        		<c:param name="searchKey" value="${param.searchKey}"/>
 			        	</c:if>
@@ -122,7 +122,7 @@
                	<!-- 이전으로(<) -->
            			<a class="page-link text-success" 
                    	href=" 
-                   	<c:url value="list">
+                   	<c:url value="noticeList">
                    		<c:if test="${!empty param.searchKey }">
 			        		<c:param name="searchKey" value="${param.searchKey}"/>
 			        	</c:if>
@@ -153,7 +153,7 @@
             		<li>
                  	<a class="page-link text-success" 
                   	href=" 
-                  	<c:url value="list">
+                  	<c:url value="noticeList">
                   		<c:if test="${!empty param.searchKey }">
 		        		<c:param name="searchKey" value="${param.searchKey}"/>
 		        	</c:if>
@@ -176,7 +176,7 @@
 	                <li>
 						<a class="page-link text-success" 
 	                    	href=" 
-	                    	<c:url value="list">
+	                    	<c:url value="noticeList">
 	                    		<c:if test="${!empty param.searchKey }">
 					        		<c:param name="searchKey" value="${param.searchKey}"/>
 					        	</c:if>
@@ -195,7 +195,7 @@
 	                <li>
 	                    <a class="page-link text-success" 
 	                    	href=" 
-	                    	<c:url value="list">
+	                    	<c:url value="noticeList">
 	                    		<c:if test="${!empty param.searchKey }">
 					        		<c:param name="searchKey" value="${param.searchKey}"/>
 					        	</c:if>
@@ -228,6 +228,7 @@
 	
 
   <script>
+  	console.log("${list}");
 	//공지사항 상세보기
 	$(function(){
 		$("#list-table td").click(function(){
