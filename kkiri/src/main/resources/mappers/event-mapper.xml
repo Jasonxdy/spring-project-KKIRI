@@ -90,6 +90,14 @@
 	<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
 	
+	<resultMap type="EventMember" id="eventMemberResultSet">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+		<result property="memberSignupDate" column="MEMBER_SIGNUP_DATE"/>
+		<result property="permission" column="PERMISSION"/>
+	</resultMap>
+	
 	
 
 	<select id="selectEvent" parameterType="_int" resultMap="eventResultSet">
@@ -372,6 +380,36 @@
 		UPDATE BOARD SET
 		BOARD_STATUS = 'N'
 		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<!-- 주최자인 경우 이벤트 참가 신청 목록 전체 조회 -->
+	<select id="selectEventParty" parameterType="_int" resultMap="eventMemberResultSet">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE, MEMBER_SIGNUP_DATE, PERMISSION
+		FROM PARTY
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE EVENT_NO = #{eventNo}
+		AND MEMBER_STATUS = 'Y'
+		AND MEMBER_TYPE = 'P'
+		ORDER BY PERMISSION
+	</select>
+	
+	
+	<!-- 주최자가 회원 승인 -->
+	<update id="approveJoinEvent" parameterType="Party">
+		UPDATE PARTY SET
+		PERMISSION = 'Y'
+		WHERE EVENT_NO = #{eventNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	<!-- 주최자가 회원 거절 -->
+	<update id="rejectJoinEvent" parameterType="Event">
+		UPDATE PARTY SET
+		PERMISSION = 'D'
+		WHERE EVENT_NO = #{eventNo}
+		AND MEMBER_NO = #{memberNo}
 	</update>
 	
 	

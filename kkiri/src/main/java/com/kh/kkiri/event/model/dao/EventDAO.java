@@ -423,6 +423,43 @@ public class EventDAO {
 	}
 
 
+	
+	
+	/**
+	 * 주최자인 경우 참가 신청 회원 목록 조회
+	 * @param eventNo
+	 * @return eventParty
+	 * @throws Exception
+	 */
+	public List<Member> selectEventParty(int eventNo) throws Exception{
+		return sqlSession.selectList("eventMapper.selectEventParty", eventNo);
+	}
+
+
+	/**
+	 * 주최자 승인 dao
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	public int approveJoinEvent(Party party) throws Exception{
+		return sqlSession.update("eventMapper.approveJoinEvent", party);
+	}
+
+
+	
+	
+	/**
+	 * 주최자 거절 dao
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int rejectJoinEvent(Event event) throws Exception{
+		return sqlSession.update("eventMapper.rejectJoinEvent", event);
+	}
+
+
 
 
 }

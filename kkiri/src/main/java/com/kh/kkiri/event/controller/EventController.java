@@ -70,6 +70,11 @@ public class EventController {
 				if (myEventList != null) {
 					model.addAttribute("myEventList", myEventList);
 				}
+				// 주최자인 경우 party 목록 전체 조회
+				if (((Member) model.getAttribute("loginMember")).getMemberNo() == event.getMemberNo()) {
+					List<Member> eventParty = eventService.selectEventParty(event.getEventNo());
+					model.addAttribute("eventParty", eventParty);
+				}
 			}
 
 			if (event != null) {
@@ -124,6 +129,13 @@ public class EventController {
 				if (myEventList != null) {
 					model.addAttribute("myEventList", myEventList);
 				}
+
+				// 주최자인 경우 party 목록 전체 조회
+				if (((Member) model.getAttribute("loginMember")).getMemberNo() == event.getMemberNo()) {
+					List<Member> eventParty = eventService.selectEventParty(event.getEventNo());
+					model.addAttribute("eventParty", eventParty);
+				}
+
 			}
 
 			if (event != null) {
@@ -575,7 +587,6 @@ public class EventController {
 
 			// 페이지 정보 저장
 			PageInfo pInf = Pagination.getPageInfo(9, 5, currentPage, listCount);
-			
 
 			// 사진 목록 조회
 			List<BoardAndImage> imageList = eventService.selectImageList(eventNo, pInf);
@@ -645,8 +656,7 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
+
 	// 사진 등록
 	@RequestMapping("insertPicture")
 	public String insertPicture(BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr,
@@ -689,20 +699,20 @@ public class EventController {
 			return "common/errorPage";
 		}
 	}
-	
-	
+
 	// 사진 삭제
 	@RequestMapping("deletePicture")
-	public String deletePicture (BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr, HttpServletRequest request) {
-		
+	public String deletePicture(BoardAndImage boardAndImage, Model model, RedirectAttributes rdAttr,
+			HttpServletRequest request) {
+
 		int result = 0;
 		String msg = null;
 		String detailUrl = request.getHeader("referer");
-		
+
 		try {
-			
+
 			result = eventService.deletePicture(boardAndImage);
-			
+
 			if (result > 0)
 				msg = "사진이 삭제되었습니다";
 			else
@@ -711,13 +721,47 @@ public class EventController {
 
 			// 등록 후 상세조회 화면 요청
 			return "redirect:" + detailUrl;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "사진 삭제 과정에서 오류 발생");
 			return "common/errorPage";
 		}
-		
+
 	}
-	
+
+	// 주최자 이벤트 참가 승인
+	@RequestMapping("approveEventJoin")
+	@ResponseBody
+	public int approveEventJoin(Party party) {
+
+		int result = 0;
+
+		try {
+			result = eventService.approveJoinEvent(party);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+
+	}
+
+	// 주최자 이벤트 참가 거절
+	@RequestMapping("rejectEventJoin")
+	@ResponseBody
+	public int rejectEventJoin(Event event) {
+
+		int result = 0;
+
+		try {
+			result = eventService.rejectJoinEvent(event);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
+
+	}
+
 }

@@ -50,47 +50,50 @@
 						참가했던 이벤트입니다.
 					</c:if>
 					<c:if test="${currTime < event.eventEnd}">
-						<span class="participant-count">현재 ${event.partyCount}</span>명의 회원이
+						현재 <span class="participant-count">${event.partyCount}</span>명의 회원이
 						참가 중입니다.
 					</c:if>
 				</h3>
 
 				<fmt:formatDate var="memberSignupDate"
 					value="${event.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-				<div id="attendList"> 
-					<div class="media border p-3 profile-card" onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
-					<span style="display:none">${event.memberNo}</span>
-						<img src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
+				<div id="attendList">
+					<div class="media border p-3 profile-card go-profile"
+						onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
+						<span style="display: none">${event.memberNo}</span> <img
+							src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 						<div class="media-body ml-3 mt-1">
 							<h4>${event.memberNickname}</h4>
 							<p class="text-muted">${memberSignupDate}가입</p>
 						</div>
 					</div>
-					<c:forEach var="party" items="${partyList}">
-						<fmt:formatDate var="memberSignupDate"
-							value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-						<div class="media border p-3 profile-card">
-						<span style="display:none">${party.memberNo}</span>
-							<img src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
-								alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
-							<div class="media-body ml-3 mt-1">
-								<h4>${party.memberNickname}</h4>
-								<p class="text-muted">${memberSignupDate}가입</p>
-							</div>
-							<div class="event-status-btnWrap">
-								<button type="button" class="reject-finish">승인 거절됨</button>
-								<button type="button" class="permission-finish">승인 허락됨</button>
-								<div class="do-wrap">
-									<button type="button" class="do-permission">승인하기</button>
-									<button type="button" class="do-reject">거절하기</button>
+
+						<c:forEach var="party" items="${partyList}">
+							<fmt:formatDate var="memberSignupDate"
+								value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
+							<div class="media border p-3 profile-card go-profile">
+								<span style="display: none">${party.memberNo}</span> <img
+									src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
+									alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
+								<div class="media-body ml-3 mt-1">
+									<h4>${party.memberNickname}</h4>
+									<p class="text-muted">${memberSignupDate}가입</p>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+
 				</div>
 				<c:if test="${event.partyCount > 5}">
-					<div class='row' id='addPartyList'><div class='col-md-12 text-center mt-3'><div><button class='btn btn-primary' style='background-color: #00a185; border: none;' onclick='morePartyList()'>더보기</button></div></div></div>
+					<div class='row' id='addPartyList'>
+						<div class='col-md-12 text-center mt-3'>
+							<div>
+								<button class='btn btn-primary'
+									style='background-color: #00a185; border: none;'
+									onclick='morePartyList()'>더보기</button>
+							</div>
+						</div>
+					</div>
 				</c:if>
 			</div>
 			<!-- 하단 좌측 div end -->
@@ -215,6 +218,11 @@
 					"</div>" +
 				"</div>";
 				$attendList.append(memberCard);
+				
+				// 클릭한 사람이 주최자가 아닌 경우
+				
+				
+				
 				});
 			},
 			error : function(){
@@ -241,14 +249,12 @@
 	
 	$(function(){
 		/* 클릭 시 해당 회원 프로필 이동 */
-		
-		
-		/* $(".media").on({
+		$(".go-profile").on({
 			click : function (){
 				var memberNo = $(this).children("span").text();
 				location.href = "${contextPath}/profile/user?no=" + memberNo;
 			}
-		}); */
+		});
 	});
 	
 	

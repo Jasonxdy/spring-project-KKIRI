@@ -139,6 +139,14 @@
     background: #00a185;
     color: #ffffff;
 }
+
+.popup-event-partylist {
+    padding: 20px;
+    height: 600px;
+    overflow-y: auto;
+}
+
+
 /* 회원 상세보기 css start */
 #event-navi .nav-link.active, 
 #wrapper .navbar-light .navbar-nav .nav-link:hover,

@@ -46,7 +46,7 @@
 			 	<ul>
 				<!-- 이미지 목록이 없는 경우 -->
 				<c:if test="${empty imageList}">
-					<h5 class="text-muted">등록된 이미지가 없습니다</h3>
+					<h5 class="text-muted">등록된 이벤트 사진이 아직 없습니다 :P</h3>
 				</c:if>
 
 				<!-- 이미지 목록이 있는 경우 -->
@@ -260,13 +260,13 @@
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
 					<span class="event-participant-profile"> <img
-						src="${contextPath}/resources/img/${event.memberProfile}"
+						src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 						alt="주최자" id="eventCreater-profile-image">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
 							<span class="event-participant-profile participant-profile">
-								<img src="${contextPath}/resources/img/${party.memberProfile}"
+								<img src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 								alt="참석자">
 								<div style="display: none;">${party.memberNo}</div>
 							</span>

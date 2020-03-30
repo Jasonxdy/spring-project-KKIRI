@@ -459,5 +459,52 @@ public class EventServiceImpl implements EventService {
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * 주최자인 경우 참가 신청 목록 조회 
+	 * @param eventNo
+	 * @return eventParty
+	 * @throws Exception
+	 */
+	@Override
+	public List<Member> selectEventParty(int eventNo) throws Exception {
+		return eventDAO.selectEventParty(eventNo);
+	}
+	
+	/**
+	 * 주최자 참여 승인 service
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int approveJoinEvent(Party party) throws Exception {
+		return eventDAO.approveJoinEvent(party);
+	}
+	
+	/**
+	 * 주최자  참여 거절 service
+	 * @param event
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int rejectJoinEvent(Event event) throws Exception {
+		
+		int result = 0;
+		
+		// member 티켓 회수
+		result = eventDAO.increaseTicket(event);
+		
+		// permission 변경
+		if(result>0) {
+			result = eventDAO.rejectJoinEvent(event);
+		}
+		
+		return result;
+	}
 
 }

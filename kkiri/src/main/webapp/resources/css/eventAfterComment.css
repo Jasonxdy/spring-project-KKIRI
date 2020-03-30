@@ -78,6 +78,8 @@ html body .event-participate-btn{
 	display : none;
 }
 
+
+
 /* 이벤트 상세 페이지 상단 공통 css end */
 .event-thumbnail{
     width: 100%;
@@ -92,6 +94,12 @@ html body .event-participate-btn{
     padding-bottom: 7px;
     border-bottom: 1px solid lightslategray;
 }
+
+.event-party-member-card{
+	cursor: default; !important
+}
+
+
 #see-all{
     font-size: small; float: right; margin-top: 5px;
 }
@@ -103,7 +111,6 @@ html body .event-participate-btn{
     margin-right:5px;
     border: 1px solid #cdd2d8;
     border-radius: 50px;
-    cursor: pointer;
 }
 .declare-wrap{
     display: none;

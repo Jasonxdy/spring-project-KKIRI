@@ -231,4 +231,32 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int deletePicture(BoardAndImage boardAndImage) throws Exception;
+
+	
+	
+	/**
+	 * 주최자인 경우 참가 신청 목록 조회 
+	 * @param eventNo
+	 * @return eventParty
+	 * @throws Exception
+	 */
+	List<Member> selectEventParty(int eventNo) throws Exception;
+
+	/**
+	 * 주최자 참여 승인 service
+	 * @param party
+	 * @return result
+	 * @throws Exception
+	 */
+	int approveJoinEvent(Party party) throws Exception;
+
+	
+	
+	/**
+	 * 주최자  참여 거절 service
+	 * @param event
+	 * @return
+	 * @throws Exception
+	 */
+	int rejectJoinEvent(Event event) throws Exception;
 }

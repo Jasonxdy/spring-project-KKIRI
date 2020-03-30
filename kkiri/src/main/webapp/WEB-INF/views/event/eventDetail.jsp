@@ -186,6 +186,7 @@
 						location.href = "${contextPath}/profile/user?no=" + ${event.memberNo};
 					}
 			});
+			
 		</script>
 		
 
