@@ -14,6 +14,7 @@ import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.dao.EventDAO;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
@@ -460,4 +461,41 @@ public class EventServiceImpl implements EventService {
 		return result;
 	}
 
+	
+	/** 채팅 저장용 Service
+	 * @param chat
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChat(Chat chat) {
+		int chatNo = eventDAO.selectChatNo();
+		
+		chat.setChatNo(chatNo);
+		
+		chat.setChatContent(chat.getChatContent()+","+chatNo);
+		
+		eventDAO.insertChat(chat);
+		
+		return chatNo;
+	}
+
+	/** 채팅 출력용 Service
+	 * @param eventNo
+	 * @return chatList
+	 */
+	@Override
+	public List<Chat> selectChat(int eventNo) {
+		return eventDAO.selectChat(eventNo);
+	}
+	
+	/** 채팅 삭제용 Service
+	 * @param chatNo
+	 * @return result
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteChat(int chatNo) {
+		return eventDAO.deleteChat(chatNo);
+	}
 }

@@ -188,7 +188,7 @@
 			});
 		</script>
 		
-
+		<jsp:include page="../event/eventChat.jsp" />
 	</div>
 
 	<jsp:include page="../common/footer.jsp" />

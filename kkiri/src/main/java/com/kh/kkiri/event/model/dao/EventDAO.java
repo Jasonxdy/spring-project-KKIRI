@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Rating;
@@ -422,7 +423,37 @@ public class EventDAO {
 		return sqlSession.update("eventMapper.deleteBoard", boardAndImage);
 	}
 
+	/** 채팅 저장용 DAO
+	 * @param chat
+	 * @return
+	 */
+	public int insertChat(Chat chat) {
+		return sqlSession.insert("searchMapper.insertChat", chat);
+	}
 
+
+	/** 채팅 출력용 DAO
+	 * @param eventNo
+	 * @return chatList
+	 */
+	public List<Chat> selectChat(int eventNo) {
+		return sqlSession.selectList("searchMapper.selectChat", eventNo);
+	}
+
+
+	public int selectChatNo() {
+		return sqlSession.selectOne("searchMapper.selectChatNo");
+	}
+
+
+	/** 채팅 삭제용 DAO
+	 * @param chatNo
+	 * @return result
+	 */
+	public int deleteChat(int chatNo) {
+		return sqlSession.update("searchMapper.deleteChat", chatNo);
+	}
+	
 
 
 }

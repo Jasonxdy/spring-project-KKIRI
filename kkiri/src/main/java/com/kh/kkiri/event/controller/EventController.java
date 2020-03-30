@@ -23,6 +23,7 @@ import com.kh.kkiri.common.Pagination;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
+import com.kh.kkiri.event.model.vo.Chat;
 import com.kh.kkiri.event.model.vo.Event;
 import com.kh.kkiri.event.model.vo.Image;
 import com.kh.kkiri.event.model.vo.Party;
@@ -718,6 +719,35 @@ public class EventController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
+	public int insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
+								@RequestParam(value="chatContent", required=false) String chatContent) {
+		Chat chat = new Chat(eventNo, chatContent);
+		
+		int result = eventService.insertChat(chat);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectChat", produces = "application/json; charset=utf-8")
+	public String selectChat(@RequestParam(value="eventNo", required=false) int eventNo) {
+		
+		List<Chat> chatList = eventService.selectChat(eventNo);
+		
+		return new Gson().toJson(chatList);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteChat", produces = "application/json; charset=utf-8")
+	public int deleteChat(@RequestParam(value="chatNo", required=false) int chatNo) {
+		
+		int result = eventService.deleteChat(chatNo);
+		
+		return result;
 	}
 	
 }
