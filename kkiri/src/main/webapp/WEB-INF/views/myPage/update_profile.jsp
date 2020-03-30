@@ -66,12 +66,12 @@
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">생년월일 : </h5>
-                    <input type="text" id="birthDay" class="update-input memberBirth" name="birthDay" value="${fn:substring(loginMember.memberBirth,0,4) }년${fn:substring(loginMember.memberBirth,5,7) }월${fn:substring(loginMember.memberBirth,8,10) }일">
+                    <input type="date" id="memberBirth" class="update-input memberBirth" name="memberBirth" value="${loginMember.memberBirth }">
                   	<div id="birthDayChecker" style="display : block; backgroundColor:white;"></div>
                   </div>
                   <script type="text/javascript">
+                  /*
                   var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
-                  
                   $(function(){
                 	  $("#birthDay").on("input",function(){
                 		  console.log(123);
@@ -82,7 +82,7 @@
                 		  }
                 	  })
                   })
-                  
+                  */
                   
                   </script>
                   

@@ -148,7 +148,10 @@
                     </div>
                     <input id="passCheck2" class="passborder newPWD" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요." >
                   </div>
-                  <div class="row passCheck1" style="display : hidden; margin:center;"></div>
+                  <div class="row">
+                  <div class="col-4"></div>
+                  <div class="col-8 passCheck1" style="display : hidden; margin:center;"></div>
+                  </div>
                   <br>
                   <div class="row">
 

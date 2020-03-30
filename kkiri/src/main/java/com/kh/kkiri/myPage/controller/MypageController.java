@@ -151,9 +151,7 @@ public class MypageController {
 		return "myPage/update_profile";
 	}
 	@RequestMapping("updateMember")
-	public String updateMember (Member member,String [] interest ,  Model model, RedirectAttributes rdAttr,@RequestParam(value = "profile" , required = false) MultipartFile profile, HttpServletRequest request , String birthDay) {
-		System.out.println("updateController 입장");
-
+	public String updateMember (Member member,String [] interest ,  Model model, RedirectAttributes rdAttr,@RequestParam(value = "profile" , required = false) MultipartFile profile, HttpServletRequest request ) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		String memberInterest = "";
 		for(int i =0 ; i<interest.length; i++) {
@@ -177,14 +175,7 @@ public class MypageController {
 		String msg = "";
 
 		try {
-			String from = birthDay;
-			from = from.replace("년", "-");
-			from = from.replace("월", "-"); 
-			from = from.replace("일", ""); 
-			Date to = Date.valueOf(from);
-
-			member.setMemberBirth(to);
-
+			
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 
 

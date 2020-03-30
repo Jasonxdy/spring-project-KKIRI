@@ -118,13 +118,13 @@
                     <c:if test="${tl.paymentType =='R'||tl.paymentType =='B'}">
                     <c:set var="t2" value="${(tl.paymentTicket*-900)}"/>
                     <fmt:formatNumber value="${t2}" groupingUsed="true" pattern="#,000"/>
+                    원
                     </c:if>
                     <c:if test="${tl.paymentType =='C'}">
                     <c:set var="t2" value="${(tl.paymentTicket*-1000)}"/>
                     <fmt:formatNumber value="${t2}" groupingUsed="true" pattern="#,000"/>
+                    원
                     </c:if>
-                    
-      				원
                     </td>
                   </tr>
 		
