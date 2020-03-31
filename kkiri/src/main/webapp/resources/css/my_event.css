@@ -10,7 +10,7 @@
 .my_event_wrapper p{
     margin-bottom:0;
 }
-.event_content li{
+.event_content>ul>li{
     border: 1px solid #ced4da;
     border-radius: .25rem;
     padding: 10px;
@@ -21,7 +21,7 @@
     margin-bottom: 30px;
     transition: all .3s;
 }
-.event_content li:hover{
+.event_content>ul>li:hover{
     opacity:0.8;
     cursor: pointer;
     transform: scale(1.05);
@@ -125,4 +125,26 @@ margin: 0%;
 .pagination>li>a{
     width: 100% !important;
     margin: 0%;
+}
+
+@media (max-width:991px){
+	.participate_event_con .creator-con{width: 14%;}
+	#wrapper .nav-wrap,
+	#wrapper .nav-wrap+div{    
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding:0;}
+    #wrapper .nav-wrap{    margin-bottom: 30px; height:auto;}
+    #wrapper .nav-wrap a{          
+    line-height: 25px;
+    font-size: 17px;}
+}
+@media (max-width:767px){
+	.event_content>ul>li{    height: auto;}
+	#wrapper .event_content li>*{width:100%;}
+	#wrapper .event_content li>.thumb-wrap img{position:relative;transform: translateY(0);}
+	#wrapper .event_content li>*:nth-child(2){margin: 0;padding: 10px;}
+	.participate_event_con .creator-con>img{    width: 100%;}
+	#wrapper .participate_event_con .creator-con{    width: 80px;float: none; margin:0;}
 }

@@ -103,7 +103,7 @@
 				
 				if(data.eList == ""){
 					$("#eventArea").empty();
-					content = "<div class='text-center h2'>존재하는 이벤트가 없습니다.</div>";
+					content = "<div class='text-center h2' style='margin:100px 0;'>존재하는 이벤트가 없습니다.</div>";
 					$(content).appendTo("#eventArea");
 				} else{
 					$("#eventArea").empty();
@@ -168,23 +168,23 @@
 									"<ul class='pagination'>";
 					if(data.pInf.currentPage > 1){
 					content +=			"<li>" +
-											"<a class='page-link text-success' onclick='pageClick(this)'>&lt;&lt;</a>" +
+											"<a class='page-link' onclick='pageClick(this)'>&lt;&lt;</a>" +
 										"</li>" +
 										"<li>" +
-											"<a class='page-link text-success' onclick='pageClick(this)'>&lt;</a>" +
+											"<a class='page-link' onclick='pageClick(this)'>&lt;</a>" +
 										"</li>";
 					}
 					for(var p = data.pInf.startPage ; p <= data.pInf.endPage ; p++ ){
 						if(p === data.pInf.currentPage){
 							content +=	
 								"<li>" +
-									"<a class='page-link' onclick='pageClick(this)'>" + p + "</a>" +
+									"<a class='page-link active' onclick='pageClick(this)'>" + p + "</a>" +
 								"</li>";
 						}
 						if(p != data.pInf.currentPage){
 							content += 	
 								"<li>" +
-									"<a class='page-link text-success' onclick='pageClick(this)'>" + p + "</a>" +
+									"<a class='page-link' onclick='pageClick(this)'>" + p + "</a>" +
 								"</li>";
 						}
 					}
@@ -192,10 +192,10 @@
 					if(data.pInf.currentPage < data.pInf.maxPage){
 						content +=
 							"<li>" +
-								"<a class='page-link text-success' onclick='pageClick(this)'>&gt;</a>" +
+								"<a class='page-link' onclick='pageClick(this)'>&gt;</a>" +
 							"</li>" +
 							"<li>" +
-								"<a class='page-link text-success' onclick='pageClick(this)'>&gt;&gt;</a>" +
+								"<a class='page-link' onclick='pageClick(this)'>&gt;&gt;</a>" +
 							"</li>";
 					}
 					content += 
