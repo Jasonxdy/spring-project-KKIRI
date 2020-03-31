@@ -130,4 +130,18 @@ html .nav-tabs .nav-link.active,
     .passborder{
         width: 75%;
     }
+    .participate_event_con .creator-con{width: 14%;}
+	#wrapper .nav-wrap,
+	#wrapper .nav-wrap+div{    
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding:0;}
+    #wrapper .nav-wrap{    margin-bottom: 30px; height:auto;}
+    #wrapper .nav-wrap a{          
+    line-height: 25px;
+    font-size: 17px;}
+}
+@media (max-width:560px){
+	.profile-img{max-width:110px;}
 }

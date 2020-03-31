@@ -122,5 +122,7 @@ public interface MypageService {
 	 * @return
 	 */
 	int successRecharge(Member loginMember, Integer recharge)throws Exception;
+
+	int deleteTicket(String merchant_uid)throws Exception;
 	
 }

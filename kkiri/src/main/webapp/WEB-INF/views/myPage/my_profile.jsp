@@ -301,7 +301,8 @@
 
         $(window).scroll(function(){
           scrollTop = $(window).scrollTop();
-          if(scrollTop>230){
+          var contentScrollHeight = $("#display-profile").offset().top-200;
+          if(scrollTop>contentScrollHeight){
             $("#profile-nav-wrap").addClass("sticky").removeClass("nav-tabs");
           }else{
             $("#profile-nav-wrap").removeClass("sticky").addClass("nav-tabs");

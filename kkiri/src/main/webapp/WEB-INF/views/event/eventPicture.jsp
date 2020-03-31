@@ -60,7 +60,7 @@
 										alt="이미지예시">
 									<p class="picture-title" style="display:none">${image.boardTitle}</p>
 									<c:if test="${fn:length(image.boardTitle) > 10}">
-										<p class="picture-title-short">${fn:substring(image.boardTitle,0,9) }…</p>
+										<p class="picture-title-short">${fn:substring(image.boardTitle,0,7) }…</p>
 									</c:if>
 									<c:if test="${fn:length(image.boardTitle) <= 10}">
 										<p class="picture-title-short">${image.boardTitle}</p>
@@ -119,6 +119,7 @@
 			                    	href=" 
 			                    	<c:url value="picture">
 			                    		<c:param name="currentPage" value="${p}"/>
+			                    		<c:param name="no" value="${event.eventNo}"/>
 			                    	</c:url>
 		                    	">
 				                    ${p}
@@ -134,6 +135,7 @@
 		                    	href=" 
 		                    	<c:url value="picture">
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+		                    		<c:param name="no" value="${event.eventNo}"/>
 		                    	</c:url>
 	                    	">
 			                    &gt;
@@ -146,6 +148,7 @@
 		                    	href=" 
 		                    	<c:url value="picture">
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+		                    		<c:param name="no" value="${event.eventNo}"/>
 		                    	</c:url>
 	                    	">
 			                    &gt;&gt;

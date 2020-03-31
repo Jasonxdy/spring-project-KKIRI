@@ -51,7 +51,7 @@
   float: left;
 }
 .eventTItleInput{
-      width: 78%;
+      width: 80%;
       float: left;
       margin-right: 10px;
 }
@@ -61,15 +61,14 @@
 }
 .event-location{
   vertical-align: middle;
-  height: 78px;
-  line-height: 78px;
   display: inline-block;
-  width : 35%;
+  width : 30%;
   margin: 0 1.6666%;
 }
+.event-location>div{    margin: 6px 0;}
 .findEventTitleWrap{
   overflow: hidden;
-  width : 35%;
+  width : 40%;
   margin: 0 1.6666%;
   margin-top:22px;
 }
@@ -116,6 +115,8 @@
   width: 60px;
   height: 34px;
 }
+#searchListArea .card{transition:all .3s;}
+#searchListArea .card:hover{    opacity: 0.8;cursor: pointer;transform: scale(1.05);}
 
 /* Hide default HTML checkbox */
 .switch input {
@@ -123,7 +124,11 @@
   width: 0;
   height: 0;
 }
-
+#addBtn button{    background-color: #00a185;
+    border: none;
+    width: 40%;
+    font-size: 20px;
+    margin-top: 20px;}
 /* The slider */
 .slider {
   position: absolute;
@@ -190,6 +195,8 @@ input:checked + .slider:before {
     display: block;
     width: 100%;
   }
+  .eventTItleInput{width:89%;}
+  .already-finish-event{font-size:15px;}
 }
 @media (max-width: 767px) {
   .thumb{
@@ -204,4 +211,8 @@ input:checked + .slider:before {
   .event-section-title{
     font-size:20px;
   }
+}
+
+@media (max-width: 428px) {
+	.eventTItleInput{}
 }

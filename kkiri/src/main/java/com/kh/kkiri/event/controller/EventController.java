@@ -44,14 +44,8 @@ public class EventController {
 	public String eventDetail(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
 
-		int eventNo = 0;
+		int eventNo = no;
 
-//		테스트용으로 삭제 예정
-		if (no != null) {
-			eventNo = no;
-		} else {
-			eventNo = 99;
-		}
 
 		String msg = null;
 		String url = null;
@@ -103,14 +97,8 @@ public class EventController {
 	public String selectParticipant(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr) {
 
-		int eventNo = 0;
+		int eventNo = no;
 
-//		테스트용으로 삭제 예정
-		if (no != null) {
-			eventNo = no;
-		} else {
-			eventNo = 99;
-		}
 
 		String msg = null;
 		String url = null;
@@ -411,14 +399,7 @@ public class EventController {
 	@RequestMapping("comment")
 	public String comment(@RequestParam(value = "no", required = false) Integer no, Model model,
 			RedirectAttributes rdAttr, @RequestParam(value = "currentPage", required = false) Integer currentPage) {
-		int eventNo = 0;
-
-//		테스트용으로 삭제 예정
-		if (no != null) {
-			eventNo = no;
-		} else {
-			eventNo = 99;
-		}
+		int eventNo = no;
 
 		String msg = null;
 		String url = null;
@@ -487,6 +468,19 @@ public class EventController {
 			return "common/errorPage.jsp";
 		}
 		return url;
+	}
+	
+	
+	// 후기 목록 AJAX 구현 (미완성 - 테스트중)
+	@ResponseBody
+	@RequestMapping(value = "addCommentList", produces = "application/json; charset=utf-8")
+	public String addCommentList(int count, int limit, int eventNo, Model model, RedirectAttributes rdAttr) {
+		List<Rating> ratingList = eventService.selectRatingListAjax(eventNo, count, limit);
+		
+		System.out.println("ratingList : " + ratingList);
+
+		Gson gson = new GsonBuilder().create();
+		return gson.toJson(ratingList);
 	}
 
 	// 후기 등록
@@ -572,20 +566,14 @@ public class EventController {
 		}
 	}
 
-	// 사진 등록 페이지 이동
+	// 사진 페이지 이동
 	@RequestMapping("picture")
 	public String selectPicture(@RequestParam(value = "no", required = false) Integer no,
 			@RequestParam(value = "currentPage", required = false) Integer currentPage, Model model,
 			RedirectAttributes rdAttr) {
 
-		int eventNo = 0;
+		int eventNo = no;
 
-//		테스트용으로 삭제 예정
-		if (no != null) {
-			eventNo = no;
-		} else {
-			eventNo = 99;
-		}
 
 		String msg = null;
 		String url = null;

@@ -351,12 +351,11 @@ public class MypageController {
 	@RequestMapping(value = "ticketRecharge")
 	@ResponseBody
 	public String ticketRecharge(@RequestParam(value = "recharge-amount")Integer rechargeAmount,
-			@RequestParam(value="loginMember")Member loginMember, 
+			@RequestParam(value="memberNo")Integer memberNo, 
+			@RequestParam(value="memberId")String memberId,
 			@RequestParam(value="recharge-way")String rechargeWay
 			) {
 
-
-		int memberNo = loginMember.getMemberNo();
 
 		Ticket ticket = new Ticket();
 
@@ -371,7 +370,7 @@ public class MypageController {
 
 		Calendar time = Calendar.getInstance();
 
-		merchantUid = date.format(time.getTime())+loginMember.getMemberId().substring(0,4)+memberNo;
+		merchantUid = date.format(time.getTime())+memberId.substring(0,4)+memberNo;
 
 		ticket.seteventName(merchantUid);
 
@@ -413,7 +412,25 @@ public class MypageController {
 		return "redirect:/mypage/recharge";
 	}
 
-
+	@RequestMapping("deleteTicket")
+	public String deleteTicket(@RequestParam(value="merchant_uid")String merchant_uid) {
+		
+	String checker = null;
+	int result = 0;
+	try {
+		
+	result = mypageService.deleteTicket(merchant_uid);
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	
+	
+	
+	
+	return checker;
+	
+	}
 	@RequestMapping("moveFavorite")
 	public String moveFavorite(Model model,
 			@RequestParam(value="currentPage", required=false) Integer currentPage) {

@@ -293,6 +293,17 @@ public interface EventService {
 	 */
 	int getMemberTicket(int memberNo) throws Exception;
 
+	
+	
+	/**
+	 * 후기 목록 추가 조회 ajax
+	 * @param eventNo
+	 * @param eventNo
+	 * @param count
+	 * @param limit
+	 * @return ratingList
+	 */
+	List<Rating> selectRatingListAjax(Integer eventNo, int count, int limit);
 	/** 이벤트 수정용 Service
 	 * @param event
 	 * @param savePath

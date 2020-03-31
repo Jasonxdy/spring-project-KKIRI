@@ -439,7 +439,7 @@
 		// 신고하기 버튼 클릭시 팝업
 		$(".declare-btn").on({
 			click : function(e) {
-				if(${ empty sessionScope.loginMember  }) {
+				if(${ empty loginMember }) {
 					$(".popup-shadow, #login-popup").show(0);
 				} else {
 					e.preventDefault();

@@ -43,8 +43,8 @@
 				<div id="comment-div">
 					<p class="info-text">후기글은 익명으로 기록됩니다.</p>
 
-					
-					
+
+
 				</div>
 				<%-- </c:if> --%>
 				<!-- 후기 작성, 수정, 삭제 end -->
@@ -53,15 +53,15 @@
 
 
 				<ul class="comment-wrap">
-				<c:if test="${empty ratingList}">
-							<h4>
-								작성된 후기가 없습니다.
+					<c:if test="${empty ratingList}">
+						<h4>
+							작성된 후기가 없습니다.
 							</h3>
-						</c:if>
-						
-						<c:if test="${!empty ratingList }">
-							<c:forEach var="rating" items="${ratingList}" varStatus="vs">
-							
+					</c:if>
+
+					<c:if test="${!empty ratingList }">
+						<c:forEach var="rating" items="${ratingList}" varStatus="vs">
+
 							<li>
 								<p class="comment-content">${rating.ratingContent}</p>
 								<p class="star-rating">
@@ -69,74 +69,96 @@
 									<span class="rating-num">${rating.ratingScore}</span>
 								</p>
 							</li>
-							</c:forEach>
-						</c:if>
+						</c:forEach>
+					</c:if>
 				</ul>
+
+				<div class="container text-center" id="loading"
+					style="display: none;">
+					<img src="${contextPath}/resources/img/loading.gif">
+				</div>
+
+
+				<!-- ajax로 목록 출력 test용 -->
+				<c:if test="${pInf.listCount > 5}">
+					<div class='row' id='addCommentList'>
+						<div class='col-md-12 text-center mt-3'>
+							<div>
+								<button class='btn btn-primary'
+									style='background-color: #00a185; border: none;'
+									onclick='moreCommentList()'>더보기</button>
+							</div>
+						</div>
+					</div>
+				</c:if>
+				<!-- ajax로 목록 출력 test용 end -->
+
+
+
+
+
+<!-- ajax 구현으로 인해 페이징 바 삭제 -->
+<%-- 
 				<!-- 페이징 바 -->
 				<div class="row justify-content-center pagination-wrap">
 					<div>
 						<ul class="pagination">
-						<c:if test="${pInf.currentPage > 1}">
-							<li><a class="page-link " href="<c:url value="comment?no=${event.eventNo}">
+							<c:if test="${pInf.currentPage > 1}">
+								<li><a class="page-link "
+									href="<c:url value="comment?no=${event.eventNo}">
 		                    		<c:param name="currentPage" value="1"/>
 		                    	</c:url>">&lt;&lt;</a></li>
-							<li><a class="page-link " href="<c:url value="comment?no=${event.eventNo}">
+								<li><a class="page-link "
+									href="<c:url value="comment?no=${event.eventNo}">
 		                    		<c:param name="currentPage" value="${pInf.currentPage-1}"/>
 		                    	</c:url>">&lt;</a></li>
-		                    	</c:if>
-		                    	
-		                    	<c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
-	                	<c:if test="${p == pInf.currentPage}">
-			                <li>
-			                    <a class="page-link">${p}</a>
-			                </li>
-		                </c:if>
-	                	
-	                	<c:if test="${p != pInf.currentPage}">
-	                		<li>
-		                    	<a class="page-link" 
-			                    	href=" 
+							</c:if>
+
+							<c:forEach var="p" begin="${pInf.startPage}"
+								end="${pInf.endPage}">
+								<c:if test="${p == pInf.currentPage}">
+									<li><a class="page-link">${p}</a></li>
+								</c:if>
+
+								<c:if test="${p != pInf.currentPage}">
+									<li><a class="page-link"
+										href=" 
 			                    	<c:url value="comment">
 			                    		<c:param name="currentPage" value="${p}"/>
+			                    		<c:param name="no" value="${event.eventNo}"/>
 			                    	</c:url>
 		                    	">
-				                    ${p}
-				                </a>
-		                	</li>
-	                	</c:if>
-	                	
-                	</c:forEach>
-                	<c:if test="${pInf.currentPage < pInf.maxPage }">
-                	<!-- 다음 페이지로(>) -->
-		                <li>
-							<a class="page-link text-success" 
-		                    	href=" 
+											${p} </a></li>
+								</c:if>
+
+							</c:forEach>
+							<c:if test="${pInf.currentPage < pInf.maxPage }">
+								<!-- 다음 페이지로(>) -->
+								<li><a class="page-link text-success"
+									href=" 
 		                    	<c:url value="comment">
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
+		                    		<c:param name="no" value="${event.eventNo}"/>
 		                    	</c:url>
 	                    	">
-			                    &gt;
-			                </a>
-		                </li>
-		                
-		                <!-- 맨 끝으로(>>) -->
-		                <li>
-		                    <a class="page-link" 
-		                    	href=" 
+										&gt; </a></li>
+
+								<!-- 맨 끝으로(>>) -->
+								<li><a class="page-link"
+									href=" 
 		                    	<c:url value="comment">
 		                    		<c:param name="currentPage" value="${pInf.maxPage}"/>
+		                    		<c:param name="no" value="${event.eventNo}"/>
 		                    	</c:url>
 	                    	">
-			                    &gt;&gt;
-			                </a>
-		                </li>
-	                
-	                </c:if>
+										&gt;&gt; </a></li>
+
+							</c:if>
 						</ul>
 					</div>
 				</div>
 				<!-- 페이징 바 끝 -->
-			</div>
+ --%>			</div>
 
 			<div id="popup" class="popup create-comment-popup">
 				<p class="popup-title">
@@ -144,7 +166,9 @@
 						alt="닫기버튼" class="close-popup">
 				</p>
 				<div class="popup-content">
-					<form action="insertRating?eventNo=${event.eventNo}&memberNo=${loginMember.memberNo}" method="post" onsubmit="return validate1();">
+					<form
+						action="insertRating?eventNo=${event.eventNo}&memberNo=${loginMember.memberNo}"
+						method="post" onsubmit="return validate1();">
 						<textarea name="ratingContent" id="afterComment"
 							placeholder="후기를 작성해주세요."></textarea>
 						<input type="hidden" class="star-rating" value="0.5"
@@ -171,7 +195,9 @@
 						alt="닫기버튼" class="close-popup">
 				</p>
 				<div class="popup-content">
-					<form action="updateRating?eventNo=${event.eventNo}&memberNo=${loginMember.memberNo}" method="post" onsubmit="return validate2();">
+					<form
+						action="updateRating?eventNo=${event.eventNo}&memberNo=${loginMember.memberNo}"
+						method="post" onsubmit="return validate2();">
 						<textarea name="ratingContent" id="updateComment"
 							placeholder="후기를 작성해주세요."></textarea>
 						<input type="hidden" class="star-rating" id="ratingScore"
@@ -294,16 +320,18 @@
 					</h4>
 				</div>
 				<div class="event-participant-profile-wrap" id="event-party-list">
-					<span class="event-participant-profile" id="eventCreater-profile-image"> <img
+					<span class="event-participant-profile"
+						id="eventCreater-profile-image"> <img
 						src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 						alt="주최자">
 					</span>
 					<c:forEach var="party" items="${partyList}" varStatus="vs">
 						<c:if test="${vs.count < 12}">
-							<span class="event-participant-profile participant-profile"> <img
+							<span class="event-participant-profile participant-profile">
+								<img
 								src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 								alt="참석자">
-								<div style="display:none">${party.memberNo}</div>
+								<div style="display: none">${party.memberNo}</div>
 							</span>
 						</c:if>
 					</c:forEach>
@@ -396,13 +424,6 @@
                        alert();
                     }
                 });
-                // 신고하기 버튼 클릭시 팝업
-                $(".declare-btn").on({
-                    click : function(e){
-                        e.preventDefault();
-                        $(".declare-event-popup, .popup-shadow").show(0);
-                    }
-                });
 
                   // 후기 작성 팝업
                   $("#insertRatingBtn").on({
@@ -441,13 +462,6 @@
                         }
                     }
 
-                    function declareCondition(){
-                        if($("#declare-reason").val()=="none"){
-                            alert("신고 사유를 선택해주세요");
-                            $("#declare-reason").focus();
-                            return false;
-                        }
-                    }
 
                     // 후기 수정 팝업
                     $(".update-my-con").on({
@@ -512,10 +526,10 @@
                     
                     
                 </script>
-                
-                
-                <!-- 프로필 사진 클릭 시  프로필 상세 이동 -->
-		<script>
+
+
+	<!-- 프로필 사진 클릭 시  프로필 상세 이동 -->
+	<script>
 			$(".participant-profile").on({
 				click : function(e){
 					var memberNo = $(this).children("div").text();
@@ -528,9 +542,61 @@
 						location.href = "${contextPath}/profile/user?no=" + ${event.memberNo};
 					}
 			});
+			
+			
+			
+			/* 더보기 버튼 클릭 시 ajax로 후기 로딩 */
+			
+			// 현재 표기하는 리스트 수
+			var count = 0; // 스크롤 갱신 횟수
+			var limit = 5; // 5명씩 보여줌
+			var eventNo = '${event.eventNo}';
+			
+			function executeAjax () {
+		$.ajax({
+    		url : "addCommentList",
+	    	type : "GET",
+			data : {count : count, limit : limit, eventNo : eventNo},
+			dataType : "json",
+			success : function (commentList){
+				$.each(commentList, function(i){
+				$commentWrap = $(".comment-wrap");
+				var commendCard = 
+					"<li>" +
+						"<p class='comment-content'>" + commentList[i].ratingContent + "</p>" +
+								"<p class='star-rating'>" +
+									"<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" +
+									"<span class='rating-num'>" + commentList[i].ratingScore + "</span>" +
+								"</p>" +
+							"</li>";
+				$commentWrap.append(commendCard);
+				});
+			},
+			beforeSend:function(){
+		        $('#loading').css('display', 'block');
+		    },
+		    complete : function(){
+		        $('#loading').css('display', 'none');
+		    },
+			error : function(){
+				console.log("후기 목록 조회 ajax 호출 실패");
+			}
+    	});
+	}
+	
+			function moreCommentList() {
+				if(count+2 <= Math.ceil(${pInf.listCount}/limit)){
+		    	executeAjax();
+		    	if(count+2 == Math.ceil(${pInf.listCount}/limit)){
+		    		$("#addCommentList").remove();
+		    	}
+		    	count++;
+		    	console.log("count : " + count);
+	    	}
+			}
 		</script>
-		
-		
+
+
 	<jsp:include page="../common/footer.jsp" />
 
 </body>
