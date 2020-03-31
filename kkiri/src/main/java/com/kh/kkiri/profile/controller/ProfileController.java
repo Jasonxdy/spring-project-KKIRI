@@ -137,33 +137,4 @@ public class ProfileController {
 			return "redirect:"+beforeUrl;
 		}
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
-	public int insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
-								@RequestParam(value="chatContent", required=false) String chatContent) {
-		Chat chat = new Chat(eventNo, chatContent);
-		
-		int result = profileService.insertChat(chat);
-		
-		return result;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="selectChat", produces = "application/json; charset=utf-8")
-	public String selectChat(@RequestParam(value="eventNo", required=false) int eventNo) {
-		
-		List<Chat> chatList = profileService.selectChat(eventNo);
-		
-		return new Gson().toJson(chatList);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="deleteChat", produces = "application/json; charset=utf-8")
-	public int deleteChat(@RequestParam(value="chatNo", required=false) int chatNo) {
-		
-		int result = profileService.deleteChat(chatNo);
-		
-		return result;
-	}
 }

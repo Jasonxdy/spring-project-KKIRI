@@ -1,4 +1,4 @@
-package com.kh.kkiri.test;
+package com.kh.kkiri.common;
 
 import java.util.ArrayList;
 import java.util.List;

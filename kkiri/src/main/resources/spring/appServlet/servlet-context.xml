@@ -31,7 +31,7 @@
 		<websocket:mapping handler="echoHandler" path="/echo" />
 		<websocket:sockjs />
 	</websocket:handlers>
-	<beans:bean id="echoHandler" class="com.kh.kkiri.test.EchoHandler"></beans:bean>
+	<beans:bean id="echoHandler" class="com.kh.kkiri.common.EchoHandler"></beans:bean>
 	
 	
 	
