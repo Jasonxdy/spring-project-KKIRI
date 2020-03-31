@@ -377,7 +377,6 @@
 						    
 						    var overlayInfo = document.createElement('div');
 						    overlayInfo.setAttribute('class','oinfo');
-						    overlayInfo.setAttribute("onclick","location.href = '${contextPath}/event/detail?no=" + sList[i].eventNo + "'");
 						    
 						    var overlayTitle = document.createElement('div');
 						    overlayTitle.setAttribute('class','otitle');
@@ -388,6 +387,7 @@
 						    
 						    var overlayBody = document.createElement('div');
 						    overlayBody.setAttribute('class','obody');
+						    overlayBody.setAttribute("onclick","location.href = '${contextPath}/event/detail?no=" + sList[i].eventNo + "'");
 						    
 						    var overlayImg = document.createElement('div');
 						    overlayImg.setAttribute('class','oimg');
@@ -504,7 +504,7 @@
 		    			
 		    			if(sList == ""){
 		    				$("#searchListArea").empty();
-		    				content = "<tr id='searchList'><td colspan='5'>존재하는 이벤트가 없습니다.</td></tr>";
+		    				content = "<div class='text-center h2'>존재하는 이벤트가 없습니다.</div>";
 		    				$(content).appendTo("#searchListArea");	
 		    				$("#loading").hide();
 			    			$("#searchListArea").show();
@@ -549,9 +549,17 @@
 		    			currentPage += 1;
 		    			
 		    			if(sList == ""){
-		    				$("#addBtn").remove();
-		    				$("#searchListArea").show();
-		    		    	$("#loading").hide();
+		    				if(num == 0){
+		    					$("#searchListArea").empty();
+		    					content = "<div class='text-center h2'>존재하는 이벤트가 없습니다.</div>";
+			    				$(content).appendTo("#searchListArea");	
+			    				$("#loading").hide();
+				    			$("#searchListArea").show();
+		    				} else{
+			    				$("#addBtn").remove();
+			    				$("#searchListArea").show();
+			    		    	$("#loading").hide();
+		    				}
 		    			} else{
 		    				$("#addBtn").remove();
 		    				
