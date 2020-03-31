@@ -28,6 +28,9 @@
 			null,
 		</if>
 			#{paymentType}, #{ticket}, SYSDATE
+		<if test="merchantUid != null">
+			#{merchantUid}
+		</if>
 		)
 	</insert>
 	

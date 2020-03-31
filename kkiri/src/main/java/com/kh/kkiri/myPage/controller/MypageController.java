@@ -2,6 +2,8 @@ package com.kh.kkiri.myPage.controller;
 
 import java.io.File;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -175,7 +178,7 @@ public class MypageController {
 		String msg = "";
 
 		try {
-			
+
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 
 
@@ -262,7 +265,7 @@ public class MypageController {
 		if(flag == null) {
 			flag = 1;
 		}
-		
+
 		System.out.println("flag:"+flag);
 		System.out.println("cp"+currentPage);
 		try {
@@ -277,7 +280,7 @@ public class MypageController {
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
 			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf2);
-			
+
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
 			model.addAttribute("pInf", pInf);
@@ -311,77 +314,106 @@ public class MypageController {
 		ticket.setPaymentType("R");
 		String msg = null;
 
-				try {
-
-					int result = mypageService.costTicket(ticket,loginMember);
-					// 0 = 비밀번호 불일치
-					// 1 = payment만 넣음
-					// -1 = 둘 다 넣음
-					// -2 = payment를 못넣음
-					
-					if(result==-1) {
-						msg="환급신청이 완료 되었습니다.";
-						loginMember.setMemberTicket((loginMember.getMemberTicket()-ticketCount));
-					}
-					else if(result==0) msg="비밀번호가 일치하지 않습니다.";
-					else if (result ==-2) msg="환급 신청작업중 오류가 발생하였습니다.";
-					else if (result==1)msg="환급 신청 과정중 문제가 발생하였습니다.";
-					
-					
-					loginMember.setMemberPwd("");
-					model.addAttribute("loginMember", loginMember);
-					rdattr.addFlashAttribute("msg", msg);
-					return "redirect:/mypage/moveRefund";
-				}catch (Exception e) {
-					e.printStackTrace();
-					model.addAttribute("errorMsg", "환급신청 작업중 에러가 발생했습니다.");
-					return "common/errorPage";
-				}
-	}
-	@RequestMapping("recharge")
-	public String recharge() {
-		
-		return "myPage/ticket_recharge";
-		
-	}
-	
-	@RequestMapping("ticketRecharge")
-	public String ticketRecharge(@RequestParam(value = "recharge-amount")Integer rechargeAmount,
-			Model model, 
-			@RequestParam(value="recharge-way")String rechargeWay,
-			RedirectAttributes attrs) {
-		
-		System.out.println("값 받으려고 들어옴");
-		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
-		
-		Payment ticket = new Payment();
-		
-		ticket.setMemberNo(memberNo);
-		ticket.setPaymentTicket((rechargeAmount/1000));
-		ticket.setPaymentType("C");
-		
-		int result = 0;
-		System.out.println(ticket);
-		String msg= "";
 		try {
-			
-		result = mypageService.ticketRecharge(ticket);
-		// 0 : 기록도 못세겼다 / 1: log만 남겼다. 2: 모두 완료했다.
-		
-		if(result >1) msg="티켓 충전이 완료 되었습니다.";
-		else if (result>0) msg="티켓이 충전중 오류가 발생했습니다. 관리자에게 문의 해주시기 바랍니다.";
-		else msg="티켓 충전에 실패하였습니다.";
-		attrs.addFlashAttribute("msg", msg);
-		
-		return "redirect:/mypage/ticketLog";
+
+			int result = mypageService.costTicket(ticket,loginMember);
+			// 0 = 비밀번호 불일치
+			// 1 = payment만 넣음
+			// -1 = 둘 다 넣음
+			// -2 = payment를 못넣음
+
+			if(result==-1) {
+				msg="환급신청이 완료 되었습니다.";
+				loginMember.setMemberTicket((loginMember.getMemberTicket()-ticketCount));
+			}
+			else if(result==0) msg="비밀번호가 일치하지 않습니다.";
+			else if (result ==-2) msg="환급 신청작업중 오류가 발생하였습니다.";
+			else if (result==1)msg="환급 신청 과정중 문제가 발생하였습니다.";
+
+
+			loginMember.setMemberPwd("");
+			model.addAttribute("loginMember", loginMember);
+			rdattr.addFlashAttribute("msg", msg);
+			return "redirect:/mypage/moveRefund";
 		}catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMsg", "티켓충전 작업중 에러가 발생했습니다.");
+			model.addAttribute("errorMsg", "환급신청 작업중 에러가 발생했습니다.");
 			return "common/errorPage";
 		}
 	}
-	
-	
+	@RequestMapping("recharge")
+	public String recharge() {
+
+		return "myPage/ticket_recharge";
+
+	}
+
+	@RequestMapping(value = "ticketRecharge")
+	@ResponseBody
+	public String ticketRecharge(@RequestParam(value = "recharge-amount")Integer rechargeAmount,
+			@RequestParam(value="loginMember")Member loginMember, 
+			@RequestParam(value="recharge-way")String rechargeWay
+			) {
+
+
+		int memberNo = loginMember.getMemberNo();
+
+		Ticket ticket = new Ticket();
+
+		ticket.setMemberNo(memberNo);
+		ticket.setPaymentTicket((rechargeAmount/1000));
+		ticket.setPaymentType("C");
+
+
+		String merchantUid = null;
+
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		Calendar time = Calendar.getInstance();
+
+		merchantUid = date.format(time.getTime())+loginMember.getMemberId().substring(0,4)+memberNo;
+
+		ticket.seteventName(merchantUid);
+
+		int result = 0;
+		System.out.println(ticket);
+		try {
+
+			result = mypageService.ticketRecharge(ticket);
+			// 0 = 입력 실패 / 1 = 입력 성공
+
+			if(result >1) {
+			}
+
+			else {
+				merchantUid = null;
+			}
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return merchantUid;
+	}
+
+	@RequestMapping("successRecharge")
+	public String successRecharge (@RequestParam(value="recharge")Integer recharge, Model model) {
+		// 멤버의 데이터 전달 및 로그인 중인 멤버의 값 변경
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		int result = 0;
+		try{
+			result = mypageService.successRecharge(loginMember,recharge );
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "티켓충전 중 에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.");
+			return "common/errorPage";
+		}
+
+
+		return "redirect:/mypage/recharge";
+	}
+
+
 	@RequestMapping("moveFavorite")
 	public String moveFavorite(Model model,
 			@RequestParam(value="currentPage", required=false) Integer currentPage) {
@@ -390,11 +422,11 @@ public class MypageController {
 		try {
 			int count = mypageService.getFavoriteCount(memberNo);
 			if(currentPage == null) currentPage = 1;
-			
+
 			PageInfo pInf = Pagination.getPageInfo(9, 10, currentPage, count);
-			
+
 			List<Member> fList = mypageService.moveFavorite(memberNo, pInf);
-			
+
 			model.addAttribute("pInf", pInf);
 			model.addAttribute("fList", fList);
 		}catch(Exception e) {
@@ -402,47 +434,47 @@ public class MypageController {
 			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");
 			return "common/errorPage";
 		}
-		
+
 		return "myPage/my_favorite";
 	}
-	
+
 	@RequestMapping("changeMemo")
 	public String changeMemo(Model model, Member member,
 			RedirectAttributes rdattr) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		member.setMemberNo(loginMember.getMemberNo());
-//		String msg = null;
+		//		String msg = null;
 		try {
 			int result = mypageService.changeMemo(member);
-//			if(result>0) msg = "변경되었습니다.";
-//			else msg = "변경 실패";
-//			rdattr.addFlashAttribute("msg", msg);
+			//			if(result>0) msg = "변경되었습니다.";
+			//			else msg = "변경 실패";
+			//			rdattr.addFlashAttribute("msg", msg);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");
 			return "common/errorPage";
 		}
-		
+
 		return "redirect:/mypage/moveFavorite";
 	}
-	
+
 	@RequestMapping("deleteFavorite")
 	public String deleteFavorite(Model model, Member member,
 			RedirectAttributes rdattr) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		member.setMemberNo(loginMember.getMemberNo());
-//		String msg = null;
+		//		String msg = null;
 		try {
 			int result = mypageService.deleteFavorite(member);
-//			if(result>0) msg = "삭제되었습니다.";
-//			else msg = "삭제 실패";
-//			rdattr.addFlashAttribute("msg", msg);
+			//			if(result>0) msg = "삭제되었습니다.";
+			//			else msg = "삭제 실패";
+			//			rdattr.addFlashAttribute("msg", msg);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 삭제 중 에러가 발생했습니다.");
 			return "common/errorPage";
 		}
-		
+
 		return "redirect:/mypage/moveFavorite";
 	}
 }

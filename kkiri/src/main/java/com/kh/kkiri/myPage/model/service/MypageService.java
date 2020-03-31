@@ -114,6 +114,13 @@ public interface MypageService {
 	 * @return
 	 * @throws Exception
 	 */
-	int ticketRecharge(Payment ticket)throws Exception;
+	int ticketRecharge(Ticket ticket)throws Exception;
+
+	/** 티켓 충전 멤버정보 변경, 
+	 * @param loginMember
+	 * @param recharge
+	 * @return
+	 */
+	int successRecharge(Member loginMember, Integer recharge)throws Exception;
 	
 }
