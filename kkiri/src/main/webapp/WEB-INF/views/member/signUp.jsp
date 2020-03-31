@@ -79,8 +79,8 @@
 					
 					<br>
 					
-
-                  <button type="button" class="go-main green-radius-btn" onclick="location.href='index.html'">메인으로</button>
+															<!-- location.href='home' -->
+                  <button type="button" class="go-main green-radius-btn" onclick="${contextPath}">메인으로</button>
                   <button type="button" class="go-step2 green-radius-btn">2단계로</button>
                 </div>
                 <div class="step2 select-interest step">
@@ -146,7 +146,14 @@
                         </div>
                       
                       <p><strong class='require'>필수</strong>&nbsp;전화번호</p>
-                      <input type="number" class="memberPhone" name="memberPhone1" id="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">-
+                      <!-- <input type="number" class="memberPhone" name="memberPhone1" id="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">- -->
+                      		<select class="custom-select" id="memberPhone1" name="memberPhone1" required>
+                                <option>010</option>
+                                <option>011</option>
+                                <option>016</option>
+                                <option>017</option>
+                                <option>019</option>
+                            </select>-
                       <input type="number" class="memberPhone" name="memberPhone2" id="memberPhone2" maxlength="4" oninput="maxLengthCheck(this)">-
                       <input type="number" class="memberPhone" name="memberPhone3" id="memberPhone3" maxlength="4" oninput="maxLengthCheck(this)"><br>
                       <div>
@@ -278,7 +285,7 @@
     			var $memberNickUnique = $("#memberNickUnique");
     			
 				var $memberPhone = ("#memberPhone");
-    			var $memberPhone1 = $("#memberPhone1");
+    		/* 	var $memberPhone1 = $("#memberPhone1"); */
     			var $memberPhone2 = $("#memberPhone2");
     			var $memberPhone3 = $("#memberPhone3");
     		
@@ -456,10 +463,10 @@
 				
 				$("#emailConfirmInput").on("input", function(){
 					if($("#emailConfirmInput").val() == emailConfirmNo){
-						$("#emailConfirmSpan").text("인증 번호가 일치합니다.").css("color", "#0069d9");
+						$("#emailConfirmSpan").text("인증 번호 일치").css("color", "#0069d9");
 						createIdCheck.memberEmailConfirm = true;
 					} else {
-						$("#emailConfirmSpan").text("인증 번호가 일치하지 않습니다.").css("color", "#c82333");
+						$("#emailConfirmSpan").text("인증 번호 불일치").css("color", "#c82333");
 						createIdCheck.memberEmailConfirm = false;
 					}
 				});
@@ -467,11 +474,11 @@
 				//전화 번호
 				$(".memberPhone").on("input", function(){
 					
-					var regExp1 =  /^\d{2,3}$/; // 숫자 3글자
+				//	var regExp1 =  /^\d{2,3}$/;  숫자 3글자
 	                var regExp2 =  /^\d{3,4}$/; // 숫자 3~4 글자
 	                var regExp3 =  /^\d{4,4}$/; // 숫자 4 글자
 					
- 				 	if(!regExp1.test($memberPhone1.val()) || !regExp2.test($memberPhone2.val())
+ 				 	if(!regExp2.test($memberPhone2.val())
 							|| !regExp3.test($memberPhone3.val()) ){
 						$("#checkPhone").text("유효하지 않는 전화번호").css("color", "#c82333" );
 						createIdCheck.memberPhone = false;

@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.kkiri.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+
+<%
+	// C6) 쿠키 사용을 위한 변수 생성
+	boolean rememberId = false; //아이디 저장 체크박스 값을 수정하기 위한 변수
+	String memberId = ""; // 쿠키에 저장된 cookieId 라는 키가 가지고 있는 값을 저장할 변수
+	Cookie[] cookies = request.getCookies(); // 전달받은 쿠키 저장
+	
+	// 서버 첫 시작시 request.getCookies()의 값이 null
+	// if 문으로 처리하지 않는 경우, 페이지 로딩시 nullpointerException이 발생됨
+	
+	if(cookies != null){
+		for(Cookie c: cookies){
+			// 쿠키 객체에서 name을 얻어와 그 값이 "saveId"와 같은지 비교
+			// 			== key,속성
+			if(c.getName().equals("memberId") ){
+				memberId = c.getValue();
+				rememberId = true;
+			}
+		}
+	}
+%>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -99,10 +122,11 @@
           <div class="popup-content">
             <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
             <form class="login-form-wrap custom-checkbox" action="${contextPath }/member/login" method="post">
-              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off">
+              <%-- <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="<%=memberId %>"> --%>
+              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="${memberId}">
               <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
 
-              <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId">
+              <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" <%= rememberId ? "checked" : "" %>>
               <label class="custom-control-label" for="rememberId">아이디 저장</label>
               <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
 

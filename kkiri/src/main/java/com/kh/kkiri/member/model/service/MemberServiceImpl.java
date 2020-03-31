@@ -41,6 +41,7 @@ public class MemberServiceImpl implements MemberService{
 			loginMember = null;
 			
 		} else { // 입력받은 비밀번호와 db비번이 일치한다면
+			
 			loginMember.setMemberPwd("");
 			// session에 올라갈 loginMember객체의 비밀번호 값을 공백으로 변경
 		}

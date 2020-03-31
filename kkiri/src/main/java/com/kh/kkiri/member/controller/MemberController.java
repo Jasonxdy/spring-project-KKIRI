@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
@@ -65,15 +67,12 @@ public class MemberController {
 
 	// 6번 @세션 어트리뷰트 사용하기
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String signIn(Member member, Model model, HttpServletRequest request) {
+	public String signIn(Member member, Model model, 
+			HttpServletRequest request, HttpServletResponse response) {
 
+		String memberId = request.getParameter("memberId");  // 쿠키 아이디
 		String beforeUrl = request.getHeader("referer");
-		
-		//String memberId = request.getParameter("memberId");
-		//String memberPwd = request.getParameter("memberPwd");
-		
-		//Member memberck = new Member(memberId,memberPwd);
-		
+
 		System.out.println("입력 확인 :" + member.getMemberId() + "/ " + member.getMemberPwd());
 
 		try {
@@ -86,10 +85,30 @@ public class MemberController {
 			// // loginMember = null;
 			// }
 
-		if (loginMember != null) {
+			// 쿠키
+			HttpSession session = request.getSession();
 			
-				model.addAttribute("loginMember", loginMember);
-
+			System.out.println("세션 : " + session );
+			
+			if (loginMember != null) {
+				
+				session.setMaxInactiveInterval(300); // 세션 만료 5분
+				String save = request.getParameter("memberId");
+				Cookie cookie = new Cookie("rememberId", memberId);
+					System.out.println("쿠키" + memberId);	
+					
+					if(save !=null) {
+						System.out.println("세이브 확인 : "+ save);
+						cookie.setMaxAge(60*60*24); // 하루
+					}else {
+						cookie.setMaxAge(0);
+					}
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					
+					model.addAttribute("loginMember", loginMember);
+					System.out.println("쿠키2" + cookie);	
+					
 			} else {
 
 				model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
@@ -185,7 +204,8 @@ public class MemberController {
 			}
 
 			rdAttr.addFlashAttribute("msg", msg);
-			return "redirect:/";
+			/* return "redirect:/signUpComplete"; */
+			return "member/signUpComplete";
 
 		} catch (Exception e) {
 			e.printStackTrace();
