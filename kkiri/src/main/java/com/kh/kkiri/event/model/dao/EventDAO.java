@@ -423,25 +423,7 @@ public class EventDAO {
 		return sqlSession.update("eventMapper.deleteBoard", boardAndImage);
 	}
 
-	/** 채팅 저장용 DAO
-	 * @param chat
-	 * @return
-	 */
-	public int insertChat(Chat chat) {
-		return sqlSession.insert("searchMapper.insertChat", chat);
-	}
 
-
-	/** 채팅 출력용 DAO
-	 * @param eventNo
-	 * @return chatList
-	 */
-	public List<Chat> selectChat(int eventNo) {
-		return sqlSession.selectList("searchMapper.selectChat", eventNo);
-	}
-
-	
-	
 	/**
 	 * 주최자인 경우 참가 신청 회원 목록 조회
 	 * @param eventNo
@@ -477,9 +459,16 @@ public class EventDAO {
 	}
 
 
-
 	public int selectChatNo() {
-		return sqlSession.selectOne("searchMapper.selectChatNo");
+		return sqlSession.selectOne("eventMapper.selectChatNo");
+	}
+	
+	/** 채팅 출력용 DAO
+	 * @param eventNo
+	 * @return chatList
+	 */
+	public List<Chat> selectChat(int eventNo) {
+		return sqlSession.selectList("eventMapper.selectChat", eventNo);
 	}
 
 
@@ -488,9 +477,15 @@ public class EventDAO {
 	 * @return result
 	 */
 	public int deleteChat(int chatNo) {
-		return sqlSession.update("searchMapper.deleteChat", chatNo);
+		return sqlSession.update("eventMapper.deleteChat", chatNo);
 	}
 	
-
+	/** 채팅 저장용 DAO
+	 * @param chat
+	 * @return
+	 */
+	public int insertChat(Chat chat) {
+		return sqlSession.insert("eventMapper.insertChat", chat);
+	}
 
 }

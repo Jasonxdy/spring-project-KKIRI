@@ -96,12 +96,4 @@ public class ProfileDAO {
 		return sqlSession.delete("memberMapper.undoFavorite", favorite);
 	}
 
-
-	/** 채팅 저장용 DAO
-	 * @param chat
-	 * @return
-	 */
-	public int insertChat(Chat chat) {
-		return sqlSession.insert("searchMapper.insertChat", chat);
-	}
 }
