@@ -246,14 +246,14 @@
 	<!-- 주최자 티켓 획득 결제내역 추가 -->
 	<insert id="insertPaymentEarn" parameterType="Event">
 		INSERT INTO PAYMENT VALUES
-		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'P', #{eventTicket}, SYSDATE)
+		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'P', #{eventTicket}, SYSDATE, DEFAULT)
 	</insert>
 	
 	
 	<!-- 참가자 티켓 사용 결제내역 추가 -->
 	<insert id="insertPaymentUse" parameterType="Event">
 		INSERT INTO PAYMENT VALUES
-		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'U', #{eventTicket}, SYSDATE)
+		(PAY_SEQ.NEXTVAL, #{memberNo}, #{eventNo}, 'U', #{eventTicket}, SYSDATE, DEFAULT)
 	</insert>
 	
 	<!-- 주최자 이벤트 완료 확인 -->	
