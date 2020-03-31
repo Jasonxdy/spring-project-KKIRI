@@ -93,6 +93,7 @@
 
 
 <script>
+	fileName = null;
 	function scrollFunction() {
 		if ($(window).scrollTop() >= 200) {
 			$('#button-top').show(0);
@@ -115,17 +116,15 @@
 	});
 	
 	// 영상 선택
-	$(".videoLabel").on(
-			"click",
-			function() {
-				$(this).children().css("background-color",
-						"rgba(0,161,133,.5)");
-				$(".videoLabel").not($(this)).children().css(
-						"background-color", "white");
-				console.log($(this).prev().val());
-				fileName = $(this).prev().val();
-				fileUsed = $(this).children().eq(1).children().eq(1).text();
-			});
+	$(".videoLabel").on("click", function() {
+		$(this).children().css("background-color",
+				"rgba(0,161,133,.5)");
+		$(".videoLabel").not($(this)).children().css(
+				"background-color", "white");
+		console.log($(this).prev().val());
+		fileName = $(this).prev().val();
+		fileUsed = $(this).children().eq(1).children().eq(1).text();
+	});
 	
 	// 영상에 마우스 오버시 control 추가
 	$(".videoLabel").on("mouseenter", function() {
@@ -136,12 +135,16 @@
 
 	// 메인 영상 변경 버튼
 	$("#selectVideo").on("click", function() {
-		location.href = "adminChangeVideo?changeVideo=" + fileName;
+		console.log(fileName);
+		if(fileName == null){
+			alert("파일을 선택해야 합니다.");
+		}else{
+			location.href = "adminChangeVideo?changeVideo=" + fileName;
+		}
 	});
 	
 	// 영상 삭제 버튼
 	$("#deleteVideo").on("click", function() {
-		console.log("fileUsed: " + fileUsed);
 		if(fileUsed == '사용중'){
 			alert("사용중인 영상은 삭제할 수 없습니다.");
 		} else{

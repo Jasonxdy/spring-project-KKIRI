@@ -79,6 +79,8 @@
         <constructor-arg value="VIHjwkyohjsz_OMa_ArFjn5S" />
     </bean>
     
+    <!-- <bean id="visitCountDAO" class="com.kh.kkiri.common.dao.VisitCountDAO">
+    </bean> -->
     <!-- Facebook 소셜 로그인 연결 설정 -->
  
     <!-- <bean id="connectionFactory"

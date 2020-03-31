@@ -3,6 +3,7 @@ package com.kh.kkiri.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.kkiri.admin.model.vo.EventStatistic;
 import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
@@ -76,6 +77,9 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	int adminDeleteVideo(String changeVideo) throws Exception;
+
+	List<EventStatistic> eventStatistic() throws Exception;
+
 
 
 }
