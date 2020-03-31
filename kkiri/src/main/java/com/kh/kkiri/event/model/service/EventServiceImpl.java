@@ -308,6 +308,21 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.selectRatingList(eventNo, pInf);
 	}
 	
+	
+	
+	/**
+	 * 후기 목록 추가 조회 ajax
+	 * @param eventNo
+	 * @param eventNo
+	 * @param count
+	 * @param limit
+	 * @return ratingList
+	 */
+	@Override
+	public List<Rating> selectRatingListAjax(Integer eventNo, int count, int limit) {
+		return eventDAO.selectRatingListAjax(eventNo, count, limit);
+	}
+	
 	/**
 	 * 내가 작성한 후기 가져오기
 	 * @param party

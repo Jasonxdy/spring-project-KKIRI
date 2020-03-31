@@ -502,4 +502,21 @@ public class EventDAO {
 		return sqlSession.insert("eventMapper.insertChat", chat);
 	}
 
+
+	
+	
+	/**
+	 * 후기 목록 조회 ajax
+	 * @param eventNo
+	 * @param count
+	 * @param limit
+	 * @return ratingList
+	 */
+	public List<Rating> selectRatingListAjax(Integer eventNo, int count, int limit) {
+		
+		int offset = count*limit + 5;
+		RowBounds rbound = new RowBounds(offset, limit);
+		return sqlSession.selectList("eventMapper.selectRatingList", eventNo, rbound);
+	}
+
 }

@@ -84,6 +84,9 @@
 						</c:forEach>
 
 				</div>
+				<div class="container text-center" id="loading" style="display: none;">
+				<img src="${contextPath}/resources/img/loading.gif">
+			</div>
 				<c:if test="${event.partyCount > 5}">
 					<div class='row' id='addPartyList'>
 						<div class='col-md-12 text-center mt-3'>
@@ -192,8 +195,6 @@
 
 	<script>
 	
-	/* 무한 스크롤 */
-	//Javascript
 	var count = 0; // 스크롤 갱신 횟수
 	var limit = 5; // 5명씩 보여줌
 	var eventNo = '${event.eventNo}';
@@ -219,12 +220,14 @@
 				"</div>";
 				$attendList.append(memberCard);
 				
-				// 클릭한 사람이 주최자가 아닌 경우
-				
-				
-				
 				});
 			},
+			beforeSend:function(){
+		        $('#loading').css('display', 'block');
+		    },
+		    complete : function(){
+		        $('#loading').css('display', 'none');
+		    },
 			error : function(){
 				console.log("참가회원 목록 조회 ajax 호출 실패");
 			}
