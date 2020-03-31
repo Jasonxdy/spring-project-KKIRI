@@ -128,7 +128,7 @@
 
               <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" <%= rememberId ? "checked" : "" %>>
               <label class="custom-control-label" for="rememberId">아이디 저장</label>
-              <a href="#" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
+              <a href="${contextPath }/member/findMember" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
 
               <button class="popup-confirm-btn login-conform-btn">로그인</button>
               <button id="googleLogin" type="button" class="popup-confirm-btn another-btn">구글 아이디로 로그인</button>

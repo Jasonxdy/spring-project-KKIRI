@@ -609,5 +609,10 @@ public class MemberController {
 		if(result) return confirmNo;
 		else return "false";
 	}
+	@RequestMapping("findMember")
+	public String findMember () {
+		
+		return "member/findID";
+	}
 
 }
