@@ -7,7 +7,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.kkiri.admin.model.vo.EventStatistic;
 import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
@@ -109,5 +111,10 @@ public class AdminDAO {
 	public int adminDeleteVideo(String changeVideo) throws Exception {
 		return sqlSession.update("adminMapper.adminDeleteVideo", changeVideo);
 	}
+
+	public List<EventStatistic> eventStatistic() throws Exception {
+		return sqlSession.selectList("adminMapper.eventStatistic");
+	}
+
 
 }

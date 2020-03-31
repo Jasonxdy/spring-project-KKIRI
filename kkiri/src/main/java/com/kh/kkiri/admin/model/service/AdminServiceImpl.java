@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.admin.model.dao.AdminDAO;
+import com.kh.kkiri.admin.model.vo.EventStatistic;
 import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.member.model.vo.Member;
@@ -130,4 +131,11 @@ public class AdminServiceImpl implements AdminService {
 	public int adminDeleteVideo(String changeVideo) throws Exception {
 		return adminDAO.adminDeleteVideo(changeVideo);
 	}
+	
+	@Override
+	public List<EventStatistic> eventStatistic() throws Exception {
+		return adminDAO.eventStatistic();
+	}
+	
+	
 }

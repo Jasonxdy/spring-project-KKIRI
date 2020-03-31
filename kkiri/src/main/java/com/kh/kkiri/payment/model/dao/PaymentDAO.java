@@ -15,4 +15,10 @@ public class PaymentDAO {
 	public int insertPayment(Map<String, Object> map) throws Exception {
 		return sqlSession.insert("paymentMapper.insertPayment", map);
 	}
+
+	public int deleteTicket(String merchant_uid) throws Exception{
+
+		
+		return sqlSession.delete("paymentMapper.deleteTicket", merchant_uid);
+	}
 }

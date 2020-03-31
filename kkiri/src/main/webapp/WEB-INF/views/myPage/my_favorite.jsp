@@ -94,7 +94,7 @@
 
 
 							<c:if test="${p == pInf.currentPage}">
-								<li><a class="page-link">${p}</a></li>
+								<li><a class="page-link active">${p}</a></li>
 							</c:if>
 
 							<c:if test="${p != pInf.currentPage}">

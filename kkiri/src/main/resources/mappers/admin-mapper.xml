@@ -10,6 +10,11 @@
 		<result property="videoUse" column="VIDEO_USE"/>
 	</resultMap>
 	
+	<resultMap type="EventStatistic" id="EventStatisticResultSet">
+		<result property="eventDate" column="EVENTDATE"/>
+		<result property="eventCount" column="EVENTCOUNT"/>
+	</resultMap>
+	
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO VIDEO VALUES
 		(VID_SEQ.NEXTVAL, #{videoOriginalName}, #{videoChangeName}, 
@@ -43,4 +48,22 @@
 		VIDEO_STATUS = 'N'
 		WHERE VIDEO_CHANGE_NM = #{changeVideo}
 	</update>
+	
+	<insert id="plusVisitCount">
+		INSERT INTO VISITOR VALUES(DEFAULT)
+	</insert>
+	
+	<select id="eventStatistic" resultMap="EventStatisticResultSet">
+		<![CDATA[
+		SELECT TO_CHAR(EVENT_START, 'yyyymmdd') EVENTDATE
+	        , NVL(COUNT(*), 0) EVENTCOUNT
+	        FROM EVENT
+	        WHERE EVENT_START >= TO_DATE('20200305', 'yyyymmdd')
+	        AND EVENT_START < TO_DATE('20200405', 'yyyymmdd')+1
+	        AND EVENT_STATUS = 'Y'
+	        GROUP BY TO_CHAR(EVENT_START, 'yyyymmdd')
+		ORDER BY TO_CHAR(EVENT_START, 'yyyymmdd')
+		]]>
+	</select>
+	
 </mapper>

@@ -94,7 +94,7 @@
 								</div>
 
 								<div class="mt-1 event-location">
-									<div class="dropdown" style="display: inline-block;">
+									<div class="dropdown">
 										<div class="mr-3">
 											<span class="h4 event-section-title">반경</span> <a
 												class="h4 event-section-title"

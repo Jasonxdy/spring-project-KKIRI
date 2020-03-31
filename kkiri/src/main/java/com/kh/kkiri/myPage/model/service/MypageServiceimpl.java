@@ -297,6 +297,15 @@ public class MypageServiceimpl implements MypageService{
 		
 		return result;
 	}
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteTicket(String merchant_uid) throws Exception {
+		int result = 0;
+		
+		result = paymentDAO.deleteTicket(merchant_uid);
+		
+		return result;
+	}
 	
 	
 	

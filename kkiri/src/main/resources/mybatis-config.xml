@@ -26,6 +26,7 @@
 		<typeAlias type="com.kh.kkiri.myPage.model.vo.Ticket" alias="Ticket"/>
 		<typeAlias type="com.kh.kkiri.event.model.vo.Rating" alias="Rating"/>
 		<typeAlias type="com.kh.kkiri.admin.model.vo.Video" alias="Video"/>
+		<typeAlias type="com.kh.kkiri.admin.model.vo.EventStatistic" alias="EventStatistic"/>
 		<typeAlias type="com.kh.kkiri.event.model.vo.BoardAndImage" alias="BoardAndImage"/>
 		<typeAlias type="com.kh.kkiri.event.model.vo.EventMember" alias="EventMember"/>
 	</typeAliases>

@@ -1,8 +1,6 @@
 package com.kh.kkiri.admin.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.kkiri.admin.model.service.AdminService;
+import com.kh.kkiri.admin.model.vo.EventStatistic;
 import com.kh.kkiri.admin.model.vo.Video;
 import com.kh.kkiri.ask.model.service.AskService;
 import com.kh.kkiri.ask.model.vo.Ask;
@@ -461,8 +460,20 @@ public class AdminController {
 	public String adminStatistic(Model model, String changeVideo,
 			RedirectAttributes rdAttr) {
 		
+		
 		return "admin/admin_statistic";
 	}
+	@ResponseBody
+	@RequestMapping("eventStatistic")
+	public List<EventStatistic> eventStatistic() {
+		try {
+			return adminService.eventStatistic();
+			
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
 }
 
 
