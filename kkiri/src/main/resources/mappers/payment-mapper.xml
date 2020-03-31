@@ -29,7 +29,7 @@
 		</if>
 			#{paymentType}, #{ticket}, SYSDATE
 		<if test="merchantUid != null">
-			#{merchantUid}
+			,#{merchantUid}
 		</if>
 		)
 	</insert>

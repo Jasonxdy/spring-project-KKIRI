@@ -381,7 +381,7 @@ public class MypageController {
 			result = mypageService.ticketRecharge(ticket);
 			// 0 = 입력 실패 / 1 = 입력 성공
 
-			if(result >1) {
+			if(result >0) {
 			}
 
 			else {
@@ -401,7 +401,8 @@ public class MypageController {
 		int result = 0;
 		try{
 			result = mypageService.successRecharge(loginMember,recharge );
-
+			loginMember.setMemberTicket((loginMember.getMemberTicket()+(recharge/1000)));
+			model.addAttribute("loginMember", loginMember);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓충전 중 에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.");
@@ -409,7 +410,7 @@ public class MypageController {
 		}
 
 
-		return "redirect:/mypage/recharge";
+		return "redirect:/mypage/ticketLog";
 	}
 
 	@RequestMapping("deleteTicket")

@@ -517,6 +517,9 @@ public class EventDAO {
 		int offset = count*limit + 5;
 		RowBounds rbound = new RowBounds(offset, limit);
 		return sqlSession.selectList("eventMapper.selectRatingList", eventNo, rbound);
+		
+	}
+		
 	/** 이벤트 수정용 DAO
 	 * @param event
 	 * @return result

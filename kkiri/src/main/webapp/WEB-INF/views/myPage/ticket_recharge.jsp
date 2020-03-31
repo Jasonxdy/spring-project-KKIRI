@@ -96,11 +96,12 @@
 				var merchant_uid;
 				console.log(recharge);
 						$.ajax({
-							url : "mypage/ticketRecharge" ,
+							url : "ticketRecharge" ,
 							type : "POST" ,
 							data : { "recharge-amount" : recharge,
 									"recharge-way" : rechargeway,
-									"loginMember" : loginMember },
+									"memberNo" : memberNo,
+									"memberId" : memberId},
 							success: function(merchant_uid){
 
 								if(merchant_uid != ""){
@@ -154,7 +155,7 @@
 						        
 						    
 						    $.ajax({
-						    	url:"mypage/deleteTicket",
+						    	url:"deleteTicket",
 						    	type:"POST",
 						    	data:
 						    		{merchant_uid : rsp.merchant_uid} ,
