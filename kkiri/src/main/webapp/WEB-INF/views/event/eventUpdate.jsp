@@ -97,7 +97,7 @@
                       3단계. 이벤트의 상세 정보를 수정해주세요.
                     </h3>
                     <p class="sub-title">
-                      (이벤트 시작 시간, 종료 시간은 수정 불가능합니다.)
+                      (이벤트 시간, 티켓 수, 정원은 수정 불가능합니다.)
                     </p>
                     <div class="insert-event-info">
                       <label class="event-thumbnail-label">이벤트 썸네일 사진</label>
@@ -115,9 +115,9 @@
                       <label for="endDate">이벤트 종료 시간</label>
                       <input type="text" name="endDate" id="endDate" value="${endDate}" disabled><br>
                       <label for="ticket">참가 티켓 수</label>
-                      <input type="number" name="eventTicket" id="ticket" value="${event.eventTicket}"><br>
+                      <input type="number" name="eventTicket" id="ticket" value="${event.eventTicket}" disabled><br>
                       <label for="boundary">이벤트 정원</label>
-                      <input type="number" name="eventQuota" id="boundary" min="2" value="${event.eventQuota}"><br>
+                      <input type="number" name="eventQuota" id="boundary" min="2" value="${event.eventQuota}" disabled><br>
 
                       
                       <button type="button" class="go-step2 green-radius-btn mt-4">2단계로</button>
@@ -220,10 +220,11 @@
       });
       
       function validate(){
-		  if($(".uploadInput").val()==""){
+		  /* if($(".uploadInput").val()==""){
     		  alert("이벤트 썸네일 사진을 등록해주세요!");
     		  return false;
-    	  }else if($("#eventTitle").val().trim()==""){
+    	  }else  */
+    	  if($("#eventTitle").val().trim()==""){
     		  alert("이벤트 제목을 작성해주세요!");
     		  return false;
     	  }else if($("#eventContent").val().trim()==""){
@@ -294,6 +295,7 @@
 		
 		// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+			marker2.setMap(null);
 		    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 		    	
 		        if (status === kakao.maps.services.Status.OK) {

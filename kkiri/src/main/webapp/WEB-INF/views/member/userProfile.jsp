@@ -124,7 +124,7 @@
 									 
 						content += 
 									"<div class='card shadow mb-4'>" +
-										"<div class='col-md-12 eventBar' onclick=\"location.href= '${contextPath}/event/detail?no="+ sList[i].eventNo +"'\" >" +
+										"<div class='col-md-12 eventBar' onclick=\"location.href= '${contextPath}/event/detail?no="+ data.eList[i].eventNo +"'\" >" +
 											"<div class='row'>" +
 												"<div class='col-md-3'>" +
 													"<img src='${contextPath}/resources/upEventThumbnail/" + data.eList[i].eventThumbnail + "' class='event-thumb' alt='이벤트 썸네일이미지'>" +
