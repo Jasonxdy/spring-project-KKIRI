@@ -34,6 +34,7 @@ public class SearchController {
 		if(searchKey!=null) {
 			model.addAttribute("findKeyword",searchKey);
 		}
+		System.out.println("여긴가??");
 		return "search/searchEvent";
 	}
 	
