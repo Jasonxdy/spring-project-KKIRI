@@ -502,4 +502,24 @@ public class EventDAO {
 		return sqlSession.insert("eventMapper.insertChat", chat);
 	}
 
+
+	/** 이벤트 수정용 DAO
+	 * @param event
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateEvent(Event event) throws Exception {
+		return sqlSession.update("eventMapper.updateEvent", event);
+	}
+
+
+	/** 썸네일 체크
+	 * @param eventNo
+	 * @return origin
+	 * @throws Exception
+	 */
+	public String selectThumb(int eventNo) throws Exception {
+		return sqlSession.selectOne("eventMapper.selectThumb", eventNo);
+	}
+
 }
