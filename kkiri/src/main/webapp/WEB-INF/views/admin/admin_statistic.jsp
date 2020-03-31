@@ -63,11 +63,14 @@
 					}, 600);
 				}
 			});
-			
+		});
+		
+		
+		$(function(){
 			$.ajax({
         		url : "eventStatistic",
-        		/* data : {}, */
         		type : "post",
+        		dataType: "json",
         		success : function(eList){
         			this.eList = eList;
         			console.log(eList);
@@ -79,13 +82,10 @@
         	});
 		});
 		
-		/* for(var i=0; i<eList.length; i++){
-  		  if(i<eList.length){
-  		  eList[i].eventDate + ", "
-  		  } else{
-  			  eList[i].eventDate
-  		  } */
-		
+  		
+  		
+  		  
+  		  
 		// Bar chart
 		new Chart(document.getElementById("bar-chart"), {
 		    type: 'bar',

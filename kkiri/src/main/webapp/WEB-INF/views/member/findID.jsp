@@ -57,7 +57,7 @@
                         <div class=" mb-3" >
                           
                           <label for="memberEmail" class="findInfo-title">회원님의 이메일을 입력해주세요.</label>
-                          <input type="email" id="memberEmail" class="form-control memberEmail" placeholder="회원님의 이메일"> 
+                          <input type="email" id="memberEmail" name="findIdEmail" class="form-control memberEmail" placeholder="회원님의 이메일"> 
                           <p class="checkEmail">&nbsp;</p>
 
                         </div>
@@ -85,14 +85,14 @@
 
                       <div class=" mb-3" >
                         <label for="memberId" class="findInfo-title">회원님의 아이디를 입력해주세요.</label>
-                        <input type="text" id="memberId" class="form-control" placeholder="회원님의 아이디">
+                        <input type="text" id="memberId" name="memberId" class="form-control" placeholder="회원님의 아이디">
                         <p class="checkId">&nbsp;</p>
                       </div>
                     </div>
                     <div style="text-align: center; margin: 0 auto;">
                       <div class=" mb-3" >
                         <label for="memberEmail2" class="findInfo-title">회원님의 이메일을 입력해주세요.</label>
-                        <input type="email" id="memberEmail2" class="form-control memberEmail" placeholder="회원님의 이메일">
+                        <input type="email" id="memberEmail2" name="memberEmail" class="form-control memberEmail" placeholder="회원님의 이메일">
                         <p class="checkEmail">&nbsp;</p>
                       </div>
                     </div>

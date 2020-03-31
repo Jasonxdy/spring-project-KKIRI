@@ -78,6 +78,14 @@ public interface MemberService {
 
 
 
+	Member findId(String findIdEmail) throws Exception;
+
+
+
+	Member findPwd(Member member) throws Exception;
+
+
+
 
 
 

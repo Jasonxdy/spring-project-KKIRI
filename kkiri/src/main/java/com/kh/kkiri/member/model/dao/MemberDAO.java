@@ -125,6 +125,29 @@ public class MemberDAO {
 
 
 
+	/**
+	 * @param findIdEmail
+	 * @return findMember
+	 * @throws Exception
+	 */
+	public Member findId(String findIdEmail) throws Exception {
+		return sqlSession.selectOne("memberMapper.findId", findIdEmail);
+	}
+
+
+
+	public Member findPwd(Member member) throws Exception {
+		return sqlSession.selectOne("memberMapper.findPwd", member);
+	}
+
+
+
+	public int updateFindPwd(Member member) throws Exception {
+		return sqlSession.update("memberMapper.updateFindPwd", member);
+	}
+
+
+
 
 
 

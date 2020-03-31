@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kh.kkiri.admin.model.service.AdminService;
 import com.kh.kkiri.admin.model.vo.EventStatistic;
 import com.kh.kkiri.admin.model.vo.Video;
@@ -463,16 +464,19 @@ public class AdminController {
 		
 		return "admin/admin_statistic";
 	}
+	
 	@ResponseBody
 	@RequestMapping("eventStatistic")
-	public List<EventStatistic> eventStatistic() {
+	public String eventStatistic() {
 		try {
+			System.out.println("ajax 시작");
 			List<EventStatistic> eList = adminService.eventStatistic();
+			
 			for(EventStatistic et : eList) {
 				System.out.println(et);
 			}
 			
-			return eList;
+			return new Gson().toJson(eList);
 			
 		}catch (Exception e) {
 			return null;

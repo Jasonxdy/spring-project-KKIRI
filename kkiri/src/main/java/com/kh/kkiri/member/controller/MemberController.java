@@ -609,10 +609,104 @@ public class MemberController {
 		if(result) return confirmNo;
 		else return "false";
 	}
+	
 	@RequestMapping("findMember")
 	public String findMember () {
 		
 		return "member/findID";
+	}
+	
+	@RequestMapping("findId")
+	public String findId(Model model, String findIdEmail, 
+			RedirectAttributes rdAttr, HttpSession session) {
+		String msg = null;
+		try {
+			Member findMember = memberService.findId(findIdEmail);
+			if(findMember != null) {
+				switch(findMember.getMemberIdSort()) {
+				case "N":
+					boolean result = sendEmail.send(findIdEmail, "회원님", "KKIRI 아이디 찾기", 
+							"회원님의 아이디는 " + findMember.getMemberId() + " 입니다.");
+					if(result) msg = findIdEmail + "로 아이디가 발송되었습니다.";
+					else msg = "이메일 발송 실패!";
+					rdAttr.addFlashAttribute("msg", msg);
+					return "redirect:/";
+				case "G":
+					msg = "google로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				case "K":
+					msg = "kakao로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				case "V":
+					msg = "naver로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				}
+			}else {
+				msg = "해당 이메일로 가입되어 있는 아이디가 없습니다.";
+				session.setAttribute("msg", msg);
+				return "redirect:/member/findMember";
+			}
+			session.setAttribute("msg", msg);
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMgs", "아이디 찾기 중 오류 발생");
+			return "common/errorPage";
+		}
+		
+		return "redirect:/member/findMember";
+	}
+	
+	@RequestMapping("findPwd")
+	public String findPwd(Model model, Member member, 
+			RedirectAttributes rdAttr, HttpSession session) {
+		String msg = null;
+		try {
+			Member findMember = memberService.findPwd(member);
+			if(findMember != null) {
+				switch(findMember.getMemberIdSort()) {
+				case "N":
+					boolean result = sendEmail.send(member.getMemberEmail(),
+							member.getMemberId()+"회원님", "KKIRI 비밀번호 찾기", 
+							"회원님의 비밀번호는 " + findMember.getMemberPwd() + " 입니다.");
+					if(result) msg = member.getMemberEmail() + "로 비밀번호가 발송되었습니다.";
+					else msg = "이메일 발송 실패!";
+					rdAttr.addFlashAttribute("msg", msg);
+					return "redirect:/";
+				case "G":
+					msg = "google로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				case "K":
+					msg = "kakao로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				case "V":
+					msg = "naver로 가입되어 있는 email입니다.";
+					//rdAttr.addFlashAttribute("msg", msg);
+					//return "redirect:/";
+					break;
+				}
+			}else {
+				msg = "해당 아이디 또는 이메일로 가입되어 있는 아이디가 없습니다.";
+				session.setAttribute("msg", msg);
+				return "redirect:/member/findMember";
+			}
+			session.setAttribute("msg", msg);
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMgs", "비밀번호 찾기 중 오류 발생");
+			return "common/errorPage";
+		}
+		
+		return "redirect:/member/findMember";
 	}
 
 }

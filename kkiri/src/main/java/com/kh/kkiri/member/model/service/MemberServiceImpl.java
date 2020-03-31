@@ -1,6 +1,6 @@
 package com.kh.kkiri.member.model.service;
 
-import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.kkiri.member.model.dao.MemberDAO;
-
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.myPage.model.service.MypageService;
 
 @Service
 
@@ -139,4 +139,50 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.checkSocialEmail(memberEmail);
 	}
 	
+	@Override
+	public Member findId(String findIdEmail) throws Exception {
+		return memberDAO.findId(findIdEmail);
+	}
+	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Member findPwd(Member member) throws Exception {
+		Member findMember = memberDAO.findPwd(member);
+		if(findMember != null) {
+			if(findMember.getMemberIdSort().equals("N")) {
+				StringBuffer tempPwd = new StringBuffer();
+				String encPwd = null;
+				Random rnd = new Random();
+				for (int i = 0; i < 10; i++) {
+					int rIndex = rnd.nextInt(3);
+					switch (rIndex) {
+					case 0:
+						// a-z
+						tempPwd.append((char) ((int) (rnd.nextInt(26)) + 97));
+						break;
+					case 1:
+						// A-Z
+						tempPwd.append((char) ((int) (rnd.nextInt(26)) + 65));
+						break;
+					case 2:
+						// 0-9
+						tempPwd.append((rnd.nextInt(10)));
+						break;
+					}
+				}
+				if(tempPwd != null) {
+					String newPwd = tempPwd.toString();
+					encPwd = bCryptPasswordEncoder.encode(newPwd);
+					member.setMemberPwd(encPwd);
+					int result = memberDAO.updateFindPwd(member);
+					if(result>0) {
+						findMember.setMemberPwd(newPwd);
+					}else {
+						findMember = null;
+					}
+				}
+			}
+		} 
+		return findMember;
+	}
 }

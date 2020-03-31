@@ -248,4 +248,21 @@
 	MEMBER_TICKET = (MEMBER_TICKET+#{ticket})
 	WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<select id="findId" parameterType="string" resultMap="memberResultSet">
+		SELECT MEMBER_ID, MEMBER_ID_SORT FROM MEMBER
+		WHERE MEMBER_EMAIL = #{findIdEmail}
+	</select>
+	
+	<select id="findPwd" parameterType="Member" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_ID_SORT FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<update id="updateFindPwd" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_PWD = #{memberPwd}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>
