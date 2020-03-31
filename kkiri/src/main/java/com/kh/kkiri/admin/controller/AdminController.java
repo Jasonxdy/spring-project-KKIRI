@@ -467,7 +467,12 @@ public class AdminController {
 	@RequestMapping("eventStatistic")
 	public List<EventStatistic> eventStatistic() {
 		try {
-			return adminService.eventStatistic();
+			List<EventStatistic> eList = adminService.eventStatistic();
+			for(EventStatistic et : eList) {
+				System.out.println(et);
+			}
+			
+			return eList;
 			
 		}catch (Exception e) {
 			return null;
