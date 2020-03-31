@@ -75,6 +75,9 @@
 						id="cancel-event-participate"> 이벤트 참가취소 </a> <a
 						class="nav-link event-participate-btn" id="wait-event-participate">
 							주최자 승인 대기중 </a>
+							<a
+						class="nav-link event-participate-btn" id="denied-event-participate">
+							참가 거절됨 </a>
 				</c:if>
 
 				<!-- 이벤트 종료 후 -->
@@ -199,11 +202,11 @@
 						<div class="event-status-btnWrap">
 							<!--  승인된 경우 -->
 							<c:if test="${party.permission == 'Y'}">
-								<button type="button" class="permission-finish">승인 허락됨</button>
+								<button type="button" class="permission-finish">참가 승인됨</button>
 							</c:if>
 							<!-- 거절된 경우 -->
 							<c:if test="${party.permission == 'D'}">
-								<button type="button" class="reject-finish">승인 거절됨</button>
+								<button type="button" class="reject-finish">참가 거절됨</button>
 							</c:if>
 
 							<!-- 승인 대기인 경우 -->
@@ -214,9 +217,9 @@
 									<button type="button" class="do-reject">거절하기</button>
 								</div>
 								<button type="button" class="permission-finish"
-									style="display: none;">승인 허락됨</button>
+									style="display: none;">참가 승인됨</button>
 								<button type="button" class="reject-finish"
-									style="display: none;">승인 거절됨</button>
+									style="display: none;">참가 거절됨</button>
 							</c:if>
 						</div>
 					</div>
@@ -272,6 +275,7 @@
 			
 			var myEventCheck = false; // 로그인한 회원이 해당 이벤트의 주최자 혹은 참여자인지 여부 체크
 			var permissionCheck = false; // 승인 대기중인 경우
+			var deniedCheck = false; // 거절된 경우
 			if(${currTime < event.eventEnd}){ // 이벤트가 종료되지 않았을때만 실행
 				if(${loginMember != null}){ // 로그인된 경우
 					
@@ -279,6 +283,8 @@
 						if(${party.eventNo == event.eventNo}){
 							if('${party.permission}' == 'Y') { // 참여신청도 했고 승인도 된 경우
 								permissionCheck = true;
+							} else if('${party.permission}' == 'D'){
+								deniedCheck = true;
 							}
 							myEventCheck = true;
 						}
@@ -296,8 +302,12 @@
 								$("#cancel-event-participate").css({
 									"display" : "block"
 								});
-							} else { // 참여자이지만 승인이 안된 경우
-								// 이벤트 참가 취소 버튼 보이기
+							} else if(deniedCheck) {
+								$("#denied-event-participate").css({
+									"display" : "block"
+								});
+							} else{ // 참여자이지만 승인이 안된 경우
+								// 승인 대기중 버튼 보이기
 								$("#wait-event-participate").css({
 									"display" : "block"
 								});
@@ -353,7 +363,7 @@
 		// 이벤트 완료 버튼 클릭 시
 		$("#event-complete").on({
 			click : function(e){
-				if(confirm("이벤트를 완료하시겠습니까?")) {
+				if(confirm("이벤트를 완료 처리 하시겠습니까?")) {
 					$.ajax({
 						url: "confirmEventComplete",
 						type: "POST",
@@ -387,6 +397,10 @@
 						error : function(){
 							console.log("ajax 통신 실패");
 						}
+					});
+					
+					$("#event-complete-confirmed").css({
+						"cursor" : "default"
 					});
 					
 				}
@@ -449,12 +463,50 @@
 			
 		}
 		
+		
+		var memberTicket; // 받아올 티켓 수 저장용 변수
+		
+		// 로그인 회원 티켓 수 조회 Ajax
+		function joinEventAjax(memberNo){
+			$.ajax({
+				url: "getMemberTicket",
+				type: "POST",
+				data: {
+					"memberNo": memberNo
+				},
+				success : function(result){
+					var msg = null;
+					switch(result) {
+					case 1 : 
+						memberTicket = result;
+						break;
+					case 0 : 
+						msg = "로그인 회원 티켓 수 조회 실패";
+						break;
+					case -1 : 
+						msg = "로그인 회원 티켓 수 조회 과정 중 오류 발생";
+						break;
+					}
+					
+					if(msg != null) {
+						alert(msg);
+					}
+					
+				},
+				error : function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+	
+		
 		// 이벤트 참가 확인 버튼 클릭 시
-		function joinEvent(){
-			console.log("이벤트 참가 신청 클릭");
-			if(${loginMember.memberTicket < event.eventTicket}){
+		function joinEvent() {
+			console.log("memberTicket : " + memberTicket);
+			joinEventAjax(${loginMember.memberNo});
+			if(memberTicket < ${event.eventTicket}){
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
-					location.href = '';
+					location.href = '${contextPath}/mypage/recharge';
 				}
 			} else {
 				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}';
@@ -471,45 +523,52 @@
 			}
 		});
 		
+		// 승인 대기중 취소 ajax
+		function cancleWaitEventAjax(){
+			$.ajax({
+				url: "cancelWaitEvent",
+				type: "POST",
+				data: {
+					"eventNo": ${event.eventNo},
+					"memberNo" : '${loginMember.memberNo}',
+					"eventTicket" : ${event.eventTicket}
+				},
+				success : function(result){
+					var msg = null;
+					switch(result) {
+					case 1 : 
+						break;
+					case 0 : 
+						msg = "이벤트 승인 대기 취소 실패";
+						break;
+					case -1 : 
+						msg = "이벤트 승인 대기 취소 오류 발생";
+						break;
+					}
+					
+					if(msg != null) {
+						alert(msg);
+					}
+					
+				},
+				error : function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+		
 		// 이벤트 승인 대기 취소 버튼 클릭 --> ajax로 DB 반영
 		$("#wait-event-participate").on({
 			click : function() {
 				
 				if(confirm("이벤트 참가를 정말 취소하시겠습니까?")) {
 					// 이벤트 승인 대기 취소 ajax
-					$.ajax({
-						url: "cancelWaitEvent",
-						type: "POST",
-						data: {
-							"eventNo": ${event.eventNo},
-							"memberNo" : '${loginMember.memberNo}',
-							"eventTicket" : ${event.eventTicket}
-						},
-						success : function(result){
-							var msg = null;
-							switch(result) {
-							case 1 : 
-								$("#wait-event-participate").css({
-									"display" : "none"
-								});
-								$(this).parent().append("<button type='button' class='permission-finish'>승인 허락됨</button>")
-								break;
-							case 0 : 
-								msg = "이벤트 승인 대기 취소 실패";
-								break;
-							case -1 : 
-								msg = "이벤트 승인 대기 취소 오류 발생";
-								break;
-							}
-							
-							if(msg != null) {
-								alert(msg);
-							}
-							
-						},
-						error : function(){
-							console.log("ajax 통신 실패");
-						}
+					cancleWaitEventAjax();
+					$("#wait-event-participate").css({
+						"display" : "none"
+					});
+					$("#event-participate").css({
+						"display" : "block"
 					});
 				}
 				
@@ -630,6 +689,14 @@
 				$(this).parent().css("display", "none");
 				// 생기게 하고
 				$(this).parent().next().next().css("display","block");
+			}
+		});
+		
+		
+		// 거절된 경우 버튼 클릭 시 alert
+		$("#denied-event-participate").on({
+			click : function(e){
+				alert("주최자가 이벤트 참여를 거절했습니다. 다음 이벤트를 이용해주세요.\n (사용하신 티켓은 반환되었습니다)");
 			}
 		});
 		

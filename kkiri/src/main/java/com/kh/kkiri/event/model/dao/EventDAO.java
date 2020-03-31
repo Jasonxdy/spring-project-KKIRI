@@ -475,6 +475,19 @@ public class EventDAO {
 	public int rejectJoinEvent(Event event) throws Exception{
 		return sqlSession.update("eventMapper.rejectJoinEvent", event);
 	}
+	
+	
+	
+	
+	/**
+	 * 로그인 회원 티켓 수 조회
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int getMemberTicket(int memberNo) throws Exception{
+		return sqlSession.selectOne("eventMapper.getMemberTicket", memberNo);
+	}
 
 
 
@@ -490,6 +503,7 @@ public class EventDAO {
 	public int deleteChat(int chatNo) {
 		return sqlSession.update("searchMapper.deleteChat", chatNo);
 	}
+
 	
 
 

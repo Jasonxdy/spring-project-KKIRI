@@ -292,4 +292,14 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception;
+
+	
+	
+	/**
+	 * 로그인 회원 티켓 수 조회
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	int getMemberTicket(int memberNo) throws Exception;
 }

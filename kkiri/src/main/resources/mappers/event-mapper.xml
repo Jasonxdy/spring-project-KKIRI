@@ -239,7 +239,7 @@
 	<select id="selectFinalPartyList" parameterType="_int" resultMap="partyResultSet">
 		SELECT * FROM PARTY
 		WHERE EVENT_NO = #{eventNo}
-		AND PERMISSION = 'Y'
+		AND (PERMISSION = 'Y' OR PERMISSION = 'N')
 	</select>
 	
 	
@@ -396,7 +396,13 @@
 		WHERE EVENT_NO = #{eventNo}
 		AND MEMBER_STATUS = 'Y'
 		AND MEMBER_TYPE = 'P'
-		ORDER BY PERMISSION
+		ORDER BY (
+            CASE
+            WHEN PERMISSION = 'N' THEN 1
+            WHEN PERMISSION = 'Y' THEN 2
+            ELSE 3
+            END
+        )
 	</select>
 	
 	
@@ -416,6 +422,14 @@
 		WHERE EVENT_NO = #{eventNo}
 		AND MEMBER_NO = #{memberNo}
 	</update>
+	
+	
+	<!-- 로그인 회원 티켓 수 조회 -->
+	<select id="getMemberTicket" parameterType="_int" resultType="_int">
+		SELECT MEMBER_TICKET
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	<select id="moveEvent1" parameterType="_int" resultMap="eventResultSet">

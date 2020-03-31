@@ -817,6 +817,27 @@ public class EventController {
 		return result;
 
 	}
+	
+	// 로그인한 회원 티켓 수 조회
+	@RequestMapping("getMemberTicket")
+	@ResponseBody
+	public int getMemberTicket(int memberNo) {
+		
+		int memberTicket = 0;
+		
+		try {
+			memberTicket = eventService.getMemberTicket(memberNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			memberTicket = -1;
+		}
+		return memberTicket;
+		
+	}
+	
+	
+	
+	
 
 	
 	@ResponseBody
