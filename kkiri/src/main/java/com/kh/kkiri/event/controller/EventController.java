@@ -377,39 +377,17 @@ public class EventController {
 			
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			String savePath = root + "/upEventThumbnail";
-			File folder = new File(savePath);
-			
-			if (!folder.exists()) {
-				folder.mkdir();
-			}
 			
 			try {
-				Image image = null;
-				String changeFileName = null;
+				int result = eventService.updateEvent(event,savePath,thumbnailImg);
 				
-				if(!thumbnailImg.getOriginalFilename().equals("")) {
-					changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
-					
-					image = new Image(thumbnailImg.getOriginalFilename(), changeFileName);
-				}
-				
-				event.setEventThumbnail(changeFileName);
-				
-				int result = eventService.updateEvent(event,image,savePath,thumbnailImg);
-				
-				String url = null;
 				if (result > 0) { // DB에 게시글 삽입 성공시
-					if (image != null) {
-						thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
-					}
-					model.addAttribute("eventNo", result);
-					url = "event/updateEventComplete";
+					model.addAttribute("eventNo", no);
+					return "event/updateEventComplete";
 				} else {
-					String msg = "이벤트 수정 실패";
-					rdAttr.addFlashAttribute("msg", msg);
-					url = "redirect:/";
+					rdAttr.addFlashAttribute("msg", "이벤트 수정 실패");
+					return "redirect:/";
 				}
-				return url;
 			}catch(Exception e) {
 				e.printStackTrace();
 				model.addAttribute("errorMsg", "이벤트 수정 과정 중 오류발생");

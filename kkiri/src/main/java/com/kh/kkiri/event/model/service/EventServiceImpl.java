@@ -601,9 +601,8 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.deleteChat(chatNo);
 	}
 
-	/**  이벤트 수정(서진웅) service
+	/** 이벤트 수정용 Service
 	 * @param event
-	 * @param image
 	 * @param savePath
 	 * @param thumbnailImg
 	 * @return result
@@ -611,7 +610,29 @@ public class EventServiceImpl implements EventService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception {
-		return 0;
+	public int updateEvent(Event event, String savePath, MultipartFile thumbnailImg) throws Exception {
+		int result = 0;
+		
+		if(!thumbnailImg.getOriginalFilename().equals("")) { // 썸네일 변경
+			// 기존 썸네일 사진 삭제
+			String origin = eventDAO.selectThumb(event.getEventNo());
+			
+			// 새로운 사진 이름을 eventTubnail 에 저장
+			String changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
+			
+			event.setEventThumbnail(changeFileName);
+			
+			result = eventDAO.updateEvent(event);
+			
+			if(result > 0) {
+				File deleteFile = new File(savePath + "/" + origin);
+				deleteFile.delete();
+				thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
+			}
+		} else { // 썸네일 입력 없음
+			result = eventDAO.updateEvent(event);
+		}
+		return result;
 	}
+
 }

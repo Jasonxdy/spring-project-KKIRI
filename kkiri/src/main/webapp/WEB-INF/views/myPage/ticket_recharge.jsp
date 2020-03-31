@@ -64,12 +64,43 @@
                     <input class="rechargeMethod" type="radio" name="recharge-way" value="phone" id="phone"><label for="phone">&nbsp;휴대폰 결제</label>
                   </div>
                 </div>
-                <button type="submit">구매</button>
+                <button id="move-recharge" type="submit">구매</button>
               </form>
 				<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 				<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 				
 				<script>
+				var recharge;
+				var loginMember = ${loginMember}
+				$(function(){
+					$("#move-recharge").on("click",function(){
+				recharge = $("input[name=recharge-amount]:checked").val();
+				var rechargeway = $("input[name=recharge-way]:checked").val();
+				
+						$.ajax({
+							url:"mypage/ticketRecharge",
+							type:"POST",
+							data:{ 
+							"recharge-amount" : recharge,
+							"recharge-way" : rechargeway,
+							"loginMember" : loginMember
+							},
+							success : function(merchant_uid){
+
+								if(merchant_uid != ""){
+									Card(merchant_uid);
+								}else{
+									alert("쿠폰충전중 오류가 발생하여 작업을 취소했습니다.")
+									}
+								},
+							error : function(){
+								alert("ajax 통신 실패");
+							}
+						});
+					});
+				})
+				
+				
 				// 결제 API 추가
 				// buyer_addr : '서울특별시 강남구 삼성동',						    buyer_postcode : '123-456',    $(".recharge-box >input").val()
 				var IMP = window.IMP; // 생략가능
@@ -77,11 +108,11 @@
 					
 				
 				IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-					function Card(){
+					function Card(merchant_uid){
 						IMP.request_pay({
 						    pg : 'inicis', // version 1.1.0부터 지원.
 						    pay_method : 'card',
-						    merchant_uid : 'merchant_' + new Date().getTime(),
+						    merchant_uid : merchant_uid,
 						    name : '주문명:티켓 충전',
 						    amount : 100,
 						    buyer_email : '${loginMember.memberEmail}',
@@ -91,13 +122,18 @@
 						    // m_redirect_url : '../mypage/ticketRecharge'
 						}, function(rsp) {
 						    if ( rsp.success ) {
+						    	
+						    	
+						    	
 						        var msg = '결제가 완료되었습니다.';
 						        msg += '고유ID : ' + rsp.imp_uid;
 						        msg += '상점 거래ID : ' + rsp.merchant_uid;
 						        msg += '결제 금액 : ' + rsp.paid_amount;
 						        msg += '카드 승인번호 : ' + rsp.apply_num;
 						        alert(msg);
-						        return true;
+						        
+						        // url로 값을 보냄
+						        location.href = "../mypage/successRecharge?recharge="+recharge
 						    } else {
 						        var msg = '결제에 실패하였습니다.';
 						        msg += '에러내용 : ' + rsp.error_msg;
@@ -129,14 +165,6 @@
           alert("결제 방식을 선택해주세요!");
           return false;
         }
-        console.log(Card());
-        
-        /*if(Card()){
-        	return true;
-        }else{
-        	return false;
-        }*/
-        
         return false;
       }
       

@@ -283,16 +283,6 @@ public interface EventService {
 	 */
 	public abstract int deleteChat(int chatNo);
 
-	/**  이벤트 수정(서진웅) service
-	 * @param event
-	 * @param image
-	 * @param savePath
-	 * @param thumbnailImg
-	 * @return result
-	 * @throws Exception
-	 */
-	int updateEvent(Event event, Image image, String savePath, MultipartFile thumbnailImg) throws Exception;
-
 	
 	
 	/**
@@ -314,4 +304,12 @@ public interface EventService {
 	 * @return ratingList
 	 */
 	List<Rating> selectRatingListAjax(Integer eventNo, int count, int limit);
+	/** 이벤트 수정용 Service
+	 * @param event
+	 * @param savePath
+	 * @param thumbnailImg
+	 * @return result
+	 * @throws Exception
+	 */
+	int updateEvent(Event event, String savePath, MultipartFile thumbnailImg) throws Exception;
 }

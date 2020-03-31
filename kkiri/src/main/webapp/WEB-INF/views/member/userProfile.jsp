@@ -16,9 +16,9 @@
 		<div class="container my-4 card bg-light">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="row p-1">
+					<div class="row p-1 user-profile-first-wrap">
 						<div class="col-md-3 p-4">
-							<img class="w-100" style="border-radius: 50%;" src="${contextPath }/resources/upProfileImage/${member.memberProfile }" alt="">
+							<img class="profile-img" style="border-radius: 50%;" src="${contextPath }/resources/upProfileImage/${member.memberProfile }" alt="">
 						</div>
 						<div class="col-md-9 p-4">
 							<h1>${member.memberNickname }</h1>
@@ -44,7 +44,7 @@
 								<c:if test='${loginMember.memberNo != member.memberNo }'>
 									<div class="col-md-1 px-0">
 										<div class="btn" onclick="theLove()">
-											<img id="favor" style="width: 100%; height: 100%" src="${contextPath}/resources/img/undoFavor.png">
+											<img id="favor" src="${contextPath}/resources/img/undoFavor.png">
 										</div>
 									</div>
 								</c:if>
@@ -56,7 +56,7 @@
 			</div>
 			<hr class="mx-3">
 			<div class="row p-3">
-				<div class="col-md-2">
+				<div class="col-md-2 event-tab-area">
 					<button class="event-btn-tab btn btn-primary m-1"
 						style="background-color: #00a185; border: none;" onclick="createBtn()">생성한 이벤트</button>
 					<button class="event-btn-tab btn btn-primary m-1"

@@ -486,4 +486,34 @@
 		CHAT_STATUS = 'N'
 		WHERE CHAT_NO = #{chatNo}
 	</update>
+	
+	<update id="updateEvent" parameterType="Event">
+		UPDATE EVENT SET
+		<if test="eventThumbnail != null">
+			EVENT_TITLE = #{eventTitle},
+			EVENT_CONTENT = #{eventContent},
+			EVENT_CATEGORY = #{eventCategory},
+			EVENT_LOCATION = #{eventLocation},
+			EVENT_ADDRESS = #{eventAddress},
+			EVENT_THUMBNAIL = #{eventThumbnail},
+			LATITUDE = #{latitude},
+			LONGITUDE = #{longtitude}
+		</if>
+		<if test="eventThumbnail == null">
+			EVENT_TITLE = #{eventTitle},
+			EVENT_CONTENT = #{eventContent},
+			EVENT_CATEGORY = #{eventCategory},
+			EVENT_LOCATION = #{eventLocation},
+			EVENT_ADDRESS = #{eventAddress},
+			LATITUDE = #{latitude},
+			LONGITUDE = #{longtitude}
+		</if>
+		WHERE EVENT_NO = #{eventNo}
+	</update>
+	
+	<select id="selectThumb" parameterType="_int" resultType="String">
+		SELECT EVENT_THUMBNAIL
+		FROM EVENT
+		WHERE EVENT_NO = #{eventNo} 
+	</select>
 </mapper>

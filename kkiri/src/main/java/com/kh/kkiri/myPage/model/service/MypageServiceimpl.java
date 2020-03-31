@@ -260,7 +260,7 @@ public class MypageServiceimpl implements MypageService{
 	 */
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int ticketRecharge(Payment ticket) throws Exception {
+	public int ticketRecharge(Ticket ticket) throws Exception {
 		int result = 0;
 		// 1. insert 작업
 		
@@ -270,15 +270,31 @@ public class MypageServiceimpl implements MypageService{
 		map.put("memberNo", ticket.getMemberNo());
 		map.put("paymentType", ticket.getPaymentType());
 		map.put("ticket", ticket.getPaymentTicket());
-		
+		map.put("merchantUid", ticket.geteventName());
 		result = paymentDAO.insertPayment(map);
+		
+		/*
 		if(result >0) {
 			// member의 ticket수 업데이트
 			result = memberDAO.ticketRecharge(map);
 			if(result >0) {
 				result = 2;
 			}
-		}
+		}*/
+		
+		return result;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int successRecharge(Member loginMember, Integer recharge) throws Exception{
+		// 1. 티켓 수량 가져오기
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("memberTicket",recharge);
+		result = memberDAO.ticketRecharge(map);
+		
 		return result;
 	}
 	
