@@ -519,7 +519,6 @@ public class EventDAO {
 		return sqlSession.selectList("eventMapper.selectRatingList", eventNo, rbound);
 		
 	}
-		
 	/** 이벤트 수정용 DAO
 	 * @param event
 	 * @return result

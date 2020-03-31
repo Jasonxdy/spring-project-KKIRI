@@ -34,6 +34,7 @@
 			</div>
 			
 			<canvas id="bar-chart" width="800" height="450"></canvas>
+			<canvas id="event-chart" width="800" height="450"></canvas>
 			
 		</div>
 		<!-- content 끝 -->
@@ -42,6 +43,7 @@
 
 
 	<script>
+		var eList = null;
 		function scrollFunction() {
 			if ($(window).scrollTop() >= 200) {
 				$('#button-top').show(0);
@@ -61,13 +63,63 @@
 					}, 600);
 				}
 			});
+			
+			$.ajax({
+        		url : "eventStatistic",
+        		/* data : {}, */
+        		type : "post",
+        		success : function(eList){
+        			this.eList = eList;
+        			console.log(eList);
+        		},
+        		error : function(e){
+        			console.log("ajax 통신 실패");
+        			console.log(e);
+        		}
+        	});
 		});
+		
+		/* for(var i=0; i<eList.length; i++){
+  		  if(i<eList.length){
+  		  eList[i].eventDate + ", "
+  		  } else{
+  			  eList[i].eventDate
+  		  } */
 		
 		// Bar chart
 		new Chart(document.getElementById("bar-chart"), {
 		    type: 'bar',
 		    data: {
-		      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+		      labels: ["a","b","c","d","e"],
+		      datasets: [
+		        {
+		          label: "Population (millions)",
+		          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+		          data: [2478,5267,734,784,433]
+		        }
+		      ]
+		    },
+		    options: {
+		      legend: { display: false },
+		      title: {
+		        display: true,
+		        text: 'Predicted world population (millions) in 2050'
+		      }
+		    }
+		});
+  		  
+  		new Chart(document.getElementById("event-chart"), {
+		    type: 'bar',
+		    data: {
+		      labels: [
+			    	  /* for(var i=0; i<eList.length; i++){
+				  		  if(i<eList.length){
+				  		  eList[i].eventDate + ", "
+				  		  } else{
+				  			  eList[i].eventDate
+				  		  }
+			  		  }  */
+		  		  	],
 		      datasets: [
 		        {
 		          label: "Population (millions)",

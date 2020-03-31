@@ -7,11 +7,7 @@
 <style>
 	/*  제목 말줄임 */
 		.board-title-td{
-		display: inline-block;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-		width: 50px;
+		width: 300px;
 		}
 </style>
 

@@ -203,7 +203,7 @@
 	                
 	                	<c:if test="${p == pInf.currentPage}">
 			                <li>
-			                    <a class="page-link">${p}</a>
+			                    <a class="page-link active">${p}</a>
 			                </li>
 		                </c:if>
 	                	
