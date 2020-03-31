@@ -599,6 +599,9 @@ public class EventServiceImpl implements EventService {
 		int result = 0;
 		
 		if(!thumbnailImg.getOriginalFilename().equals("")) { // 썸네일 변경
+			// 기존 썸네일 사진 삭제
+			String origin = eventDAO.selectThumb(event.getEventNo());
+			
 			// 새로운 사진 이름을 eventTubnail 에 저장
 			String changeFileName = FileRename.rename(thumbnailImg.getOriginalFilename());
 			
@@ -606,12 +609,9 @@ public class EventServiceImpl implements EventService {
 			
 			result = eventDAO.updateEvent(event);
 			
-			if(result >0) {
-				// 기존 썸네일 사진 삭제
-				String origin = eventDAO.selectThumb(event.getEventNo());
+			if(result > 0) {
 				File deleteFile = new File(savePath + "/" + origin);
 				deleteFile.delete();
-				
 				thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
 			}
 		} else { // 썸네일 입력 없음
