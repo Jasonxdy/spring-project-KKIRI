@@ -68,7 +68,12 @@ public class MemberController {
 	public String signIn(Member member, Model model, HttpServletRequest request) {
 
 		String beforeUrl = request.getHeader("referer");
-
+		
+		//String memberId = request.getParameter("memberId");
+		//String memberPwd = request.getParameter("memberPwd");
+		
+		//Member memberck = new Member(memberId,memberPwd);
+		
 		System.out.println("입력 확인 :" + member.getMemberId() + "/ " + member.getMemberPwd());
 
 		try {

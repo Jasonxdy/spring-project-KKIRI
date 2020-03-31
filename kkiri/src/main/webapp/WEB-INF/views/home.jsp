@@ -48,13 +48,6 @@
 
 
                 
-                <!-- 이벤트 상세페이지 들어가기 Test용 start-->
-                <h5>
-                	<a href="${pageContext.servletContext.contextPath}/event/detail">
-                		이벤트 상세페이지 들어가기 테스트용입니다 (삭제 예정)
-                	</a>
-                </h5>
-                <!-- 이벤트 상세페이지 들어가기 Test용 start-->
 			
 			
 			

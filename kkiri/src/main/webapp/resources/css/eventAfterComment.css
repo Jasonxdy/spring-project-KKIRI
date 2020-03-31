@@ -73,6 +73,14 @@ html body .event-participate-btn{
     text-align: center;
 }
 
+#denied-event-participate {
+	background-color: #dc3545;
+    border-radius: .25rem;
+    color: white !important;
+    min-width: 95px;
+    text-align: center;
+}
+
 /* 후기 작성 처음에 안보이게 하기 */
 #comment-div{ 
 	display : none;

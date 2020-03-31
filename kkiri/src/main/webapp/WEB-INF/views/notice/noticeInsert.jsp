@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  
+  <div id="wrapper">
   <jsp:include page="../common/header.jsp"/>
   
     <!-- content 시작 -->
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-  
+  </div>
 
 
   <!-- content 끝 -->

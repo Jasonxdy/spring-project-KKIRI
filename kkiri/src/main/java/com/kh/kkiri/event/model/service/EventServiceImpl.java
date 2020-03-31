@@ -1,6 +1,7 @@
 package com.kh.kkiri.event.model.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,8 +157,22 @@ public class EventServiceImpl implements EventService {
 		
 		int result = 0;
 		
-		// 1. 이벤트 참여 구성원 가져오기
+		// 1. 이벤트 참여 구성원 가져오기 (참여자, 대기자)
 		List<Party> partyList = eventDAO.selectFinalPartyList(event.getEventNo());
+		
+		// 실제 참여자 list
+		List<Party> finalPartyList = new ArrayList<Party>();
+		
+		// 대기자 list
+		List<Party> waitPartyList = new ArrayList<Party>();
+		
+		for (Party party : partyList) {
+			if(party.getPermission().equals("Y")) { // 마지막 참여자인 경우
+				finalPartyList.add(party);
+			} else {
+				waitPartyList.add(party);
+			}
+		}
 		
 		if(!partyList.isEmpty() && partyList !=null) {
 			
@@ -165,7 +180,7 @@ public class EventServiceImpl implements EventService {
 			
 			// 주최자 티켓 증가
 			// 티켓 수 추가 (참가자 수 - 1 (주최자 자신이므로)) * 이벤트 티켓 장수
-			event.setEventTicket((partyList.size()-1) * eventOriginTicket);
+			event.setEventTicket((finalPartyList.size()-1) * eventOriginTicket);
 			result = eventDAO.increaseTicket(event);
 			
 			if(result>0) {
@@ -175,7 +190,7 @@ public class EventServiceImpl implements EventService {
 				if(result > 0) {
 					event.setEventTicket(-eventOriginTicket); // 원래 이벤트 티켓 수로 돌림
 					// 3. 참가자 결제내역 추가
-					for (Party party : partyList) {
+					for (Party party : finalPartyList) {
 						if(party.getMemberType().equals("P")) { // 참가자인 경우에만 추가
 							event.setMemberNo(party.getMemberNo()); // 참가자 아이디 설정
 							result = 0; // 재활용용 result
@@ -186,6 +201,19 @@ public class EventServiceImpl implements EventService {
 							}
 						}
 					}
+					
+					// 4. 대기자 티켓 환불
+					for (Party party : waitPartyList) { 
+						event.setMemberNo(party.getMemberNo()); // 대기자 아이디 설정 
+						event.setEventTicket(eventOriginTicket); // 원래 티켓수로 돌림
+						result = 0;
+						result = eventDAO.increaseTicket(event);
+						if(result == 0) {
+							throw new Exception(); // rollback 유도
+						}
+					}
+					
+					// 전체 완료된 경우 -> eventConfirm
 					if(result > 0) {
 						result = eventDAO.updateEventConfirm(event.getEventNo());
 					}
@@ -506,6 +534,18 @@ public class EventServiceImpl implements EventService {
 		}
 		
 		return result;
+	}
+	
+	
+	/**
+	 * 로그인 회원 티켓 수 조회
+	 * @param memberNo
+	 * @return result
+	 * @throws Exception
+	 */
+	@Override
+	public int getMemberTicket(int memberNo) throws Exception {
+		return eventDAO.getMemberTicket(memberNo);
 	}
 
 	

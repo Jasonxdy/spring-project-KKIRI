@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<div id="wrapper">
 <jsp:include page="../common/header.jsp"/>
   
  <!--  <div id="wrapper">
@@ -206,6 +207,7 @@
         </div>
       </div>
     </div>
+   </div>
     <!-- 회원가입 관련 스크립트 -->
     <script>
       $(function() {
