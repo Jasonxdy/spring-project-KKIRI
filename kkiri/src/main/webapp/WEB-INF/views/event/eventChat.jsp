@@ -197,7 +197,6 @@
 				data : {"eventNo" : eventNo},
 				dataType : "json",
 				success : function(chatList){
-					console.log(chatList);
 					
 					for(var i in chatList){
 						var str = chatList[i].chatContent.split(',');
