@@ -57,24 +57,4 @@ public interface ProfileService {
 	 */
 	public abstract int checkFavorite(Favorite favorite) throws Exception;
 
-
-	/** 채팅 저장용 Service
-	 * @param chat
-	 * @return
-	 */
-	public abstract int insertChat(Chat chat);
-
-	
-	/** 채팅 출력용 Service
-	 * @param eventNo
-	 * @return chatList
-	 */
-	public abstract List<Chat> selectChat(int eventNo);
-	
-	/** 채팅 삭제용 Service
-	 * @param chatNo
-	 * @return result
-	 */
-	public abstract int deleteChat(int chatNo);
-	
 }

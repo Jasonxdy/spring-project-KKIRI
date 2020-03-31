@@ -113,7 +113,9 @@
 		function sendMessage() {
 			var date = new Date();
 			var now = moment(date).format('YYYYMMDDHHmmssdddd');
-			var chatContent = "${loginMember.memberProfile}," + "${loginMember.memberNickname}," + $("#message").val() + "," + now ;
+			var content = $("#message").val();
+			content = content.replace("\n","<br>");
+			var chatContent = "${loginMember.memberProfile}," + "${loginMember.memberNickname}," + content + "," + now ;
 			
 			$.ajax({
 				url : "insertChat",

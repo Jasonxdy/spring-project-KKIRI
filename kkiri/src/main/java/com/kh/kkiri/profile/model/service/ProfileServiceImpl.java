@@ -83,40 +83,4 @@ public class ProfileServiceImpl implements ProfileService {
 		return profileDAO.checkFavorite(favorite);
 	}
 
-	/** 채팅 저장용 Service
-	 * @param chat
-	 * @return
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int insertChat(Chat chat) {
-		int chatNo = profileDAO.selectChatNo();
-		
-		chat.setChatNo(chatNo);
-		
-		chat.setChatContent(chat.getChatContent()+","+chatNo);
-		
-		profileDAO.insertChat(chat);
-		
-		return chatNo;
-	}
-
-	/** 채팅 출력용 Service
-	 * @param eventNo
-	 * @return chatList
-	 */
-	@Override
-	public List<Chat> selectChat(int eventNo) {
-		return profileDAO.selectChat(eventNo);
-	}
-	
-	/** 채팅 삭제용 Service
-	 * @param chatNo
-	 * @return result
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int deleteChat(int chatNo) {
-		return profileDAO.deleteChat(chatNo);
-	}
 }
