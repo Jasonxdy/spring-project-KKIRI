@@ -123,7 +123,7 @@
 											<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
 												<%-- <c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
 												${mPlace[0]} ${mPlace[1]} --%>
-												loginMember.memberPlace
+												${loginMember.memberPlace}
 												</a>
 												
 											</c:if>
