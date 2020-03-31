@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<div id="wrapper">
   <jsp:include page="../common/header.jsp"/>
   
     <!-- content 시작 -->

@@ -24,9 +24,16 @@ public class Member {
 	private double memberRating;
 
 	public Member() {
-		// TODO Auto-generated constructor stub
+		
+	}
+	
+	public Member(String memberId, String memberPwd) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
 	}
 
+	
 	public Member(int memberNo, String memberId, String memberNickname, String memberPwd, String memberEmail,
 			String memberGender, String memberPhone, Date memberBirth, String memberIntroduce, String memberPlace,
 			String memberCategory, String memberProfile, Date memberSignupDate, String memberGrade, int memberTicket,

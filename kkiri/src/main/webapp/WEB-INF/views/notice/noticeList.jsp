@@ -20,6 +20,7 @@
   <title>공지사항</title>
 </head>
 <body>
+<div id="wrapper">
   <jsp:include page="../common/header.jsp"/>
     <!-- content 시작 -->
     <div id="container" class="container">
@@ -228,7 +229,7 @@
       <!-- 페이징 바 끝 -->
     </div>
   </div>
-
+</div>
 
   <!-- content 끝 -->
   
