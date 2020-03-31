@@ -124,6 +124,9 @@
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
+    	  $(".step1, .step2").hide(0); // 이거 지우기
+    	  $(".step3").show(0);  // 이거 지우기2
+    	  
     	  // Enter키 비활성화
     	  $("input").keydown(function() {
     		  if (event.keyCode === 13) {
@@ -134,6 +137,16 @@
     	  /* 이벤트 종료 시간이 이벤트 시작 시간보다 무조건 느리게 작성해야하는 스크립트 */
     	  $("#eventEnd, #eventStart").on({
     		  change : function(){
+    			  var current = new Date();
+    			  var year = current.getFullYear();
+  				  var month = current.getMonth()+1;
+  				  if(month<10){
+  					  month = "0"+month;
+  				  }
+    			  var date = current.getDate();
+    			  var hour = current.getHours();
+    			  var minutes = current.getMinutes();
+    			  var currentTime = year+month+date+hour+minutes;
     			  
     			  var eventStart = $("#eventStart").val();
 	   			  eventStart = eventStart.replace(/\-/g,'');
@@ -144,12 +157,27 @@
 		   		  eventEnd = eventEnd.replace(/\-/g,'');
 		   	      eventEnd = eventEnd.replace(/\T/g,'');
 		   		  eventEnd = eventEnd.replace(/\:/g,'');
-				
+				  
+		   		  console.log("시작" + eventStart);
+		   		  console.log("종료" + eventEnd);
+		   		  console.log("현재시각" + currentTime);
+		   		  
+		   		  
     			  if($("#eventEnd").val()!="" && $("#eventStart").val()!=""){
     		   		  if(eventStart > eventEnd){
     		   			alert("이벤트 종료 시간은 시작 시간보다 이후이어야 합니다!");
     		   			$("#eventEnd").val("");
     		   		  }
+    			  }else if($("#eventStart").val()!=""){
+    				  if(eventStart<currentTime){
+    					  alert("현재 시간보다 이후로 이벤트 시작 시간을 설정해주세요!");
+        				  $("#eventStart").val("");
+    				  }
+    			  }else if($("#eventEnd").val()!=""){
+    				  if(eventEnd<currentTime){
+    					  alert("현재 시간보다 이후로 이벤트 종료 시간을 설정해주세요!");
+        				  $("#eventEnd").val("");
+    				  }
     			  }
     		  }
     	  });
