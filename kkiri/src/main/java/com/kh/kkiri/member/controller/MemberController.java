@@ -599,13 +599,13 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("emailConfirm")
-	public String emailConfirm(HttpSession session, String email) {
+	public String emailConfirm(String email) {
 		StringBuffer sb = new StringBuffer();
 		for(int i=0 ; i<6 ; i++) {
 			sb.append((int)(Math.random()*10));
 		}
 		String confirmNo = sb.toString();
-		session.setAttribute("confirmNo", confirmNo);
+		System.out.println("controller인증번호: "+confirmNo);
 		boolean result = sendEmail.send(email, "회원님", "KKIRI 이메일 인증", "인증번호: "+confirmNo);
 		
 		if(result) return confirmNo;

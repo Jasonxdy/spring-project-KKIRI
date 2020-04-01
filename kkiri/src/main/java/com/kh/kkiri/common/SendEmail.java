@@ -17,6 +17,7 @@ public class SendEmail {
 	public boolean send(String receiveAddress, String receiveName, String sendTitle,
 					String sendContent) {
 		try {
+			System.out.println("sendEmail인증번호: " + sendContent);
             // (1) Setting..
             Properties property = new Properties();
             property.put("mail.smtp.host", "smtp.gmail.com");

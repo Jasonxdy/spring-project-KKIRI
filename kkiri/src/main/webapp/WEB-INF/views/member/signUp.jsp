@@ -13,31 +13,6 @@
 <body>
 <div id="wrapper">
 <jsp:include page="../common/header.jsp"/>
-  
- <!--  <div id="wrapper">
-    <div id="header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="logo"><a href="#"><img src="img/logo.png" alt="로고"></a></h1>
-            <div class="nav-section">
-              <a href="#" class="login-btn">로그인</a>
-              <a href="signUp.html">회원가입</a>
-              <span class="separation"> | </span>
-              <a href="#">고객센터</a>
-              <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                  </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     
     </script>
     <div id="container">
@@ -160,22 +135,27 @@
                       <div>
                             <span id="checkPhone">&nbsp;</span>
                         </div>
-                      
-                      <label for="memberEmail"><strong class='require'>필수</strong>&nbsp;이메일</label>
-                      <input type="email" name="memberEmail" id="memberEmail"><br>
-                      <div>
-                            <span id="checkEmail">&nbsp;</span>
-                      </div>
-                       
-                      <div class="container text-center" id="loading">
-						<img style="height: 3rem;" src="${contextPath}/resources/img/loading.gif">
+                        
+                      <div class="container text-center" id="loading" style="height: 9rem;">
+						<img style="height: 9rem;" src="${contextPath}/resources/img/loading.gif">
 					  </div>
-                      <div id="ECD">
+					  
+                      <div id="ECD" style="height: 9rem;">
+                      
+	                      <label for="memberEmail"><strong class='require'>필수</strong>&nbsp;이메일</label>
+	                      <input type="email" name="memberEmail" id="memberEmail"><br>
+	                      <div>
+	                            <span id="checkEmail">&nbsp;</span>
+	                      </div>
+                       
+                      
 	                      <label for=""><strong class='require'>필수</strong>&nbsp;이메일 인증</label>
-	                      <button id="emailConfirmBtn" class="btn btn-outline-dark mb-1" type="button">인증번호 받기</button>
+	                      <div style="display:inline-block; width:16%;">
+	                      	<button id="emailConfirmBtn" class="btn btn-outline-dark mb-1" type="button">인증번호 받기</button>
+	                      </div>
 	                      <input id="emailConfirmInput" type="text" style="width:11%;" placeholder="인증번호">
-	                      <%-- <input id="emailConfirmNo" type="text" style="display:none;" value="${confirmNo}"> --%>
 	                      <div id="emailConfirmSpan" style="display:inline-block; width:25%"></div>
+	                      
                       </div>
                       <script>
                       	
@@ -276,7 +256,7 @@
     		  
     		  "memberPhone":false,
     		  "memberEmail":false, //중복 검사, 입력확인
-    		  "memberEmailConfirm":false, //중복 검사, 입력확인
+    		  "memberEmailConfirm":false, //이메일 인증
     		  "memberBirth":false, //입력 확인
     		  "memberGender":false //입력 확인 
     	  };
@@ -456,27 +436,35 @@
 							data: {memberEmail: $memberEmail.val() },
 							type : "post",
 							success : function(result){
-								
 								if(result == "true"){
 									$("#checkEmail").text("이메일 사용가능").css("color", "#00a185" );
-									createIdCheck.memberEmailUnique = true;
+									createIdCheck.memberEmail = true;
+									$("#emailConfirmBtn").removeClass("btn-outline-dark")
+									.addClass("btn-outline-primary").removeAttr("disabled");
 								}else{
 									$("#checkEmail").text("이미 등록된 이메일").css("color", "#c82333" );
-									createIdCheck.memberEmailUnique = false;
+									createIdCheck.memberEmail = false;
+									$("#emailConfirmBtn").removeClass("btn-outline-primary")
+										.addClass("btn-outline-dark").prop("disabled", "true");
 								}
 							},
 							error: function(e){
 								console.log("ajax 통신 실패");
 	                			console.log(e);
 							}
-							
 						}); // ajax 끝
 						createIdCheck.memberEmailUnique = true;
-						if(createIdCheck.memberEmailUnique && createIdCheck.memberEmail){
+						/* if(createIdCheck.memberEmailUnique && createIdCheck.memberEmail){
 							$("#emailConfirmBtn").removeClass("btn-outline-dark").addClass("btn-outline-primary");
-						}
+						} */
 					}
-					
+					if(createIdCheck.memberEmail){
+						$("#emailConfirmBtn").removeClass("btn-outline-dark")
+							.addClass("btn-outline-primary").removeAttr("disabled");
+					} else {
+						$("#emailConfirmBtn").removeClass("btn-outline-primary")
+							.addClass("btn-outline-dark").prop("disabled", "true");
+					}
 				});
 				
 				// 이메일 인증
@@ -491,8 +479,10 @@
 							type : "post",
 							success : function(result){
 								if(result != "false"){
-									alert("인증번호가 "+ email + "로 발송되었습니다.");
 									emailConfirmNo = result;
+									console.log(emailConfirmNo);
+									$memberEmail.prop("readonly", "true");
+									alert("인증번호가 "+ email + "로 발송되었습니다.");
 								} else alert("인증 메일 발송 실패");
 								$("#loading").hide();
 	                			$("#ECD").show();
