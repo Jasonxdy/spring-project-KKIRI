@@ -343,6 +343,12 @@ public class MypageServiceimpl implements MypageService{
 		
 		return result;
 	}
+
+	@Override
+	public Member loginAgain(int memberNo) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.loginAgain(memberNo);
+	}
 	
 	
 	

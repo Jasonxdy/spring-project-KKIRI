@@ -127,6 +127,8 @@ public interface MypageService {
 
 	List<Event> moveEvent3(int memberNo, PageInfo pInf2)throws Exception;
 
+	Member loginAgain(int memberNo)throws Exception;
+
 	
 	
 }

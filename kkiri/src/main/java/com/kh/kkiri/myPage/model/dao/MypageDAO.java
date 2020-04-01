@@ -134,5 +134,10 @@ public class MypageDAO {
 		
 		return sqlSession.selectList("eventMapper.countEveNo2", memberNo, rbounds);
 	}
+
+	public Member loginAgain(int memberNo) throws Exception{
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.loginAgain", memberNo);
+	}
 	
 }

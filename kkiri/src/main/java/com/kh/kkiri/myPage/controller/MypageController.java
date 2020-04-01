@@ -46,12 +46,25 @@ public class MypageController {
 	public String mypageIn(Model model, HttpSession session, 
 			RedirectAttributes rdAttr) {
 		Member loginMember  = (Member)session.getAttribute("loginMember");
+		
+		// 새로운 로그인 갱신 
+		try {
+			
+		loginMember = mypageService.loginAgain(loginMember.getMemberNo());
+		}catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMsg", "마이페이지 이동중 오류가 발생하였습니다.");
+			return "common/errorPage";
+		}
+		
+		
+		
 		if(loginMember.getMemberCategory().equals("설정해주세요") || 
 				loginMember.getMemberPlace().equals("설정해주세요")) {
 			String msg = "관심 지역과 관심 카테고리를 수정해주세요";
 			session.setAttribute("msg", msg);
 		}
-
+		model.addAttribute("loginMember", loginMember);
 		return "myPage/my_profile";
 	}
 
@@ -214,7 +227,7 @@ public class MypageController {
 	public String ticketLog(Model model, 
 			@RequestParam(value="currentPage" , required = false) Integer currentPage,
 			@RequestParam(value="ticketsort" ,required=false)String ticketSort) {
-
+		Member loginMember  = (Member)model.getAttribute("loginMember");
 		Ticket ticket = new Ticket();
 		int memberNo = ((Member)model.getAttribute("loginMember")).getMemberNo();
 		ticket.setMemberNo(memberNo);
@@ -235,6 +248,9 @@ public class MypageController {
 			List<Ticket> ticketList = mypageService.ticketLog(ticket,Pinf);
 			System.out.println(ticketSort);
 			System.out.println(ticketList);
+			
+			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
+			model.addAttribute("loginMember", loginMember);
 			model.addAttribute("ticketList", ticketList);
 			model.addAttribute("pInf", Pinf);
 			model.addAttribute("ticketSort", ticketSort);
@@ -282,11 +298,8 @@ public class MypageController {
 			
 			// 대기
 			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2);
-			
-			System.out.println("eList1 : "+eList);
-			System.out.println("ejList1 : "+ejList);
-			System.out.println("ejList2 : "+ejList2);
-			
+			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
+			model.addAttribute("loginMember", loginMember);
 			model.addAttribute("ejList2", ejList2);
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
@@ -451,7 +464,8 @@ public class MypageController {
 			PageInfo pInf = Pagination.getPageInfo(9, 10, currentPage, count);
 
 			List<Member> fList = mypageService.moveFavorite(memberNo, pInf);
-
+			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
+			model.addAttribute("loginMember", loginMember);
 			model.addAttribute("pInf", pInf);
 			model.addAttribute("fList", fList);
 		}catch(Exception e) {
