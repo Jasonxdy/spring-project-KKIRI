@@ -62,10 +62,10 @@
 										alt="이미지예시">
 									<p class="picture-title" style="display:none">${image.boardTitle}</p>
 									<c:if test="${fn:length(image.boardTitle) > 10}">
-										<p class="picture-title-short" style="margin-bottom:5px">${fn:substring(image.boardTitle,0,7) }…</p>
+										<p class="picture-title-short" style="margin-bottom:5px; margin-left:5px;">${fn:substring(image.boardTitle,0,7) }…</p>
 									</c:if>
 									<c:if test="${fn:length(image.boardTitle) <= 10}">
-										<p class="picture-title-short" style="margin-bottom:5px">${image.boardTitle}</p>
+										<p class="picture-title-short" style="margin-bottom:5px; margin-left:5px;">${image.boardTitle}</p>
 									</c:if>
 									<p style="margin-bottom:5px">
 										<img class="eventCreater-profile ml-1" 
