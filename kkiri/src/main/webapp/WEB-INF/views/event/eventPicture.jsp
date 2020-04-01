@@ -55,18 +55,23 @@
 							<li>
 								<div class="picture-wrap">
 									<div id="memberNo" style="display:none">${image.memberNo}</div>
-									<p class="member-nickname" style="display:none">${image.memberNickname}</p>
 									<p class="member-profile" style="display:none">${contextPath}/resources/upProfileImage/${image.memberProfile}</p>
+									<p class="member-nickname" style="display:none">${image.memberNickname}</p>
 									<img
 										src="${contextPath}/resources/upEventPicture/${image.imgChangeName}"
 										alt="이미지예시">
 									<p class="picture-title" style="display:none">${image.boardTitle}</p>
 									<c:if test="${fn:length(image.boardTitle) > 10}">
-										<p class="picture-title-short">${fn:substring(image.boardTitle,0,7) }…</p>
+										<p class="picture-title-short" style="margin-bottom:5px">${fn:substring(image.boardTitle,0,7) }…</p>
 									</c:if>
 									<c:if test="${fn:length(image.boardTitle) <= 10}">
-										<p class="picture-title-short">${image.boardTitle}</p>
+										<p class="picture-title-short" style="margin-bottom:5px">${image.boardTitle}</p>
 									</c:if>
+									<p style="margin-bottom:5px">
+										<img class="eventCreater-profile mr-1 ml-1" 
+										src="${contextPath}/resources/upProfileImage/${image.memberProfile}" style="width: 25px; height: 25px;">
+										<span class="text-muted"><font size="3rem">${image.memberNickname}</font></span>
+									</p>
 									<fmt:formatDate var="imageDate" value="${image.boardModifyDt}"
 										pattern="yyyy년 MM월 dd일 HH:mm" />
 									<p class="picture-date">${imageDate}</p>
@@ -193,7 +198,7 @@
 					<!-- 지도 부분 start -->
 					<div id="eventMap" style="height: 250px;"></div>
 					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services,clusterer,drawing"></script>
 					<script>
 						var container = document.getElementById('eventMap');
 						var options = {
