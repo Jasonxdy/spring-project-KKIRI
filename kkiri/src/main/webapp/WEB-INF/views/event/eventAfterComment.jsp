@@ -41,7 +41,7 @@
 				<!-- 후기 작성, 수정, 삭제 -->
 				<%-- <c:if test="${loginMember != null && event.eventNo == myEvent}"> --%>
 				<div id="comment-div">
-					<p class="info-text">후기글은 익명으로 기록됩니다.</p>
+					<p class="info-text text-muted">후기글은 익명으로 기록됩니다.</p>
 
 
 
@@ -51,12 +51,12 @@
 
 
 
-
 					<c:if test="${empty ratingList}">
-						<h5 class="text-muted">
+						<h5 class="text-muted" style="padding-top:60px;">
 							작성된 후기가 없습니다 :P
 							</h5>
 					</c:if>
+
 				<ul class="comment-wrap">
 
 					<c:if test="${!empty ratingList }">
@@ -66,7 +66,7 @@
 							<div class="col-md-4 align-self-center">
 								<p class="star-rating mt-3" style="height: 100%">
 									<img src="${contextPath}/resources/img/star-on.png" alt="별점">
-									<span class="rating-num ml-2"><b><fmt:formatNumber value="${rating.ratingScore}" pattern=".0"/></b></span>
+									<span class="rating-num ml-2"><b><fmt:formatNumber value="${rating.ratingScore}" pattern="0.0"/></b></span>
 								</p>
 							</div>
 							<div class="col-md-8 align-self-center">
