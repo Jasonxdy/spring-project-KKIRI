@@ -12,8 +12,8 @@
 		<result property="answerEnrollDate" column="ANSWER_ENROLL_DT"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
-		
 	</resultMap>
+	
 	<!-- <resultMap type="Ask_A" id="Ask_AResultSet">
 		<id property="askNo" column="ASK_NO"/>
 		<result property="askTitle" column="ASK_TITLE"/>
