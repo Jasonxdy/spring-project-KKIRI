@@ -14,32 +14,6 @@
 <div id="wrapper">
 <jsp:include page="../common/header.jsp"/>
   
- <!--  <div id="wrapper">
-    <div id="header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="logo"><a href="#"><img src="img/logo.png" alt="로고"></a></h1>
-            <div class="nav-section">
-              <a href="#" class="login-btn">로그인</a>
-              <a href="signUp.html">회원가입</a>
-              <span class="separation"> | </span>
-              <a href="#">고객센터</a>
-              <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                      <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                  </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    
-    </script>
     <div id="container">
       <div class="signUp">
         <div class="container">
@@ -621,35 +595,9 @@
     </script>
 
     
-    <div id="button-top">
-      <button type="button" class="top-btn">TOP</button>
-    </div>
 	
 	<jsp:include page="../common/footer.jsp"/>
 	
-    <script>
-      function scrollFunction() {
-        if ($(window).scrollTop() >= 200) {
-          $('#button-top').show(0);
-        } else {
-          $('#button-top').hide(0);
-        }
-      }
-      $(function() {
-        scrollFunction();
-        $(window).scroll(function() {
-          scrollFunction();
-        });
-        $('#button-top').on({
-          click: function() {
-            $('html,body').stop().animate({
-              scrollTop: 0
-            }, 600);
-          }
-        });
-      });
-    </script>
-
 
 	<!-- 다음 지도 API 스크립트 -->
 

@@ -33,11 +33,11 @@
            <form action="updateForm" method="get" class="questionForm">
                 <p class="notice-con-title">제목 : ${notice.noticeTitle}</p>
                 <p class="notice-con-date">
-               		일자 : ${notice.noticeModifyDate}
-               		<span class="notice-con-viewCount">조회수  : ${notice.noticeCount}</span>
+               		작성 일자 : ${notice.noticeModifyDate}
+               		<span class="notice-con-viewCount">조회 수  : ${notice.noticeCount}</span>
           		</p>
           		
-               	<p class="notice-con-content">내용 : ${notice.noticeContent}</p>
+               	<p class="notice-con-content">${notice.noticeContent}</p>
            </form>
            	<div class="notice-btn-wrap">
              <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
