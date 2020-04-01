@@ -178,6 +178,7 @@
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 	
 		<script>
+		
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
@@ -359,6 +360,9 @@
 											"</div>" +
 										"</div>" +
 									"</div>";
+									if(${loginMember.memberId == '117210636366238752919'}){
+										$(".eventBar").prop('css','background:black');
+									}
 						} else{
 											content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
 													"</div>" +
