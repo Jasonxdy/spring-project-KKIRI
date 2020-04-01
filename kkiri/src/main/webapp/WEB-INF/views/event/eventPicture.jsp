@@ -138,7 +138,7 @@
                 	<c:if test="${pInf.currentPage < pInf.maxPage }">
                 	<!-- 다음 페이지로(>) -->
 		                <li>
-							<a class="page-link text-success" 
+							<a class="page-link" 
 		                    	href=" 
 		                    	<c:url value="picture">
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
