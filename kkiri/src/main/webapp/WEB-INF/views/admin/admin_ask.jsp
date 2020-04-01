@@ -385,24 +385,40 @@
 		});
 		
 		// 답장 여부 정렬 기능
-		$(function () {
-		      $("#admin-table th").eq(5).on("click", function () {
-		    	  <c:url var="ask" value="ask">
-	               	<c:param name="ansSort" value="sort"/>
-          			<c:if test="${!empty param.searchKey }">
-	        			<c:param name="searchKey" value="${param.searchKey}"/>
-		        	</c:if>
-		        	<c:if test="${!empty param.searchValue }">
-		        		<c:param name="searchValue" value="${param.searchValue}"/>
-		        	</c:if>
-	               	<c:param name="currentPage" value="${param.currentPage}"/>
-	             </c:url>
-				
-				location.href="${ask}";
-		      }).mouseenter(function () {
-		        $("#admin-table th").eq(5).css("cursor", "pointer");
-		      });
-		    });
+	      $("#admin-table th").eq(5).on("click", function () {
+	    	  <c:url var="ask" value="ask">
+               	<c:param name="ansSort" value="sort"/>
+         			<c:if test="${!empty param.searchKey }">
+        			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+               	<c:param name="currentPage" value="${param.currentPage}"/>
+             </c:url>
+			
+			location.href="${ask}";
+	      }).mouseenter(function () {
+	        $("#admin-table th").eq(5).css("cursor", "pointer");
+	      });
+		
+        <c:if test="${!empty param.ansSort}">
+       	 $("#admin-table th").eq(5).on("click", function () {
+	    	  <c:url var="ask" value="ask">
+       			<c:if test="${!empty param.searchKey }">
+      			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+             	<c:param name="currentPage" value="${param.currentPage}"/>
+           </c:url>
+			
+			location.href="${ask}";
+	      }).mouseenter(function () {
+	        $("#admin-table th").eq(5).css("cursor", "pointer");
+	      });
+		</c:if>
 
 		// 로그인 팝업 이벤트
 		$(".close-popup, .popup-shadow, .popup-confirm-btn").on({

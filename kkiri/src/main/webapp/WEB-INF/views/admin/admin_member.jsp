@@ -358,24 +358,42 @@
 	    });
 		
 		// 회원 관리 정렬 기능
-		$(function () {
-		      $("#admin-table th").eq(8).on("click", function () {
-		    	  <c:url var="member" value="member">
-	               	<c:param name="delSort" value="sort"/>
-            		<c:if test="${!empty param.searchKey }">
-	        			<c:param name="searchKey" value="${param.searchKey}"/>
-		        	</c:if>
-		        	<c:if test="${!empty param.searchValue }">
-		        		<c:param name="searchValue" value="${param.searchValue}"/>
-		        	</c:if>
-	               	<c:param name="currentPage" value="${param.currentPage}"/>
-	             </c:url>
-				
-				location.href="${member}";
-		      }).mouseenter(function () {
-		        $("#admin-table th").eq(8).css("cursor", "pointer");
-		      });
-		    });
+		
+	      $("#admin-table th").eq(8).on("click", function () {
+	    	  <c:url var="member" value="member">
+               	<c:param name="delSort" value="sort"/>
+           		<c:if test="${!empty param.searchKey }">
+        			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+               	<c:param name="currentPage" value="${param.currentPage}"/>
+             </c:url>
+			
+			location.href="${member}";
+	      }).mouseenter(function () {
+	        $("#admin-table th").eq(8).css("cursor", "pointer");
+	      });
+		   
+		
+        <c:if test="${!empty param.delSort}">
+        	$("#admin-table th").eq(8).on("click", function () {
+	    	  <c:url var="member" value="member">
+      		<c:if test="${!empty param.searchKey }">
+      			<c:param name="searchKey" value="${param.searchKey}"/>
+	        	</c:if>
+	        	<c:if test="${!empty param.searchValue }">
+	        		<c:param name="searchValue" value="${param.searchValue}"/>
+	        	</c:if>
+             	<c:param name="currentPage" value="${param.currentPage}"/>
+           </c:url>
+			
+			location.href="${member}";
+	      }).mouseenter(function () {
+	        $("#admin-table th").eq(8).css("cursor", "pointer");
+	      });
+		</c:if>
 		
 		// 팝업 이벤트
 		$(".btn-refund").on({
@@ -456,7 +474,6 @@
 			}
 		})
 		
-		$("")
 	</script>
 </body>
 

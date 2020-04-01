@@ -68,9 +68,9 @@
 										<p class="picture-title-short" style="margin-bottom:5px">${image.boardTitle}</p>
 									</c:if>
 									<p style="margin-bottom:5px">
-										<img class="eventCreater-profile mr-1 ml-1" 
+										<img class="eventCreater-profile ml-1" 
 										src="${contextPath}/resources/upProfileImage/${image.memberProfile}" style="width: 25px; height: 25px;">
-										<span class="text-muted"><font size="3rem">${image.memberNickname}</font></span>
+										<span class="text-muted" style="margin-top:10px"><font size="3rem">${image.memberNickname}</font></span>
 									</p>
 									<fmt:formatDate var="imageDate" value="${image.boardModifyDt}"
 										pattern="yyyy년 MM월 dd일 HH:mm" />
@@ -138,7 +138,7 @@
                 	<c:if test="${pInf.currentPage < pInf.maxPage }">
                 	<!-- 다음 페이지로(>) -->
 		                <li>
-							<a class="page-link text-success" 
+							<a class="page-link" 
 		                    	href=" 
 		                    	<c:url value="picture">
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
