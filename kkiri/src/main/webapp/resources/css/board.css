@@ -1,5 +1,10 @@
+body{
+}
 .nav-tabs{
   width:100%;
+}
+.board-title-td{
+	width: 300px;
 }
 html body .search-btn{
   min-width: 60px;
@@ -25,6 +30,17 @@ p.board-title-td{
   white-space: nowrap;
   display: inline-block;
 }
+.search-content-wrap{    overflow: hidden;}
+.selector-wrap{float: left;}
+#inputGroupSelect04{}
+.input-text-wrap{}
+.inputSection{}
+.find-btn-wrap{}
+.write-btn-wrap {}
+.find-btn-wrap .search-btn{}
+.write-btn-wrap .search-btn{}
+.pagination-wrap{}
+
 @media (max-width: 991px){
   .admin-table-td{
     width: 50px;
