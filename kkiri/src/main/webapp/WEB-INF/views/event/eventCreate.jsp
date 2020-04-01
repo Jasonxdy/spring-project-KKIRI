@@ -132,55 +132,6 @@
     		  };
     		});
     	  
-    	  /* 이벤트 종료 시간이 이벤트 시작 시간보다 무조건 느리게 작성해야하는 스크립트 */
-    	  $("#eventEnd, #eventStart").on({
-    		  change : function(){
-    			  var current = new Date();
-    			  var year = current.getFullYear();
-  				  var month = current.getMonth()+1;
-  				  if(month<10){
-  					  month = "0"+month;
-  				  }
-    			  var date = current.getDate();
-    			  var hour = current.getHours();
-    			  var minutes = current.getMinutes();
-    			  var currentTime = year+month+date+hour+minutes;
-    			  
-    			  var eventStart = $("#eventStart").val();
-	   			  eventStart = eventStart.replace(/\-/g,'');
-	   			  eventStart = eventStart.replace(/\T/g,'');
-	   			  eventStart = eventStart.replace(/\:/g,'');
-	   			  
-	   			  var eventEnd = $("#eventEnd").val();
-		   		  eventEnd = eventEnd.replace(/\-/g,'');
-		   	      eventEnd = eventEnd.replace(/\T/g,'');
-		   		  eventEnd = eventEnd.replace(/\:/g,'');
-				  
-		   		  console.log("시작" + eventStart);
-		   		  console.log("종료" + eventEnd);
-		   		  console.log("현재시각" + currentTime);
-		   		  
-		   		  
-    			  if($("#eventEnd").val()!="" && $("#eventStart").val()!=""){
-    		   		  if(eventStart > eventEnd){
-    		   			alert("이벤트 종료 시간은 시작 시간보다 이후이어야 합니다!");
-    		   			$("#eventEnd").val("");
-    		   		  }
-    			  }else if($("#eventStart").val()!=""){
-    				  if(eventStart<currentTime){
-    					  alert("현재 시간보다 이후로 이벤트 시작 시간을 설정해주세요!");
-        				  $("#eventStart").val("");
-    				  }
-    			  }else if($("#eventEnd").val()!=""){
-    				  if(eventEnd<currentTime){
-    					  alert("현재 시간보다 이후로 이벤트 종료 시간을 설정해주세요!");
-        				  $("#eventEnd").val("");
-    				  }
-    			  }
-    		  }
-    	  });
-    	  
-    	  
         $(".go-step1").on({
           click: function() {
             $(".progress-bar-percent").css({
@@ -224,6 +175,34 @@
       });
       
       function validate(){
+    	  var current = new Date();
+		  var year = current.getFullYear();
+		  var month = current.getMonth()+1;
+		  if(month<10){
+			  month = "0"+month;
+		  }
+		  var date = current.getDate();
+		  if(date<10){
+			  date = "0"+date;
+		  }
+		  var hour = current.getHours();
+		  var minutes = current.getMinutes();
+		  var currentTime = year+month+date+hour+minutes;
+		  
+		  var eventStart = $("#eventStart").val();
+		  eventStart = eventStart.replace(/\-/g,'');
+		  eventStart = eventStart.replace(/\T/g,'');
+		  eventStart = eventStart.replace(/\:/g,'');
+			  
+		  var eventEnd = $("#eventEnd").val();
+   		  eventEnd = eventEnd.replace(/\-/g,'');
+   	      eventEnd = eventEnd.replace(/\T/g,'');
+   		  eventEnd = eventEnd.replace(/\:/g,'');
+		  
+   		  console.log("현재 시각 : " + currentTime);
+   		  console.log("입력한 시작 시간 : " + eventStart);
+   		  console.log("입력한 종료 시간 : " + eventEnd);
+    	  
 		  if($(".uploadInput").val()==""){
     		  alert("이벤트 썸네일 사진을 등록해주세요!");
     		  return false;
@@ -244,6 +223,15 @@
     		  return false;
     	  }else if($("#eventQuota").val().trim()==""){
     		  alert("이벤트 정원 수를 입력해주세요!");
+    		  return false;
+    	  }else if(currentTime>eventStart){
+    		  alert("현재보다 이후로 이벤트 시작 시간을 설정해주세요!");
+    		  return false;
+    	  }else if(currentTime>eventEnd){
+    		  alert("현재보다 이후로 이벤트  종료 시간을 설정해주세요!");
+    		  return false;
+    	  }else if(eventStart>eventEnd){
+    		  alert("이벤트 종료 시간은 시작 시간보다 이후이어야 합니다!");
     		  return false;
     	  }else{
     		  return true;
