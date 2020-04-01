@@ -202,6 +202,7 @@ input::-webkit-inner-spin-button{
 input:focus,
 select:focus,
 textarea:focus,
+#wrapper select:focus,
 .form-control:focus{
   border-color: #00a185;
   box-shadow: 0 0 0 0.2rem rgba(0,161,133,.25);

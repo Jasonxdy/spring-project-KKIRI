@@ -75,7 +75,7 @@
                 	등록된 계좌가 없습니다.
                 </c:if>
                 </p>
-                <input class="refundTicket" type="text" name="refundTicket" placeholder="티켓 수 입력">
+                <input class="refundTicket" type="number" name="refundTicket" placeholder="티켓 수 입력">
                 <p class="refund-status"></p>
 				<input class="refundTicketPWD" type="password" name="memberPassword" placeholder="비밀번호 입력">
                 <button class="refund-submit-btn blue-radius-btn" id="refund-button">환급 신청</button>
@@ -87,6 +87,12 @@
   
     <script>
 
+    $(function(){
+    	if(${loginMember == null}){
+    		location.href="../mypage/main";	
+    	}
+    })
+    
     var ticketCount = ${loginMember.memberTicket};
     
     

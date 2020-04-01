@@ -123,8 +123,8 @@
             <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
             <form class="login-form-wrap custom-checkbox" action="${contextPath }/member/login" method="post">
               <%-- <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="<%=memberId %>"> --%>
-              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="${memberId}">
-              <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요.">
+              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="${memberId}" required>
+              <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
 
               <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" <%= rememberId ? "checked" : "" %>>
               <label class="custom-control-label" for="rememberId">아이디 저장</label>

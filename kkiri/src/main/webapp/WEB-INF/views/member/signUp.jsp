@@ -284,8 +284,8 @@
     		$(document).ready(function(){
     			$("#loading").hide();
     			
-    			//var isFile = $('#isFile').val();
-    			//var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+    			/* var $isFile = $('isFile').val();
+    			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/; */
     			
     			var $memberId = $("#memberId");
     			var $memberIdUnique = $("memberIdUnique");
@@ -323,8 +323,9 @@
 			    	alert("이미지 파일만 업로드 가능");
 			        return false;
 			    	} */
+			    	
 					
-			     /*  isFile.on("input",function(){
+			    /*    $isFile.on("input",function(){
 			    	  if(!isFile.match(fileForm)) {
 					    	alert("이미지 파일만 업로드 가능");
 					    	createIdCheck.isFile = false;
@@ -332,7 +333,7 @@
 					    	createIdCheck.isFile = true;
 					    }
 			      })
-			       */
+			        */
 					 
 			      
 			    
@@ -356,7 +357,7 @@
 							success : function(result){
 								
 								if(result == "true"){
-									$("#checkId").text("아이디 사용가능").css("color", "#0069d9" );
+									$("#checkId").text("아이디 사용가능").css("color", "#00a185" );
 									createIdCheck.memberIdUnique = true;
 								}else{
 									$("#checkId").text("이미 등록된 아이디").css("color", "#c82333" );
@@ -383,7 +384,7 @@
 						$("#checkPwd").text("비밀번호 형식을 확인").css({"color": "#c82333"});
 						createIdCheck.memberPwd = false;
 					}else{
-						$("#checkPwd").text("사용 가능한 비밀번호").css({"color": "#0069d9"});
+						$("#checkPwd").text("사용 가능한 비밀번호").css({"color": "#00a185"});
 						createIdCheck.memberPwd = true;
 					}
 					
@@ -395,7 +396,7 @@
 						$("#checkPwd2").text("비밀번호 불일치").css("color", "#c82333" );
 						createIdCheck.memberPwd2 = false;
 					}else{
-						$("#checkPwd2").text("비밀번호 일치").css("color", "#0069d9" );
+						$("#checkPwd2").text("비밀번호 일치").css("color", "#00a185" );
 						createIdCheck.memberPwd2 = true;
 					}
 					
@@ -404,7 +405,7 @@
 				// 닉네임 ajax
 				$memberNickname.on("input" , function(){
 					
-					var regExp = /^[a-zA-z0-9가-힣\d]{2,16}$/;
+					var regExp = /^[a-zA-z0-9가-힣\d]{2,12}$/;
 					if(!regExp.test($memberNickname.val())){
 						$("#checkNickName").text("2글자 이상 입력").css("color", "#c82333" );
 						
@@ -419,7 +420,7 @@
 							success : function(result){
 								
 								if(result == "true"){
-									$("#checkNickName").text("닉네임 사용가능").css("color", "#0069d9" );
+									$("#checkNickName").text("닉네임 사용가능").css("color", "#00a185" );
 									
 								}else{
 									$("#checkNickName").text("이미 등록된 닉네임").css("color", "#c82333" );
@@ -457,7 +458,7 @@
 							success : function(result){
 								
 								if(result == "true"){
-									$("#checkEmail").text("이메일 사용가능").css("color", "#0069d9" );
+									$("#checkEmail").text("이메일 사용가능").css("color", "#00a185" );
 									createIdCheck.memberEmailUnique = true;
 								}else{
 									$("#checkEmail").text("이미 등록된 이메일").css("color", "#c82333" );
@@ -507,7 +508,7 @@
 				
 				$("#emailConfirmInput").on("input", function(){
 					if($("#emailConfirmInput").val() == emailConfirmNo){
-						$("#emailConfirmSpan").text("인증 번호 일치").css("color", "#0069d9");
+						$("#emailConfirmSpan").text("인증 번호 일치").css("color", "#00a185");
 						createIdCheck.memberEmailConfirm = true;
 					} else {
 						$("#emailConfirmSpan").text("인증 번호 불일치").css("color", "#c82333");
@@ -527,7 +528,7 @@
 						$("#checkPhone").text("유효하지 않는 전화번호").css("color", "#c82333" );
 						createIdCheck.memberPhone = false;
 					}else{
-						$("#checkPhone").text("유효한 전화번호").css("color", "#0069d9" );
+						$("#checkPhone").text("유효한 전화번호").css("color", "#00a185" );
 						createIdCheck.memberPhone = true;
 					}   
 					
@@ -556,6 +557,8 @@
     		}); // ready 함수 끝
     		
       
+    		
+    		
       // 전화번호 자릿수 제한
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
@@ -585,8 +588,20 @@
           reader.readAsDataURL(value.files[0]);
       }
       
-
+      // 이미지 파일
+      /* function validate(){
+    	  var imgFile = $('#isFile').val();
+			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+    	  
+    	  if(imgFile != "" && imgFile != null) {
+      	    if(!imgFile.match(fileForm)) {
+      	    	alert("이미지 파일만 업로드 가능");
+      	        return false;
+      	    } 
+      	 }
+      } */
       
+		
       
       
    // 유효성 검사 validate()	

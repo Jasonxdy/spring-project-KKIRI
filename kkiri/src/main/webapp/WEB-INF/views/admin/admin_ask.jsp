@@ -12,7 +12,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="../common/header.jsp" />
-			<div class="container text-center align-middle" id="loading">
+			<div id="loading">
 				<img src="${contextPath}/resources/img/loading.gif">
 			</div>
 			<!-- content 시작 -->

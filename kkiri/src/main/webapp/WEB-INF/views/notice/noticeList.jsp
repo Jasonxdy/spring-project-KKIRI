@@ -3,14 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html lang="ko">
-
-<style>
-	/*  제목 말줄임 */
-		.board-title-td{
-		width: 300px;
-		}
-</style>
-
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
@@ -67,38 +59,36 @@
       </div>
 
 
-      <div class="row justify-content-md-center">
+      <div class="container justify-content-md-center search-content-wrap">
         <!-- 검색 -->
         
-        <div class="col-md-2 col-sm-3">
+        <div class="selector-wrap">
           <div class="input-group">
           <form action="noticeList" class="text-center" id="searchForm" method="GET" >
             <select name="searchKey" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-              <option selected>구분</option>
-              <option value="title">제목</option>
+              <option value="title" selected>제목</option>
               <option value="content">내용</option>
-              <option value="createDate">작성일</option>
               <option value="title_content">제목+내용</option>
             </select>
           </div>
         </div>
-        <div class="col-md-8 col-sm-5">
+        <div class="input-text-wrap">
           <div class="input-group mb-3">
             <input name="searchValue" type="text" class="form-control inputSection">
           </div>
         </div>
-        <div class="col-md-1 col-sm-2">
+        <div class="find-btn-wrap">
           <div class="input-group-append">
             <button type="submit" class="green-radius-btn search-btn">검색</button>
           </div>
         </div>
        </form>
         
-        <div class="col-md-1 col-sm-2">
+        <div class="write-btn-wrap">
         <%-- 로그인된 계정이 관리자 등급인 경우 --%>
 	        <c:if test="${ !empty loginMember && loginMember.memberGrade == 'A' }">
 	        	<button type="button" class="green-radius-btn search-btn" id="insertBtn" 
-	        		onclick="location.href = 'insertForm';">쓰기</button>
+	        		onclick="location.href = 'insertForm';">글 쓰기</button>
 	        </c:if>
        </div>
         
@@ -154,7 +144,7 @@
             
             	<c:if test="${p == pInf.currentPage}">
               <li>
-                  <a class="page-link">${p}</a>
+                  <a class="page-link active">${p}</a>
               </li>
              </c:if>
             	
@@ -230,9 +220,6 @@
   <!-- content 끝 -->
   
   <jsp:include page="../common/footer.jsp"/>
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
 
 	
 
@@ -281,28 +268,6 @@
 				
 		});
   
-  
-  
-  
-  
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
     </script>
 </body>
 

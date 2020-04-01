@@ -31,6 +31,10 @@
 		<if test="merchantUid != null">
 			,#{merchantUid}
 		</if>
+		<if test="merchantUid == null">
+		,null
+		</if>
+		,DEFAULT
 		)
 	</insert>
 	
@@ -59,8 +63,9 @@
 	</select>
 	<insert id="costTicket" parameterType="Ticket" >
 	INSERT INTO PAYMENT VALUES
-	(PAY_SEQ.NEXTVAL, #{memberNo},null,#{paymentType},#{paymentTicket},SYSDATE)
+	(PAY_SEQ.NEXTVAL, #{memberNo},null,#{paymentType},#{paymentTicket},SYSDATE,DEFAULT)
 	</insert>
+	
 	<delete id="deleteTicket" parameterType="String">
 	DELETE FROM PAYMENT
 	WHERE PAYMENT_UID = #{merchant_uid}

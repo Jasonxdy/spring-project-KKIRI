@@ -37,8 +37,14 @@ public class AskServiceImpl implements AskService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<Member> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception {
-		return askDAO.adminSelectAsk(map, pInf);
+	public List<Ask> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception {
+		List<Ask> aList = askDAO.adminSelectAsk(map, pInf);
+//		for(Ask ask : aList) {
+//			if(ask.getAskContent() != null) {
+//				ask.setAskContent(ask.getAskContent().replace("<br>", "\r\n"));
+//			}
+//		}
+		return aList; 
 	}
 	
 	/** 관리자: 1:1문의 답변 작성 Service
@@ -60,6 +66,7 @@ public class AskServiceImpl implements AskService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int askWrite(Ask ask) throws Exception {
+		ask.setAskContent(ask.getAskContent().replace("\n", "<br>"));
 		return askDAO.askWrite(ask);
 	}
 }
