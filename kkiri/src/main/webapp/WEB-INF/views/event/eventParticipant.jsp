@@ -61,6 +61,7 @@
 					<div class="media border p-3 profile-card go-profile"
 						onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
 						<span style="display: none">${event.memberNo}</span> <img
+							id="creator-profile-img"
 							src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
 							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
 						<div class="media-body ml-3 mt-1">
@@ -213,7 +214,7 @@
 				var memberCard = 
 					"<div class='media border p-3 profile-card' onclick=\"location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'\">" +
 					"<span style='display:none'>" + partyList[i].memberNo + "</span>" +
-				"<img src='${contextPath}/resources/img/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
+				"<img src='${contextPath}/resources/upProfileImage/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
 				"<div class='media-body ml-3 mt-1'>" +
 					"<h4>" + partyList[i].memberNickname + "</h4>" +
 					"<p class='text-muted'>" + partyList[i].memberSignupDate + "가입</p>" +

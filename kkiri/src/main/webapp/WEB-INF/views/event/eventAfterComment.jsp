@@ -79,7 +79,7 @@
 				</div>
 
 
-				<!-- ajax로 목록 출력 test용 -->
+				<!-- ajax로 후기 목록 출력 -->
 				<c:if test="${pInf.listCount > 5}">
 					<div class='row' id='addCommentList'>
 						<div class='col-md-12 text-center mt-3'>
@@ -91,7 +91,6 @@
 						</div>
 					</div>
 				</c:if>
-				<!-- ajax로 목록 출력 test용 end -->
 
 
 
