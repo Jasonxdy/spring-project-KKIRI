@@ -93,6 +93,8 @@
 	<result property="boardContent" column="BOARD_CONTENT"/>
 	<result property="boardModifyDt" column="BOARD_MODIFY_DT"/>
 	<result property="memberNo" column="MEMBER_NO"/>
+	<result property="memberNickname" column="MEMBER_NICKNAME"/>
+	<result property="memberProfile" column="MEMBER_PROFILE"/>
 	</resultMap>
 	
 	<resultMap type="EventMember" id="eventMemberResultSet">

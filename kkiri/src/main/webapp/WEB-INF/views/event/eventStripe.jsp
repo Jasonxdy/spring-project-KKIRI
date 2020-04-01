@@ -655,19 +655,21 @@
 				
 				// 정원 초과 아닌 경우 
 				if(count > 0){
-					var memberNo = $(this).parent().find("div").text();
-					
-					// 승인 ajax 호출
-					permissionAjax(memberNo);
-					// 부모 없앰
-					$(this).parent().css("display", "none");
-					// 생기게 하고
-					$(this).parent().next().css("display","block");
-					
-					count--;
-					
-					$("#left-seat").html(count + "자리 남음");
-					$("#left-seat-modal").html(count);
+					if(confirm("해당 회원을 참가 승인하겠습니까?")){
+						var memberNo = $(this).parent().find("div").text();
+						
+						// 승인 ajax 호출
+						permissionAjax(memberNo);
+						// 부모 없앰
+						$(this).parent().css("display", "none");
+						// 생기게 하고
+						$(this).parent().next().css("display","block");
+						
+						count--;
+						
+						$("#left-seat").html(count + "자리 남음");
+						$("#left-seat-modal").html(count);
+					}
 				} else {
 					alert("정원이 초과되었습니다.");
 				}
@@ -680,15 +682,18 @@
 		// 거절 버튼 클릭
 		$(".do-reject").on({
 			click : function(e) {
-				// 정원 초과 아닌 경우 
-				var memberNo = $(this).parent().find("div").text();
 				
-				// 거절 ajax 호출
-				rejectAjax(memberNo);
-				// 부모 없앰
-				$(this).parent().css("display", "none");
-				// 생기게 하고
-				$(this).parent().next().next().css("display","block");
+				if(confirm("해당 회원을 참가 거절하시겠습니까? \r\n(거절된 회원은 참석 신청이 불가합니다.)")){
+					// 정원 초과 아닌 경우 
+					var memberNo = $(this).parent().find("div").text();
+					
+					// 거절 ajax 호출
+					rejectAjax(memberNo);
+					// 부모 없앰
+					$(this).parent().css("display", "none");
+					// 생기게 하고
+					$(this).parent().next().next().css("display","block");
+				}
 			}
 		});
 		
