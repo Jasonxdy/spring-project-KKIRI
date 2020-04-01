@@ -204,7 +204,9 @@
 
 					$(content).appendTo("#eventArea");
 				}
-			}
+			}, error : function(){
+    			alert("이벤트 리스트 호출 ajax 실패");
+    		}
 		});
 	}
 	
@@ -226,7 +228,9 @@
 				} else{
 					$("#favor").prop("src","${contextPath}/resources/img/undoFavor.png");
 				}
-			}
+			} , error : function(){
+    			alert("즐겨찾기 등록 ajax 실패");
+    		}
 		});
 	}
 	

@@ -124,7 +124,9 @@
 						"chatContent" : chatContent},
 				success : function(result){
 					sock.send(chatContent+","+result);
-				}
+				}, error : function(){
+	    			alert("메세지 전송 ajax 실패");
+	    		}
 			});
 		}
 		
@@ -235,7 +237,9 @@
 						}
 					}
 					$("#messageArea").append(content);
-				}
+				}, error : function(){
+	    			alert("메세지 리스트 호출 ajax 실패");
+	    		}
 			});
 		}
 		
@@ -246,7 +250,9 @@
 				data : {"chatNo" : no},
 				success : function(result){
 					sock.send("delete,"+no);
-				}
+				}, error : function(){
+	    			alert("메세지 삭제 ajax 실패");
+	    		}
 			});
 		}
 	</script>
