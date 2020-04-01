@@ -406,7 +406,7 @@ public class MypageController {
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int result = 0;
 		try{
-			result = mypageService.successRecharge(loginMember,recharge );
+			result = mypageService.successRecharge(loginMember,(recharge/1000));
 			loginMember.setMemberTicket((loginMember.getMemberTicket()+(recharge/1000)));
 			model.addAttribute("loginMember", loginMember);
 		

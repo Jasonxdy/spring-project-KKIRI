@@ -116,7 +116,7 @@
                         <p class="event-title">${eve.eventTitle }</p>
                         <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${eve.eventAddress}</p>
                         <p class="event-explanation">
-                          ${eve.eventContent}
+                          ${eve.eventCategory}
                         </p>
                         <c:if test="${eve.eventEnd < sysdate }">
                         <p class="end-event">종료된 이벤트</p>
@@ -217,7 +217,7 @@
                         <p class="event-title">${ele.eventTitle }</p>
                         <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${ele.eventAddress}</p>
                         <p class="event-explanation">
-                         ${ele.eventContent}
+                         ${ele.eventCategory}
                         </p>
                       </div>
                       <div class="creator-con">
@@ -328,7 +328,7 @@
                         <p class="event-title">${ele2.eventTitle }</p>
                         <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${ele2.eventAddress}</p>
                         <p class="event-explanation">
-                         ${ele2.eventContent}
+                         ${ele2.eventCategory}
                         </p>
                       </div>
                       <div class="creator-con">
