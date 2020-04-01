@@ -188,6 +188,7 @@
 			</div>
 
 		</div>
+		<jsp:include page="../event/eventChat.jsp" />
 	</div>
 
 

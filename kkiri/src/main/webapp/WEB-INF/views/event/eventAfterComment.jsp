@@ -341,7 +341,8 @@
 			</div>
 		</div>
 		<!-- 이벤트 상세 페이지 end -->
-
+		
+		<jsp:include page="../event/eventChat.jsp" />
 	</div>
 
 
