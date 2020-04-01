@@ -471,7 +471,7 @@
 	</if>
 	</select>
 	
-	<select id="countEveNo2" parameterType="_int" resultMap="_int">
+	<select id="countEveNo2" parameterType="_int" resultType="_int">
 	SELECT EVENT_NO 
 	FROM PARTY
 	WHERE MEMBER_NO = #{memberNo}
