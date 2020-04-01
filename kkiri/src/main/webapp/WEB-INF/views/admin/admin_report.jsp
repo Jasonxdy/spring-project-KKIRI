@@ -408,7 +408,7 @@
 		$(".moveEvent").on("click", function(){
 			var eventNo = $(this).parent().parent().children().eq(7).text();
 			console.log(eventNo);
-			location.href = "${contextPath}/event/detail?eventNo=" + eventNo 
+			location.href = "${contextPath}/event/detail?no=" + eventNo 
 		});
 
 		// 로그인 팝업 이벤트
