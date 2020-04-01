@@ -94,8 +94,12 @@ public class MemberController {
 				if(!loginMember.getMemberPwd().equals("")) {
 					model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
 				}else {
+
 				session.setMaxInactiveInterval(300); // 세션 만료 5분
-				String save = request.getParameter("memberId");
+				
+				String save = request.getParameter("rememberId"); // 체크 박스에 저장된 '아이디'
+				
+
 				Cookie cookie = new Cookie("rememberId", memberId);
 					System.out.println("쿠키" + memberId);	
 					
@@ -129,10 +133,11 @@ public class MemberController {
 
 	// 로그 아웃(태균)
 	@RequestMapping("logout")
-	public String logOut(SessionStatus status) {
+	public String logOut(SessionStatus status, HttpServletRequest request) {
 
 		status.setComplete();
-
+		request.getSession().invalidate();
+		
 		return "redirect:/";
 	}
 
@@ -599,13 +604,13 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("emailConfirm")
-	public String emailConfirm(HttpSession session, String email) {
+	public String emailConfirm(String email) {
 		StringBuffer sb = new StringBuffer();
 		for(int i=0 ; i<6 ; i++) {
 			sb.append((int)(Math.random()*10));
 		}
 		String confirmNo = sb.toString();
-		session.setAttribute("confirmNo", confirmNo);
+		System.out.println("controller인증번호: "+confirmNo);
 		boolean result = sendEmail.send(email, "회원님", "KKIRI 이메일 인증", "인증번호: "+confirmNo);
 		
 		if(result) return confirmNo;
