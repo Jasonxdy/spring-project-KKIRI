@@ -575,7 +575,7 @@ public class EventServiceImpl implements EventService {
 		
 		chat.setChatNo(chatNo);
 		
-		chat.setChatContent(chat.getChatContent()+","+chatNo);
+		chat.setChatContent(chat.getChatContent()+"|%$"+chatNo);
 		
 		eventDAO.insertChat(chat);
 		

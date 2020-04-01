@@ -437,11 +437,11 @@
                       $("#popup .popup-picture-imgNo").text($(this).find(".picture-imgNo").text());
                       $("#popup .popup-picture-boardNo").text($(this).find(".picture-boardNo").text());
                       
-                      console.log($(this).find(".picture-content").text());
-                      
                       // 로그인한 사람이 해당 글을 작성한 작성자인 경우 수정, 삭제 버튼 보이기
-                      if($(this).children("div").text() == '${loginMember.memberNo}'){
+                      if($(this).children("div").text() == ${loginMember.memberNo}){
 	                      $(".button-area").css("display", "block");
+                      } else {
+	                      $(".button-area").css("display", "none");
                       }
                       
                       $(".popup-shadow, #popup").show(0);

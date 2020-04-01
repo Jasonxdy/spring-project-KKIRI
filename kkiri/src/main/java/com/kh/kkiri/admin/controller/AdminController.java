@@ -256,7 +256,7 @@ public class AdminController {
 			
 			PageInfo pInf = Pagination.getPageInfo(10, 10, currentPage, askCount);
 			
-			List<Member> aList = askService.adminSelectAsk(map, pInf);
+			List<Ask> aList = askService.adminSelectAsk(map, pInf);
 			
 			model.addAttribute("pInf", pInf);
 			model.addAttribute("aList", aList);

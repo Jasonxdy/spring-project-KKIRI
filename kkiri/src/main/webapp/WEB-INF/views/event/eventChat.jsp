@@ -63,9 +63,11 @@
 					<c:set var="doneLoop" value="false"/>
 					<c:forEach var="eventList" items="${myEventList}" varStatus="vs">
 						<c:if test="${eventList.eventNo == event.eventNo}">
-							<c:set var="doneLoop" value="true"/>
-							selectChat();
-							$(".chatting-wrap").stop().fadeIn(300);
+							<c:if test="${eventList.permission == 'Y'}">
+								<c:set var="doneLoop" value="true"/>
+								selectChat();
+								$(".chatting-wrap").stop().fadeIn(300);
+							</c:if>
 						</c:if>
 						<c:if test="${not doneLoop}">
 							<c:if test="${fn:length(myEventList) == vs.count}">
@@ -115,7 +117,7 @@
 			var now = moment(date).format('YYYYMMDDHHmmssdddd');
 			var content = $("#message").val();
 			content = content.replace("\n","<br>");
-			var chatContent = "${loginMember.memberProfile}," + "${loginMember.memberNickname}," + content + "," + now ;
+			var chatContent = "${loginMember.memberProfile}|%$" + "${loginMember.memberNickname}|%$" + content + "|%$" + now ;
 			
 			$.ajax({
 				url : "insertChat",
@@ -123,7 +125,7 @@
 				data : {"eventNo" : eventNo,
 						"chatContent" : chatContent},
 				success : function(result){
-					sock.send(chatContent+","+result);
+					sock.send(chatContent+"|%$"+result);
 				}, error : function(){
 	    			alert("메세지 전송 ajax 실패");
 	    		}
@@ -141,10 +143,10 @@
 			var date = null;
 			var chatNo = null;
 			
-			var str = data.split(',');
+			var str = data.split('|%$');
 			
 			if(str[0] === 'delete'){
-				$("#chat"+str[1]).text('삭제된 메세지 입니다.');
+				$("#chat"+str[1]).html('삭제된 메세지 입니다.');
 			} else{
 				thumb = str[0];
 				userId = str[1];
@@ -201,7 +203,7 @@
 				success : function(chatList){
 					
 					for(var i in chatList){
-						var str = chatList[i].chatContent.split(',');
+						var str = chatList[i].chatContent.split('|%$');
 						
 						var thumb = str[0];
 						var userId = str[1];
@@ -249,7 +251,7 @@
 				type : "POST",
 				data : {"chatNo" : no},
 				success : function(result){
-					sock.send("delete,"+no);
+					sock.send("delete|%$"+no);
 				}, error : function(){
 	    			alert("메세지 삭제 ajax 실패");
 	    		}

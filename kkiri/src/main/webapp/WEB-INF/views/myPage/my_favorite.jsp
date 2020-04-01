@@ -136,6 +136,13 @@
       </div>
     </div>  
   <script>
+  
+  $(function(){
+  	if(${loginMember == null}){
+  		location.href="../mypage/main";	
+  	}
+  })
+  
   	$(".card-body").on("mouseenter", function(){
   		$(this).children().eq(2).css("display", "inline"); // X
   		$(this).children().last().children().last().css("display", "inline"); //수정 버튼

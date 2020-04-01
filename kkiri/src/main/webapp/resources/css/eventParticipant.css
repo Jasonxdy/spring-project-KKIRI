@@ -68,6 +68,11 @@
 .profile-card{
     cursor: pointer;
 }
+
+#creator-profile-img{
+	height: 62.33px
+}
+
 .declare-wrap{
     display: none;
 }

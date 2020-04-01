@@ -31,7 +31,7 @@
             });
            });
          </script>
-         <div class="container text-center" id="loading">
+         <div id="loading">
 			<img src="${contextPath}/resources/img/loading.gif">
 		  </div>
           <div class="container" id="container-body">

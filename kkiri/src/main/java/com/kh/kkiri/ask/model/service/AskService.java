@@ -22,7 +22,7 @@ public interface AskService {
 	 * @return aList
 	 * @throws Exception
 	 */
-	List<Member> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception;
+	List<Ask> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception;
 
 	/** 관리자: 1:1문의 답변 작성 Service
 	 * @param ask

@@ -135,6 +135,17 @@
               </table>
 
               <script>
+              $(function(){
+			    	if(${loginMember == null}){
+			    		location.href="../mypage/main";	
+			    	}
+			    })
+              
+              
+              
+              
+              
+              
               // 변수 선언
               var currentPage = ${pInf.currentPage};
               
@@ -191,7 +202,7 @@
                   <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
                   <c:if test="${pg ==pInf.currentPage}">
                     <li>
-                      <a class="page-link">${pg }</a>
+                      <a class="page-link active">${pg }</a>
                     </li>
                   </c:if>
                   <c:if test="${pg!=pInf.currentPage }">

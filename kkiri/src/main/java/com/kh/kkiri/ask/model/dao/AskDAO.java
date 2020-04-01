@@ -24,7 +24,7 @@ public class AskDAO {
 	}
 
 
-	public List<Member> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception {
+	public List<Ask> adminSelectAsk(Map<String, String> map, PageInfo pInf) throws Exception {
 		int offset = (pInf.getCurrentPage() - 1) * pInf.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInf.getLimit());
 		return sqlSession.selectList("askMapper.adminSelectAsk", map, rowBounds);
