@@ -34,7 +34,7 @@
 		<if test="merchantUid == null">
 		,null
 		</if>
-		,DEFAULT
+		
 		)
 	</insert>
 	

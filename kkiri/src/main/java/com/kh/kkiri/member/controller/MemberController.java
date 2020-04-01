@@ -98,10 +98,9 @@ public class MemberController {
 				session.setMaxInactiveInterval(300); // 세션 만료 5분
 				
 				String save = request.getParameter("rememberId"); // 체크 박스에 저장된 '아이디'
-				
-
 				Cookie cookie = new Cookie("rememberId", memberId);
 					System.out.println("쿠키" + memberId);	
+					
 					
 					if(save !=null) {
 						System.out.println("세이브 확인 : "+ save);
@@ -133,10 +132,10 @@ public class MemberController {
 
 	// 로그 아웃(태균)
 	@RequestMapping("logout")
-	public String logOut(SessionStatus status, HttpServletRequest request) {
+	public String logOut(SessionStatus status) {
 
 		status.setComplete();
-		request.getSession().invalidate();
+		
 		
 		return "redirect:/";
 	}
