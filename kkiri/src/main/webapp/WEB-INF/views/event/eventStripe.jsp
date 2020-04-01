@@ -93,8 +93,8 @@
 					data-toggle="dropdown"> ··· </a>
 					<div class="declare-wrap">
 						<a class="declare-btn" href="#">이벤트 신고하기</a>
-						<c:if test="${loginMember.memberNo == event.memberNo || loginMember.memberGrade == 'A' }">
-							<a class="declare-btn updateEvent" onclick="location.href='updateEventGo?no=${event.eventNo}'">이벤트 수정</a>
+						<c:if test="${(loginMember.memberNo == event.memberNo || loginMember.memberGrade == 'A') && (currTime < event.eventStart) }">
+							<a class="updateEvent" href="updateEventGo?no=${event.eventNo}">이벤트 수정</a>
 						</c:if>
 					</div></li>
 			</ul>
