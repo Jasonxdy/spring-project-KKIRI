@@ -98,7 +98,7 @@
 	                              <p class="leader-info">
 	                                		${event.memberNickname}<br>
 	                                <img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">
-	                                <span class="star-rating"><fmt:formatNumber value="${event.memberRating}" pattern="0.00"/></span>
+	                                <span class="star-rating"><fmt:formatNumber value="${event.memberRating}" pattern="0.0"/></span>
 	                              </p>
 	                              <p class="member-count">참석인원 : ${event.partyCount}/${event.eventQuota}</p>
 	                            </div>
@@ -160,7 +160,7 @@
 	                          <p class="rank"></p>
 	                          <img src="${contextPath}/resources/upProfileImage/${ranking.memberProfile}" alt="회원 썸네일">
 	                          <p class="nickname">${ranking.memberNickname}</p>
-	                          <p class="star-rating"><img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; <fmt:formatNumber value="${ranking.memberRating}" pattern="0.00"/></p>
+	                          <p class="star-rating"><img src="${contextPath}/resources/img/star-on.png" alt="별점" class="star-img">&nbsp; <fmt:formatNumber value="${ranking.memberRating}" pattern="0.0"/></p>
 	                        </li>
                         </c:forEach>
                       </c:if>

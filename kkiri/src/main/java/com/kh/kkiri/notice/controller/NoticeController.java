@@ -43,7 +43,7 @@ public class NoticeController {
 			if (searchKey != null && searchValue != null) {
 				map = new HashMap<String, String>();
 				// 맵 생성
-				map.put("searchkey", searchKey);
+				map.put("searchKey", searchKey);
 				map.put("searchValue", searchValue);
 			}
 			

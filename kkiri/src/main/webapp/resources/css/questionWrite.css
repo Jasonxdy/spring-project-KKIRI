@@ -1,6 +1,9 @@
 .nav-tabs{
   width:100%;
 } 
+.ask-title{
+	margin-top:50px;
+}
 .questionWriteSection{
     text-align: center;
     margin-top: 50px;

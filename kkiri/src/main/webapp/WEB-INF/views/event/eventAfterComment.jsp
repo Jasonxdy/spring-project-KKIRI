@@ -52,22 +52,27 @@
 
 
 
-				<ul class="comment-wrap">
 					<c:if test="${empty ratingList}">
-						<h4>
-							작성된 후기가 없습니다.
-							</h3>
+						<h5 class="text-muted">
+							작성된 후기가 없습니다 :P
+							</h5>
 					</c:if>
+				<ul class="comment-wrap">
 
 					<c:if test="${!empty ratingList }">
 						<c:forEach var="rating" items="${ratingList}" varStatus="vs">
-
 							<li>
-								<p class="comment-content">${rating.ratingContent}</p>
-								<p class="star-rating">
+							<div class="row">
+							<div class="col-md-4 align-self-center">
+								<p class="star-rating mt-3" style="height: 100%">
 									<img src="${contextPath}/resources/img/star-on.png" alt="별점">
-									<span class="rating-num">${rating.ratingScore}</span>
+									<span class="rating-num ml-2"><b>${rating.ratingScore}</b></span>
 								</p>
+							</div>
+							<div class="col-md-8 align-self-center">
+								<p class="comment-content mt-3">${rating.ratingContent}</p>
+							</div>
+							</div>
 							</li>
 						</c:forEach>
 					</c:if>
@@ -562,13 +567,22 @@
 				$.each(commentList, function(i){
 				$commentWrap = $(".comment-wrap");
 				var commendCard = 
+					
+					// new version
 					"<li>" +
-						"<p class='comment-content'>" + commentList[i].ratingContent + "</p>" +
-								"<p class='star-rating'>" +
-									"<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" +
-									"<span class='rating-num'>" + commentList[i].ratingScore + "</span>" +
+							"<div class='row'>" +
+							"<div class='col-md-4 align-self-center'>" +
+								"<p class='star-rating mt-3' style='height: 100%'>" +
+									"<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" + 
+									"<span class='rating-num ml-2'><b>" + commentList[i].ratingScore + "</b></span>" +
 								"</p>" +
-							"</li>";
+							"</div>" +
+							"<div class='col-md-8 align-self-center'>" +
+								"<p class='comment-content mt-3'>" + commentList[i].ratingContent + "</p>" +
+							"</div>" +
+							"</div>" +
+							"</li>"; 
+					
 				$commentWrap.append(commendCard);
 				});
 			},

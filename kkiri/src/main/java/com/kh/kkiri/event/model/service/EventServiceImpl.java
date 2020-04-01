@@ -575,7 +575,7 @@ public class EventServiceImpl implements EventService {
 		
 		chat.setChatNo(chatNo);
 		
-		chat.setChatContent(chat.getChatContent()+","+chatNo);
+		chat.setChatContent(chat.getChatContent()+"|%$"+chatNo);
 		
 		eventDAO.insertChat(chat);
 		
@@ -622,6 +622,8 @@ public class EventServiceImpl implements EventService {
 			
 			event.setEventThumbnail(changeFileName);
 			
+			event.setEventContent(event.getEventContent().replace("\r\n","<br>"));
+			
 			result = eventDAO.updateEvent(event);
 			
 			if(result > 0) {
@@ -630,6 +632,7 @@ public class EventServiceImpl implements EventService {
 				thumbnailImg.transferTo(new File(savePath + "/" + changeFileName));
 			}
 		} else { // 썸네일 입력 없음
+			event.setEventContent(event.getEventContent().replace("\r\n","<br>"));
 			result = eventDAO.updateEvent(event);
 		}
 		return result;

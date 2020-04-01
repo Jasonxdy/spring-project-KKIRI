@@ -477,8 +477,6 @@ public class EventController {
 	public String addCommentList(int count, int limit, int eventNo, Model model, RedirectAttributes rdAttr) {
 		List<Rating> ratingList = eventService.selectRatingListAjax(eventNo, count, limit);
 		
-		System.out.println("ratingList : " + ratingList);
-
 		Gson gson = new GsonBuilder().create();
 		return gson.toJson(ratingList);
 	}
@@ -683,7 +681,7 @@ public class EventController {
 			HttpServletRequest request, @RequestParam(value = "image", required = false) MultipartFile image) {
 
 		// 상세조회 화면으로 redirect 하기위함
-//		String detailUrl = request.getHeader("referer");
+		String detailUrl = request.getHeader("referer");
 
 		// 결과값을 받을 result
 		int result = 0;
@@ -711,7 +709,7 @@ public class EventController {
 			rdAttr.addFlashAttribute("msg", msg);
 
 			// 등록 후 상세조회 화면 요청
-			return "redirect:picture";
+			return "redirect:" + detailUrl;
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -26,7 +26,7 @@
 
 			<div class="row justify-content-md-center questionWriteSection">
 				<div class="col-12 rounded-sm">
-					<h2 class="mt-3 mb-3">1:1문의 작성</h2>
+					<h2 class="ask-title">1:1문의 작성</h2>
 					<form action="askWrite" method="post" class="questionForm">
 					<c:if test="${!empty loginMember}">
 						<input type="text" name="askEmail" id="contactEmail" 

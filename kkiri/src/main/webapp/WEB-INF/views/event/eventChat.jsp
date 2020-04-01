@@ -63,9 +63,11 @@
 					<c:set var="doneLoop" value="false"/>
 					<c:forEach var="eventList" items="${myEventList}" varStatus="vs">
 						<c:if test="${eventList.eventNo == event.eventNo}">
-							<c:set var="doneLoop" value="true"/>
-							selectChat();
-							$(".chatting-wrap").stop().fadeIn(300);
+							<c:if test="${eventList.permission == 'Y'}">
+								<c:set var="doneLoop" value="true"/>
+								selectChat();
+								$(".chatting-wrap").stop().fadeIn(300);
+							</c:if>
 						</c:if>
 						<c:if test="${not doneLoop}">
 							<c:if test="${fn:length(myEventList) == vs.count}">
@@ -114,8 +116,8 @@
 			var date = new Date();
 			var now = moment(date).format('YYYYMMDDHHmmssdddd');
 			var content = $("#message").val();
-			content = content.replace("\n","<br>");
-			var chatContent = "${loginMember.memberProfile}," + "${loginMember.memberNickname}," + content + "," + now ;
+			//content = content.replace("\n","<br>");
+			var chatContent = "${loginMember.memberProfile}|%$" + "${loginMember.memberNickname}|%$" + content + "|%$" + now ;
 			
 			$.ajax({
 				url : "insertChat",
@@ -123,7 +125,7 @@
 				data : {"eventNo" : eventNo,
 						"chatContent" : chatContent},
 				success : function(result){
-					sock.send(chatContent+","+result);
+					sock.send(chatContent+"|%$"+result);
 				}, error : function(){
 	    			alert("메세지 전송 ajax 실패");
 	    		}
@@ -141,10 +143,10 @@
 			var date = null;
 			var chatNo = null;
 			
-			var str = data.split(',');
+			var str = data.split('|%$');
 			
 			if(str[0] === 'delete'){
-				$("#chat"+str[1]).text('삭제된 메세지 입니다.');
+				$("#chat"+str[1]).html('삭제된 메세지 입니다.');
 			} else{
 				thumb = str[0];
 				userId = str[1];
@@ -162,8 +164,7 @@
 				if(userId === '${loginMember.memberNickname}'){
 					content += 	"<div class='my-area'>" +
 									"<p class='con' id='chat"+ chatNo +"'>" +
-										comment +
-										"<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" + 
+										/* "<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" + */ 
 									"</p>" +
 									"<p class='con-time'>" + date + "</p>" +
 								"</div>";
@@ -173,13 +174,14 @@
 									"<p class='nickname'>" + userId + "</p>" +
 									"<div class='con-wrap'>" +
 										"<p class='con' id='chat"+ chatNo +"'>" +
-											comment +
 										"</p>" +
 										"<p class='con-time'>" + date + "</p>" +
 									"</div>" +
 								"</div>";
 				}
 				$("#messageArea").append(content);
+				$("#chat"+chatNo).text(comment);
+				$("#chat"+chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>");
 				$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 			}
 		}
@@ -201,7 +203,9 @@
 				success : function(chatList){
 					
 					for(var i in chatList){
-						var str = chatList[i].chatContent.split(',');
+						content = ""; // 임시
+						
+						var str = chatList[i].chatContent.split('|%$');
 						
 						var thumb = str[0];
 						var userId = str[1];
@@ -214,12 +218,11 @@
 							content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
 						}
 						
+						
 						if(userId === '${loginMember.memberNickname}'){
-							
 							content += 	"<div class='my-area'>" +
 											"<p class='con' id='chat"+ chatList[i].chatNo +"'>" +
-											comment +
-											"<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>" + 
+											/* "<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>" + */ 
 											"</p>" +
 											"<p class='con-time'>" + date + "</p>" +
 										"</div>";
@@ -229,14 +232,15 @@
 											"<p class='nickname'>" + userId + "</p>" +
 											"<div class='con-wrap'>" +
 												"<p class='con' id='chat"+ chatList[i].chatNo +"'>" +
-													comment +
 												"</p>" +
 												"<p class='con-time'>" + date + "</p>" +
 											"</div>" +
 										"</div>";
 						}
+						$("#messageArea").append(content);
+						$("#chat"+chatList[i].chatNo).text(comment);
+						$("#chat"+chatList[i].chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>");
 					}
-					$("#messageArea").append(content);
 				}, error : function(){
 	    			alert("메세지 리스트 호출 ajax 실패");
 	    		}
@@ -249,7 +253,7 @@
 				type : "POST",
 				data : {"chatNo" : no},
 				success : function(result){
-					sock.send("delete,"+no);
+					sock.send("delete|%$"+no);
 				}, error : function(){
 	    			alert("메세지 삭제 ajax 실패");
 	    		}

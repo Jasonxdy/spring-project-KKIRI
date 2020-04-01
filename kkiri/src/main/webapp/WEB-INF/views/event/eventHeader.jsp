@@ -43,11 +43,11 @@
 							alt="주최자" class="eventCreater-profile mr-3">
 						<div class="id-rating">
 							<h5>${event.memberNickname}</h5>
-							<p class="star-rating">
+							<p class="star-rating align-self-center">
 							<c:choose>
 								<c:when test="${event.memberRating != 0}">
 									<img src="${contextPath}/resources/img/star-on.png" alt="별점"
-										class="star-img">&nbsp; <fmt:formatNumber value="${event.memberRating}" pattern=".00"/>	
+										class="star-img">&nbsp; <b><fmt:formatNumber value="${event.memberRating}" pattern=".0"/></b>	
 								</c:when>
 								<c:otherwise>
 									<p class="text-muted">

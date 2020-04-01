@@ -57,10 +57,10 @@
 			<hr class="mx-3">
 			<div class="row p-3">
 				<div class="col-md-2 event-tab-area">
-					<button class="event-btn-tab btn btn-primary m-1"
-						style="background-color: #00a185; border: none;" onclick="createBtn()">생성한 이벤트</button>
-					<button class="event-btn-tab btn btn-primary m-1"
-						style="background-color: #00a185; border: none;" onclick="joinBtn()">참여한 이벤트</button>
+					<button id="createBtn" class="event-btn-tab btn m-1"
+						style="background-color: #00a185; border: none; color: white;" onclick="createBtn()">생성한 이벤트</button>
+					<button id="joinBtn" class="event-btn-tab btn m-1"
+						style="color: #00a185; border: 0.5px solid;" onclick="joinBtn()">참여한 이벤트</button>
 				</div>
 				<div class="col-md-10" id="eventArea">
 
@@ -99,7 +99,6 @@
 			dataType : "json",
 			success : function(data){
 				var content ="";
-				console.log(data);
 				
 				if(data.eList == ""){
 					$("#eventArea").empty();
@@ -110,7 +109,6 @@
 					maxPage = data.pInf.maxPage;
 					
 					$.each(data.eList, function(i){
-					
 						// 시작 시간 포맷 변경
 						startDate = data.eList[i].eventStart.substring(0,4) +
 									 "년 " + 
@@ -141,10 +139,10 @@
 													"<div class='p-3'>" +
 														"<div>" +
 															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ data.eList[i].memberProfile +"' alt=''>" +
-															"<div style='display: inline-block;'>" +
+															"<div style='display: inline-block; vertical-align: middle;'>" +
 																"<p class='mb-1'>" + data.eList[i].memberId + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-																"<span>x" + data.eList[i].eventScore + "</span>" +
+																"<span>" + data.eList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +
 														"</div>";
 										if(${nowDate} < data.eList[i].eventEnd){
@@ -235,12 +233,16 @@
 	}
 	
 	function createBtn(){
+		$("#joinBtn").prop('style','color: #00a185; border: 0.5px solid;');
+		$("#createBtn").prop('style','background-color: #00a185; border: none; color: white;');
 		flag = 0;
 		currentPage = 1;
 		eventList();
 	}
 	
 	function joinBtn(){
+		$("#joinBtn").prop('style','background-color: #00a185; border: none; color: white;');
+		$("#createBtn").prop('style','color: #00a185; border: 0.5px solid;');
 		flag = 1;
 		currentPage = 1;
 		eventList();

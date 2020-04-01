@@ -28,7 +28,7 @@
                   <div class="step4 signUp-complete step">
                     <h3 class="signUpTitle">회원가입 성공!</h3>
                     <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
-                    <button type="button" class="green-radius-btn mt-4">메인으로</button>
+                    <button class="green-radius-btn mt-4">메인으로</button>
                   </div>
               </form>
             </div>

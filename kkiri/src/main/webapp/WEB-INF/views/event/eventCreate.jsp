@@ -124,8 +124,6 @@
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
-    	  $(".step1, .step2").hide(0); // 이거 지우기
-    	  $(".step3").show(0);  // 이거 지우기2
     	  
     	  // Enter키 비활성화
     	  $("input").keydown(function() {
@@ -278,7 +276,7 @@
       }
     </script>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services,clusterer,drawing"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
