@@ -78,6 +78,7 @@
               });
             
               // 탭별로 내용 보여지는 이벤트
+              /*
               $(function(){
                 $("#profile-nav-wrap li a").each(function(index){
                   $(this).on({
@@ -91,7 +92,7 @@
                   });
                 });
               });
-              
+              */
               </script>
 			<jsp:useBean id="sysdate" class="java.util.Date"/>
             <div class="my_event_wrapper">
