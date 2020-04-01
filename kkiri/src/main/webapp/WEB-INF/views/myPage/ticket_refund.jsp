@@ -57,7 +57,7 @@
 
               <div class="refund-con-wrap">
                 <p class="title">내가 보유한 티켓</p>      
-                <span class="con">${loginMember.memberTicket }</span>
+                <span class="con">${loginMember.memberTicket } 장</span>
               </div>
 
               <form class="refund-form" action="costTicket" method="POST" onsubmit="return validate();">
