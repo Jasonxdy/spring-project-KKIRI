@@ -11,8 +11,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="../../../WEB-INF/views/common/header.jsp" />
-		<link rel="stylesheet"
-			href="<%=request.getContextPath()%>/resources/css/userProfile.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/userProfile.css">
 		<div class="container my-4 card bg-light">
 			<div class="row">
 				<div class="col-md-12">

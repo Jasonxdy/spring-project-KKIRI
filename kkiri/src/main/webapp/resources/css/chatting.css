@@ -165,3 +165,30 @@
     border: 1px solid #cdd2d8;
     width: 70%;
 }
+.chatting-shadow{
+	
+}
+@media (max-width:991px){
+	.chatting-wrap{
+		width:400px;
+		height:600px;
+	}
+	.chatting-content{
+		height:74%;
+	}
+	.chatting-form .chatting-text-input{
+		width:80%;
+	}
+}
+@media (max-width:575px){
+	.chatting-wrap{
+	    width: 90%;
+	    height: 90%;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	}
+	.chatting-form{
+		margin-top:30px;
+	}
+}

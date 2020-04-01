@@ -180,7 +180,15 @@ input:checked + .slider:before {
     padding: 5px 10px;
     vertical-align: middle;
     font-size: 14px;
-    margin-left: 36px;
+    float: right;
+    margin-right: 10px;
+}
+#wrapper .category-content{
+    display: inline-block;
+    color: #ffffff;
+    background-color: #00a185;
+    padding: 6px 20px;
+    border-radius: .25rem;
 }
 @media (max-width: 1199px) {
  .event-section-title{

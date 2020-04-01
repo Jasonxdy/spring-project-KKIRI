@@ -343,7 +343,7 @@
 													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" + 
 													"<span>" + sList[i].eventAddress + "</span>" +
 													"<p>"+sList[i].eventLocation+"</p>" +
-													"<p class='content'>" + sList[i].eventCategory + "</p>" +
+													"<p class='content category-content'>" + sList[i].eventCategory + "</p>" +
 												"</div>" +
 												"<div class='col-md-3'>" +
 													"<div class='p-3'>" +

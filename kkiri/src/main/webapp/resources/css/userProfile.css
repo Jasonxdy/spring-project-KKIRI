@@ -46,6 +46,15 @@
     height: 210px;
     border: 1px solid #cdd2d8;
 }
+#join{
+    color: #00a185;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    float: right;
+    margin-top: 3.5px;
+    border: 1px solid #00a185;
+    margin-right: 5px;
+}
 #favor{
 	width: 40px;
 }
