@@ -222,9 +222,6 @@
   <!-- content 끝 -->
   
   <jsp:include page="../common/footer.jsp"/>
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
 
 	
 
@@ -273,28 +270,6 @@
 				
 		});
   
-  
-  
-  
-  
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
     </script>
 </body>
 

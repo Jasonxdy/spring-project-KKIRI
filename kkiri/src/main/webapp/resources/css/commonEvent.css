@@ -184,6 +184,6 @@ html #map{
 .eventCreate .eventCreateForm .step4 .sub-title{
     font-size: 25px;
 }
-.step2,.step3,.step4{
+.step3,.step2{
   display: none;
 }

@@ -124,8 +124,6 @@
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
-    	  $(".step1, .step2").hide(0); // 이거 지우기
-    	  $(".step3").show(0);  // 이거 지우기2
     	  
     	  // Enter키 비활성화
     	  $("input").keydown(function() {

@@ -7,6 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <title>KKIRI(끼리)</title>
+  <link rel="stylesheet" href="../resources/css/noticeDetail.css">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
 
       <div class="row justify-content-md-center questionWriteSection">
         <div class="col-12 rounded-sm">
-          <h2 class="mt-3 mb-3">공지사항 작성</h2>
+          <h2 class="mt-3 mb-3 notice-title">공지사항</h2>
            <form action="updateForm" method="get" class="questionForm">
            
              <p>
@@ -69,42 +70,8 @@
     </div>
   </div>
 
+  <jsp:include page="../common/footer.jsp"/>
 
-  <!-- content 끝 -->
-
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
-
-	<jsp:include page="../common/footer.jsp"/>
-
-  <script>
-  
-  $("#deleteBtn").on("click",function(){
-		if(confirm("정말 삭제 하시겠습니까?")) location.href = "delete?no=${param.no}";
-	});
-  
-  
-  
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
-    </script>
 </body>
 
 </html>
