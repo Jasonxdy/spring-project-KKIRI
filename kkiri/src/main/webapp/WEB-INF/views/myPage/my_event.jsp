@@ -194,17 +194,7 @@
                   <!-- 페이징바 종료 -->
                 </div>
 
-				<script>
-				// 해당 페이지 상세 입장하는 스크립트
-                  $(function(){
-                	  $(".move-detail").click(function(){
-                		  console.log(12345)
-                		  var eventNo =  $(this).find(".eveno").val();
-                		  location.href="../event/detail?no="+eventNo;
-                	  })
-                  });
-                  
-                </script>
+				
 
                 <!-- 내가 참여한 이벤트 --> 
                 <div class="event_content participate_event_con my-profile-section" style="
@@ -218,7 +208,7 @@
                     <li class="move-detail">
                     
                       <div class="thumb-wrap">
-                        <img src="../resources/img/${ele.eventThumbnail }" alt="이벤트썸네일">
+                        <img src="../resources/upEventThumbnail/${ele.eventThumbnail }" alt="이벤트썸네일">
                       </div>
                       <div class="sub-con">
                         <p class="event-date">
@@ -238,8 +228,8 @@
                         </p>
                         <c:if test="${ele.eventEnd<sysdate }">
                         <p class="end-event">종료된 이벤트</p>
-                        <input class="eveno" type="number" value="${eve.eventNo}" style="display:none">
                         </c:if>
+                        <input class="eveno" type="number" value="${ele.eventNo}" style="display:none">
                       </div>  
                     </li>
                     </c:forEach>
@@ -329,7 +319,7 @@
                     <li class="move-detail">
                     
                       <div class="thumb-wrap">
-                        <img src="../resources/img/${ele2.eventThumbnail }" alt="이벤트썸네일">
+                        <img src="../resources/upEventThumbnail/${ele2.eventThumbnail }" alt="이벤트썸네일">
                       </div>
                       <div class="sub-con">
                         <p class="event-date">
@@ -349,8 +339,8 @@
                         </p>
                         <c:if test="${ele2.eventEnd<sysdate }">
                         <p class="end-event">종료된 이벤트</p>
-                        <input class="eveno" type="number" value="${eve2.eventNo}" style="display:none">
                         </c:if>
+                        <input class="eveno" type="number" value="${ele2.eventNo}" style="display:none">
                       </div>  
                     </li>
                     </c:forEach>
@@ -360,7 +350,7 @@
                   <div class="row justify-content-center pagination-wrap">
                 <div>
                   <ul class="pagination">
-                  <c:if test="${pInf3.currentPage >1 }">
+                  <c:if test="${pInf2.currentPage >1 }">
                   
                     <li>
                       <a class="page-link " href="
@@ -379,31 +369,31 @@
                   ">&lt;</a>
                     </li>
                   </c:if>
-                  <c:forEach var ="pg" begin="${pInf3.startPage }" end="${pInf3.endPage }">
-                  <c:if test="${pg ==pInf3.currentPage}">
+                  <c:forEach var ="pg2" begin="${pInf2.startPage }" end="${pInf2.endPage }">
+                  <c:if test="${pg2 ==pInf2.currentPage}">
                     <li>
-                      <a class="page-link active">${pg }</a>
+                      <a class="page-link active">${pg2 }</a>
                     </li>
                   </c:if>
-                  <c:if test="${pg!=pInf3.currentPage }">
+                  <c:if test="${pg2!=pInf2.currentPage }">
                     <li>
                       <a class="page-link" href="
                       <c:url value="moveEvent">
-                      <c:param name="currentPage" value="${pg}" />
+                      <c:param name="currentPage" value="${pg2}" />
                       <c:param name="flag" value="3"/>
                       </c:url>
-                      ">${pg }</a>
+                      ">${pg2 }</a>
                     </li>
                   </c:if>
                   </c:forEach>
                     
                     <!-- 다음 페이지로(>) -->
                     
-                    <c:if test="${pInf3.currentPage<pInf3.maxPage }">
+                    <c:if test="${pInf2.currentPage<pInf2.maxPage }">
                     <li>
                       <a class="page-link " href="
                       <c:url value="moveEvent">
-                      <c:param name="currentPage" value="${pInf3.currentPage+1}"/>
+                      <c:param name="currentPage" value="${pInf2.currentPage+1}"/>
                       <c:param name="flag" value="3"/>
                       </c:url>
                       ">&gt;</a>
@@ -414,7 +404,7 @@
                     <li>
                       <a class="page-link " href="
                       <c:url value="moveEvent">
-                      <c:param name="currentPage" value="${pInf3.maxPage}"/>
+                      <c:param name="currentPage" value="${pInf2.maxPage}"/>
                       <c:param name="flag" value="3"/>
                       </c:url>
                       ">&gt;&gt;</a>
@@ -431,23 +421,17 @@
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                <script>
+				// 해당 페이지 상세 입장하는 스크립트
+                  $(function(){
+                	  $(".move-detail").click(function(){
+                		  console.log(12345)
+                		  var eventNo =  $(this).find(".eveno").val();
+                		  location.href="../event/detail?no="+eventNo;
+                	  })
+                  });
+                  
+                </script>
             </div>
         </div>
       </div>

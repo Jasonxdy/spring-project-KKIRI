@@ -409,6 +409,7 @@ public class MypageController {
 			result = mypageService.successRecharge(loginMember,recharge );
 			loginMember.setMemberTicket((loginMember.getMemberTicket()+(recharge/1000)));
 			model.addAttribute("loginMember", loginMember);
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "티켓충전 중 에러가 발생했습니다. 관리자에게 문의하시기 바랍니다.");
