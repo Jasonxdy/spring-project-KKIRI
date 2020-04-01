@@ -248,9 +248,7 @@ public class MypageController {
 	@RequestMapping("moveEvent")
 	public String moveEvent(Model model,
 			@RequestParam(value="currentPage" , required = false) Integer currentPage,
-			@RequestParam(value="currentPage2" , required = false) Integer currentPage2,
 			@RequestParam(value="flag" , required = false) Integer flag
-
 			) {
 
 		Member loginMember = (Member)model.getAttribute("loginMember");
@@ -259,9 +257,7 @@ public class MypageController {
 		if(currentPage == null) {
 			currentPage = 1;
 		}
-		if(currentPage2 == null) {
-			currentPage2 = 1;
-		}
+		
 		if(flag == null) {
 			flag = 1;
 		}
@@ -270,17 +266,28 @@ public class MypageController {
 		System.out.println("cp"+currentPage);
 		try {
 			int listCount = mypageService.listEventCount(memberNo);
-			int listCount2 = mypageService.listEventCount2(memberNo);
+			int listCount2 = mypageService.listEventCount2(memberNo,flag);
+				
+			
 			System.out.println("listCount 1 : "+listCount);
 			System.out.println("listCount 2 : "+listCount2);
 			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
 			System.out.println(pInf);
-			PageInfo pInf2 = Pagination2.getPageInfo(3, 5, currentPage2, listCount2);
+			PageInfo pInf2 = Pagination2.getPageInfo(3, 5, currentPage, listCount2);
+			
 			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
 			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf2);
-
+			
+			// 대기
+			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2);
+			
+			System.out.println("eList1 : "+eList);
+			System.out.println("ejList1 : "+ejList);
+			System.out.println("ejList2 : "+ejList2);
+			
+			model.addAttribute("ejList2", ejList2);
 			model.addAttribute("eList", eList);
 			model.addAttribute("ejList", ejList);
 			model.addAttribute("pInf", pInf);

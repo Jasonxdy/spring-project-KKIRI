@@ -13,8 +13,7 @@
 <body>
 <div id="wrapper">
 <jsp:include page="../common/header.jsp"/>
-    
-    </script>
+  
     <div id="container">
       <div class="signUp">
         <div class="container">
@@ -611,35 +610,9 @@
     </script>
 
     
-    <div id="button-top">
-      <button type="button" class="top-btn">TOP</button>
-    </div>
 	
 	<jsp:include page="../common/footer.jsp"/>
 	
-    <script>
-      function scrollFunction() {
-        if ($(window).scrollTop() >= 200) {
-          $('#button-top').show(0);
-        } else {
-          $('#button-top').hide(0);
-        }
-      }
-      $(function() {
-        scrollFunction();
-        $(window).scroll(function() {
-          scrollFunction();
-        });
-        $('#button-top').on({
-          click: function() {
-            $('html,body').stop().animate({
-              scrollTop: 0
-            }, 600);
-          }
-        });
-      });
-    </script>
-
 
 	<!-- 다음 지도 API 스크립트 -->
 

@@ -104,8 +104,8 @@
             }else if($(this).val()<10){
               $(".refund-status").text("환급은 10장 이상부터 가능합니다.").css({"color":"red"});
             }else {
-              refundMoney = parseInt($(this).val()*0.9*1000);
-              $(".refund-status").text("총 "+refundMoney+"원 환급됩니다.").css({"color":"green"});
+             var refundMoney = $(this).val()*0.9*1000 ;
+              $(".refund-status").text("총 "+(refundMoney.toLocaleString())+"원 환급됩니다.").css({"color":"green"});
             }
           }
         });

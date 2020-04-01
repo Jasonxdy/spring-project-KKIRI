@@ -52,22 +52,27 @@
 
 
 
-				<ul class="comment-wrap">
 					<c:if test="${empty ratingList}">
-						<h4>
-							작성된 후기가 없습니다.
-							</h3>
+						<h5 class="text-muted">
+							작성된 후기가 없습니다 :P
+							</h5>
 					</c:if>
+				<ul class="comment-wrap">
 
 					<c:if test="${!empty ratingList }">
 						<c:forEach var="rating" items="${ratingList}" varStatus="vs">
-
 							<li>
-								<p class="comment-content">${rating.ratingContent}</p>
-								<p class="star-rating">
+							<div class="row">
+							<div class="col-md-4 align-self-center">
+								<p class="star-rating mt-3" style="height: 100%">
 									<img src="${contextPath}/resources/img/star-on.png" alt="별점">
-									<span class="rating-num">${rating.ratingScore}</span>
+									<span class="rating-num ml-2"><b><fmt:formatNumber value="${rating.ratingScore}" pattern=".0"/></b></span>
 								</p>
+							</div>
+							<div class="col-md-8 align-self-center">
+								<p class="comment-content mt-3">${rating.ratingContent}</p>
+							</div>
+							</div>
 							</li>
 						</c:forEach>
 					</c:if>
@@ -243,7 +248,7 @@
 					<!-- 지도 부분 start -->
 					<div id="eventMap" style="height: 250px;"></div>
 					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services,clusterer,drawing"></script>
 					<script>
 						var container = document.getElementById('eventMap');
 						var options = {
@@ -370,7 +375,7 @@
 	                    "<p class='content'>" + '${myRating.ratingContent}' + "</p>" +
 	                    "<p class='star-rating'>" + 
 	                        "<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" +
-	                        "<span class='rating-num'> "+ ${myRating.ratingScore} + "</span>" +
+	                        "<span class='rating-num'>&nbsp;&nbsp;<b><fmt:formatNumber value='${myRating.ratingScore}' pattern='0.0'/></b></span>" +
 	                    "</p>" +
 	                "</div>" +
 	                
@@ -562,13 +567,22 @@
 				$.each(commentList, function(i){
 				$commentWrap = $(".comment-wrap");
 				var commendCard = 
+					
+					// new version
 					"<li>" +
-						"<p class='comment-content'>" + commentList[i].ratingContent + "</p>" +
-								"<p class='star-rating'>" +
-									"<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" +
-									"<span class='rating-num'>" + commentList[i].ratingScore + "</span>" +
+							"<div class='row'>" +
+							"<div class='col-md-4 align-self-center'>" +
+								"<p class='star-rating mt-3' style='height: 100%'>" +
+									"<img src='${contextPath}/resources/img/star-on.png' alt='별점'>" + 
+									"<span class='rating-num ml-2'><b>" + commentList[i].ratingScore.toFixed(1) + "</b></span>" +
 								"</p>" +
-							"</li>";
+							"</div>" +
+							"<div class='col-md-8 align-self-center'>" +
+								"<p class='comment-content mt-3'>" + commentList[i].ratingContent + "</p>" +
+							"</div>" +
+							"</div>" +
+							"</li>"; 
+					
 				$commentWrap.append(commendCard);
 				});
 			},

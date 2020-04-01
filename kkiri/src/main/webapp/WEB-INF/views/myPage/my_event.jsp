@@ -55,10 +55,28 @@
                  
                  " tabindex="-1">내가 참여한 이벤트</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link
+                <c:if test="${flag == 3}">
+                active 
+                </c:if>
+                 move-btn" href="
+                  <c:url value="moveEvent">
+                <c:param name="flag" value="3"/>
+                </c:url>
+                 
+                 " tabindex="-1">참여 대기중인 이벤트</a>
+              </li>
             </ul>
             
 
             <script>
+            $(function(){
+              	if(${loginMember == null}){
+              		location.href="../mypage/main";	
+              	}
+              });
+            
               // 탭별로 내용 보여지는 이벤트
               $(function(){
                 $("#profile-nav-wrap li a").each(function(index){
@@ -79,7 +97,7 @@
             <div class="my_event_wrapper">
               <!-- 내가 만든 이벤트 -->
                 <div class="event_content create_event_con my-profile-section" style="
-                <c:if test="${ flag ==2}">
+                <c:if test="${ flag !=1}">
 				display:none                
                 </c:if>
                 ">
@@ -184,13 +202,13 @@
                 		  var eventNo =  $(this).find(".eveno").val();
                 		  location.href="../event/detail?no="+eventNo;
                 	  })
-                  })
+                  });
                   
                 </script>
 
                 <!-- 내가 참여한 이벤트 --> 
                 <div class="event_content participate_event_con my-profile-section" style="
-                <c:if test="${ flag ==1}">
+                <c:if test="${ flag !=2}">
 				display:none                
                 </c:if>
                 ">
@@ -231,7 +249,7 @@
                   <div class="row justify-content-center pagination-wrap">
                 <div>
                   <ul class="pagination">
-                  <c:if test="${pInf.currentPage >1 }">
+                  <c:if test="${pInf2.currentPage >1 }">
                   
                     <li>
                       <a class="page-link " href="
@@ -298,6 +316,138 @@
                   
                   <!-- 페이징바 종료 -->
                 </div>
+                
+				<!-- 3번째 창 -->                
+                <div class="event_content participate_event_con my-profile-section" style="
+                <c:if test="${ flag !=3}">
+				display:none                
+                </c:if>
+                ">
+                  <h4>내가 참가 대기중인 이벤트</h4>
+                  <ul>
+                  <c:forEach var="ele2" items="${ejList2}">
+                    <li class="move-detail">
+                    
+                      <div class="thumb-wrap">
+                        <img src="../resources/img/${ele2.eventThumbnail }" alt="이벤트썸네일">
+                      </div>
+                      <div class="sub-con">
+                        <p class="event-date">
+							<fmt:formatDate value="${ele2.eventStart}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+						</p>
+                        <p class="event-title">${ele2.eventTitle }</p>
+                        <p class="event-location"><img src="../resources/img/map-ping.png" alt="지도마커">&nbsp; ${ele2.eventAddress}</p>
+                        <p class="event-explanation">
+                         ${ele2.eventContent}
+                        </p>
+                      </div>
+                      <div class="creator-con">
+                        <img src="../resources/upProfileImage/${ele2.memberProfile }" alt="회원아이콘">
+                        <p class="creator-id">
+                          <span>${ele2.memberNickname }</span>
+                          <img src="../resources/img/star-on.png" alt="별점">&nbsp;${ele2.memberRating }
+                        </p>
+                        <c:if test="${ele2.eventEnd<sysdate }">
+                        <p class="end-event">종료된 이벤트</p>
+                        <input class="eveno" type="number" value="${eve2.eventNo}" style="display:none">
+                        </c:if>
+                      </div>  
+                    </li>
+                    </c:forEach>
+                    
+                  </ul>
+                  <!-- 페이징바 시작 -->
+                  <div class="row justify-content-center pagination-wrap">
+                <div>
+                  <ul class="pagination">
+                  <c:if test="${pInf3.currentPage >1 }">
+                  
+                    <li>
+                      <a class="page-link " href="
+                  <c:url value="moveEvent">
+                  <c:param name="flag" value="3"/>
+                  </c:url>
+                      "
+                      >&lt;&lt;</a>
+                    </li>
+                    <li>
+                      <a class="page-link " href="
+                    
+                    <c:url value="moveEvent">
+                    <c:param name="flag" value="3"/>
+                  	</c:url>
+                  ">&lt;</a>
+                    </li>
+                  </c:if>
+                  <c:forEach var ="pg" begin="${pInf3.startPage }" end="${pInf3.endPage }">
+                  <c:if test="${pg ==pInf3.currentPage}">
+                    <li>
+                      <a class="page-link active">${pg }</a>
+                    </li>
+                  </c:if>
+                  <c:if test="${pg!=pInf3.currentPage }">
+                    <li>
+                      <a class="page-link" href="
+                      <c:url value="moveEvent">
+                      <c:param name="currentPage" value="${pg}" />
+                      <c:param name="flag" value="3"/>
+                      </c:url>
+                      ">${pg }</a>
+                    </li>
+                  </c:if>
+                  </c:forEach>
+                    
+                    <!-- 다음 페이지로(>) -->
+                    
+                    <c:if test="${pInf3.currentPage<pInf3.maxPage }">
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="moveEvent">
+                      <c:param name="currentPage" value="${pInf3.currentPage+1}"/>
+                      <c:param name="flag" value="3"/>
+                      </c:url>
+                      ">&gt;</a>
+                    </li>
+                   
+                    
+                    <!-- 맨 끝으로(>>) -->
+                    <li>
+                      <a class="page-link " href="
+                      <c:url value="moveEvent">
+                      <c:param name="currentPage" value="${pInf3.maxPage}"/>
+                      <c:param name="flag" value="3"/>
+                      </c:url>
+                      ">&gt;&gt;</a>
+                    </li>
+                     </c:if>
+                  </ul>
+                </div>
+              </div>
+                  
+                  
+                  <!-- 페이징바 종료 -->
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </div>
         </div>
       </div>

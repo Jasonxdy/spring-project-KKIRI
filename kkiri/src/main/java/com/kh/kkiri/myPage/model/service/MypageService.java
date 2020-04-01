@@ -77,7 +77,7 @@ public interface MypageService {
 
 	int listEventCount(int memberNo)throws Exception;
 
-	int listEventCount2(int memberNo)throws Exception;
+	int listEventCount2(int memberNo, Integer flag)throws Exception;
 
 
 	/** 즐겨찾기 수 조회
@@ -124,5 +124,9 @@ public interface MypageService {
 	int successRecharge(Member loginMember, Integer recharge)throws Exception;
 
 	int deleteTicket(String merchant_uid)throws Exception;
+
+	List<Event> moveEvent3(int memberNo, PageInfo pInf2)throws Exception;
+
+	
 	
 }

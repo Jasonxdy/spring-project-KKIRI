@@ -93,6 +93,8 @@
 	<result property="boardContent" column="BOARD_CONTENT"/>
 	<result property="boardModifyDt" column="BOARD_MODIFY_DT"/>
 	<result property="memberNo" column="MEMBER_NO"/>
+	<result property="memberNickname" column="MEMBER_NICKNAME"/>
+	<result property="memberProfile" column="MEMBER_PROFILE"/>
 	</resultMap>
 	
 	<resultMap type="EventMember" id="eventMemberResultSet">
@@ -455,15 +457,27 @@
 	FROM V_EVENT
 	WHERE MEMBER_NO = #{memberNo}
 	</select>
-	<select id="listEventCount2" parameterType="_int" resultType="_int">
+	<select id="listEventCount2" parameterType="map" resultType="_int">
 	SELECT COUNT(*)
 	FROM PARTY
 	WHERE MEMBER_NO = #{memberNo}
 	AND MEMBER_TYPE = 'P'
+	<if test="flag == 2">
 	AND PERMISSION = 'Y'
+	</if>
+	<if test="flag == 3">
+	
+	AND PERMISSION != 'Y'
+	</if>
 	</select>
 	
-	
+	<select id="countEveNo2" parameterType="_int" resultType="_int">
+	SELECT EVENT_NO 
+	FROM PARTY
+	WHERE MEMBER_NO = #{memberNo}
+	AND MEMBER_TYPE ='P'
+	AND PERMISSION != 'Y'
+	</select>
 	<insert id="insertChat" parameterType="Chat">
 		INSERT INTO CHAT
 		VALUES(#{chatNo},#{eventNo},#{chatContent},DEFAULT)

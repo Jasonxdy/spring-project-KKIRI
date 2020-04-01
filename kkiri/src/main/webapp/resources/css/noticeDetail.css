@@ -1,1 +1,37 @@
-.notice-title{}
+.notice-title {
+	text-align: center;
+	margin-top: 50px;
+}
+.questionForm{
+	    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    margin-top: 80px;
+}
+.questionForm .notice-con-title{
+	    background-color: #227fbb;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: .25rem .25rem 0 0;
+    margin-bottom: 0;
+}
+.questionForm .notice-con-date{
+	    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+.questionForm .notice-con-viewCount{
+	    float: right;
+}
+.questionForm .notice-con-content{
+	    padding: 50px;
+}
+.notice-btn-wrap{
+	    text-align: end;
+    margin-top: 50px;
+}
+#wrapper .green-radius-btn{
+    margin: 0;
+    padding: 5px 20px;
+    text-align: center;
+}

@@ -55,16 +55,23 @@
 							<li>
 								<div class="picture-wrap">
 									<div id="memberNo" style="display:none">${image.memberNo}</div>
+									<p class="member-profile" style="display:none">${contextPath}/resources/upProfileImage/${image.memberProfile}</p>
+									<p class="member-nickname" style="display:none">${image.memberNickname}</p>
 									<img
 										src="${contextPath}/resources/upEventPicture/${image.imgChangeName}"
 										alt="이미지예시">
 									<p class="picture-title" style="display:none">${image.boardTitle}</p>
 									<c:if test="${fn:length(image.boardTitle) > 10}">
-										<p class="picture-title-short">${fn:substring(image.boardTitle,0,7) }…</p>
+										<p class="picture-title-short" style="margin-bottom:5px">${fn:substring(image.boardTitle,0,7) }…</p>
 									</c:if>
 									<c:if test="${fn:length(image.boardTitle) <= 10}">
-										<p class="picture-title-short">${image.boardTitle}</p>
+										<p class="picture-title-short" style="margin-bottom:5px">${image.boardTitle}</p>
 									</c:if>
+									<p style="margin-bottom:5px">
+										<img class="eventCreater-profile ml-1" 
+										src="${contextPath}/resources/upProfileImage/${image.memberProfile}" style="width: 25px; height: 25px;">
+										<span class="text-muted" style="margin-top:10px"><font size="3rem">${image.memberNickname}</font></span>
+									</p>
 									<fmt:formatDate var="imageDate" value="${image.boardModifyDt}"
 										pattern="yyyy년 MM월 dd일 HH:mm" />
 									<p class="picture-date">${imageDate}</p>
@@ -109,7 +116,7 @@
 		                    	<c:forEach var="p" begin="${pInf.startPage}" end="${pInf.endPage}">
 	                	<c:if test="${p == pInf.currentPage}">
 			                <li>
-			                    <a class="page-link">${p}</a>
+			                    <a class="page-link active">${p}</a>
 			                </li>
 		                </c:if>
 	                	
@@ -131,7 +138,7 @@
                 	<c:if test="${pInf.currentPage < pInf.maxPage }">
                 	<!-- 다음 페이지로(>) -->
 		                <li>
-							<a class="page-link text-success" 
+							<a class="page-link" 
 		                    	href=" 
 		                    	<c:url value="picture">
 		                    		<c:param name="currentPage" value="${pInf.currentPage+1}"/>
@@ -191,7 +198,7 @@
 					<!-- 지도 부분 start -->
 					<div id="eventMap" style="height: 250px;"></div>
 					<script type="text/javascript"
-						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=113a0beb55aa56aa1fd5776ff4bb068c&libraries=services,clusterer,drawing"></script>
+						src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services,clusterer,drawing"></script>
 					<script>
 						var container = document.getElementById('eventMap');
 						var options = {
@@ -296,6 +303,11 @@
 					<p class="popup-picture-imgNo" style="display:none;"></p>
 					<p class="popup-picture-boardNo" style="display:none;"></p>
 					<p class="popup-picture-title"></p>
+					<p class="popup-picture-member">
+						<img src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
+								alt="주최자" class="eventCreater-profile mr-1" style="width: 30px; height:30px;">
+						<span class="popup-picture-memberNickname" style="cursor: pointer;"></span>
+					</p>
 					<p class="popup-picture-date"></p>
 					<p class="popup-picture-content"></p>
 				</div>
@@ -314,7 +326,7 @@
 				사진 업로드 <img src="${contextPath}/resources/img/close-btn.png"
 					alt="닫기버튼" class="close-popup">
 			</p>
-			<form action="insertPicture" method="post" enctype="multipart/form-data" role="form" onsubmit="return uploadValidate();">
+			<form action="insertPicture?no=${event.eventNo}" method="post" enctype="multipart/form-data" role="form" onsubmit="return uploadValidate();">
 				<img class="upload-image-section">
 				<button type="button" class="upload-image-btn green-radius-btn">사진
 					업로드</button>
@@ -437,11 +449,29 @@
                       $("#popup .popup-picture-imgNo").text($(this).find(".picture-imgNo").text());
                       $("#popup .popup-picture-boardNo").text($(this).find(".picture-boardNo").text());
                       
+                      // 작성자 정보 얻어오기
+                      $("#popup .popup-picture-member>img").attr("src",$(this).find(".member-profile").text());
+                      $("#popup .popup-picture-memberNickname").text($(this).find(".member-nickname").text());
+                      
+                      var memNo = $(this).children("div").text();
+                      $("#popup .popup-picture-member>img, #popup .popup-picture-memberNickname").on({
+                    	  click : function(){
+                    		  location.href = '${contextPath}/profile/user?no=' + memNo;
+                    	  }
+                      });
+                      
+                      
                       // 로그인한 사람이 해당 글을 작성한 작성자인 경우 수정, 삭제 버튼 보이기
-                      if($(this).children("div").text() == ${loginMember.memberNo}){
-	                      $(".button-area").css("display", "block");
-                      } else {
-	                      $(".button-area").css("display", "none");
+                      if(${loginMember != null}){
+	                      if($(this).children("div").text() == '${loginMember.memberNo}'){ // 작성자일때
+		                      $(".button-area").css("display", "block");
+	                      } else if ('${loginMember.memberGrade}' == 'A') {
+		                      $(".button-area").css("display", "block");
+		                      $(".button-area .modify-button").css("display", "none")
+	                    	  
+                      	  }	else {
+		                      $(".button-area").css("display", "none");
+	                      }
                       }
                       
                       $(".popup-shadow, #popup").show(0);
@@ -487,6 +517,7 @@
                           return true;
                       }
                   }
+                  
                 </script>
 
 		<jsp:include page="../event/eventChat.jsp" />

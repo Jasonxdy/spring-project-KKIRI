@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  
+  <link rel="stylesheet" href="../resources/css/noticeInsertUpdate.css">
   <title>KKIRI(끼리)</title>
 </head>
 
@@ -31,25 +31,27 @@
 
       <div class="row justify-content-md-center questionWriteSection">
         <div class="col-12 rounded-sm">
-          <h2 class="mt-3 mb-3">공지사항 작성</h2>
+          <h2 class="notice-title">공지사항 수정</h2>
            <form action="update?no=${notice.noticeNo}" method="post" class="questionForm">
-           	
-				&nbsp; &nbsp;
-		      <span class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">작성일</label>
-				<h5 class="my-0" id="today">${notice.noticeModifyDate}</h5>
-			  </span>
+           	  <div class="section">	
+			      <label class="input-group-addon insert-label">작성일</label>
+				  <h5 id="today">${notice.noticeModifyDate}</h5>
+			  </div>
 			  
-              <br>
-              <label for="noticeTitle">제목</label>
-              <input type="text" id="noticeTitle" name="noticeTitle" value="${notice.noticeTitle}">
-              <br>
-              <label for="noticeContent">내용</label>
-              <textarea id="noticeContent" name="noticeContent">${notice.noticeContent}</textarea>
-
-              <button type="submit"  class="green-radius-btn">수정</button>&nbsp;
-              <a href="${header.referer}" class="green-radius-btn">취소</a>
-              <button type="button" class="green-radius-btn">삭제</button>
+              <div class="section">	
+	              <label for="noticeTitle">제목</label>
+	              <input type="text" id="noticeTitle" name="noticeTitle" value="${notice.noticeTitle}">
+               </div>
+               
+              <div class="section">	
+	              <label for="noticeContent">내용</label>
+	              <textarea id="noticeContent" name="noticeContent">${notice.noticeContent}</textarea>
+  			  </div>
+  			  
+  			  <div class="notice-btn-wrap">
+              	<button type="submit"  class="green-radius-btn">수정</button>&nbsp;
+              	<a href="${header.referer}" class="green-radius-btn">취소</a>
+              </div>
            </form>
         </div>
       </div>
@@ -58,33 +60,7 @@
 </div>
 
   <!-- content 끝 -->
-  
   <jsp:include page="../common/footer.jsp"/>
-  
-  <div id="button-top">
-    <button type="button" class="top-btn">TOP</button>
-  </div>
-
-  <script>
-    function scrollFunction() {
-      if ($(window).scrollTop() >= 200) {
-        $('#button-top').show(0);
-      } else {
-        $('#button-top').hide(0);
-      }
-    }
-    $(function () {
-      scrollFunction();
-      $(window).scroll(function () {
-        scrollFunction();
-      });
-      $('#button-top').on({
-        click: function () {
-          $('html,body').stop().animate({ scrollTop: 0 }, 600);
-        }
-      });
-    });
-    </script>
 </body>
 
 </html>
