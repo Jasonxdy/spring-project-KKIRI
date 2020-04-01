@@ -139,5 +139,9 @@ public class MypageDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("memberMapper.loginAgain", memberNo);
 	}
+
+	public Event remakeEvent(Event event) throws Exception{
+		return sqlSession.selectOne("eventMapper.remakeEvent", event);
+	}
 	
 }

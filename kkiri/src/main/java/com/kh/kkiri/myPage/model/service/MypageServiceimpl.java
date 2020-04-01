@@ -150,8 +150,11 @@ public class MypageServiceimpl implements MypageService{
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
 				event.setEventNo(eveNo.get(i));
-				event.setMemberNo(memberNo);
 				Event ev = mypageDAO.moveEvent2(event);
+				// 이벤트 객체 갈아 엎기용 dao
+				event.setMemberNo(memberNo);
+				ev.setPermission(mypageDAO.remakeEvent(event).getPermission()); 
+				
 				ejList.add(ev);
 			}
 		}
@@ -173,8 +176,11 @@ public class MypageServiceimpl implements MypageService{
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
 				event.setEventNo(eveNo.get(i));
-				event.setMemberNo(memberNo);
 				Event ev = mypageDAO.moveEvent2(event);
+				// 이벤트 객체 갈아 엎기용 dao
+				event.setMemberNo(memberNo);
+				ev.setPermission(mypageDAO.remakeEvent(event).getPermission()); 
+				
 				ejList.add(ev);
 			}
 		}

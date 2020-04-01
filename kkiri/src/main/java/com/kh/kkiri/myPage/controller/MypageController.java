@@ -298,6 +298,10 @@ public class MypageController {
 			
 			// 대기
 			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2);
+			
+			
+			
+			
 			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
 			model.addAttribute("loginMember", loginMember);
 			model.addAttribute("ejList2", ejList2);
