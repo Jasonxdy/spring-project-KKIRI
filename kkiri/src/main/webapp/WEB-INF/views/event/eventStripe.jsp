@@ -471,21 +471,17 @@
 			$.ajax({
 				url: "getMemberTicket",
 				type: "POST",
+				async : false,
 				data: {
 					"memberNo": memberNo
 				},
 				success : function(result){
 					var msg = null;
-					switch(result) {
-					case 1 : 
+					
+					if(result >= 0){
 						memberTicket = result;
-						break;
-					case 0 : 
-						msg = "로그인 회원 티켓 수 조회 실패";
-						break;
-					case -1 : 
+					} else {
 						msg = "로그인 회원 티켓 수 조회 과정 중 오류 발생";
-						break;
 					}
 					
 					if(msg != null) {
@@ -500,9 +496,11 @@
 		}
 	
 		
+		
+		
+		
 		// 이벤트 참가 확인 버튼 클릭 시
 		function joinEvent() {
-			console.log("memberTicket : " + memberTicket);
 			joinEventAjax(${loginMember.memberNo});
 			if(memberTicket < ${event.eventTicket}){
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
@@ -648,7 +646,7 @@
 		// 승인 버튼 클릭 시 -> DB 반영 후 결과 맞을 경우 버튼 변경 (승인됨)
 		// 참가자 숫자, 자리 남음, 변경
 		var count = ${event.eventQuota - event.partyCount};
-		
+		console.log("정원 : "  + ${event.eventQuota - event.partyCount});
 		$(".do-permission").on({
 			click : function(e) {
 				

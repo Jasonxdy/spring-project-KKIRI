@@ -116,7 +116,7 @@
 			var date = new Date();
 			var now = moment(date).format('YYYYMMDDHHmmssdddd');
 			var content = $("#message").val();
-			//content = content.replace("\n","<br>");
+			content = content.replace("\n","<br>");
 			var chatContent = "${loginMember.memberProfile}|%$" + "${loginMember.memberNickname}|%$" + content + "|%$" + now ;
 			
 			$.ajax({
@@ -146,7 +146,7 @@
 			var str = data.split('|%$');
 			
 			if(str[0] === 'delete'){
-				$("#chat"+str[1]).html('삭제된 메세지 입니다.');
+				$("#chat"+str[1]).text('삭제된 메세지 입니다.');
 			} else{
 				thumb = str[0];
 				userId = str[1];
@@ -159,29 +159,33 @@
 					content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
 				}
 				
+				var escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;', '<br>' : '<br>' };
+				comment = comment.replace(/<br>|[[&<>"'`=\/]/g, function(s){return escapeMap[s]});
+				
 				date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
-
 				if(userId === '${loginMember.memberNickname}'){
 					content += 	"<div class='my-area'>" +
 									"<p class='con' id='chat"+ chatNo +"'>" +
-										/* "<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" + */ 
+										comment +
+										"<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" +
 									"</p>" +
 									"<p class='con-time'>" + date + "</p>" +
 								"</div>";
 				} else{
-					content += 	"<div id='chat"+ chatNo +"' class='other-member'>" +
+					content += 	"<div class='other-member'>" +
 									"<img class='profile-img' src='${contextPath}/resources/upProfileImage/" + thumb +"' alt='타회원 프로필'>" +
 									"<p class='nickname'>" + userId + "</p>" +
 									"<div class='con-wrap'>" +
 										"<p class='con' id='chat"+ chatNo +"'>" +
+										comment + 
 										"</p>" +
 										"<p class='con-time'>" + date + "</p>" +
 									"</div>" +
 								"</div>";
 				}
 				$("#messageArea").append(content);
-				$("#chat"+chatNo).text(comment);
-				$("#chat"+chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>");
+				//$("#chat"+chatNo).text(comment);
+				//$("#chat"+chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>");
 				$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 			}
 		}
@@ -189,7 +193,6 @@
 		// 서버와 연결을 끊었을 때
 		function onClose(evt) {
 			$("#messageArea").append("연결 끊김");
-
 		}
 		
 		function selectChat(){
@@ -203,7 +206,7 @@
 				success : function(chatList){
 					
 					for(var i in chatList){
-						content = ""; // 임시
+						//content = ""; // 임시
 						
 						var str = chatList[i].chatContent.split('|%$');
 						
@@ -218,11 +221,15 @@
 							content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
 						}
 						
+						var escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;', '<br>' : '<br>' };
+						comment = comment.replace(/<br>|[[&<>"'`=\/]/g, function(s){return escapeMap[s]});
+						
 						
 						if(userId === '${loginMember.memberNickname}'){
 							content += 	"<div class='my-area'>" +
 											"<p class='con' id='chat"+ chatList[i].chatNo +"'>" +
-											/* "<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>" + */ 
+											comment +
+											"<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>" +  
 											"</p>" +
 											"<p class='con-time'>" + date + "</p>" +
 										"</div>";
@@ -232,15 +239,16 @@
 											"<p class='nickname'>" + userId + "</p>" +
 											"<div class='con-wrap'>" +
 												"<p class='con' id='chat"+ chatList[i].chatNo +"'>" +
+												comment +
 												"</p>" +
 												"<p class='con-time'>" + date + "</p>" +
 											"</div>" +
 										"</div>";
 						}
-						$("#messageArea").append(content);
-						$("#chat"+chatList[i].chatNo).text(comment);
-						$("#chat"+chatList[i].chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>");
+						//$("#chat"+chatList[i].chatNo).text(comment);
+						//$("#chat"+chatList[i].chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatList[i].chatNo+")><span class='text-hidden'>글삭제</span></button>");
 					}
+					$("#messageArea").append(content);
 				}, error : function(){
 	    			alert("메세지 리스트 호출 ajax 실패");
 	    		}

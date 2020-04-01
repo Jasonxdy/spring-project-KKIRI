@@ -94,8 +94,12 @@ public class MemberController {
 				if(!loginMember.getMemberPwd().equals("")) {
 					model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
 				}else {
-				session.setMaxInactiveInterval(3000); // 세션 만료 5분
-				String save = request.getParameter("memberId");
+
+				session.setMaxInactiveInterval(300); // 세션 만료 5분
+				
+				String save = request.getParameter("rememberId"); // 체크 박스에 저장된 '아이디'
+				
+
 				Cookie cookie = new Cookie("rememberId", memberId);
 					System.out.println("쿠키" + memberId);	
 					
@@ -129,10 +133,11 @@ public class MemberController {
 
 	// 로그 아웃(태균)
 	@RequestMapping("logout")
-	public String logOut(SessionStatus status) {
+	public String logOut(SessionStatus status, HttpServletRequest request) {
 
 		status.setComplete();
-
+		request.getSession().invalidate();
+		
 		return "redirect:/";
 	}
 

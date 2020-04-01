@@ -2,28 +2,6 @@
     pageEncoding="UTF-8" import="com.kh.kkiri.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
-<%
-	// C6) 쿠키 사용을 위한 변수 생성
-	boolean rememberId = false; //아이디 저장 체크박스 값을 수정하기 위한 변수
-	String memberId = ""; // 쿠키에 저장된 cookieId 라는 키가 가지고 있는 값을 저장할 변수
-	Cookie[] cookies = request.getCookies(); // 전달받은 쿠키 저장
-	
-	// 서버 첫 시작시 request.getCookies()의 값이 null
-	// if 문으로 처리하지 않는 경우, 페이지 로딩시 nullpointerException이 발생됨
-	
-	if(cookies != null){
-		for(Cookie c: cookies){
-			// 쿠키 객체에서 name을 얻어와 그 값이 "saveId"와 같은지 비교
-			// 			== key,속성
-			if(c.getName().equals("memberId") ){
-				memberId = c.getValue();
-				rememberId = true;
-			}
-		}
-	}
-%>
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -123,10 +101,20 @@
             <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
             <form class="login-form-wrap custom-checkbox" action="${contextPath }/member/login" method="post">
               <%-- <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="<%=memberId %>"> --%>
-              <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="${memberId}" required>
-              <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
+             
+              <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요."  
+                <c:if test="${!empty cookie.rememberId.value}">
+              		value="${cookie.rememberId.value}"
+              	</c:if>
+              required>
+              
+              <input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
 
-              <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" <%= rememberId ? "checked" : "" %>>
+              <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" 
+              	<c:if test="${!empty cookie.rememberId.value}">checked</c:if>  
+              >
+              <!-- 쿠키에 저장된 값이 있다면 checked 아니면 ckecked 하지 않음 -->
+              
               <label class="custom-control-label" for="rememberId">아이디 저장</label>
               <a href="${contextPath }/member/findMember" class="link find-info-link">아이디 혹은 비밀번호를 잊으셨나요?</a>
 
@@ -165,6 +153,31 @@
         	location.href = "${naverUrl}";
         })
       </script>
+      
+      
+      
+    <!--   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" >
+  	 // 쿠키 스크립트
+  	$("#memberId").val(Cookies.get('key'));      
+	    if($("#memberId").val() != ""){
+	        $("#rememberId").attr("checked", true);
+	    }
+    
+	$("#rememberId").change(function(){
+	    if($("#rememberId").is(":checked")){
+	        Cookies.set('key', $("#memberId").val(), { expires: 7 });
+	    }else{
+	          Cookies.remove('key');
+	    }
+	});
+	     
+	$("#memberId").keyup(function(){
+	    if($("#rememberId").is(":checked")){
+	        Cookies.set('key', $("#memberId").val(), { expires: 7 });
+	    }
+	});
+
+      </script> -->
     
 	
 </body>
