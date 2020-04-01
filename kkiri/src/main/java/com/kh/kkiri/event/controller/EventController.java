@@ -791,6 +791,7 @@ public class EventController {
 		
 		try {
 			memberTicket = eventService.getMemberTicket(memberNo);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			memberTicket = -1;
