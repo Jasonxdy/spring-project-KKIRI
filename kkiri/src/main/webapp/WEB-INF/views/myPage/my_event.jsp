@@ -208,7 +208,7 @@
 
                 <!-- 내가 참여한 이벤트 --> 
                 <div class="event_content participate_event_con my-profile-section" style="
-                <c:if test="${ flag ==1}">
+                <c:if test="${ flag !=2}">
 				display:none                
                 </c:if>
                 ">
