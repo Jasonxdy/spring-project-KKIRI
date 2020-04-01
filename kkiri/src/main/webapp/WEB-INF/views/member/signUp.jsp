@@ -147,7 +147,8 @@
                       
                       <p><strong class='require'>필수</strong>&nbsp;전화번호</p>
                       <!-- <input type="number" class="memberPhone" name="memberPhone1" id="memberPhone1" maxlength="3" oninput="maxLengthCheck(this)">- -->
-                      		<select class="custom-select" id="memberPhone1" name="memberPhone1" required>
+                      		<select class="custom-select mb-1" id="memberPhone1" name="memberPhone1"
+                      			style="margin:0; padding:5px;" required>
                                 <option>010</option>
                                 <option>011</option>
                                 <option>016</option>
@@ -164,12 +165,18 @@
                       <input type="email" name="memberEmail" id="memberEmail"><br>
                       <div>
                             <span id="checkEmail">&nbsp;</span>
-                        </div>
-                      <label for=""><strong class='require'>필수</strong>&nbsp;이메일 인증</label>
-                      <button id="emailConfirmBtn" class="btn btn-outline-dark mb-1" type="button">인증번호 받기</button>
-                      <input id="emailConfirmInput" type="text" style="width:10%;" placeholder="인증번호">
-                      <%-- <input id="emailConfirmNo" type="text" style="display:none;" value="${confirmNo}"> --%>
-                      <div id="emailConfirmSpan" style="display:inline-block; width:26%"></div>
+                      </div>
+                       
+                      <div class="container text-center" id="loading">
+						<img style="height: 3rem;" src="${contextPath}/resources/img/loading.gif">
+					  </div>
+                      <div id="ECD">
+	                      <label for=""><strong class='require'>필수</strong>&nbsp;이메일 인증</label>
+	                      <button id="emailConfirmBtn" class="btn btn-outline-dark mb-1" type="button">인증번호 받기</button>
+	                      <input id="emailConfirmInput" type="text" style="width:11%;" placeholder="인증번호">
+	                      <%-- <input id="emailConfirmNo" type="text" style="display:none;" value="${confirmNo}"> --%>
+	                      <div id="emailConfirmSpan" style="display:inline-block; width:25%"></div>
+                      </div>
                       <script>
                       	
                       </script>
@@ -199,9 +206,7 @@
                       <button class="go-step4 green-radius-btn mt-4">회원가입</button>
                     </div>
                   </div>
-                  <div class="container text-center" id="loading">
-					<img src="${contextPath}/resources/img/loading.gif">
-				  </div>
+                  
                   <div class="step4 signUp-complete step">
                     <h3 class="signUpTitle">회원가입 성공!</h3>
                     <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
@@ -476,7 +481,7 @@
 				// 이메일 인증
 					//$("#emailConfirmBtn").removeClass("btn-outline-dark").addClass("btn-outline-primary");
 					$("#emailConfirmBtn").on("click", function(){
-						$("#step3").hide();
+						$("#ECD").hide();
 						$("#loading").show();
 						var email = $("#memberEmail").val();
 						$.ajax({
@@ -489,13 +494,13 @@
 									emailConfirmNo = result;
 								} else alert("인증 메일 발송 실패");
 								$("#loading").hide();
-	                			$("#step3").show();
+	                			$("#ECD").show();
 							},
 							error: function(e){
 								console.log("ajax 통신 실패");
 	                			console.log(e);
 	                			$("#loading").hide();
-	                			$("#step3").show();
+	                			$("#ECD").show();
 							}
 						}); // ajax 끝
 					});

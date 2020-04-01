@@ -360,9 +360,6 @@
 											"</div>" +
 										"</div>" +
 									"</div>";
-									if(${loginMember.memberId == '117210636366238752919'}){
-										$(".eventBar").prop('css','background:black');
-									}
 						} else{
 											content += "<p class='already-finish-event float-right' style='margin-top: 5rem;'>종료된 이벤트</p>" +
 													"</div>" +

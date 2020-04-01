@@ -31,3 +31,9 @@
         font-size:27px;
     }
 }
+
+#loading{
+	top: 40%;
+    position: absolute;
+    display:none;
+}

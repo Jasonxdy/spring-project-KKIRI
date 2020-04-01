@@ -78,3 +78,9 @@ filter: alpha(opacity=0);
 -moz-opacity: 0;
 }
 
+#loading{
+	top: 40%;
+    position: absolute;
+    display:none;
+}
+
