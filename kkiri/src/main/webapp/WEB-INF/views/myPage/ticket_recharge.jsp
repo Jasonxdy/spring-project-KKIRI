@@ -86,6 +86,17 @@
 			</div>
 
 			<script>
+			$(function(){
+		    	if(${loginMember == null}){
+		    		location.href="../mypage/main";	
+		    	}
+		    })
+			
+			
+			
+			
+			
+			
 				var recharge;
 				var memberNo = '${loginMember.memberNo}';
 				var memberId = '${loginMember.memberId}';

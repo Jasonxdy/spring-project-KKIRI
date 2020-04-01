@@ -87,6 +87,12 @@
   
     <script>
 
+    $(function(){
+    	if(${loginMember == null}){
+    		location.href="../mypage/main";	
+    	}
+    })
+    
     var ticketCount = ${loginMember.memberTicket};
     
     

@@ -135,6 +135,17 @@
               </table>
 
               <script>
+              $(function(){
+			    	if(${loginMember == null}){
+			    		location.href="../mypage/main";	
+			    	}
+			    })
+              
+              
+              
+              
+              
+              
               // 변수 선언
               var currentPage = ${pInf.currentPage};
               
