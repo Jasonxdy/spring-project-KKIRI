@@ -121,7 +121,7 @@
                   <img src="<%=request.getContextPath() %>/resources/img/search-icon.png" alt="찾기" class="search-icon col-3"
                  		onclick="sample5_execDaumPostcode()" style="width:10%; height:100%;">
                   </div>
-                  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                  	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 					<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440560a29daf4ebdb30cd5fb2b3b4687&libraries=services"></script>
 					<script>
 				    // 로그인이 되어 있지 않으면 메인으로 보냄
