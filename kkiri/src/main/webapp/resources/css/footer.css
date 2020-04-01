@@ -20,9 +20,10 @@
 }
 /* 탑 버튼 */
 #button-top{
-  position: fixed;
-  bottom: 100px;
-  right: 5%;
+     position: fixed;
+    bottom: 100px;
+    right: 5%;
+    z-index: 1030;
 }
 #button-top .top-btn{
   color: #ffffff;

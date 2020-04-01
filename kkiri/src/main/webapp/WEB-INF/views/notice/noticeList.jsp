@@ -100,7 +100,7 @@
           <!-- 맨 처음 -->
           <c:if test="${pInf.currentPage>1 }">
           	<li>
-                 <a class="page-link text-success" 
+                 <a class="page-link " 
                    	href=" 
                    	<c:url value="noticeList">
                    		<c:if test="${!empty param.searchKey }">
@@ -119,7 +119,7 @@
                
                <li>
                	<!-- 이전으로(<) -->
-           			<a class="page-link text-success" 
+           			<a class="page-link " 
                    	href=" 
                    	<c:url value="noticeList">
                    		<c:if test="${!empty param.searchKey }">
@@ -150,7 +150,7 @@
             	
             	<c:if test="${p != pInf.currentPage}">
             		<li>
-                 	<a class="page-link text-success" 
+                 	<a class="page-link " 
                   	href=" 
                   	<c:url value="noticeList">
                   		<c:if test="${!empty param.searchKey }">
@@ -173,7 +173,7 @@
             <!-- 다음 페이지로(>) -->
 			 <c:if test="${pInf.currentPage < pInf.maxPage }">
 	                <li>
-						<a class="page-link text-success" 
+						<a class="page-link " 
 	                    	href=" 
 	                    	<c:url value="noticeList">
 	                    		<c:if test="${!empty param.searchKey }">
@@ -192,7 +192,7 @@
 	                
 	                <!-- 맨 끝으로(>>) -->
 	                <li>
-	                    <a class="page-link text-success" 
+	                    <a class="page-link " 
 	                    	href=" 
 	                    	<c:url value="noticeList">
 	                    		<c:if test="${!empty param.searchKey }">
