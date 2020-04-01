@@ -167,9 +167,14 @@ public class MypageServiceimpl implements MypageService{
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo2(memberNo, pInf2);
 		
+		if(eveNo != null &&!eveNo.isEmpty()) {
+			for(int i = 0; i<eveNo.size();i++) {
+				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
+				ejList.add(ev);
+			}
+		}
 		
-		
-		return null;
+		return ejList;
 	}
 
 	@Override
