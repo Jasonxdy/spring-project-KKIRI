@@ -426,9 +426,6 @@
 				
 			}
 		});
-		
-		
-		
 
 		$(".already-join").on({
 			click : function() {

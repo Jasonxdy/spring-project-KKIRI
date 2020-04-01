@@ -262,6 +262,12 @@ html body .event-afterComment .common-btn{
         height:90px;
     }
 }
+@media (max-width: 991px){
+    .event-participant-profile > img{
+        margin-right:2px;
+        height:60px;
+    }
+}
 @media (max-width: 816px){
     #popup{
         width: 90%;
@@ -270,5 +276,9 @@ html body .event-afterComment .common-btn{
 @media (max-width: 767px){
     .pagination-wrap{
         margin-bottom: 50px;
+    }
+    .event-participant-profile > img{
+        margin-right:2px;
+        height:110px;
     }
 }
