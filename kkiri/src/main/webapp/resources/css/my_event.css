@@ -86,6 +86,34 @@
     bottom: 15px;
     right: 15px;
 }
+.event_content li .loading-event{
+    font-size: 17px;
+    background: #888888;
+    text-align: center;
+    padding: 5px 10px;
+    display: inline-block;
+    color: orange;
+    margin-top: 5px;
+    float: left;
+    border-radius: .25rem;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+.event_content li .reject-event{
+    font-size: 17px;
+    background: #888888;
+    text-align: center;
+    padding: 5px 10px;
+    display: inline-block;
+    color: red;
+    margin-top: 5px;
+    float: left;
+    border-radius: .25rem;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
 .event_content .more-event-btn{
     margin: 0 auto;
     display: block;

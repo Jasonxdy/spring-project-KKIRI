@@ -146,9 +146,12 @@ public class MypageServiceimpl implements MypageService{
 		// 1. 내가 참가한 이벤트들의 eventNo 얻어오기
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo(memberNo,pInf);
+		Event event = new Event();
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
-				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
+				event.setEventNo(eveNo.get(i));
+				event.setMemberNo(memberNo);
+				Event ev = mypageDAO.moveEvent2(event);
 				ejList.add(ev);
 			}
 		}
@@ -166,10 +169,12 @@ public class MypageServiceimpl implements MypageService{
 		
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo2(memberNo, pInf2);
-		
+		Event event = new Event();
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
-				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
+				event.setEventNo(eveNo.get(i));
+				event.setMemberNo(memberNo);
+				Event ev = mypageDAO.moveEvent2(event);
 				ejList.add(ev);
 			}
 		}
