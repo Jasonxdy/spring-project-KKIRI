@@ -134,7 +134,7 @@
                   <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
                   <c:if test="${pg ==pInf.currentPage}">
                     <li>
-                      <a class="page-link">${pg }</a>
+                      <a class="page-link active">${pg }</a>
                     </li>
                   </c:if>
                   <c:if test="${pg!=pInf.currentPage }">
@@ -253,7 +253,7 @@
                   <c:forEach var ="pg" begin="${pInf2.startPage }" end="${pInf2.endPage }">
                   <c:if test="${pg ==pInf2.currentPage}">
                     <li>
-                      <a class="page-link">${pg }</a>
+                      <a class="page-link active">${pg }</a>
                     </li>
                   </c:if>
                   <c:if test="${pg!=pInf2.currentPage }">
@@ -269,7 +269,8 @@
                   </c:forEach>
                     
                     <!-- 다음 페이지로(>) -->
-                    <c:if test="${pInf2.currentPage<pInf.maxPage }">
+                    
+                    <c:if test="${pInf2.currentPage<pInf2.maxPage }">
                     <li>
                       <a class="page-link " href="
                       <c:url value="moveEvent">

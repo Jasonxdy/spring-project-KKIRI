@@ -302,15 +302,14 @@ public class MypageController {
 	}
 
 	@RequestMapping("costTicket")
-	public String costTicket(String refundTicket, Model model,
+	public String costTicket(Integer refundTicket, Model model,
 			RedirectAttributes rdattr,
 			String memberPassword) {
 		Member loginMember = (Member)model.getAttribute("loginMember");
-		int ticketCount = Integer.parseInt(refundTicket);
 		loginMember.setMemberPwd(memberPassword);
 		Ticket ticket = new Ticket();
 		ticket.setMemberNo(loginMember.getMemberNo());
-		ticket.setPaymentTicket(ticketCount);
+		ticket.setPaymentTicket(-refundTicket);
 		ticket.setPaymentType("R");
 		String msg = null;
 
@@ -324,7 +323,7 @@ public class MypageController {
 
 			if(result==-1) {
 				msg="환급신청이 완료 되었습니다.";
-				loginMember.setMemberTicket((loginMember.getMemberTicket()-ticketCount));
+				loginMember.setMemberTicket((loginMember.getMemberTicket()-refundTicket));
 			}
 			else if(result==0) msg="비밀번호가 일치하지 않습니다.";
 			else if (result ==-2) msg="환급 신청작업중 오류가 발생하였습니다.";

@@ -191,7 +191,7 @@
                   <c:forEach var ="pg" begin="${pInf.startPage }" end="${pInf.endPage }">
                   <c:if test="${pg ==pInf.currentPage}">
                     <li>
-                      <a class="page-link">${pg }</a>
+                      <a class="page-link active">${pg }</a>
                     </li>
                   </c:if>
                   <c:if test="${pg!=pInf.currentPage }">
