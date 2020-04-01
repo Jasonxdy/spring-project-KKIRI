@@ -12,6 +12,9 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="../common/header.jsp" />
+			<div class="container text-center align-middle" id="loading">
+				<img src="${contextPath}/resources/img/loading.gif">
+			</div>
 			<!-- content 시작 -->
 			<div id="container" class="container">
 				<div class="row mt-5">
@@ -322,6 +325,10 @@
 	<div class="popup-shadow"></div>
 	<!-- 로그인 팝업 end-->
 	<script>
+		$(function(){
+			$("#loading").hide();
+		});
+	
 		function scrollFunction() {
 			if ($(window).scrollTop() >= 200) {
 				$('#button-top').show(0);
@@ -402,6 +409,12 @@
 			click : function() {
 				$(".popup-shadow, #popup").hide(0);
 			}
+		});
+		
+		// loadin Img
+		$("#sendButton").on("click", function(){
+			$("#container").hide();
+			$("#loading").show();
 		});
 	</script>
 </body>

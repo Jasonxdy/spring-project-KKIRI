@@ -173,3 +173,8 @@
 .step2,.step3,.step4{
   display: none;
 }
+
+#loading{
+	height: 3rem;
+    display:none;
+}

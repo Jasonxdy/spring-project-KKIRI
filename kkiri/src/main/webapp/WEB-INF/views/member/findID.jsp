@@ -31,7 +31,10 @@
             });
            });
          </script>
-          <div class="container">
+         <div class="container text-center" id="loading">
+			<img src="${contextPath}/resources/img/loading.gif">
+		  </div>
+          <div class="container" id="container-body">
             
               <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -66,7 +69,7 @@
                       <br>
                       <br>
                       <div style="text-align: center;">
-                        <button type="submit" id="emailButton" class="green-radius-btn" >아이디 찾기</button>
+                        <button type="submit" id="idFindButton" class="green-radius-btn" >아이디 찾기</button>
                       </div>
                       <br>
                   </form>
@@ -98,7 +101,7 @@
                     </div>
                     <br>
                     <div style="text-align: center;">
-                      <button type="submit" class="green-radius-btn" id="pwdButton">비밀번호 찾기</button>&nbsp;&nbsp;
+                      <button type="submit" class="green-radius-btn" id="pwdFindButton">비밀번호 찾기</button>&nbsp;&nbsp;
                     </div>
                   </form>
                 </div> 
@@ -112,6 +115,10 @@
               "memberId" : false,
               "memberEmail2" : false
             }
+            
+            $(function(){
+            	$("#loading").hide();
+            });
 
             $(function(){
               // 아이디 찾기 탭 - 이메일 유효성 검사
@@ -177,6 +184,11 @@
                 }
               }
             }
+             
+            $("#idFindButton, #pwdFindButton").on("click", function(){
+            	$("#container-body").hide();
+            	$("#loading").show();
+            });
 
           </script>
 <jsp:include page="../common/footer.jsp"/>
