@@ -74,10 +74,8 @@
           <div class="input-group">
           <form action="noticeList" class="text-center" id="searchForm" method="GET" >
             <select name="searchKey" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-              <option selected>구분</option>
-              <option value="title">제목</option>
+              <option value="title" selected>제목</option>
               <option value="content">내용</option>
-              <option value="createDate">작성일</option>
               <option value="title_content">제목+내용</option>
             </select>
           </div>
