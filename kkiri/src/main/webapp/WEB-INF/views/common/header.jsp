@@ -102,13 +102,13 @@
             <form class="login-form-wrap custom-checkbox" action="${contextPath }/member/login" method="post">
               <%-- <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="<%=memberId %>"> --%>
              
-              <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요."  
+              <input type="text" id="loginId" name="memberId" placeholder="아이디를 입력해주세요."  
                 <c:if test="${!empty cookie.rememberId.value}">
               		value="${cookie.rememberId.value}"
               	</c:if>
               required>
               
-              <input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
+              <input type="password" id="loginPwd" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
 
               <input type="checkbox" class="custom-control-input" name="rememberId" id="rememberId" 
               	<c:if test="${!empty cookie.rememberId.value}">checked</c:if>  
