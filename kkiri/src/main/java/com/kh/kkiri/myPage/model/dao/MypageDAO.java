@@ -1,6 +1,7 @@
 package com.kh.kkiri.myPage.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -93,8 +94,8 @@ public class MypageDAO {
 		return sqlSession.selectOne("eventMapper.listEventCount", memberNo);
 	}
 
-	public int listEventCount2(int memberNo)throws Exception{
-		return sqlSession.selectOne("eventMapper.listEventCount2", memberNo);
+	public int listEventCount2(Map<String, Integer> countMap)throws Exception{
+		return sqlSession.selectOne("eventMapper.listEventCount2", countMap);
 	}
 
 	/** 즐겨찾기 수 조회 DAO
@@ -123,6 +124,15 @@ public class MypageDAO {
 
 	public int deleteFavorite(Member member) throws Exception {
 		return sqlSession.delete("memberMapper.deleteFavorite", member);
+	}
+
+	public List<Integer> countEveNo2(int memberNo, PageInfo pInf2)throws Exception {
+		
+		int offSet = (pInf2.getCurrentPage()-1)*pInf2.getLimit();
+		RowBounds rbounds = new RowBounds(offSet, pInf2.getLimit());
+		
+		
+		return sqlSession.selectList("eventMapper.countEveNo2", memberNo, rbounds);
 	}
 	
 }

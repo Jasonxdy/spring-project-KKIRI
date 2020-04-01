@@ -20,7 +20,6 @@ import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.dao.MypageDAO;
 import com.kh.kkiri.myPage.model.vo.Ticket;
 import com.kh.kkiri.payment.model.dao.PaymentDAO;
-import com.kh.kkiri.payment.model.vo.Payment;
 
 @Service
 public class MypageServiceimpl implements MypageService{
@@ -147,7 +146,7 @@ public class MypageServiceimpl implements MypageService{
 		// 1. 내가 참가한 이벤트들의 eventNo 얻어오기
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo(memberNo,pInf);
-		if(eveNo != null ||!eveNo.isEmpty()) {
+		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
 				Event ev = mypageDAO.moveEvent2(eveNo.get(i));
 				ejList.add(ev);
@@ -158,6 +157,19 @@ public class MypageServiceimpl implements MypageService{
 		// 검색 하는 거
 		
 		return ejList; 
+	}
+
+	
+	
+	@Override
+	public List<Event> moveEvent3(int memberNo, PageInfo pInf2) throws Exception {
+		
+		List<Event> ejList = new ArrayList<Event>();
+		List<Integer> eveNo = mypageDAO.countEveNo2(memberNo, pInf2);
+		
+		
+		
+		return null;
 	}
 
 	@Override
@@ -200,8 +212,17 @@ public class MypageServiceimpl implements MypageService{
 	}
 
 	@Override
-	public int listEventCount2(int memberNo) throws Exception {
-		return mypageDAO.listEventCount2(memberNo);
+	public int listEventCount2(int memberNo, Integer flag) throws Exception {
+		// map 으로 매개변수를 바꾸자
+		
+		Map<String,Integer> countMap = new HashMap<String, Integer>(); 
+		countMap.put("memberNo", memberNo);
+		
+		countMap.put("flag", flag);
+		
+		
+		
+		return mypageDAO.listEventCount2(countMap);
 	}
 	
 	
