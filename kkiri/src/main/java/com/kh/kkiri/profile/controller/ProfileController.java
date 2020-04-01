@@ -94,7 +94,7 @@ public class ProfileController {
 		int listCount = profileService.listCount(memberNo, flag);
 		PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
 		
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    
 	    map.put("eList", eList);
@@ -117,24 +117,4 @@ public class ProfileController {
 		return gson.toJson(result);
 	}
 	
-	@RequestMapping("test")
-	public String test(Model model,
-						RedirectAttributes rdAttr,
-						HttpServletRequest request,
-						HttpSession session) {
-		//User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//System.out.println("user name : " + user.getUsername());
-		
-		String beforeUrl = request.getHeader("referer");
-		
-		Member loginMember  = (Member)session.getAttribute("loginMember");
-		
-		if(loginMember != null) {
-			model.addAttribute("loginMember", loginMember);
-			return "test/test";
-		} else {
-			rdAttr.addFlashAttribute("msg", "로그인 해주세요!");
-			return "redirect:"+beforeUrl;
-		}
-	}
 }

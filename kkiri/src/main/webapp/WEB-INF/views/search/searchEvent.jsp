@@ -99,18 +99,20 @@
 											<span class="h4 event-section-title">반경</span> <a
 												class="h4 event-section-title"
 												style="color: white; text-decoration: underline;"
-												data-toggle="dropdown" href="#" id="round">5 km</a>
+												data-toggle="dropdown" href="#" id="round">1 km</a>
 											<ul class="dropdown-menu my-1" id="roundMenu">
 												<li><a class="dropdown-item" href="javascript:"
-													data-value="1" data-copy="5 km">5 km</a></li>
+													data-value="1" data-copy="1 km">1 km</a></li>
 												<li><a class="dropdown-item" href="javascript:"
-													data-value="2" data-copy="10 km">10 km</a></li>
+													data-value="2" data-copy="3 km">3 km</a></li>
 												<li><a class="dropdown-item" href="javascript:"
-													data-value="3" data-copy="25 km">25 km</a></li>
+													data-value="3" data-copy="5 km">5 km</a></li>
 												<li><a class="dropdown-item" href="javascript:"
-													data-value="4" data-copy="50 km">50 km</a></li>
+													data-value="4" data-copy="10 km">10 km</a></li>
 												<li><a class="dropdown-item" href="javascript:"
-													data-value="5" data-copy="100 km">100 km</a></li>
+													data-value="5" data-copy="25 km">25 km</a></li>
+												<li><a class="dropdown-item" href="javascript:"
+													data-value="6" data-copy="50 km">50 km</a></li>
 											</ul>
 										</div>
 									</div>
@@ -347,10 +349,10 @@
 													"<div class='p-3'>" +
 														"<div>" +
 															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
-															"<div style='display: inline-block;'>" +
+															"<div style='display: inline-block; vertical-align: middle;'>" +
 																"<p class='mb-1'>" + sList[i].memberId + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
-																"<span>" + sList[i].eventScore + "</span>" +
+																"<span>" + sList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +
 														"</div>";
 						if(${nowDate} < sList[i].eventEnd){
@@ -504,11 +506,12 @@
 		    			startDate = "";
 		    			
 		    			switch($("#round").text()){
-		    				case '5 km': radius= 100; break;
-		    				case '10 km': radius= 200; break;
-		    				case '25 km': radius= 300; break;
-		    				case '50 km': radius= 400; break;
-		    				case '100 km': radius= 100000; break;
+		    				case '1 km': radius= 1000; break;
+		    				case '3 km': radius= 3000; break;
+		    				case '5 km': radius= 5000; break;
+		    				case '10 km': radius= 10000; break;
+		    				case '25 km': radius= 25000; break;
+		    				case '50 km': radius= 50000; break;
 		    			}
 		    			
 		    			if(sList == ""){
