@@ -30,6 +30,12 @@
 }
 .event-creator-info > img{
     float: left;
+    transition: 0.3s;
+}
+
+.event-creator-info > img:hover{
+	    opacity: 0.8;
+    transform: scale(1.02);
 }
 
 #stripe{
@@ -67,6 +73,16 @@
 }
 .profile-card{
     cursor: pointer;
+}
+
+.expand-card{
+	transition: 0.3s;
+}
+
+.expand-card:hover{
+	    opacity: 0.8;
+    cursor: pointer;
+    transform: scale(1.02);
 }
 
 #creator-profile-img{

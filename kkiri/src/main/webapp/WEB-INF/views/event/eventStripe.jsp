@@ -190,7 +190,7 @@
 						<span style="display: none">${party.memberNo}</span> <img
 							src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 							alt="참가자" class="rounded-circle mt-1"
-							style="width: 60px; cursor: pointer;"
+							style="width: 60px; height: 60px; cursor: pointer;"
 							onclick="location.href = '${contextPath}/profile/user?no=${party.memberNo}'">
 						<div class="media-body ml-3 mt-1">
 							<h4>

@@ -58,7 +58,7 @@
 				<fmt:formatDate var="memberSignupDate"
 					value="${event.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
 				<div id="attendList">
-					<div class="media border p-3 profile-card go-profile"
+					<div class="media border p-3 profile-card go-profile expand-card"
 						onclick="location.href = '${contextPath}/profile/user?no=${event.memberNo}'">
 						<span style="display: none">${event.memberNo}</span> <img
 							id="creator-profile-img"
@@ -73,7 +73,7 @@
 						<c:forEach var="party" items="${partyList}">
 							<fmt:formatDate var="memberSignupDate"
 								value="${party.memberSignupDate}" pattern="yyyy년 MM월 dd일" />
-							<div class="media border p-3 profile-card go-profile">
+							<div class="media border p-3 profile-card go-profile expand-card">
 								<span style="display: none">${party.memberNo}</span> <img
 									src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
 									alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
@@ -212,9 +212,9 @@
 				$attendList = $("#attendList");
 				var location  = "location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'";
 				var memberCard = 
-					"<div class='media border p-3 profile-card' onclick=\"location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'\">" +
+					"<div class='media border p-3 profile-card expand-card' onclick=\"location.href = '${contextPath}/profile/user?no=" + partyList[i].memberNo + "'\">" +
 					"<span style='display:none'>" + partyList[i].memberNo + "</span>" +
-				"<img src='${contextPath}/resources/upProfileImage/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px;'>" +
+				"<img src='${contextPath}/resources/upProfileImage/" + partyList[i].memberProfile + "' alt='참가자' class='rounded-circle mt-1' style='width: 60px; height: 60px'>" +
 				"<div class='media-body ml-3 mt-1'>" +
 					"<h4>" + partyList[i].memberNickname + "</h4>" +
 					"<p class='text-muted'>" + partyList[i].memberSignupDate + "가입</p>" +

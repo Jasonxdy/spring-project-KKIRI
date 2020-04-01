@@ -122,7 +122,14 @@ html body .event-participate-btn{
     border: 1px solid #cdd2d8;
     height : 105px;
     border-radius: 50px;
+    transition: 0.3s;
 }
+.event-participant-profile > img:hover{
+        opacity: 0.8;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .declare-wrap{
     display: none;
 }
