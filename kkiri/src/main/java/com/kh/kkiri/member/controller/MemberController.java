@@ -73,7 +73,7 @@ public class MemberController {
 		String memberId = request.getParameter("memberId");  // 쿠키 아이디
 		String beforeUrl = request.getHeader("referer");
 
-		System.out.println("입력 확인 :" + member.getMemberId() + "/ " + member.getMemberPwd());
+		System.out.println(member);
 
 		try {
 
@@ -91,7 +91,9 @@ public class MemberController {
 			System.out.println("세션 : " + session );
 			
 			if (loginMember != null) {
-				
+				if(!loginMember.getMemberPwd().equals("")) {
+					model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
+				}else {
 				session.setMaxInactiveInterval(300); // 세션 만료 5분
 				String save = request.getParameter("memberId");
 				Cookie cookie = new Cookie("rememberId", memberId);
@@ -108,10 +110,10 @@ public class MemberController {
 					
 					model.addAttribute("loginMember", loginMember);
 					System.out.println("쿠키2" + cookie);	
-					
+				}
 			} else {
 
-				model.addAttribute("msg", "비밀번호가 잘못되었습니다.");
+				model.addAttribute("msg", "아이디가 잘못되었습니다.");
 			}
 
 			return "redirect:" + beforeUrl;

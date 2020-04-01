@@ -23,8 +23,8 @@
               <h2 class="section-title">회원가입</h2>
               <div class="progress-bar-wrap">
                 <p class="progress-bar-percent"></p>
-              </div>
-              <form class="signUpForm" action="#" method="post">
+              </div> 
+              <form class="signUpForm" action="${contextPath}" method="post">
                   <div class="step4 signUp-complete step">
                     <h3 class="signUpTitle">회원가입 성공!</h3>
                     <p class="sub-title">KKIRI의 회원이 되신 것을 환영합니다.</p>
