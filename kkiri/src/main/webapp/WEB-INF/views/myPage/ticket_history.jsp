@@ -158,10 +158,8 @@
                   // 종류별로 색깔구분하기
                   $(".ticket-amount").each(function(index){
                     if($(".ticket-amount").eq(index).text().trim()<0){
-                    	console.log($(this).text())
                       $(this).css({"color":"#c82333"});
                     }else if($(".ticket-amount").eq(index).text().trim()>0){
-                    	console.log($(this).text())
                       $(this).css({"color":"#0069d9"});
                     }
                   });

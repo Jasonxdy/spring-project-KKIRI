@@ -313,10 +313,8 @@ public class MypageServiceimpl implements MypageService{
 		map.put("paymentType", ticket.getPaymentType());
 		map.put("ticket", ticket.getPaymentTicket());
 		map.put("merchantUid", ticket.geteventName());
-		System.out.println("충전의 map"+map);
 		result = paymentDAO.insertPayment(map);
 		
-		System.out.println(result);
 		/*
 		if(result >0) {
 			// member의 ticket수 업데이트
@@ -337,7 +335,6 @@ public class MypageServiceimpl implements MypageService{
 		int result = 0;
 		map.put("memberNo", loginMember.getMemberNo());
 		map.put("ticket",recharge);
-		System.out.println("member ticket 업데이트용 "+map);
 		
 		result = memberDAO.ticketRecharge(map);
 		
@@ -350,7 +347,6 @@ public class MypageServiceimpl implements MypageService{
 		
 		result = paymentDAO.deleteTicket(merchant_uid);
 		
-		System.out.println("취소 확인용"+result);
 		
 		return result;
 	}

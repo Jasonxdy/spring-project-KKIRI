@@ -272,7 +272,6 @@
 	    if(!regExp.test($("#passCheck1").val())){
 	    		alert("유효하지 않은 양식의 비밀번호 입니다.");
 	    		return false;
-	    	console.log("passcheck gg");
 	    	
 	    }
     	if($("#passCheck1").val()!=$("#passCheck2").val()){

@@ -99,11 +99,11 @@ public class MemberController {
 				
 				String save = request.getParameter("rememberId"); // 체크 박스에 저장된 '아이디'
 				Cookie cookie = new Cookie("rememberId", memberId);
-					System.out.println("쿠키" + memberId);	
+					
 					
 					
 					if(save !=null) {
-						System.out.println("세이브 확인 : "+ save);
+						
 						cookie.setMaxAge(60*60*24); // 하루
 					}else {
 						cookie.setMaxAge(0);
@@ -112,7 +112,7 @@ public class MemberController {
 					response.addCookie(cookie);
 					
 					model.addAttribute("loginMember", loginMember);
-					System.out.println("쿠키2" + cookie);	
+					
 				}
 			} else {
 
@@ -189,10 +189,6 @@ public class MemberController {
 
 			);
 		
-		
-		
-
-		System.out.println("1. 로그인:" + createMember);
 
 		try {
 			String changeFileName = null;
@@ -303,7 +299,7 @@ public class MemberController {
 		try {
 			String code = request.getParameter("code");
 			String msg = null;
-			// System.out.println(code);
+			System.out.println(code);
 
 			// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 			RestTemplate restTemplate = new RestTemplate();
@@ -336,7 +332,7 @@ public class MemberController {
 
 			// System.out.println(tokens.length);
 			// System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
-			// System.out.println(googleInform);
+			System.out.println(googleInform);
 
 			// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
 			ObjectMapper mapper = new ObjectMapper();
@@ -444,6 +440,7 @@ public class MemberController {
 //			System.out.println(userInfo);
 			String memberEmail = null;
 			String memberGender = null;
+			String memberNickname = null;
 			if(userInfo.findValue("email") != null) {
 				memberEmail = userInfo.get("kakao_account").get("email").toString().replaceAll("\"", "");
 			}else {
@@ -453,11 +450,13 @@ public class MemberController {
 				return "redirect:/";
 			}
 			String memberId = userInfo.get("id").toString();
-			String memberNickname = userInfo.get("properties").get("nickname").toString().replaceAll("\"", "");
+			if(userInfo.get("properties").get("nickname") != null) {
+				memberNickname = userInfo.get("properties").get("nickname").toString().replaceAll("\"", "");
+			}else memberNickname = "KKIRI의 별명";
 			String memberPwd = userInfo.get("connected_at").toString();
 			if(userInfo.findValue("gender") != null) {
 				memberGender = userInfo.get("kakao_account").get("gender").toString().replaceAll("\"", "");
-			}
+			} memberGender = "male";
 			if (memberGender.equals("male"))
 				memberGender = "M";
 			else if (memberGender.equals("female"))

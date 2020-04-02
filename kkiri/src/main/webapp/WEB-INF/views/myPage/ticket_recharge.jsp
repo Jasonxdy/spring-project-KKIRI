@@ -105,7 +105,6 @@
 				recharge = $("input[name=recharge-amount]:checked").val();
 				var rechargeway = $("input[name=recharge-way]:checked").val();
 				var merchant_uid;
-				console.log(recharge);
 						$.ajax({
 							url : "ticketRecharge" ,
 							type : "POST" ,
@@ -197,7 +196,6 @@
     	  var checker = $("input[name=recharge-way]:checked").val();
     	  
         if($("input[name=recharge-amount]:checked").length==0){
-        	console.log(checker);
           alert("충전 금액을 선택해주세요!");
           return false;
         }

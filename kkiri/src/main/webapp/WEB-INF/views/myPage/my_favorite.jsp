@@ -158,7 +158,6 @@
   	$(".card-body").on("mouseenter", function(){
   		$(this).children().eq(2).css("display", "inline"); // X
   		$(this).children().last().children().last().css("display", "inline"); //수정 버튼
-  		console.log($(this).children().eq(2));
   	}).on("mouseleave", function(){
   		$(this).children().eq(2).css("display", "none");
   		$(this).children().last().children().last().css("display", "none");
@@ -167,7 +166,6 @@
   	
   	 $(".favoriteDeleteImg").on("click", function () {
   		var favoriteNo = $(this).parent().children().eq(3).children().eq(1).val();
-		//console.log(favoriteNo);
   		if(confirm("정말 삭제 하시겠습니까?")){
   			location.href="deleteFavorite?memberTicket=" + favoriteNo;
   		}

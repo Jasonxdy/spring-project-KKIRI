@@ -96,7 +96,7 @@ public class NoticeController {
 			String msg = null;
 			String url = null;
 			
-			System.out.println("결과"+ result);
+			
 			
 			if(result > 0) { 
 				msg = "공지사항 등록 성공";
@@ -157,7 +157,7 @@ public class NoticeController {
 		
 		// 이전 페이지의 주소를 detailUrl에 저장
 		String detailUrl = request.getHeader("referer");
-		System.out.println("detailUrl : " + detailUrl);
+		
 		
 		
 		try {

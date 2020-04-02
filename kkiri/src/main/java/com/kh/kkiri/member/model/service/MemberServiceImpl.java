@@ -61,7 +61,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int createId(Member createMember) throws Exception {
 
-		System.out.println("2. 가입 회원정보:" + createMember);
 
 		String encPwd = bCryptPasswordEncoder.encode(createMember.getMemberPwd());
 		createMember.setMemberPwd(encPwd);
@@ -69,8 +68,6 @@ public class MemberServiceImpl implements MemberService{
 		int result = memberDAO.createId(createMember);
 
 
-
-		System.out.println("4. 가입 결과 result:" + result);
 		return result;
 	}
 

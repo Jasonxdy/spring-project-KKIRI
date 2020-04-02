@@ -11,13 +11,6 @@ import com.kh.kkiri.search.model.vo.Search;
 @Service
 public interface SearchService {
 
-	/** 탐색페이지 이벤트 수 조회용 Service
-	 * @param map
-	 * @return searchCount
-	 * @throws Exception
-	 */
-	//public abstract int getSearchCount(Map<String, String> map) throws Exception;
-
 	/** 탐색 페이지 이벤트 조회용 Service
 	 * @param map
 	 * @param currentPage
