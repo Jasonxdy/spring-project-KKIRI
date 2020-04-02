@@ -42,7 +42,7 @@
                   <br>
                    <!-- 다음 지도창 끝-->
                   <div class="input-location-wrap">
-                    <input type="text" name="eventAddress" placeholder="주소 검색" id="eventAddress" readonly>
+                    <input type="text" name="eventAddress" placeholder="지도를 클릭하면 주소가 출력됩니다." id="eventAddress" readonly>
                     <input type="hidden" name="latitude" id="latitude">
                     <input type="hidden" name="longtitude" id="longtitude">
                   </div>
@@ -124,7 +124,8 @@
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
-    	  
+    	  $(".step1,.step2").hide();
+    	  $(".step3").show();
     	  // Enter키 비활성화
     	  $("input").keydown(function() {
     		  if (event.keyCode === 13) {
@@ -186,7 +187,13 @@
 			  date = "0"+date;
 		  }
 		  var hour = current.getHours();
+		  if(hour<10){
+			  hour = "0"+hour;
+		  }
 		  var minutes = current.getMinutes();
+		  if(minutes<10){
+			  minutes = "0"+minutes;
+		  }
 		  var currentTime = year+month+date+hour+minutes;
 		  
 		  var eventStart = $("#eventStart").val();
