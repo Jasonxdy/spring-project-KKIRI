@@ -88,7 +88,7 @@
 	                          	${startDate} 
 	                          </span>
 	                          <div class="blog-slider__title">
-	                            <p class="address">[${event.eventTitle}]</p>
+	                            <p class="address">${event.eventTitle}</p>
 	                            <p class="location"><img src="${contextPath}/resources/img/map-ping.png" alt="위치"> &nbsp;${event.eventAddress}</p>
 	                          </div>
 	                          <div class="blog-slider__text">
@@ -145,7 +145,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <h3 class="box-title">
-                    한주간 가장 높은 평점을 받은 ${rankSize}명을 소개합니다.<br>
+                    가장 높은 평점을 받은 ${rankSize}명을 소개합니다.<br>
                     <span class="box-sub-title">축하드립니다! 앞으로도 멋진 모임들을 많이 만들어주세요.</span>
                   </h3>
                     <div class="ranking-wrap">

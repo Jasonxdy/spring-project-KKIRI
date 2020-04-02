@@ -43,13 +43,13 @@
 					  <div class="card-body">
 					  	<div class="favoriteFImg">
 					  		<a href="${contextPath}/profile/user?no=${fList.memberTicket}">
-					  		<img style="width: 100%;" src="${contextPath}/resources/upProfileImage/${fList.memberProfile}">
+					  		<img class="favorite-profile-img" src="${contextPath}/resources/upProfileImage/${fList.memberProfile}">
 					  		</a>
 					  	</div>
 					    <div id="nickDiv" style="display:inline-block;" class="">${fList.memberNickname}</div>
 				    	<img class="favoriteDeleteImg" src="${contextPath}/resources/img/x-btn.png">
 					    <form action="changeMemo" method="post">
-						    <textarea class="favorite-memo card-text mt-1" placeholder="메모"
+						    <textarea class="favorite-memo card-text" placeholder="메모"
 						    		name="memberIntroduce">${fList.memberIntroduce}</textarea>
 						    <input name="memberTicket" value="${fList.memberTicket}" style="display:none"/>
 						    <div class="float-right" style="display:none">
@@ -62,7 +62,19 @@
                   </c:forEach>
 					
 				</div>
-                  
+                <script>
+                	function chanegeMemoFn(){
+                		alert("수정 완료!");
+                	}
+                	$(function(){
+                		var updateResult = "${updateResult}";
+                		if(updateResult==""){
+                			return false;
+                		}else if(updateResult=="1"){
+                			chanegeMemoFn();
+                		}
+                	});
+                </script>
                   
                   <!-- 페이징바 시작 -->
               <div class="row justify-content-center pagination-wrap">

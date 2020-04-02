@@ -217,7 +217,7 @@
     border-radius: 50%;
     float: left;
     min-width: 80px;
-    min-height: 80px;
+    height:85px;
     border: 1px solid #cdd2d8;
 }
 .blog-slider__text .leader-info{
@@ -400,7 +400,7 @@
     border-radius: 50%;
     top: 60px;
     left: 50%;
-    min-height: 170px;
+    height:185px;
     transform: translateX(-50%);
 }
 #ranking .ranker .nickname{
@@ -456,7 +456,7 @@
     height: 350px;
   }
   #ranking .ranker > img{
-    min-height: 150px;
+    height: 165px;
   }
 }
 @media (max-width: 991px){
@@ -470,7 +470,7 @@
     height: 300px;
   }
   #ranking .ranker > img{
-  	min-height : 100px;
+  	height:120px;
   }
 }
 @media (max-width: 767px){
@@ -482,6 +482,9 @@
   }
   #ranking .ranker .nickname{
     bottom: 90px;
+  }
+  #ranking .ranker > img{
+  	height: 90px;
   }
 }
 @media (max-width: 525px){
