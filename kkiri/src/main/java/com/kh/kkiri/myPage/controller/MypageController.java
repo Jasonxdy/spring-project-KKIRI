@@ -1,7 +1,6 @@
 package com.kh.kkiri.myPage.controller;
 
 import java.io.File;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -29,7 +28,6 @@ import com.kh.kkiri.member.model.service.MemberService;
 import com.kh.kkiri.member.model.vo.Member;
 import com.kh.kkiri.myPage.model.service.MypageService;
 import com.kh.kkiri.myPage.model.vo.Ticket;
-import com.kh.kkiri.payment.model.vo.Payment;
 
 @RequestMapping("/mypage/*")
 @Controller
@@ -51,7 +49,6 @@ public class MypageController {
 		try {
 			
 		loginMember = mypageService.loginAgain(loginMember.getMemberNo());
-		System.out.println(loginMember);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "마이페이지 이동중 오류가 발생하였습니다.");
@@ -144,7 +141,6 @@ public class MypageController {
 				// session 만료 
 				status.setComplete();
 				msg="회원탈퇴에 성공하였습니다.";
-				System.out.println("회원탈퇴 진행합니다");
 				return "redirect:/";
 			}
 
@@ -201,7 +197,6 @@ public class MypageController {
 			result = mypageService.updateMember(loginMember, member, profile,savePath);
 
 
-			System.out.println(member);
 			if(result >0) {
 				// 업데이트 성공
 				msg="회원정보 수정에 성공했습니다.";
@@ -248,12 +243,9 @@ public class MypageController {
 		}
 
 		try {
-			System.out.println(ticket);
 			int listCount = mypageService.getListCount(ticket);
 			PageInfo Pinf = Pagination.getPageInfo(10, 5, currentPage, listCount);
 			List<Ticket> ticketList = mypageService.ticketLog(ticket,Pinf);
-			System.out.println(ticketSort);
-			System.out.println(ticketList);
 			
 			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
 			model.addAttribute("loginMember", loginMember);
@@ -284,17 +276,12 @@ public class MypageController {
 			flag = 1;
 		}
 
-		System.out.println("flag:"+flag);
-		System.out.println("cp"+currentPage);
 		try {
 			int listCount = mypageService.listEventCount(memberNo);
 			int listCount2 = mypageService.listEventCount2(memberNo,flag);
 				
 			
-			System.out.println("listCount 1 : "+listCount);
-			System.out.println("listCount 2 : "+listCount2);
 			PageInfo pInf = Pagination.getPageInfo(3, 5, currentPage, listCount);
-			System.out.println(pInf);
 			PageInfo pInf2 = Pagination2.getPageInfo(3, 5, currentPage, listCount2);
 			
 			// 내가 주최자인 이벤트
@@ -404,7 +391,6 @@ public class MypageController {
 		ticket.seteventName(merchantUid);
 
 		int result = 0;
-		System.out.println(ticket);
 		try {
 
 			result = mypageService.ticketRecharge(ticket);

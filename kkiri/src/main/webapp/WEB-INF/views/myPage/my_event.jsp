@@ -429,7 +429,6 @@
 				// 해당 페이지 상세 입장하는 스크립트
                   $(function(){
                 	  $(".move-detail").click(function(){
-                		  console.log(12345)
                 		  var eventNo =  $(this).find(".eveno").val();
                 		  location.href="../event/detail?no="+eventNo;
                 	  })

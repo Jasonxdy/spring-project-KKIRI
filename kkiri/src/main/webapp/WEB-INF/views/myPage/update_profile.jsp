@@ -281,21 +281,14 @@
 	var phone = '${loginMember.memberPhone}';
       function validate(){
     	  if($("#nickName").val()!=""){
-    		  console.log(1)
     		  
     		  if($(".memberGender").val()!=""){
-    			  console.log(2)
    			  	if($(".memberBirth").val()!=""){
-   			  	console.log(3)
    			  		if($(".memberPhone").val()!=""){
-   			  		console.log(4)
    			  			if(phone1.test(phone)){
-   							console.log(5)
    						
    			  			if($(".memberEmail").val()!=""){
-   			  			console.log(6)
    			  				if($(".interest-wrap>input").val()!=""){
-   			  				console.log(7)
 					   		/* 	작성시 무조건 return true 가 나옴
 					   		if($(".profile-img").size()!=0)){
 					   				console.log(777);
@@ -313,7 +306,6 @@
     		  alert("필수사항을 기입해 주세요");
     	  }
     	  
-    	  console.log("final");
     	  return flag;
     	  
 /*     	  if($(".profile-img").src!=""){
@@ -334,7 +326,6 @@
         	phone += $("#phone2").val();
         	phone += '-';
         	phone += $("#phone3").val();
-        	console.log(phone+"phone");
         	$("#memberPhone").val(phone);
         })
         
