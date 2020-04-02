@@ -27,7 +27,7 @@
 							<div class="row p-3 find-event-wrap">
 								<div class="category-wrap">
 									<label class="mt-1 h4 event-section-title">카테고리</label> 
-									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="searchKey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="searchKey" readonly data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 									<ul class="dropdown-menu my-1" style="width: 30rem;"
 										id="categoryMenu">

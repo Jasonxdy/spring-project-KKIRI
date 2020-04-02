@@ -70,7 +70,7 @@
         <property name="scope"
             value="email"></property>
         <property name="redirectUri"
-            value="http://localhost:8080/kkiri/member/googleLogin" />
+            value="http://khaclass.iptime.org:7777/kkiri/member/googleLogin" />
     </bean>
  
     <bean id="authInfo" class="com.kh.kkiri.member.model.vo.AuthInfo">
