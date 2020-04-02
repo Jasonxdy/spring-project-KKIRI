@@ -255,7 +255,7 @@
     		  
     		  "memberPhone":false,
     		  "memberEmail":false, //중복 검사, 입력확인
-    		  "memberEmailConfirm":false, //이메일 인증
+    		  "memberEmailConfirm":true, //이메일 인증
     		  "memberBirth":false, //입력 확인
     		  "memberGender":false //입력 확인 
     	  };
