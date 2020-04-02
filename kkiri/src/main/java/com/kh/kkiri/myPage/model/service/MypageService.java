@@ -70,10 +70,11 @@ public interface MypageService {
 
 	/** 내가 참가한 이벤트 보는 Service
 	 * @param memberNo
+	 * @param flag 
 	 * @return
 	 * @throws Exception
 	 */
-	List<Event> moveEvent2(int memberNo ,PageInfo pInf)throws Exception;
+	List<Event> moveEvent2(int memberNo ,PageInfo pInf, Integer flag)throws Exception;
 
 	int listEventCount(int memberNo)throws Exception;
 
@@ -125,7 +126,7 @@ public interface MypageService {
 
 	int deleteTicket(String merchant_uid)throws Exception;
 
-	List<Event> moveEvent3(int memberNo, PageInfo pInf2)throws Exception;
+	List<Event> moveEvent3(int memberNo, PageInfo pInf2, Integer flag)throws Exception;
 
 	Member loginAgain(int memberNo)throws Exception;
 

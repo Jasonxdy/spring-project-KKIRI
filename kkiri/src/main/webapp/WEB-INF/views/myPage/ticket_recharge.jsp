@@ -42,7 +42,7 @@
 							<h4>티켓 충전</h4>
 
 							<form  method="post" class="recharge-form"
-								onsubmit="return validate();">
+								>
 								<p class="recharge-title">충전 금액</p>
 								<div class="recharge-box">
 									<input type="radio" name="recharge-amount" value="1000"
@@ -74,7 +74,7 @@
 											결제</label>
 									</div>
 								</div>
-								<button id="move-recharge" type="submit">구매</button>
+								<button id="move-recharge" type="submit" onclick="validate();">구매</button>
 							</form>
 							<script type="text/javascript"
 								src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -100,8 +100,7 @@
 				var recharge;
 				var memberNo = '${loginMember.memberNo}';
 				var memberId = '${loginMember.memberId}';
-				$(function(){
-					$("#move-recharge").click(function(){
+					function moving(){
 				recharge = $("input[name=recharge-amount]:checked").val();
 				var rechargeway = $("input[name=recharge-way]:checked").val();
 				var merchant_uid;
@@ -127,8 +126,7 @@
 								alert("ajax 통신 실패");
 							}
 						});
-					});
-				});
+					}
 				
 				
 				// 결제 API 추가
@@ -193,17 +191,18 @@
 			<script>
     
       function validate(){
-    	  var checker = $("input[name=recharge-way]:checked").val();
     	  
         if($("input[name=recharge-amount]:checked").length==0){
           alert("충전 금액을 선택해주세요!");
           return false;
         }
-        if($("input[name=recharge-way]:checked").length==0){
+        else if($("input[name=recharge-way]:checked").length==0){
           alert("결제 방식을 선택해주세요!");
           return false;
+        }else{
+        	
+        	moving();
         }
-        return false;
       }
       
     </script>
