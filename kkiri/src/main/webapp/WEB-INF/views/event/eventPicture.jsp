@@ -46,7 +46,7 @@
 			 	<ul>
 				<!-- 이미지 목록이 없는 경우 -->
 				<c:if test="${empty imageList}">
-					<h5 class="text-muted">등록된 이벤트 사진이 아직 없습니다 :P</h3>
+					<h5 class="text-muted mt-5">등록된 이벤트 사진이 아직 없습니다 :P</h3>
 				</c:if>
 
 				<!-- 이미지 목록이 있는 경우 -->
