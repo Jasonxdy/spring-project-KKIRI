@@ -34,7 +34,7 @@
 			</div>
 			
 			<canvas id="bar-chart" width="800" height="450"></canvas>
-			<canvas id="event-chart" width="800" height="450"></canvas>
+			<%-- <canvas id="event-chart" width="800" height="450"></canvas> --%>
 			
 		</div>
 		<!-- content 끝 -->
@@ -90,12 +90,12 @@
 		new Chart(document.getElementById("bar-chart"), {
 		    type: 'bar',
 		    data: {
-		      labels: ["a","b","c","d","e"],
+		      labels: ["월","화","수","목","금","토","일"],
 		      datasets: [
 		        {
-		          label: "Population (millions)",
-		          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-		          data: [2478,5267,734,784,433]
+		          label: "접속자 ",
+		          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","blue", "red"],
+		          data: [121,202,204,105,324,521,213]
 		        }
 		      ]
 		    },
@@ -103,39 +103,12 @@
 		      legend: { display: false },
 		      title: {
 		        display: true,
-		        text: 'Predicted world population (millions) in 2050'
+		        text: '요일별 접속자 수'
 		      }
 		    }
 		});
   		  
-  		new Chart(document.getElementById("event-chart"), {
-		    type: 'bar',
-		    data: {
-		      labels: [
-			    	  /* for(var i=0; i<eList.length; i++){
-				  		  if(i<eList.length){
-				  		  eList[i].eventDate + ", "
-				  		  } else{
-				  			  eList[i].eventDate
-				  		  }
-			  		  }  */
-		  		  	],
-		      datasets: [
-		        {
-		          label: "Population (millions)",
-		          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-		          data: [2478,5267,734,784,433]
-		        }
-		      ]
-		    },
-		    options: {
-		      legend: { display: false },
-		      title: {
-		        display: true,
-		        text: 'Predicted world population (millions) in 2050'
-		      }
-		    }
-		});
+  		
 
 
 	</script>
