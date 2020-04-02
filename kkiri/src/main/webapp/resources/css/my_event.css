@@ -127,7 +127,11 @@
     text-align: center;
 }
 .participate_event_con .creator-con>img{
-    width: 50%;
+      width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 1px solid #cdd2d8;
 }
 .participate_event_con .creator-con .creator-id>img{
     width: 25px;
