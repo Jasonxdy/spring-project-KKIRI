@@ -287,12 +287,12 @@ public class MypageController {
 			// 내가 주최자인 이벤트
 			List<Event> eList = mypageService.moveEvent(memberNo,pInf);
 			// 내가 참가한 이벤트 
-			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf2);
+			List<Event> ejList = mypageService.moveEvent2(memberNo,pInf2,flag);
 			
 			// 대기
-			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2);
+			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2,flag);
 			
-			
+			System.out.println(ejList2);
 			
 			
 			loginMember = mypageService.loginAgain(loginMember.getMemberNo());

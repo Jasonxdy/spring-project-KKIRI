@@ -143,19 +143,27 @@ public class MypageServiceimpl implements MypageService{
 
 	
 	@Override
-	public List<Event> moveEvent2(int memberNo,PageInfo pInf) throws Exception {
+	public List<Event> moveEvent2(int memberNo,PageInfo pInf, Integer flag) throws Exception {
 		
 		// 1. 내가 참가한 이벤트들의 eventNo 얻어오기
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo(memberNo,pInf);
+		Map<String,Integer > map = new HashMap<String, Integer>();
+		
+		map.put("flag", flag);
+		map.put("memberNo", memberNo);
 		Event event = new Event();
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
+				
+				map.put("eventNo", eveNo.get(i));
 				event.setEventNo(eveNo.get(i));
-				Event ev = mypageDAO.moveEvent2(event);
+				Event ev = mypageDAO.moveEvent2(map);
 				// 이벤트 객체 갈아 엎기용 dao
 				event.setMemberNo(memberNo);
-				ev.setPermission(mypageDAO.remakeEvent(event).getPermission()); 
+				if(ev!=null) {
+					ev.setPermission(mypageDAO.remakeEvent(map).getPermission()); 
+				}
 				
 				ejList.add(ev);
 			}
@@ -170,23 +178,28 @@ public class MypageServiceimpl implements MypageService{
 	
 	
 	@Override
-	public List<Event> moveEvent3(int memberNo, PageInfo pInf2) throws Exception {
+	public List<Event> moveEvent3(int memberNo, PageInfo pInf2, Integer flag) throws Exception {
 		
 		List<Event> ejList = new ArrayList<Event>();
 		List<Integer> eveNo = mypageDAO.countEveNo2(memberNo, pInf2);
-		Event event = new Event();
+		Map<String,Integer > map = new HashMap<String, Integer>();
+		map.put("flag", flag);
+		map.put("memberNo", memberNo);
+		Event event = null;
 		if(eveNo != null &&!eveNo.isEmpty()) {
 			for(int i = 0; i<eveNo.size();i++) {
-				event.setEventNo(eveNo.get(i));
-				Event ev = mypageDAO.moveEvent2(event);
+				
+				map.put("eventNo", eveNo.get(i));
+				
+				Event ev = mypageDAO.moveEvent2(map);
 				// 이벤트 객체 갈아 엎기용 dao
-				event.setMemberNo(memberNo);
+				System.out.println(ev);
 				if(ev!=null) {
 					
-				ev.setPermission(mypageDAO.remakeEvent(event).getPermission()); 
+				ev.setPermission(mypageDAO.remakeEvent(map).getPermission()); 
+				ejList.add(ev);
 				}
 				
-				ejList.add(ev);
 			}
 		}
 		

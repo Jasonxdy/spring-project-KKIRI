@@ -78,8 +78,8 @@ public class MypageDAO {
 		return sqlSession.update("memberMapper.updateTicket", ticket);
 	}
 
-	public Event moveEvent2(Event event)throws Exception {
-		return sqlSession.selectOne("eventMapper.moveEvent2", event);
+	public Event moveEvent2(Map<String, Integer> map)throws Exception {
+		return sqlSession.selectOne("eventMapper.moveEvent2", map);
 	}
 
 	public List<Integer> countEveNo(int memberNo, PageInfo pInf) throws Exception{
@@ -140,8 +140,8 @@ public class MypageDAO {
 		return sqlSession.selectOne("memberMapper.loginAgain", memberNo);
 	}
 
-	public Event remakeEvent(Event event) throws Exception{
-		return sqlSession.selectOne("eventMapper.remakeEvent", event);
+	public Event remakeEvent(Map<String, Integer> map) throws Exception{
+		return sqlSession.selectOne("eventMapper.remakeEvent", map);
 	}
 	
 }
