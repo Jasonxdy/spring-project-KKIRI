@@ -164,6 +164,7 @@ public class MypageController {
 	public String updateMyPage (Model model) {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
+		if(loginMember.getMemberIntroduce()!=null) {
 		loginMember.setMemberIntroduce(loginMember.getMemberIntroduce().replace("<br>", "\r\n"));
 		}
 		loginMember.setMemberPhone(loginMember.getMemberPhone().trim());
