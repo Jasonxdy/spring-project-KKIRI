@@ -288,7 +288,7 @@ public class MemberController {
 		try {
 			String code = request.getParameter("code");
 			String msg = null;
-			// System.out.println(code);
+			System.out.println(code);
 
 			// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 			RestTemplate restTemplate = new RestTemplate();
@@ -321,7 +321,7 @@ public class MemberController {
 
 			// System.out.println(tokens.length);
 			// System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
-			// System.out.println(googleInform);
+			System.out.println(googleInform);
 
 			// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
 			ObjectMapper mapper = new ObjectMapper();
