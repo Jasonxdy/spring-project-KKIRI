@@ -63,7 +63,7 @@
 						<span style="display: none">${event.memberNo}</span> <img
 							id="creator-profile-img"
 							src="${contextPath}/resources/upProfileImage/${event.memberProfile}"
-							alt="주최자" class="rounded-circle mt-1" style="width: 60px;">
+							alt="주최자" class="rounded-circle mt-1" style="width: 60px; height: 60px;">
 						<div class="media-body ml-3 mt-1">
 							<h4>${event.memberNickname}</h4>
 							<p class="text-muted">${memberSignupDate}가입</p>
@@ -76,7 +76,7 @@
 							<div class="media border p-3 profile-card go-profile expand-card">
 								<span style="display: none">${party.memberNo}</span> <img
 									src="${contextPath}/resources/upProfileImage/${party.memberProfile}"
-									alt="참가자" class="rounded-circle mt-1" style="width: 60px;">
+									alt="참가자" class="rounded-circle mt-1" style="width: 60px; height: 60px;">
 								<div class="media-body ml-3 mt-1">
 									<h4>${party.memberNickname}</h4>
 									<p class="text-muted">${memberSignupDate}가입</p>

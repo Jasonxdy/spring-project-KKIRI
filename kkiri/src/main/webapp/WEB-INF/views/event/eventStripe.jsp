@@ -642,14 +642,13 @@
 		/* 주최자인 경우 참가 승인,거절 버튼 클릭 시 event */
 		// 승인 버튼 클릭 시 -> DB 반영 후 결과 맞을 경우 버튼 변경 (승인됨)
 		// 참가자 숫자, 자리 남음, 변경
-		var count = ${event.eventQuota - event.partyCount};
-		console.log("정원 : "  + ${event.eventQuota - event.partyCount});
+		var capacity = ${event.eventQuota - event.partyCount};
 		$(".do-permission").on({
 			click : function(e) {
 				
 				
 				// 정원 초과 아닌 경우 
-				if(count > 0){
+				if(capacity > 0){
 					if(confirm("해당 회원을 참가 승인하겠습니까?")){
 						var memberNo = $(this).parent().find("div").text();
 						
@@ -660,10 +659,10 @@
 						// 생기게 하고
 						$(this).parent().next().css("display","block");
 						
-						count--;
+						capacity--;
 						
-						$("#left-seat").html(count + "자리 남음");
-						$("#left-seat-modal").html(count);
+						$("#left-seat").html(capacity + "자리 남음");
+						$("#left-seat-modal").html(capacity);
 					}
 				} else {
 					alert("정원이 초과되었습니다.");
