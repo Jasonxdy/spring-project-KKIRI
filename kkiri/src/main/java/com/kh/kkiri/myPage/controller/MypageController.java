@@ -51,14 +51,12 @@ public class MypageController {
 		try {
 			
 		loginMember = mypageService.loginAgain(loginMember.getMemberNo());
+		System.out.println(loginMember);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "마이페이지 이동중 오류가 발생하였습니다.");
 			return "common/errorPage";
 		}
-		
-		
-		
 		if(loginMember.getMemberCategory().equals("설정해주세요") || 
 				loginMember.getMemberPlace().equals("설정해주세요")) {
 			String msg = "관심 지역과 관심 카테고리를 수정해주세요";
@@ -163,7 +161,12 @@ public class MypageController {
 	}
 
 	@RequestMapping("updateMyPage")
-	public String updateMyPage () {
+	public String updateMyPage (Model model) {
+		
+		Member loginMember = (Member)model.getAttribute("loginMember");
+		loginMember.setMemberIntroduce(loginMember.getMemberIntroduce().replace("<br>", "\r\n"));
+		
+		
 		return "myPage/update_profile";
 	}
 	@RequestMapping("updateMember")
