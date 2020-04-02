@@ -103,8 +103,10 @@ public class MypageServiceimpl implements MypageService{
 			changeFileName = FileRename.rename(profile.getOriginalFilename());
 			member.setMemberProfile(changeFileName);
 		}else changeFileName = loginMember.getMemberProfile();
-
+		if(member.getMemberIntroduce()!=null) {
+			
 		member.setMemberIntroduce(member.getMemberIntroduce().replace("\r\n", "<br>"));
+		}
 		result = memberDAO.updateMember(member);
 
 

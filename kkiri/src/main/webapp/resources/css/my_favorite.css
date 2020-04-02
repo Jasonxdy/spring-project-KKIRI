@@ -52,8 +52,9 @@
 }
 
 #nickDiv{
-	width: 6rem;
-	height: 5rem;
+    height: 70px;
+    line-height: 70px;
+    margin-left: 10px;
 }
 
 .my-profile-favorite{
@@ -68,12 +69,17 @@
 	display:inline-block;
 	vertical-align: top !important;
 }
-
+.favorite-profile-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border-bottom: 1px solid #cdd2d8;
+}
 .favorite-memo{
 	resize: none; 
 	height: 5rem; 
 	width:100%;
-	/* border: none; */
+	margin-top:10px;
 }
 
 
