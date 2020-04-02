@@ -98,7 +98,7 @@
             <img src="<%=request.getContextPath() %>/resources/img/close-btn.png" alt="닫기버튼" class="close-popup">
           </p>
           <div class="popup-content">
-            <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="signUp.html" class="link sign-up-link">회원가입</a></p>
+            <p class="sign-up-title">아직 회원이 아니신가요?&nbsp;<a href="${contextPath }/member/signUp" class="link sign-up-link">회원가입</a></p>
             <form class="login-form-wrap custom-checkbox" action="${contextPath }/member/login" method="post">
               <%-- <input type="text" name="memberId" placeholder="아이디를 입력해주세요." autocomplete="off" value="<%=memberId %>"> --%>
              
