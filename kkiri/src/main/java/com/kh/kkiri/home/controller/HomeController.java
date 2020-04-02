@@ -73,7 +73,7 @@ public class HomeController {
 		    String naverState = naverController.generateState();
 //		    System.out.println("홈컨에서 검증 토큰: "+naverState);
 		    session.setAttribute("naverState", naverState);
-		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://localhost:8080/kkiri/member/naverLogin&state=" + naverState;
+		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://khaclass.iptime.org:7777/kkiri/member/naverLogin&state=" + naverState;
 		    session.setAttribute("naverUrl", naverUrl);
 
 		    
