@@ -249,7 +249,7 @@
                       <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)" 
                       value="../resources/upProfileImage/${loginMember.memberProfile}"
                       >
-                      <button type="submit" class="uploadBtn green-radius-btn">사진 변경하기</button>
+                      <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
                     </div>
                   </div>
                 </div>
