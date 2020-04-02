@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.kkiri.common.FileRename;
 import com.kh.kkiri.common.Pagination;
+import com.kh.kkiri.common.sendEmailThread;
 import com.kh.kkiri.common.vo.PageInfo;
 import com.kh.kkiri.event.model.service.EventService;
 import com.kh.kkiri.event.model.vo.BoardAndImage;
@@ -30,6 +31,7 @@ import com.kh.kkiri.event.model.vo.Party;
 import com.kh.kkiri.event.model.vo.Rating;
 import com.kh.kkiri.event.model.vo.Report;
 import com.kh.kkiri.member.model.vo.Member;
+import com.kh.kkiri.myPage.model.service.MypageService;
 
 @Controller
 @SessionAttributes({ "loginMember", "msg", "myEventList", "detailUrl" })
@@ -38,6 +40,9 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired 
+	private MypageService mypageService;
 
 	// 이벤트 상세 페이지 이동
 	@RequestMapping("detail")
@@ -166,8 +171,17 @@ public class EventController {
 		model.addAttribute("detailUrl", detailUrl);
 
 		try {
+			Event sponsor = eventService.selectEvent(event.getEventNo());
+			int sponsorNo = sponsor.getMemberNo();
+			Member sponsorMember = mypageService.loginAgain(sponsorNo);
+			String sponsorEmail = sponsorMember.getMemberEmail();
 			int result = eventService.joinEvent(event);
 			if (result > 0) {
+				sendEmailThread sendE = new sendEmailThread(sponsorEmail, 
+						sponsorMember.getMemberNickname(),
+						sponsorMember.getMemberNickname()+"님의 이벤트에 참석 신청이 왔습니다.",
+						event.getEventTitle()+" 이벤트에 참석 신청이 있습니다. 확인해주세요.");
+				sendE.start();
 				msg = "이벤트에 참가 신청되었습니다.";
 //				url = "redirect:detail?no=" + party.getEventNo();
 			} else {

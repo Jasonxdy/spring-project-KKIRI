@@ -503,8 +503,8 @@
 				if(confirm("보유 티켓이 부족합니다. 충전 페이지로 이동하시겠습니까?")){
 					location.href = '${contextPath}/mypage/recharge';
 				}
-			} else {
-				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}';
+			} else { // 김인호
+				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}' + '&eventTitle=' + '${event.eventTitle}';
 			}
 		}
 		

@@ -255,7 +255,7 @@
     		  
     		  "memberPhone":false,
     		  "memberEmail":false, //중복 검사, 입력확인
-    		  "memberEmailConfirm":true, //이메일 인증
+    		  "memberEmailConfirm":false, //이메일 인증
     		  "memberBirth":false, //입력 확인
     		  "memberGender":false //입력 확인 
     	  };
@@ -599,6 +599,11 @@
   				console.log(key + " / " + createIdCheck[key]);
   				
   				if(!createIdCheck[key]){
+  					if(key == "memberEmailConfirm"){
+  						alert("이메일을 인증 해주세요")
+  						$("#emailConfirmInput").focus();
+  						return false;
+  					}
   					alert("필수 입력사항을 확인해주세요");
   					var id = "#"+key;
   					$(id).focus();
