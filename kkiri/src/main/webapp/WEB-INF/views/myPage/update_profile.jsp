@@ -277,27 +277,34 @@
       
       
     var flag = false;
-	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
+	var phone1 = /^(01[0-9])-[\d]{3,4}-[\d]{4}$/
 	var phone = '${loginMember.memberPhone}';
       function validate(){
     	  if($("#nickName").val()!=""){
+    		  console.log(1)
+    		  
     		  if($(".memberGender").val()!=""){
+    			  console.log(2)
    			  	if($(".memberBirth").val()!=""){
+   			  	console.log(3)
    			  		if($(".memberPhone").val()!=""){
-   			  			if(!phone1.test(phone)){
-   							console.log(phone);
-   						}
+   			  		console.log(4)
+   			  			if(phone1.test(phone)){
+   							console.log(5)
+   						
    			  			if($(".memberEmail").val()!=""){
+   			  			console.log(6)
    			  				if($(".interest-wrap>input").val()!=""){
-					   			console.log($(".profile-img").src);
+   			  				console.log(7)
 					   		/* 	작성시 무조건 return true 가 나옴
 					   		if($(".profile-img").size()!=0)){
 					   				console.log(777);
 					   				return false;
 					   		}	 */	
 					   		flag=true;
-			  			}
-   			  		 }
+			  				}
+   			  			  }   			  		
+   			  		  }
    			  	   }
    			  	}
     		  }  
@@ -306,7 +313,7 @@
     		  alert("필수사항을 기입해 주세요");
     	  }
     	  
-    	  console.log(123);
+    	  console.log("final");
     	  return flag;
     	  
 /*     	  if($(".profile-img").src!=""){

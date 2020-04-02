@@ -168,8 +168,8 @@ public class MypageController {
 			
 		loginMember.setMemberIntroduce(loginMember.getMemberIntroduce().replace("<br>", "\r\n"));
 		}
-		
-		
+		loginMember.setMemberPhone(loginMember.getMemberPhone().trim());
+		model.addAttribute("loginMember", loginMember);
 		return "myPage/update_profile";
 	}
 	@RequestMapping("updateMember")
@@ -183,6 +183,7 @@ public class MypageController {
 				memberInterest += ",";
 			}
 		}
+		
 		member.setMemberCategory(memberInterest);
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
