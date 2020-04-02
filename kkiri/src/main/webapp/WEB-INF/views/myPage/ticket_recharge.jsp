@@ -116,7 +116,10 @@
 							success: function(merchant_uid){
 
 								if(merchant_uid != ""){
-									Card(merchant_uid);
+									location.href = "../mypage/successRecharge?recharge="+recharge
+									
+											// 임시용 작업
+											// Card(merchant_uid);
 								}else{
 									alert("쿠폰충전중 오류가 발생하여 작업을 취소했습니다.")
 									}
@@ -161,7 +164,9 @@
 						        alert(msg);
 						        
 						        // url로 값을 보냄
-						        location.href = "../mypage/successRecharge?recharge="+recharge
+						        
+						        // 임시 주석 처리중
+						       //  location.href = "../mypage/successRecharge?recharge="+recharge
 						    } else {
 						        
 						    

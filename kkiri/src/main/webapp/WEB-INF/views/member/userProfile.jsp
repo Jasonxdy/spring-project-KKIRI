@@ -27,10 +27,11 @@
 									<p class="h4">관심지역</p>
 									<p>${member.memberPlace }</p>
 									<jsp:useBean id="now" class="java.util.Date"/>
-									<fmt:formatDate value="${now}" pattern="yyyy" var="nowDate" />
+									<fmt:formatDate value="${now}" pattern="yyyyMMddHHmm" var="nowDate" />
+									<fmt:formatDate value="${now}" pattern="yyyy" var="birthYear" />
 									<fmt:formatDate value="${member.memberBirth}" pattern="yyyy" var="birthDate" />
 									<p>성별 : ${member.memberGender}</p>
-									<p>나이 : ${nowDate - birthDate +1 } 살</p>
+									<p>나이 : ${birthYear - birthDate +1 } 살</p>
 								</div>
 								<div id="category" class="col-md-6">
 									<c:set var="mCategory" value="${fn:split(member.memberCategory,',')}"/>
@@ -132,14 +133,14 @@
 													"<img class='mb-2' src='${contextPath}/resources/img/map-ping.png' alt='' style='width: 1rem; height: 1.5rem;'>" +
 													"<span>" + data.eList[i].eventAddress + "</span>" +
 													"<p>"+ data.eList[i].eventLocation+"</p>" +
-													"<p class='mb-0'>" + data.eList[i].eventCategory + "</p>" +
+													"<p class='mb-0 category-content'>" + data.eList[i].eventCategory + "</p>" +
 												"</div>" +
 												"<div class='col-md-3'>" +
 													"<div class='p-3'>" +
 														"<div>" +
 															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ data.eList[i].memberProfile +"' alt=''>" +
 															"<div style='display: inline-block; vertical-align: middle;'>" +
-																"<p class='mb-1'>" + data.eList[i].memberId + "</p>" +
+																"<p class='mb-1'>" + data.eList[i].memberNickname + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
 																"<span>" + data.eList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +

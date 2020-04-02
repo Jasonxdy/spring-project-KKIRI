@@ -55,6 +55,13 @@
     border: 1px solid #00a185;
     margin-right: 5px;
 }
+#wrapper .category-content{
+    display: inline-block;
+    color: #ffffff;
+    background-color: #00a185;
+    padding: 6px 20px;
+    border-radius: .25rem;
+}
 #favor{
 	width: 40px;
 }

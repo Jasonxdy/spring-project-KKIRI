@@ -103,8 +103,10 @@ public class MypageServiceimpl implements MypageService{
 			changeFileName = FileRename.rename(profile.getOriginalFilename());
 			member.setMemberProfile(changeFileName);
 		}else changeFileName = loginMember.getMemberProfile();
-
+		if(member.getMemberIntroduce()!=null) {
+			
 		member.setMemberIntroduce(member.getMemberIntroduce().replace("\r\n", "<br>"));
+		}
 		result = memberDAO.updateMember(member);
 
 
@@ -179,7 +181,10 @@ public class MypageServiceimpl implements MypageService{
 				Event ev = mypageDAO.moveEvent2(event);
 				// 이벤트 객체 갈아 엎기용 dao
 				event.setMemberNo(memberNo);
+				if(ev!=null) {
+					
 				ev.setPermission(mypageDAO.remakeEvent(event).getPermission()); 
+				}
 				
 				ejList.add(ev);
 			}

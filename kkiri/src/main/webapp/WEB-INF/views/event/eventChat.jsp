@@ -137,11 +137,11 @@
 			var data = msg.data;
 			var userId = null;
 			var content = "";
-			var dateTemp = null;
 			var thumb = null;
 			var comment = null;
 			var date = null;
 			var chatNo = null;
+			var dateTemp = null;
 			
 			var str = data.split('|%$');
 			
@@ -196,6 +196,7 @@
 		}
 		
 		function selectChat(){
+			noticeDate = null;
 			var content = "";
 			
 			$.ajax({

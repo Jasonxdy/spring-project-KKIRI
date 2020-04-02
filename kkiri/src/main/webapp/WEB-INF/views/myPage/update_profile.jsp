@@ -98,8 +98,8 @@
 							<option <c:if test="${phones[0] == '017'}"> selected </c:if>>017</option>
 							<option <c:if test="${phones[0] == '019'}"> selected </c:if>>019</option>
 						</select>&nbsp; - &nbsp;
-                      <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
-                      <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" maxlength="4" oninput="maxLengthCheck(this)">
+                      <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" minlength="3"  maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
+                      <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" minlength="4" maxlength="4" oninput="maxLengthCheck(this)">
                       <input type="text" class="update-input memberPhone"  id="memberPhone" name="memberPhone" value="${loginMember.memberPhone}" style="display: none;">
                   </div>
                   </div>
@@ -130,7 +130,7 @@
 				    	if(${loginMember == null}){
 				    		location.href="../mypage/main";	
 				    	}
-				    })
+				    });
 					
 					    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 					        mapOption = {
@@ -265,6 +265,10 @@
     <script>
     
     
+    	
+  
+    
+    
       function maxLengthCheck(object) {
         if (object.value.length > object.maxLength) {
           object.value = object.value.slice(0, object.maxLength);
@@ -274,38 +278,42 @@
       
     var flag = false;
 	var phone1 = /^(01[0-9])-[/d]{3,4}-[/d]{4}$/
-	var phone = ${loginMember.memberPhone};
+	var phone = '${loginMember.memberPhone}';
       function validate(){
     	  if($("#nickName").val()!=""){
-    		if($(".memberGender").val()!=""){
-   			  if($(".memberBirth").val()!=""){
-   				  if(!distinguisher.test($(".memberBirth").val().trim())){
-   					  alert("xxxx년xx월xx일 형식으로 적어주세요")
-   					  return false;
-   				  }
-   				if($(".memberPhone").val()!=""){
-   					if(!phone1.test(phone)){
-   						console.log("4456");
-   					}
-   				  if($(".memberEmail").val()!=""){
-   					if($(".interest-wrap>input").val()!=""){
-   						   console.log("123");
-   					   if($(".profile-img").src()!=""){
-   						   flag = true;
-   					   }
-   					}
-   				  }
-   				}
-   			  }
-    		}
+    		  if($(".memberGender").val()!=""){
+   			  	if($(".memberBirth").val()!=""){
+   			  		if($(".memberPhone").val()!=""){
+   			  			if(!phone1.test(phone)){
+   							console.log(phone);
+   						}
+   			  			if($(".memberEmail").val()!=""){
+   			  				if($(".interest-wrap>input").val()!=""){
+					   			console.log($(".profile-img").src);
+					   		/* 	작성시 무조건 return true 가 나옴
+					   		if($(".profile-img").size()!=0)){
+					   				console.log(777);
+					   				return false;
+					   		}	 */	
+					   		flag=true;
+			  			}
+   			  		 }
+   			  	   }
+   			  	}
+    		  }  
     	  }
     	  if(!flag){
-    		  alert("페이지를 전부 입력해주시기 바랍니다.")
+    		  alert("필수사항을 기입해 주세요");
     	  }
-      return flag;
-      
-      }
-      
+    	  
+    	  console.log(123);
+    	  return flag;
+    	  
+/*     	  if($(".profile-img").src!=""){
+				   
+			 	}
+ */      }
+   
       $(function(){
         $(".uploadBtn").on({
           "click" : function(){
@@ -335,11 +343,9 @@
       }
       
       $(function(){
-    				console.log($(".uploadInput").val());
     	  
     	$(".uploadInput").change(
     			function(){
-    				console.log($(".uploadInput").val());
     			})
       })
       

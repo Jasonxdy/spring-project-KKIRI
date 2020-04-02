@@ -17,6 +17,7 @@
 		<result property="eventThumbnail" column="EVENT_THUMBNAIL"/>
 		<result property="eventQuota" column="EVENT_QUOTA"/>
 		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
 		<result property="memberProfile" column="MEMBER_PROFILE"/>
 		<result property="eventScore" column="SCORE"/>
 	</resultMap>
@@ -80,7 +81,7 @@
 	  
 	<select id="selectCreateEvent" parameterType="_int" resultMap="searchResultSet">
 		SELECT EVENT_NO, EVENT_TITLE, EVENT_CONTENT, EVENT_CATEGORY, EVENT_ADDRESS, EVENT_LOCATION, LATITUDE, LONGITUDE,
-				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_PROFILE, SCORE
+				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_NICKNAME, MEMBER_PROFILE, SCORE
 		FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'S'
@@ -88,7 +89,7 @@
 	
 	<select id="selectJoinEvent" parameterType="_int" resultMap="searchResultSet">
 		SELECT EVENT_NO, EVENT_TITLE, EVENT_CONTENT, EVENT_CATEGORY, EVENT_ADDRESS, EVENT_LOCATION, LATITUDE, LONGITUDE,
-				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_PROFILE, SCORE
+				EVENT_START, EVENT_END, EVENT_TICKET, EVENT_THUMBNAIL, EVENT_QUOTA, MEMBER_ID, MEMBER_NICKNAME, MEMBER_PROFILE, SCORE
 		FROM V_EVENT_P
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_TYPE = 'P'
