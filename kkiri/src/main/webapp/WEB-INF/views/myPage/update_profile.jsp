@@ -98,8 +98,8 @@
 							<option <c:if test="${phones[0] == '017'}"> selected </c:if>>017</option>
 							<option <c:if test="${phones[0] == '019'}"> selected </c:if>>019</option>
 						</select>&nbsp; - &nbsp;
-                      <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
-                      <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" maxlength="4" oninput="maxLengthCheck(this)">
+                      <input type="number" class="update-input memberPhone"  id="phone2" name="memberPhone2" value="${phones[1]}" minlength="3"  maxlength="4" oninput="maxLengthCheck(this)">&nbsp; - &nbsp; 
+                      <input type="number" class="update-input memberPhone"  id="phone3" name="memberPhone3" value="${phones[2]}" minlength="4" maxlength="4" oninput="maxLengthCheck(this)">
                       <input type="text" class="update-input memberPhone"  id="memberPhone" name="memberPhone" value="${loginMember.memberPhone}" style="display: none;">
                   </div>
                   </div>
