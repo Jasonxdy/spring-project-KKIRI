@@ -18,6 +18,7 @@ public class Search {
 	private String eventThumbnail;
 	private int eventQuota;
 	private String memberId;
+	private String memberNickname;
 	private String memberProfile;
 	private double eventScore;
 	

@@ -99,7 +99,7 @@
 											<span class="h4 event-section-title">반경</span> <a
 												class="h4 event-section-title"
 												style="color: white; text-decoration: underline;"
-												data-toggle="dropdown" href="#" id="round">1 km</a>
+												data-toggle="dropdown" href="#" id="round">5 km</a>
 											<ul class="dropdown-menu my-1" id="roundMenu">
 												<li><a class="dropdown-item" href="javascript:"
 													data-value="1" data-copy="1 km">1 km</a></li>
@@ -185,7 +185,7 @@
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
 		        //center: coords,
-		        level: 3 // 지도의 확대 레벨
+		        level: 5 // 지도의 확대 레벨
 		    };  
 			
 			// 지도를 생성합니다    
@@ -350,7 +350,7 @@
 														"<div>" +
 															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ sList[i].memberProfile +"' alt=''>" +
 															"<div style='display: inline-block; vertical-align: middle;'>" +
-																"<p class='mb-1'>" + sList[i].memberId + "</p>" +
+																"<p class='mb-1'>" + sList[i].memberNickname + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
 																"<span>" + sList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +

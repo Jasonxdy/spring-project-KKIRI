@@ -139,7 +139,7 @@
 														"<div>" +
 															"<img style='width: 4rem; height: 4rem; border-radius: 50%;' src='${contextPath}/resources/upProfileImage/"+ data.eList[i].memberProfile +"' alt=''>" +
 															"<div style='display: inline-block; vertical-align: middle;'>" +
-																"<p class='mb-1'>" + data.eList[i].memberId + "</p>" +
+																"<p class='mb-1'>" + data.eList[i].memberNickname + "</p>" +
 																"<img style='width: 1rem; height: 1rem;' src='${contextPath}/resources/img/star-on.png' alt=''>" +
 																"<span>" + data.eList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +
