@@ -149,8 +149,12 @@ public class MemberController {
 	// 회원 가입
 	@RequestMapping("createId") // 바뀔 쑤 있음 ㅎㅎ
 	public String createId(Member member, Model model, String memberLocation, String memberPhone1, String memberPhone2,
-			String memberPhone3, @RequestParam(value = "memberInterest") String[] interest, String memberBankName,
-			String memberBankNumber, String memberAccountName, HttpServletRequest request, RedirectAttributes rdAttr,
+			String memberPhone3, @RequestParam(value = "memberInterest") String[] interest, 
+			
+							/*@RequestParam(value="memberBankName" , required=false)*/ String memberBankName,
+							/*@RequestParam(value="memberBankNumber" , required=false)*/ String memberBankNumber,
+							/*@RequestParam(value="memberAccountName" , required=false)*/ String memberAccountName,
+			 HttpServletRequest request, RedirectAttributes rdAttr,
 			@RequestParam(value = "uploadProfile", required = true) MultipartFile uploadProfile) {
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -165,17 +169,28 @@ public class MemberController {
 		String memberPhone = memberPhone1 + "-" + memberPhone2 + "-" + memberPhone3;
 
 		String memberCategory = null;
-		String memberAcount = memberBankName + "," + memberBankNumber + "," + memberAccountName;
+		String memberAcount = null;
+		
 		if (interest != null) {
 			memberCategory = String.join(",", interest);
-
 		}
+		
+		if (memberBankName !=null) {
+			memberAcount = String.join(",", memberBankName);
+		}
+		
+	/*	if (memberBankName==null) {
+			memberAcount=memberAcount.replaceAll(",","");
+		}*/
+		
+			Member createMember = new Member(member.getMemberId(), member.getMemberNickname(), member.getMemberPwd(),
+					member.getMemberEmail(), member.getMemberGender(), memberPhone, member.getMemberBirth(),
+					member.getMemberIntroduce(), memberLocation, memberCategory, memberAcount
 
-		Member createMember = new Member(member.getMemberId(), member.getMemberNickname(), member.getMemberPwd(),
-				member.getMemberEmail(), member.getMemberGender(), memberPhone, member.getMemberBirth(),
-				member.getMemberIntroduce(), memberLocation, memberCategory, memberAcount
-
-		);
+			);
+		
+		
+		
 
 		System.out.println("1. 로그인:" + createMember);
 
