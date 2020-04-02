@@ -41,7 +41,7 @@
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">닉네임 : </h5>
                     <input id="nickName" type="text" class="update-input memberNickname" name="memberNickname" value="${loginMember.memberNickname}">
-                    
+                    <div class="update-input" id="checkId" ></div>
                   </div>
                   <div class="row my-profile-section-element">
                     <h5 class="col-4 ">성별 : </h5>
@@ -70,6 +70,39 @@
                   	<div id="birthDayChecker" style="display : block; backgroundColor:white;"></div>
                   </div>
                   <script type="text/javascript">
+                  
+                 
+                  
+                  $(function(){
+                	  
+                	  
+              		$("#nickName").on("input",function(){
+              			 var memberId = $("#nickName").val();
+              			$.ajax({
+							url: "../member/memberNickUnique",
+							data: {memberNickname: memberId },
+							type : "post",
+							success : function(result){
+								
+								if(result == "true"){
+									$("#checkId").text("닉네임 사용가능").css("color", "#00a185" );
+									
+								}else{
+									$("#checkId").text("이미 등록된 닉네임").css("color", "#c82333" );
+									
+								}
+							},
+							error: function(e){
+								console.log("ajax 통신 실패");
+	                			console.log(e);
+							}
+							
+						});
+              			
+              		})
+              	})
+            
+                  
                   /*
                   var distinguisher = /^(1[9]|2[0])[\d]{2}년(0[1-9]|1[0-2])월(0[1-9]|1[0-9]|2[0-9]|3[0-2])일$/ 
                   $(function(){
@@ -266,7 +299,6 @@
     
     
     	
-  
     
     
       function maxLengthCheck(object) {
@@ -281,6 +313,8 @@
 	var phone = '${loginMember.memberPhone}';
       function validate(){
     	  if($("#nickName").val()!=""){
+    		  if($("#checkId").text().trim()!="이미 등록된 닉네임"){
+    			  
     		  
     		  if($(".memberGender").val()!=""){
    			  	if($(".memberBirth").val()!=""){
@@ -300,10 +334,11 @@
    			  		  }
    			  	   }
    			  	}
-    		  }  
+    		  }
+    		}  
     	  }
     	  if(!flag){
-    		  alert("필수사항을 기입해 주세요");
+    		  alert("필수사항을 확인해 주세요");
     	  }
     	  
     	  return flag;

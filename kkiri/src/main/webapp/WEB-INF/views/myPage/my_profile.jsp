@@ -180,7 +180,7 @@
               </script>
               
               
-              <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount" onsubmit="">
+              <form id="display-account" class="my-profile-section moving-1" action="../mypage/updateAccount" onsubmit="return bankChecker();">
               <c:set var="banks" value="${fn:split(loginMember.memberAccount, ',')}"/>
                 <h4>환급 계좌</h4>
                 <div class="row my-profile-tableTitle">
@@ -189,7 +189,7 @@
                   <div class="col-4">
                     은행
                   </div>
-                <select class="passborder" name="bankName" >
+                <select id="bank" class="passborder bank_name" name="bankName" required>
                 
                 	<option value="null"
                 <c:if test="${loginMember.memberAccount ==null }">
@@ -211,7 +211,7 @@
                 <div class="col-4">
                   계좌번호
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankNumber" 
+                <input id="bankNumber" class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankNumber" required
                 <c:if test="${loginMember.memberAccount !=null }">
                 	value ="${banks[1]}"
                 	
@@ -222,17 +222,32 @@
                 <div class="col-4">
                   예금주
                 </div>
-                <input class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankOrner" 
+                <input id="bankOrner" class="passborder" type="text" placeholder="현재 등록된 계좌가 없습니다." name="bankOrner" required 
                 <c:if test="${loginMember.memberAccount !=null }">
                 	value ="${banks[2]}"
                 </c:if> >
                 
               </div>
               <br>
-              <button class="btn my-profile-btn" type="submit" >
+              <button class="btn my-profile-btn" type="submit"  >
                 수정하기
               </button>
             </form>
+            
+            <script>
+           
+            	function bankChecker(){
+            		var bank = document.getElementById("bank");
+
+            		 if($(".bank_name option:checked").val()!="null"){
+            			 return true;
+            		 }
+            			 alert("등록된 은행이 없습니다.");
+            		return false;
+            	}
+           
+            
+            </script>
             
             <div id="display-delete" class="my-profile-section moving-1">
               <h4>회원 탈퇴</h4>

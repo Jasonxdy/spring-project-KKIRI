@@ -371,7 +371,7 @@ public class MypageController {
 			@RequestParam(value="memberId")String memberId,
 			@RequestParam(value="recharge-way")String rechargeWay
 			) {
-
+System.out.println("ticketRecharge 입장");
 
 		Ticket ticket = new Ticket();
 
@@ -402,7 +402,7 @@ public class MypageController {
 			else {
 				merchantUid = null;
 			}
-
+System.out.println(merchantUid);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -411,6 +411,8 @@ public class MypageController {
 
 	@RequestMapping("successRecharge")
 	public String successRecharge (@RequestParam(value="recharge")Integer recharge, Model model) {
+		System.out.println("loginMember 값 변경");
+		
 		// 멤버의 데이터 전달 및 로그인 중인 멤버의 값 변경
 		Member loginMember = (Member)model.getAttribute("loginMember");
 		int result = 0;

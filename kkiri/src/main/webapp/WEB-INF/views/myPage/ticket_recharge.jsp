@@ -85,22 +85,17 @@
 				</div>
 			</div>
 
+<script>
+
+
+</script>
+
 			<script>
-			$(function(){
-		    	if(${loginMember == null}){
-		    		location.href="../mypage/main";	
-		    	}
-		    })
-			
-			
-			
-			
-			
-			
 				var recharge;
 				var memberNo = '${loginMember.memberNo}';
 				var memberId = '${loginMember.memberId}';
 					function moving(){
+						console.log(123);
 				recharge = $("input[name=recharge-amount]:checked").val();
 				var rechargeway = $("input[name=recharge-way]:checked").val();
 				var merchant_uid;
@@ -114,10 +109,7 @@
 							success: function(merchant_uid){
 
 								if(merchant_uid != ""){
-									location.href = "../mypage/successRecharge?recharge="+recharge
-									
-											// 임시용 작업
-											// Card(merchant_uid);
+											 Card(merchant_uid);
 								}else{
 									alert("쿠폰충전중 오류가 발생하여 작업을 취소했습니다.")
 									}
@@ -137,6 +129,7 @@
 				
 				IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 					function Card(merchant_uid){
+					alert(123);
 						IMP.request_pay({
 						    pg : 'inicis', // version 1.1.0부터 지원.
 						    pay_method : 'card',
@@ -162,8 +155,8 @@
 						        
 						        // url로 값을 보냄
 						        
-						        // 임시 주석 처리중
-						       //  location.href = "../mypage/successRecharge?recharge="+recharge
+						       
+						        location.href = "../mypage/successRecharge?recharge="+recharge
 						    } else {
 						        
 						    

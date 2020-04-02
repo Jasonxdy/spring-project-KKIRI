@@ -82,7 +82,10 @@ public class MypageServiceimpl implements MypageService{
 		int result = 0;
 		Member checkMember = null;
 		checkMember = memberDAO.signInMember(loginMember);
-		if(checkMember != null) {
+		
+		
+		if(checkMember != null &&bcryptPasswordEncoder.matches(loginMember.getMemberPwd(), checkMember.getMemberPwd())){
+			
 			result = mypageDAO.deleteMember(loginMember);
 			if(result == 0) result=-1;
 		}
