@@ -124,8 +124,6 @@
     <!-- 이벤트생성 관련 스크립트 -->
     <script>
       $(function() {
-    	  $(".step1,.step2").hide();
-    	  $(".step3").show();
     	  // Enter키 비활성화
     	  $("input").keydown(function() {
     		  if (event.keyCode === 13) {
