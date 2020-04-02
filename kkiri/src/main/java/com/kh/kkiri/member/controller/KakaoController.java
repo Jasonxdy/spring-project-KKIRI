@@ -25,9 +25,9 @@ public class KakaoController {
 	// kakao에 만든 앱에서 제공하는 ID
 	private final static String K_CLIENT_ID = "3d8ea699b0976d3c50c4bb8b914c550c";
 	// 요청한 정보를 받을 URI
-    private final static String K_REDIRECT_URI = "http://localhost:8080/kkiri/member/kakaoLogin";
+    private final static String K_REDIRECT_URI = "http://khaclass.iptime.org:7777/kkiri/member/kakaoLogin";
     
-    // 
+    // http://khaclass.iptime.org:7777/kkiri/#
     public String getAuthorizationUrl(HttpSession session) {
 
       String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?"
