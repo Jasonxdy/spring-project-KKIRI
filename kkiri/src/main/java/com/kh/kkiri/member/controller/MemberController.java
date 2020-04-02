@@ -444,6 +444,7 @@ public class MemberController {
 //			System.out.println(userInfo);
 			String memberEmail = null;
 			String memberGender = null;
+			String memberNickname = null;
 			if(userInfo.findValue("email") != null) {
 				memberEmail = userInfo.get("kakao_account").get("email").toString().replaceAll("\"", "");
 			}else {
@@ -453,11 +454,13 @@ public class MemberController {
 				return "redirect:/";
 			}
 			String memberId = userInfo.get("id").toString();
-			String memberNickname = userInfo.get("properties").get("nickname").toString().replaceAll("\"", "");
+			if(userInfo.get("properties").get("nickname") != null) {
+				memberNickname = userInfo.get("properties").get("nickname").toString().replaceAll("\"", "");
+			}else memberNickname = "KKIRI의 별명";
 			String memberPwd = userInfo.get("connected_at").toString();
 			if(userInfo.findValue("gender") != null) {
 				memberGender = userInfo.get("kakao_account").get("gender").toString().replaceAll("\"", "");
-			}
+			} memberGender = "male";
 			if (memberGender.equals("male"))
 				memberGender = "M";
 			else if (memberGender.equals("female"))
