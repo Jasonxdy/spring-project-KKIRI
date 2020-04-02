@@ -156,6 +156,7 @@ html body .pagination-wrap{
 }
 .popup-img>img{
     width: 55%;
+    max-height: 700px;
 }
 #popup{
     width: 80%;

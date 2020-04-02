@@ -44,7 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
 		// 공지사항 다음 글번호 얻어오기
 		// -> 공지사항 등록 성공 시 해당 게시글로 돌아갈 수 있게하기 위함
 		int no = noticeDAO.selectNextNo();
-		System.out.println("no : " + no);
+		
 		
 		if(no > 0) { // 글번호 얻어오기 성공 시 
 			// 조회된 글번호 세팅
@@ -56,7 +56,7 @@ public class NoticeServiceImpl implements NoticeService {
 					notice.getNoticeContent().replace("\r\n", "<br>"));
 			
 			result = noticeDAO.insertNotice(notice);
-			System.out.println("result : " + result);
+			
 			
 			if(result > 0)	result = no;
 		}
