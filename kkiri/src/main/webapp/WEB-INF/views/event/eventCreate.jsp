@@ -204,10 +204,6 @@
    	      eventEnd = eventEnd.replace(/\T/g,'');
    		  eventEnd = eventEnd.replace(/\:/g,'');
 		  
-   		  console.log("현재 시각 : " + currentTime);
-   		  console.log("입력한 시작 시간 : " + eventStart);
-   		  console.log("입력한 종료 시간 : " + eventEnd);
-    	  
 		  if($(".uploadInput").val()==""){
     		  alert("이벤트 썸네일 사진을 등록해주세요!");
     		  return false;
