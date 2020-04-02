@@ -74,7 +74,7 @@
 											결제</label>
 									</div>
 								</div>
-								<button id="move-recharge" type="submit" onclick="validate();">구매</button>
+								<button id="move-recharge" type="submit" onclick="Card(20200403074435wont5);">구매</button>
 							</form>
 							<script type="text/javascript"
 								src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -94,8 +94,11 @@
 				var recharge;
 				var memberNo = '${loginMember.memberNo}';
 				var memberId = '${loginMember.memberId}';
-					function moving(){
-						console.log(123);
+				
+				$(function(){
+					
+				
+				function moving(){
 				recharge = $("input[name=recharge-amount]:checked").val();
 				var rechargeway = $("input[name=recharge-way]:checked").val();
 				var merchant_uid;
@@ -107,7 +110,7 @@
 									"memberNo" : memberNo,
 									"memberId" : memberId},
 							success: function(merchant_uid){
-
+								alert(merchant_uid);
 								if(merchant_uid != ""){
 											 Card(merchant_uid);
 								}else{
@@ -129,7 +132,6 @@
 				
 				IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 					function Card(merchant_uid){
-					alert(123);
 						IMP.request_pay({
 						    pg : 'inicis', // version 1.1.0부터 지원.
 						    pay_method : 'card',
@@ -154,8 +156,6 @@
 						        alert(msg);
 						        
 						        // url로 값을 보냄
-						        
-						       
 						        location.href = "../mypage/successRecharge?recharge="+recharge
 						    } else {
 						        
@@ -178,7 +178,7 @@
 						});
 						return true;
 					}
-				
+				})
 				</script>
 
 			<script>
