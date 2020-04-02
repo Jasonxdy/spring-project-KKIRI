@@ -164,10 +164,7 @@ public class MypageController {
 	public String updateMyPage (Model model) {
 		
 		Member loginMember = (Member)model.getAttribute("loginMember");
-		if(loginMember.getMemberIntroduce()!=null) {
-			
 		loginMember.setMemberIntroduce(loginMember.getMemberIntroduce().replace("<br>", "\r\n"));
-		}
 		
 		
 		return "myPage/update_profile";
@@ -498,6 +495,7 @@ public class MypageController {
 			//			if(result>0) msg = "변경되었습니다.";
 			//			else msg = "변경 실패";
 			//			rdattr.addFlashAttribute("msg", msg);
+			rdattr.addFlashAttribute("updateResult",result);
 		}catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMsg", "즐겨찾기 불러오기 중 에러가 발생했습니다.");

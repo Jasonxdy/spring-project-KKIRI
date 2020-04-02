@@ -168,7 +168,7 @@
                       <label for="female" class="gender-label"><input type="radio" class="memberGender" name="memberGender" value="F" id="female">여자</label><br>
                       <p>본인 계좌번호</p>
                       <select name="memberBankName">
-                        <option value="none">은행선택</option>
+                        <option value="">은행선택</option>
                         <option value="신한은행">신한은행</option>
                         <option value="국민은행">국민은행</option>
                         <option value="우리은행">우리은행</option>
