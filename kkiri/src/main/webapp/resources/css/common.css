@@ -181,9 +181,10 @@ input::-webkit-inner-spin-button{
 }
 .page-link:hover,
 .page-link.active{
-  background-color:#00a185 !important;
-  border-color:#00a185 !important;
-  color:#ffffff !important;
+    background-color: #00a185 !important;
+    border-color: #00a185 !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
 }
 
 /* 종료된 이벤트 */
