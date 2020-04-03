@@ -279,7 +279,7 @@
                     <h5 class="profile-name col-4">프로필 사진 : </h5>
                     <div class="col-8">
                       <img class="profile-img" src="../resources/upProfileImage/${loginMember.memberProfile}" alt="프로필 사진">
-                      <input type="file" class="uploadInput" name="profile" onchange="loadImg(this)" 
+                      <input id="isFile" type="file" class="uploadInput" name="profile" onchange="loadImg(this)" 
                       value="../resources/upProfileImage/${loginMember.memberProfile}"
                       >
                       <button type="button" class="uploadBtn green-radius-btn">사진 변경하기</button>
@@ -309,6 +309,20 @@
       
       
     var flag = false;
+    var flag2 = false;
+    $("#isFile").on("change", function(){
+  	  var imgFile = $('#isFile').val();
+			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+  	  
+  	  if(imgFile != "" && imgFile != null) {
+    	    if(!imgFile.match(fileForm)) {
+    	    	alert("이미지 파일만 업로드 가능");
+    	    	flag2 = false;
+    	    }else{
+    	    	flag2 = true;
+    	    }
+    	 }
+	})
 	var phone1 = /^(01[0-9])-[\d]{3,4}-[\d]{4}$/
 	var phone = '${loginMember.memberPhone}';
       function validate(){
@@ -323,12 +337,14 @@
    						
    			  			if($(".memberEmail").val()!=""){
    			  				if($(".interest-wrap>input").val()!=""){
+   			  					if(flag2){
+   			  						flag=true;
+   			  					}
 					   		/* 	작성시 무조건 return true 가 나옴
 					   		if($(".profile-img").size()!=0)){
 					   				console.log(777);
 					   				return false;
 					   		}	 */	
-					   		flag=true;
 			  				}
    			  			  }   			  		
    			  		  }
@@ -340,6 +356,7 @@
     	  if(!flag){
     		  alert("필수사항을 확인해 주세요");
     	  }
+   		  
     	  
     	  return flag;
     	  
@@ -347,7 +364,9 @@
 				   
 			 	}
  */      }
-   
+   		
+      
+      
       $(function(){
         $(".uploadBtn").on({
           "click" : function(){
