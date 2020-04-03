@@ -338,12 +338,19 @@
                           <span>${ele2.memberNickname }</span>
                           <img src="../resources/img/star-on.png" alt="별점">&nbsp;${ele2.memberRating }
                         </p>
-                        <c:if test="${ele2.permission =='N' }">
-                        <p class="loading-event">대기중인 이벤트</p>
+                        <c:if test="${eve.eventEnd < sysdate }">
+                        <p class="end-event">종료된 이벤트</p>
                         </c:if>
-                        <c:if test="${ele2.permission =='D' }">
-                        <p class="reject-event">거절된 이벤트</p>
+                        <c:if test="${eve.eventEnd > sysdate }">
+	                        <c:if test="${ele2.permission =='N' }">
+	                       		<p class="loading-event">대기중인 이벤트</p>
+	                        </c:if>
+	                        
+	                        <c:if test="${ele2.permission =='D' }">
+	                        	<p class="reject-event">거절된 이벤트</p>
+	                        </c:if>
                         </c:if>
+                        
                         <input class="eveno" type="number" value="${ele2.eventNo}" style="display:none">
                       </div>  
                     </li>

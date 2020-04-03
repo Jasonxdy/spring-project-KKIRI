@@ -461,7 +461,7 @@ WHERE MEMBER_TYPE='S' AND MEMBER_STATUS='Y' AND EVENT_NO = #{eventNo} AND EVENT_
 
 <if test="flag==3">
 
-AND EVENT_END > SYSDATE
+<!-- AND EVENT_END > SYSDATE -->
 </if>
 ORDER BY EVENT_START DESC
 	</select>
@@ -504,7 +504,7 @@ WHERE MEMBER_TYPE='P' AND MEMBER_STATUS='Y' AND EVENT_NO=#{eventNo} AND PARTY.ME
 	<if test="flag == 3">
 	
 	AND PERMISSION != 'Y'
-	AND EVENT_END >SYSDATE
+	<!-- AND EVENT_END >SYSDATE -->
 	</if>
 	</select>
 	
