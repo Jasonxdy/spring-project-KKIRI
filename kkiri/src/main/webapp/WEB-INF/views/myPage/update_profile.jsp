@@ -309,7 +309,7 @@
       
       
     var flag = false;
-    var flag2 = false;
+    var flag2 = true;
     $("#isFile").on("change", function(){
   	  var imgFile = $('#isFile').val();
 			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
@@ -337,9 +337,9 @@
    						
    			  			if($(".memberEmail").val()!=""){
    			  				if($(".interest-wrap>input").val()!=""){
-   			  					if(flag2){
-   			  						flag=true;
-   			  					}
+	   			  					if(flag2){
+	   			  						flag=true;
+	   			  					}
 					   		/* 	작성시 무조건 return true 가 나옴
 					   		if($(".profile-img").size()!=0)){
 					   				console.log(777);
