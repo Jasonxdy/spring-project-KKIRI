@@ -196,7 +196,6 @@ public class MypageServiceimpl implements MypageService{
 				
 				Event ev = mypageDAO.moveEvent2(map);
 				// 이벤트 객체 갈아 엎기용 dao
-				System.out.println(ev);
 				if(ev!=null) {
 					
 				ev.setPermission(mypageDAO.remakeEvent(map).getPermission()); 
