@@ -504,7 +504,7 @@
 					location.href = '${contextPath}/mypage/recharge';
 				}
 			} else { // 김인호
-				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}' + '&eventTitle=' + '${event.eventTitle}';
+				location.href = 'joinEvent?eventNo=' + ${event.eventNo} + '&eventTicket=' + ${event.eventTicket} + '&memberNo=' + '${loginMember.memberNo}';
 			}
 		}
 		

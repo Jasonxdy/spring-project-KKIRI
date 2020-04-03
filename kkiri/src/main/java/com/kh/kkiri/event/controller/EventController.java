@@ -180,7 +180,7 @@ public class EventController {
 				sendEmailThread sendE = new sendEmailThread(sponsorEmail, 
 						sponsorMember.getMemberNickname(),
 						sponsorMember.getMemberNickname()+"님의 이벤트에 참석 신청이 왔습니다.",
-						event.getEventTitle()+" 이벤트에 참석 신청이 있습니다. 확인해주세요.");
+						"개최하신 이벤트에 참석 신청이 있습니다. 확인해주세요.");
 				sendE.start();
 				msg = "이벤트에 참가 신청되었습니다.";
 //				url = "redirect:detail?no=" + party.getEventNo();
