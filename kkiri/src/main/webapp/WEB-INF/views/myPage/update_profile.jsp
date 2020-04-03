@@ -336,7 +336,7 @@
    			  			if(phone1.test(phone)){
    						
    			  			if($(".memberEmail").val()!=""){
-   			  				if($(".interest-wrap>input").val()!=""){
+   			  				if($(".interest-wrap>input:checked").val()!=undefined){
 	   			  					if(flag2){
 	   			  						flag=true;
 	   			  					}
@@ -358,13 +358,12 @@
     	  }
    		  
     	  
-    	  return flag;
+     	  return flag; 
     	  
 /*     	  if($(".profile-img").src!=""){
 				   
 			 	}
  */      }
-   		
       
       
       $(function(){
