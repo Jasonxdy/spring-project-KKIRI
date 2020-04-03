@@ -71,7 +71,6 @@ public class HomeController {
 		    
 		    // naverUrl
 		    String naverState = naverController.generateState();
-//		    System.out.println("홈컨에서 검증 토큰: "+naverState);
 		    session.setAttribute("naverState", naverState);
 		    String naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=LJUiiR8c6mrgWsanAhFZ&response_type=code&redirect_uri=http://khaclass.iptime.org:7777/kkiri/member/naverLogin&state=" + naverState;
 		    session.setAttribute("naverUrl", naverUrl);
@@ -86,7 +85,6 @@ public class HomeController {
 		    	String memberLocation = (String)loginMember.getMemberPlace();
 		    	String[] array = memberLocation.split("\\s");
 		    	String memberPlace = array[0] + " " + array[1];
-		    	System.out.println("memberPlace 출력 : " + memberPlace);
 		    	eventList = homeService.recommandEventLogin(memberPlace);
 		    }
 			
