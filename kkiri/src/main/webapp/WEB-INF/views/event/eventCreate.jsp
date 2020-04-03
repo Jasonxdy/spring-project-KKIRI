@@ -227,9 +227,11 @@
     		  return false;
     	  }else if(currentTime>eventStart){
     		  alert("현재보다 이후로 이벤트 시작 시간을 설정해주세요!");
+    		  $("#eventStart").focus();
     		  return false;
     	  }else if(currentTime>eventEnd){
     		  alert("현재보다 이후로 이벤트  종료 시간을 설정해주세요!");
+    		  $("#eventEnd").focus();
     		  return false;
     	  }else if(eventStart>eventEnd){
     		  alert("이벤트 종료 시간은 시작 시간보다 이후이어야 합니다!");
