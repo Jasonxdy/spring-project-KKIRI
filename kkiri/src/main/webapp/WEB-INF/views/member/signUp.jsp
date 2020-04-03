@@ -242,7 +242,7 @@
       
       // 유효성 검사 
     	  var createIdCheck={
-    		 // "isFile":false,  // 파일 확장자 유효성체크
+    		  "isFile":false,  // 파일 확장자 유효성체크
     		  
     		  "memberProfile":false,
     		  "memberId":false, // 입력확인, 아이디 유효성, 중복 검사
@@ -577,21 +577,6 @@
           reader.readAsDataURL(value.files[0]);
       }
       
-      // 이미지 파일
-      /* function validate(){
-    	  var imgFile = $('#isFile').val();
-			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
-    	  
-    	  if(imgFile != "" && imgFile != null) {
-      	    if(!imgFile.match(fileForm)) {
-      	    	alert("이미지 파일만 업로드 가능");
-      	        return false;
-      	    } 
-      	 }
-      } */
-      
-		
-      
       
    // 유효성 검사 validate()	
  		function validate(){
@@ -604,6 +589,11 @@
   						$("#emailConfirmInput").focus();
   						return false;
   					}
+  					if(key == "isFile"){
+  						alert("프로필 사진 파일 형식이 잘못되었습니다.")
+  						$("#isFile").focus();
+  						return false;
+  					}
   					alert("필수 입력사항을 확인해주세요");
   					var id = "#"+key;
   					$(id).focus();
@@ -613,7 +603,24 @@
   		}
    
     </script>
-
+	
+	<script>
+		// 이미지 파일
+		$("#isFile").on("change", function(){
+	  	  var imgFile = $('#isFile').val();
+				var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+	  	  
+	  	  if(imgFile != "" && imgFile != null) {
+	    	    if(!imgFile.match(fileForm)) {
+	    	    	alert("이미지 파일만 업로드 가능");
+	    	    	createIdCheck.isFile = false;
+	    	    }else{
+	    	    	createIdCheck.isFile = true;
+	    	    }
+	    	 }
+		})
+	
+	</script>
     
 	
 	<jsp:include page="../common/footer.jsp"/>
