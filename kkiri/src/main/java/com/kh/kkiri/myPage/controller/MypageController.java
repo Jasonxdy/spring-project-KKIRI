@@ -292,7 +292,6 @@ public class MypageController {
 			// 대기
 			List<Event> ejList2 = mypageService.moveEvent3(memberNo, pInf2,flag);
 			
-			System.out.println(ejList2);
 			
 			
 			loginMember = mypageService.loginAgain(loginMember.getMemberNo());
@@ -371,7 +370,6 @@ public class MypageController {
 			@RequestParam(value="memberId")String memberId,
 			@RequestParam(value="recharge-way")String rechargeWay
 			) {
-System.out.println("ticketRecharge 입장");
 
 		Ticket ticket = new Ticket();
 
@@ -402,7 +400,6 @@ System.out.println("ticketRecharge 입장");
 			else {
 				merchantUid = null;
 			}
-System.out.println(merchantUid);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -411,7 +408,6 @@ System.out.println(merchantUid);
 
 	@RequestMapping("successRecharge")
 	public String successRecharge (@RequestParam(value="recharge")Integer recharge, Model model) {
-		System.out.println("loginMember 값 변경");
 		
 		// 멤버의 데이터 전달 및 로그인 중인 멤버의 값 변경
 		Member loginMember = (Member)model.getAttribute("loginMember");
