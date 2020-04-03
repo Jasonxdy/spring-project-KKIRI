@@ -73,13 +73,13 @@ public class MemberController {
 		String memberId = request.getParameter("memberId");  // 쿠키 아이디
 		String beforeUrl = request.getHeader("referer");
 
-		System.out.println(member);
+		
 
 		try {
 
 			Member loginMember = memberService.loginMember(member);
 
-			System.out.println("로그인 확인 :" + loginMember);
+			
 			// if( !bCryptPasswordEncoder.matches(member.getMemberPwd(),
 			// loginMember.getMemberPwd())) {
 			// // loginMember = null;
@@ -88,7 +88,7 @@ public class MemberController {
 			// 쿠키
 			HttpSession session = request.getSession();
 			
-			System.out.println("세션 : " + session );
+			
 			
 			if (loginMember != null) {
 				if(!loginMember.getMemberPwd().equals("")) {
@@ -165,7 +165,7 @@ public class MemberController {
 		if (!folder.exists())
 			folder.mkdir();
 
-		System.out.println("0. 확인");
+		
 		String memberPhone = memberPhone1 + "-" + memberPhone2 + "-" + memberPhone3;
 
 		String memberCategory = null;
@@ -299,7 +299,7 @@ public class MemberController {
 		try {
 			String code = request.getParameter("code");
 			String msg = null;
-			System.out.println(code);
+			
 
 			// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 			RestTemplate restTemplate = new RestTemplate();
@@ -332,7 +332,7 @@ public class MemberController {
 
 			// System.out.println(tokens.length);
 			// System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
-			System.out.println(googleInform);
+			
 
 			// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
 			ObjectMapper mapper = new ObjectMapper();
@@ -444,7 +444,7 @@ public class MemberController {
 			if(userInfo.findValue("email") != null) {
 				memberEmail = userInfo.get("kakao_account").get("email").toString().replaceAll("\"", "");
 			}else {
-				System.out.println("email: "+userInfo.findValue("email"));
+				
 				msg = "Email 제공에 동의해야 합니다. https://accounts.kakao.com/ 에서 연결을 끊고 다시 시도해주세요.";
 				rdAttr.addFlashAttribute("msg", msg);
 				return "redirect:/";
@@ -548,7 +548,7 @@ public class MemberController {
 				// JsonNode 형식으로 받은 userInfo
 				JsonNode userInfo = naverLogin.getNaverUserInfo(code, session);
 				String msg = null;
-				System.out.println(userInfo);
+				
 				
 				// JsonNode에 접근하는 메소드 get을 이용
 				// get(키값)은 value를 반환. 다만 ""가 같이 나옴
@@ -623,7 +623,7 @@ public class MemberController {
 			sb.append((int)(Math.random()*10));
 		}
 		String confirmNo = sb.toString();
-		System.out.println("controller인증번호: "+confirmNo);
+		
 		boolean result = sendEmail.send(email, "회원님", "KKIRI 이메일 인증", "인증번호: "+confirmNo);
 		
 		if(result) return confirmNo;
