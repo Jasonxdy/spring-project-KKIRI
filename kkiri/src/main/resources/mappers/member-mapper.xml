@@ -201,7 +201,7 @@
 	
 	<insert id="doFavorite" parameterType="Favorite">
 		INSERT INTO FAVORITE
-		VALUES(#{memberNo}, #{favoriteNo}, '호호')
+		VALUES(#{memberNo}, #{favoriteNo}, '메모')
 	</insert>
 	
 	<delete id="undoFavorite" parameterType="Favorite">
