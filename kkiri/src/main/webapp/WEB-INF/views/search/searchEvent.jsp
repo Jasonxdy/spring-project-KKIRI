@@ -180,7 +180,6 @@
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 	
 		<script>
-		
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(37.56793540174546, 126.98310888649587), // 지도의 중심좌표
@@ -205,7 +204,6 @@
 			var overlays = [];
 			
 			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
-			
 			var testValue = "${findKeyword}";
 			
 			$(function() {
@@ -245,14 +243,15 @@
 						if (status === kakao.maps.services.Status.OK) {
 							coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 							map.setCenter(coords);
+							
+							if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
+								$("#searchKey").val(testValue);
+					    		$("#findEventButton").click();
+					    	}else{
+								searchSlist();  // 그냥 탐색을 들어갔을 때
+					    	}
 						} 
 					});
-			        if(testValue.length>0){ // index에 카테고리를 클릭해서 탐색을 들어갔을때
-						$("#searchKey").val(testValue);
-			    		$("#findEventButton").click();
-			    	}else{
-						searchSlist();  // 그냥 탐색을 들어갔을 때
-			    	}
 				</c:if>
 				
 				// 관심지역 없는 경우
