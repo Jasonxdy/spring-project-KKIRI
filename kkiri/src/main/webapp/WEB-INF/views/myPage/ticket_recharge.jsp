@@ -9,6 +9,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="../resources/css/my_profile.css">
 <link rel="stylesheet" href="../resources/css/ticket.css">
+<script type="text/javascript"src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>KKIRI(끼리)</title>
 </head>
 
@@ -74,12 +76,10 @@
 											결제</label>
 									</div>
 								</div>
-								<button id="move-recharge" type="submit" onclick="Card(20200403074435wont5);">구매</button>
+								<button id="move-recharge" type="button" onclick="validate();">구매</button>
 							</form>
-							<script type="text/javascript"
-								src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-							<script type="text/javascript"
-								src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -87,16 +87,19 @@
 
 <script>
 
+			
+
 
 </script>
 
 			<script>
+			
+			
+			
 				var recharge;
 				var memberNo = '${loginMember.memberNo}';
 				var memberId = '${loginMember.memberId}';
-				
-				$(function(){
-					
+			
 				
 				function moving(){
 				recharge = $("input[name=recharge-amount]:checked").val();
@@ -123,15 +126,15 @@
 						});
 					}
 				
-				
-				// 결제 API 추가
+				//결제 API 추가
 				// buyer_addr : '서울특별시 강남구 삼성동',						    buyer_postcode : '123-456',    $(".recharge-box >input").val()
 				var IMP = window.IMP; // 생략가능
 				
 					
 				
-				IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 					function Card(merchant_uid){
+					
+					IMP.init('imp13908741'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 						IMP.request_pay({
 						    pg : 'inicis', // version 1.1.0부터 지원.
 						    pay_method : 'card',
@@ -178,7 +181,7 @@
 						});
 						return true;
 					}
-				})
+				
 				</script>
 
 			<script>

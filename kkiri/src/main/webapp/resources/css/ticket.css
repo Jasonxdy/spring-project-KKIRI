@@ -68,7 +68,7 @@
 .recharge-wrap .recharge-way{
   margin-top: 50px;
 }
-.recharge-form button[type=submit]{
+.recharge-form button[type=button]{
   display: block;
   margin: 100px auto 50px auto;
   width: 25%;
@@ -80,6 +80,8 @@
   font-size: 17px;
   min-width: 80px;
 }
+
+
 
 /* 환급 */
 .refund-wrap .notify-wrap{
