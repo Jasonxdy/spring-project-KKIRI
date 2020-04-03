@@ -338,10 +338,11 @@
                           <span>${ele2.memberNickname }</span>
                           <img src="../resources/img/star-on.png" alt="별점">&nbsp;${ele2.memberRating }
                         </p>
-                        <c:if test="${eve.eventEnd < sysdate }">
+                        <c:if test="${ele2.eventEnd < sysdate }">
                         <p class="end-event">종료된 이벤트</p>
                         </c:if>
-                        <c:if test="${eve.eventEnd > sysdate }">
+                        <c:if test="${ele2.eventEnd > sysdate }">
+                        
 	                        <c:if test="${ele2.permission =='N' }">
 	                       		<p class="loading-event">대기중인 이벤트</p>
 	                        </c:if>
