@@ -38,7 +38,10 @@
                   <h4>즐겨찾기</h4>
                   <br>
                  <div class="row justify-content-md-start">
+                 <c:if test="${!empty fList }">
+                 
                   <c:forEach var="fList" items="${fList}">
+                  
                     <div class="card m-2" style="width: 16rem;">
 					  <div class="card-body">
 					  	<div class="favoriteFImg">
@@ -59,8 +62,16 @@
 					    </form>
 					  </div>
 					</div>
-                  </c:forEach>
 					
+                  </c:forEach>
+                  
+				</c:if>
+				
+				<c:if test="${empty fList}">
+					<h5>등록된 즐겨찾기가 없습니다.</h5>
+				</c:if>
+				
+				
 				</div>
                 <script>
                 	function chanegeMemoFn(){
