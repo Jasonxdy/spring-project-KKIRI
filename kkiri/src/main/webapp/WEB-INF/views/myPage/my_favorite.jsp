@@ -42,7 +42,7 @@
                  
                   <c:forEach var="fList" items="${fList}">
                   
-                    <div class="card m-2" style="width: 16rem;">
+                    <div class="card m-2" style="width: 14rem;">
 					  <div class="card-body">
 					  	<div class="favoriteFImg">
 					  		<a href="${contextPath}/profile/user?no=${fList.memberTicket}">
