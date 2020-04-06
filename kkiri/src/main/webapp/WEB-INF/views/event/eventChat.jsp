@@ -117,7 +117,7 @@
 			var now = moment(date).format('YYYYMMDDHHmmssdddd');
 			var content = $("#message").val();
 			content = content.replace("\n","<br>");
-			var chatContent = "${loginMember.memberProfile}|%$" + "${loginMember.memberNickname}|%$" + content + "|%$" + now ;
+			var chatContent = "${loginMember.memberProfile}|%$" + "${loginMember.memberNickname}|%$" + content + "|%$" + now + "|%$" + eventNo;
 			
 			$.ajax({
 				url : "insertChat",
@@ -142,6 +142,7 @@
 			var date = null;
 			var chatNo = null;
 			var dateTemp = null;
+			var checkEventNo = null;
 			
 			var str = data.split('|%$');
 			
@@ -152,41 +153,44 @@
 				userId = str[1];
 				comment = str[2];
 				dateTemp = str[3];
-				chatNo = str[4];
+				checkEventNo = str[4];
+				chatNo = str[5];
 				
-				if(noticeDate != dateTemp.substring(0,8)){
-					noticeDate = dateTemp.substring(0,8);
-					content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
-				}
-				
-				var escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;', '<br>' : '<br>' };
-				comment = comment.replace(/<br>|[[&<>"'`=\/]/g, function(s){return escapeMap[s]});
-				
-				date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
-				if(userId === '${loginMember.memberNickname}'){
-					content += 	"<div class='my-area'>" +
-									"<p class='con' id='chat"+ chatNo +"'>" +
-										comment +
-										"<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" +
-									"</p>" +
-									"<p class='con-time'>" + date + "</p>" +
-								"</div>";
-				} else{
-					content += 	"<div class='other-member'>" +
-									"<img class='profile-img' src='${contextPath}/resources/upProfileImage/" + thumb +"' alt='타회원 프로필'>" +
-									"<p class='nickname'>" + userId + "</p>" +
-									"<div class='con-wrap'>" +
+				if(checkEventNo == eventNo){
+					if(noticeDate != dateTemp.substring(0,8)){
+						noticeDate = dateTemp.substring(0,8);
+						content += "<div class='date-info'>" + moment(new Date(dateTemp.substring(0,4), dateTemp.substring(4,6)-1, dateTemp.substring(6,8))).format('YYYY년 M월 DD일 dddd') + "</div>"
+					}
+					
+					var escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;', '<br>' : '<br>' };
+					comment = comment.replace(/<br>|[[&<>"'`=\/]/g, function(s){return escapeMap[s]});
+					
+					date = dateTemp.substring(8,10) + " : " + dateTemp.substring(10,12);
+					if(userId === '${loginMember.memberNickname}'){
+						content += 	"<div class='my-area'>" +
 										"<p class='con' id='chat"+ chatNo +"'>" +
-										comment + 
+											comment +
+											"<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>" +
 										"</p>" +
 										"<p class='con-time'>" + date + "</p>" +
-									"</div>" +
-								"</div>";
+									"</div>";
+					} else{
+						content += 	"<div class='other-member'>" +
+										"<img class='profile-img' src='${contextPath}/resources/upProfileImage/" + thumb +"' alt='타회원 프로필'>" +
+										"<p class='nickname'>" + userId + "</p>" +
+										"<div class='con-wrap'>" +
+											"<p class='con' id='chat"+ chatNo +"'>" +
+											comment + 
+											"</p>" +
+											"<p class='con-time'>" + date + "</p>" +
+										"</div>" +
+									"</div>";
+					}
+					$("#messageArea").append(content);
+					//$("#chat"+chatNo).text(comment);
+					//$("#chat"+chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>");
+					$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 				}
-				$("#messageArea").append(content);
-				//$("#chat"+chatNo).text(comment);
-				//$("#chat"+chatNo).append("<button class='delete-btn' onclick=deleteChat("+chatNo+")><span class='text-hidden'>글삭제</span></button>");
-				$("#messageArea").scrollTop($("#messageArea")[0].scrollHeight);
 			}
 		}
 		
