@@ -525,6 +525,7 @@ WHERE MEMBER_TYPE='P' AND MEMBER_STATUS='Y' AND EVENT_NO=#{eventNo} AND PARTY.ME
 		FROM CHAT
 		WHERE EVENT_NO = #{eventNo}
 		AND CHAT_STATUS = 'Y'
+		ORDER BY CHAT_NO
 	</select>
 	
 	<select id="selectChatNo" resultType="_int">

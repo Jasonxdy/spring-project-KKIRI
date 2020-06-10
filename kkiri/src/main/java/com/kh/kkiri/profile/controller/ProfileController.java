@@ -39,6 +39,7 @@ public class ProfileController {
 	private int limit = 3;
 	private int pagingBarSize = 5;
 	
+	// 유저 프로필 페이지 조회
 	@RequestMapping("user")
 	public String userProfile(int no,
 								Model model,
@@ -83,6 +84,7 @@ public class ProfileController {
 		}
 	}
 	
+	// 이벤트 리스트 조회(ajax)
 	@ResponseBody
 	@RequestMapping(value = "eventList", produces= "application/json; charset=utf-8")
 	public String eventList(@RequestParam(value="memberNo", required=false) Integer memberNo,
@@ -103,6 +105,7 @@ public class ProfileController {
 	    return gson.toJson(map);
 	}
 	
+	// 좋아요 기능
 	@ResponseBody
 	@RequestMapping(value = "theLove", produces = "application/json; charset=utf-8")
 	public String theLove(@RequestParam(value="memberNo", required=false) Integer memberNo,

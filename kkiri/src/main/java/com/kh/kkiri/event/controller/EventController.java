@@ -818,7 +818,7 @@ public class EventController {
 	
 	
 
-	
+	// 채팅 저장
 	@ResponseBody
 	@RequestMapping(value="insertChat", produces = "application/json; charset=utf-8")
 	public int insertChat(@RequestParam(value="eventNo", required=false) int eventNo,
@@ -829,7 +829,7 @@ public class EventController {
 		
 		return result;
 	}
-	
+	// 채팅 데이터 조회
 	@ResponseBody
 	@RequestMapping(value="selectChat", produces = "application/json; charset=utf-8")
 	public String selectChat(@RequestParam(value="eventNo", required=false) int eventNo) {
@@ -838,7 +838,7 @@ public class EventController {
 		
 		return new Gson().toJson(chatList);
 	}
-	
+	// 채팅 삭제
 	@ResponseBody
 	@RequestMapping(value="deleteChat", produces = "application/json; charset=utf-8")
 	public int deleteChat(@RequestParam(value="chatNo", required=false) int chatNo) {

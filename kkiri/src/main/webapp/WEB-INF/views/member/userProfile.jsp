@@ -71,24 +71,25 @@
 		<jsp:include page="../../../WEB-INF/views/common/footer.jsp" />
 		
 <script>
-	//임시
+	// 페이지 조회시 로그인 유무 구분
 	<c:if test='${loginMember != null}'>
 		var loginMemberNo = ${loginMember.memberNo};
 	</c:if>
 	<c:if test='${loginMember == null}'>
 		var loginMemberNo = -1;
 	</c:if>
-	
+	// 해당 페이지의 멤버 번호
 	var memberNo = ${member.memberNo};
 	
 	// 생성한 이벤트는 0, 참여한 이벤트는 1으로 구분한다
 	var flag = 0;
+	// ajax 를 이용한 pagenation을 위한 변수
 	var currentPage = 1;
-	
 	var startPage=1;
 	var endPage=1;
 	var maxPage=1;
 	
+	// 이벤트 리스트 조회
 	function eventList(){
 		$.ajax({
 			url : "eventList",
@@ -164,6 +165,7 @@
 					
 					content += 	"<div style='clear: both;' class='row justify-content-center'>" +
 									"<ul class='pagination'>";
+					// ajax를 통해 함께 전달받은 page 정보를 이용한 pageingbar 처리
 					if(data.pInf.currentPage > 1){
 					content +=			"<li>" +
 											"<a class='page-link' onclick='pageClick(this)'>&lt;&lt;</a>" +
@@ -208,6 +210,7 @@
 		});
 	}
 	
+	// ajax를 이용한 즐겨찾기 기능
 	function theLove(){
 		if(loginMemberNo == -1){
 			alert("로그인 해주세요");
@@ -232,6 +235,7 @@
 		});
 	}
 	
+	// 생성한 이벤트 클릭 시 화면 변환과 ajax 검색을 위한 변수 설정
 	function createBtn(){
 		$("#joinBtn").prop('style','color: #00a185; border: 0.5px solid;');
 		$("#createBtn").prop('style','background-color: #00a185; border: none; color: white;');
@@ -240,6 +244,7 @@
 		eventList();
 	}
 	
+	// 참여한 이벤트 클릭 시 화면 변환과 ajax 검색을 위한 변수 설정
 	function joinBtn(){
 		$("#joinBtn").prop('style','background-color: #00a185; border: none; color: white;');
 		$("#createBtn").prop('style','color: #00a185; border: 0.5px solid;');
@@ -248,6 +253,7 @@
 		eventList();
 	}
 	
+	// pagenation 을 위한 변수 설정
 	function pageClick(test){
 		var temp = $(test).text();
 		
@@ -261,7 +267,7 @@
 		}
 		eventList();
 	};
-	
+	// 즐겨찾기 버튼 클릭 시 화면 변환과 변수 설정
 	$(function(){
 		<c:if test='${checkFavorite == 1}'>
 			$("#favor").prop("src","${contextPath}/resources/img/doFavor.png");

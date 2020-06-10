@@ -11,7 +11,7 @@
 </head>
 <body>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/chatting.css">
-
+	<!-- 채팅 화면 -->
 	<button type="button" class="chatting-btn">
 		<img src="${contextPath}/resources/img/chat-icon.png" alt="채팅 아이콘">
 	</button>
@@ -36,11 +36,13 @@
 	</div>
 	
 	<script>
-		var eventNo = ${event.eventNo}; // 임시
+		// 채팅 데이터 조회와 저장을 위한 변수
+		var eventNo = ${event.eventNo};
+		// sockectjs 사용을 위한 변수 설정
 		var sock = new SockJS("<c:url value="/echo"/>");
 		sock.onmessage = onMessage;
 		sock.onclose = onClose;
-		
+		// moment lib 를 사용해 날짜 포맷 변경
 		var noticeDate = null;
 		moment.lang('ko',{
 			weekdays: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"]
@@ -48,6 +50,7 @@
 	
 		// 채팅창 스크립트
 		$(function() {
+			// 채팅 이용 조건 설정
 			$(".chatting-btn").on({
 				click : function() {
 					<c:if test="${loginMember == null}">
@@ -81,14 +84,14 @@
 					},100);
 				}
 			});
-			
+			// 채팅 닫기
 			$(".close-btn>img").on({
 				click : function() {
 					$(".chatting-wrap").stop().fadeOut(300);
 					$("#messageArea").empty();
 				}
 			});
-			
+			// 채팅 전송 버튼
 			$("#message").on({
 				keydown : function(e){
 					var keyCode = e.keyCode;
@@ -198,7 +201,7 @@
 		function onClose(evt) {
 			$("#messageArea").append("연결 끊김");
 		}
-		
+		// 채팅 데이터 조회
 		function selectChat(){
 			noticeDate = null;
 			var content = "";
@@ -259,7 +262,7 @@
 	    		}
 			});
 		}
-		
+		// 채팅 삭제
 		function deleteChat(no){
 			$.ajax({
 				url : "deleteChat",

@@ -28,7 +28,7 @@
 								<div class="category-wrap">
 									<label class="mt-1 h4 event-section-title">카테고리</label> 
 									<input name="searchKey" class="form-control mt-1 p-1" autocomplete="off" type="text" id="searchKey" readonly data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
+									<!-- 카테고리  -->
 									<ul class="dropdown-menu my-1" style="width: 30rem;"
 										id="categoryMenu">
 										<li style="display: inline-block;">
@@ -92,7 +92,7 @@
 										</li>
 									</ul>
 								</div>
-
+								<!-- 반경 -->
 								<div class="mt-1 event-location">
 									<div class="dropdown">
 										<div class="mr-3">
@@ -116,12 +116,13 @@
 											</ul>
 										</div>
 									</div>
-
+									<!-- 지역 -->
 									<div class="dropdown mr-1" style="display: inline-block;">
 										<div>
 											<span class="h4 event-section-title">지역</span> 
 											<a class="h4 event-section-title" style="color: white; text-decoration: underline;" data-toggle="dropdown" href="#" id="place">
 											
+											<!-- 로그인 된 경우 즐겨찾는 장소가 있는 경우 자동으로 검색 -->
 											<c:if test="${(loginMember != null) && (loginMember.memberPlace != null) }">
 												<%-- <c:set var="mPlace" value="${fn:split(loginMember.memberPlace,' ')}"/>
 												${mPlace[0]} ${mPlace[1]} --%>
@@ -142,7 +143,7 @@
 										</div>
 									</div>
 								</div>
-
+								<!-- 이벤트 제목 검색 -->
 								<div class="text-center findEventTitleWrap">
 									<input type="text" name="searchValue" id="searchValue" class="p-1 form-control eventTItleInput"
 										style="border-radius: 0.25rem;" placeholder="제목">
@@ -154,6 +155,7 @@
 			</div>
 			<!-- 검색창 end -->
 			
+			<!-- 이벤트 종료 상태 버튼 -->
 			<div class="container">
 				<div class="row">
 						<div class="col-md-12">
@@ -168,8 +170,10 @@
 				</div>
 			</div>
 			
+			<!-- 현재 시간과 이벤트 시작시간을 비교해 종료여부를 나타내기 위해 사용 -->
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyyMMddHHmm" var="nowDate" />
+			
 			<!-- 이벤트 목록 -->
 			<div class="container my-5" id="searchListArea">
 			</div>
@@ -203,7 +207,9 @@
 			var markers = [];
 			var overlays = [];
 			
+			// 지도의 기본 중심 좌표
 			var coords = new kakao.maps.LatLng(37.56793540174546, 126.98310888649587);
+			// 카테고리에 선택된 값 대입
 			var testValue = "${findKeyword}";
 			
 			$(function() {
@@ -215,17 +221,18 @@
 	        		checkEventStatus = 0;
 	        	}
 				
+				// 지역 설정 리스트
 				var availableCity = ["서울특별시 강남구","서울특별시 강동구","서울특별시 강북구","서울특별시 강서구","서울특별시 관악구","서울특별시 광진구","서울특별시 구로구","서울특별시 금천구","서울특별시 노원구","서울특별시 도봉구","서울특별시 동대문구","서울특별시 동작구","서울특별시 마포구","서울특별시 서대문구","서울특별시 서초구","서울특별시 성동구","서울특별시 성북구","서울특별시 송파구","서울특별시 양천구","서울특별시 영등포구","서울특별시 용산구","서울특별시 은평구","서울특별시 종로구","서울특별시 중구","서울특별시 중랑구"];
-		        $("#city").autocomplete({
+		        // 주소 자동 완성
+				$("#city").autocomplete({
 		        	source: availableCity,
 		            select: function(event, ui) {
 			            $("#place").text(ui.item.value);
 			                  
-			            // 주소로 좌표를 검색합니다
+			            // 주소로 좌표를 검색해 성공할 경우 그 좌표값이 지도의 중심값으로 변경되고 그 좌표값을 반경으로 이벤트 리스트 검색
 						geocoder.addressSearch(ui.item.value, function(result, status) {
 									
 							if (status === kakao.maps.services.Status.OK) {
-								//var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 								coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 								map.setCenter(coords);
 							} 
@@ -264,18 +271,16 @@
 			    	}
 				</c:if>
 			});
-			 
-			 /* 이 위로 지도 관련 스크립트 */
-			 
+			 // 카테고리가 선택된 경우 이벤트 검색
 			 $("#categoryMenu").find("a").on('click',function(){
 		          $("#searchKey").prop("value",$(this).text());
 		        });
-
+			// 반경이 선택된 경우 이벤트 검색
 		        $("#roundMenu").find("a").on('click',function(){
 		          $("#round").text($(this).text());
 		          searchSlist();
 		        });
-		        
+		       // 종료 이벤트 버튼이 클릭된 경우 이벤트 검색
 		        $("#checkEventStatus").on('change',function(){
 		        	
 		        	if($("#checkEventStatus").is(":checked") == true){
@@ -303,15 +308,17 @@
 			
 			function setList(sList){
 				$.each(sList, function(i){
-					
+					// 반경 계산을 위한 중심 좌표
 					var c1 = coords;
-					//var c1 = map.getCenter();
+					// 반경 계산을 위한 이벤트 좌표
 					var c2 = new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude);
+					// 좌표 사이의 거리를 계산
 					var poly = new kakao.maps.Polyline({
 						path:[c1,c2]
 					});
 					var dist = poly.getLength();
 					
+					// 반경을 조건으로 실행
 					if(dist<radius){
 						num += 1;
     					
@@ -326,7 +333,7 @@
     								 ":" +
     								 sList[i].eventStart.substring(10,12)
     								 ;
-    					
+    					// ajax 사용을 위해 content에 내용 작성
     					content +=
     								"<div class='row card shadow my-4' id='searchList'>" +
     									"<div class='col-md-12 h-100 eventBar' onclick=\"location.href= '${contextPath}/event/detail?no="+ sList[i].eventNo +"'\" >" +
@@ -354,6 +361,7 @@
 																"<span>" + sList[i].eventScore.toFixed(1) + "</span>" +
 															"</div>" +
 														"</div>";
+						// 현재 날짜와 이벤트 종료시간을 비교하여 종료 이벤트 결정
 						if(${nowDate} < sList[i].eventEnd){
 											content += "<p id='join' class='text-center float-right' style='margin-top: 5rem;'>티켓"+ sList[i].eventTicket + "장</p>" +
 													"</div>" +
@@ -370,13 +378,13 @@
 									"</div>";
 						}
 									
-									// 마커를 생성하고 지도에 표시합니다
+						// 해당 이벤트의 좌표를 기반으로 지도 API에 마커를 생성
 					    var marker = new kakao.maps.Marker({
 					        map: map,
 					        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
 					    });
 						markers.push(marker);
-						
+						// 마커 생성과 동시에 마커에 오버레이 정보와 기능 추가
 					    kakao.maps.event.addListener(marker, 'click', function() {
 					    	var overlay = new kakao.maps.CustomOverlay({
 						        position: new kakao.maps.LatLng(sList[i].latitude, sList[i].longitude)
@@ -466,21 +474,27 @@
 		    	    }            
 		    	}
 			}
-		    
+		    // 이벤트 리스트 탐색
 		    function searchSlist(){
+		    	// 로딩이미지 구현
 		    	$("#loading").show();
     			$("#searchListArea").hide();
-		    	
+		    	// 카테고리와 제목을 변수에 저장
 		    	searchKey = $("#searchKey").val();
 		    	searchValue =  $("#searchValue").val();
 		    	
+		    	// 현재 검색된 이벤트 갯수
 		    	num = 0;
+		    	// 한번에 검색될 이벤트 수
 		    	limitTemp = 5;
+		    	// 총 이벤트 수 계산을 위한 변수
 		    	webPage = 1;
+		    	// 이벤트 검색을 위한 변수
 		    	currentPage = 2;
 		    	
 		    	$("#searchListArea").empty();
 		    	
+		    	// 지도 api에 생성된 마커 삭제와 배열 초기화
 		    	markers.forEach(function(marker){
 		    		marker.setMap(null); 
 		    	});
@@ -512,7 +526,7 @@
 		    				case '25 km': radius= 25000; break;
 		    				case '50 km': radius= 50000; break;
 		    			}
-		    			
+		    			// 검색된 이벤트가 없는 경우
 		    			if(sList == ""){
 		    				$("#searchListArea").empty();
 		    				content = "<div class='text-center h2'>존재하는 이벤트가 없습니다.</div>";
@@ -520,6 +534,7 @@
 		    				$("#loading").hide();
 			    			$("#searchListArea").show();
 		    			} else{
+		    				// 이벤트가 검색된 경우
 		    				$("#searchListArea").empty();
 		    				
 		    				setList(sList);
@@ -542,6 +557,7 @@
 		    	});
 		    };
 		    
+		    // 한번의 db조회로 설정한 개수의 이벤트가 만족되지 않는 경우 추가 검색
 		    function moreSlist(){
 		    	//$("#loading").show();
     			//$("#searchListArea").hide();

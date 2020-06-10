@@ -27,6 +27,7 @@ public class SearchController {
 	
 	private int pagingBarSize=10;
 	
+	// 홈페이지에서 키워드 클릭으로 이동한 경우
 	@RequestMapping("searchEvent")
 	public String searchHome(Model model,
 			@RequestParam(value="searchKey", required=false) String searchKey) {
@@ -36,6 +37,7 @@ public class SearchController {
 		return "search/searchEvent";
 	}
 	
+	// 탐색 페이지
 	@ResponseBody
 	@RequestMapping(value = "searchEvents", produces= "application/json; charset=utf-8")
 	public String searchEvent(@RequestParam(value="searchKey", required=false) String searchKey,
@@ -45,6 +47,7 @@ public class SearchController {
 								@RequestParam(value="checkEventStatus", required=false) Integer checkEventStatus
 								) {
 		
+		// 카테고리, 제목의 키워드 입력을 확인하여 map에 저장
 		Map<String, Object> map = null;
 		if(searchKey != "" || searchValue != "") {
 			map = new HashMap<String, Object>();
@@ -60,6 +63,7 @@ public class SearchController {
 
 		List<Search> sList = searchService.selectSearchList(map, currentPage, limit, checkEventStatus);
 		
+		// date 타입의 형식 변환을 위해 gsonBuilder 사용
 		Gson gson = new GsonBuilder().setDateFormat("yyyyMMddHHmm").create();
 		
 		return gson.toJson(sList);
